@@ -3,12 +3,14 @@ using System.Threading;
 using Autofac;
 using Communication.SerialPort.Option;
 using CoreWithAutoFack.SettingsCommunication.Model;
+using Exchange.MasterSerialPort.Option;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using WebServer.AutofacModules;
+using WebServer.SettingsCommunication.Model;
 using Worker.Background.Abstarct;
 
 namespace WebServer
@@ -44,8 +46,9 @@ namespace WebServer
             var serialPortsOption= MoqSerialPortsOption.GetSerialPortsOption();
             builder.RegisterModule(new SerialPortAutofacModule(serialPortsOption));
 
-            builder.RegisterModule(new SettingDevicesAutofacModule());//????
-            builder.RegisterModule(new ExchangeAutofacModule());
+            var exchSerialPortsOption = MoqExchangeMasterSerialPortOptions.GetExchangeMasterSerialPortOptions();
+            builder.RegisterModule(new ExchangeMasterSerialPortAutofacModule(exchSerialPortsOption));
+
             builder.RegisterModule(new ControllerAutofacModule());
         }
 

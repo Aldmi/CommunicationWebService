@@ -21,18 +21,16 @@ namespace WebServer.Controllers
         //    _spService = spService;
         //}
 
-        public ValuesController(IEnumerable<ISerailPort> spServices, IEnumerable<IBackgroundService> backgroundServices)
-        {
-
-        }
-
-        //public ValuesController(IEnumerable<IExhangeBehavior> excBehaviors)
+        //public ValuesController(IEnumerable<ISerailPort> spServices, IEnumerable<IBackgroundService> backgroundServices)
         //{
-        //    _excBehaviors = excBehaviors;
-
-
 
         //}
+
+        public ValuesController(IEnumerable<IExhangeBehavior> excBehaviors)
+        {
+            _excBehaviors = excBehaviors;
+
+        }
 
 
 

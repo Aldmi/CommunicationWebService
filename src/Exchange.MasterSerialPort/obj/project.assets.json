@@ -42,6 +42,9 @@
       "Exchange.Base/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Shared": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Exchange.Base.dll": {}
         },
@@ -247,23 +250,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\admin\\.nuget\\packages\\": {},
+    "C:\\Users\\Aldmi\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\C#\\ASP net core\\CoreWithAutoFack\\CoreWithAutoFack\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj",
+      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj",
       "projectName": "Exchange.MasterSerialPort",
-      "projectPath": "E:\\C#\\ASP net core\\CoreWithAutoFack\\CoreWithAutoFack\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj",
-      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "E:\\C#\\ASP net core\\CoreWithAutoFack\\CoreWithAutoFack\\Exchange.MasterSerialPort\\obj\\",
+      "projectPath": "D:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj",
+      "packagesPath": "C:\\Users\\Aldmi\\.nuget\\packages\\",
+      "outputPath": "D:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Aldmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -271,22 +274,23 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://packages.nuget.org/": {}
       },
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "E:\\C#\\ASP net core\\CoreWithAutoFack\\CoreWithAutoFack\\Communication.SerialPort\\Communication.SerialPort.csproj": {
-              "projectPath": "E:\\C#\\ASP net core\\CoreWithAutoFack\\CoreWithAutoFack\\Communication.SerialPort\\Communication.SerialPort.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Communication.SerialPort.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Communication.SerialPort.csproj"
             },
-            "E:\\C#\\ASP net core\\CoreWithAutoFack\\CoreWithAutoFack\\Exchange.Base\\Exchange.Base.csproj": {
-              "projectPath": "E:\\C#\\ASP net core\\CoreWithAutoFack\\CoreWithAutoFack\\Exchange.Base\\Exchange.Base.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj"
             },
-            "E:\\C#\\ASP net core\\CoreWithAutoFack\\CoreWithAutoFack\\Shared\\Shared.csproj": {
-              "projectPath": "E:\\C#\\ASP net core\\CoreWithAutoFack\\CoreWithAutoFack\\Shared\\Shared.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
             },
-            "E:\\C#\\ASP net core\\CoreWithAutoFack\\CoreWithAutoFack\\Worker.Background\\Worker.Background.csproj": {
-              "projectPath": "E:\\C#\\ASP net core\\CoreWithAutoFack\\CoreWithAutoFack\\Worker.Background\\Worker.Background.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj"
             }
           }
         }

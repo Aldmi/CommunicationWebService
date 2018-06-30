@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Shared;
+using Shared.Enums;
 
 namespace Worker.Background.Abstarct
 {

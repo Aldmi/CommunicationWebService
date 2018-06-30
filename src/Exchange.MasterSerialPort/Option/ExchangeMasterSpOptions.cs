@@ -1,23 +1,19 @@
 ﻿using System.Collections.Generic;
 
-namespace WebServer.SettingsCommunication.Model
+namespace Exchange.MasterSerialPort.Option
 {
-    public class DevicesWithSpOptions
+
+    public class ExchangeMasterSpOptions
     {
-        public List<DeviceSp> DevicesSp { get; set; }
+        public List<ExchangeMasterSpOption> ExchangesMasterSp { get; set; }
     }
 
-
-    public class DeviceSp
+    public class ExchangeMasterSpOption
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Port { get; set; }
+        public string PortName { get; set; }
         public string Address { get; set; }
-        public int TimeRespone { get; set; }
-        public string Description { get; set; }
-        public string Binding { get; set; }
-        public ExchangeRule ExchangeRules { get; set; }
+        public int TimeResponse { get; set; }
+        public ExchangeRule ExchangeRule { get; set; }
     }
 
 
@@ -36,11 +32,11 @@ namespace WebServer.SettingsCommunication.Model
     public class Rule
     {
         public string Format { get; set; }
-        public Request Request { get; set; }
-        public Request Response { get; set; }
+        public Description Request { get; set; }
+        public Description Response { get; set; }
     }
 
-    public class Request
+    public class Description
     {
         public int MaxLenght { get; set; }
         public string Body { get; set; }

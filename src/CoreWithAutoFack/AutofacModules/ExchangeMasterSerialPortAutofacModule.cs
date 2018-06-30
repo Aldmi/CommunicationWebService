@@ -1,11 +1,44 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Autofac;
+using Autofac.Core;
+using Communication.SerialPort.Abstract;
+using Exchange.Base;
+using Exchange.MasterSerialPort;
+using Exchange.MasterSerialPort.Option;
+using Shared;
+using Shared.Enums;
+using Worker.Background.Abstarct;
 
 namespace WebServer.AutofacModules
 {
-    public class ExchangeAutofacModule : Module
+    public class ExchangeMasterSerialPortAutofacModule : Module
     {
+        private readonly ExchangeMasterSpOptions _exchangeMasterSpOptions;
+
+        public ExchangeMasterSerialPortAutofacModule(ExchangeMasterSpOptions exchangeMasterSpOptions)
+        {
+            _exchangeMasterSpOptions = exchangeMasterSpOptions;
+        }
+
+
         protected override void Load(ContainerBuilder builder)
         {
+           foreach (var exchMSpOption in _exchangeMasterSpOptions.ExchangesMasterSp)
+           {
+                builder.RegisterType<BaseExchangeSerialPort>().As<IExhangeBehavior>()
+                    .WithParameters(new List<ResolvedParameter>
+                    {      new ResolvedParameter(
+                                       (pi, ctx) => (pi.ParameterType == typeof(ISerailPort) && (pi.Name == "serailPort")),
+                                       (pi, ctx) => ctx.Resolve<IEnumerable<ISerailPort>>().FirstOrDefault(port=> port.SerialOption.Port == exchMSpOption.PortName)),
+                                   new ResolvedParameter(
+                                       (pi, ctx) => (pi.ParameterType == typeof(IBackgroundService) && (pi.Name == "backgroundService")),
+                                       (pi, ctx) => ctx.Resolve<IEnumerable<IBackgroundService>>().FirstOrDefault(backgr=> backgr.KeyBackground.TypeExchange == TypeExchange.SerialPort && backgr.KeyBackground.Key == exchMSpOption.PortName)),
+                    })
+                    .SingleInstance();
+            }
+
+
             //var settingDevices = new List<DeviceSetting>
             //{
             //    new DeviceSetting
@@ -27,6 +60,10 @@ namespace WebServer.AutofacModules
             //        PortName = "192.168.1.1"
             //    }
             //};
+
+
+
+
 
             //foreach (var device in settingDevices)
             //{

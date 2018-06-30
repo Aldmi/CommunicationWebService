@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using Communication.SerialPort.Abstract;
 using Exchange.Base;
+using Shared.Enums;
 using Worker.Background.Abstarct;
 
 
@@ -8,21 +9,40 @@ namespace Exchange.MasterSerialPort
 {
     public class BaseExchangeSerialPort : IExhangeBehavior
     {
+        #region field
+
         private readonly ISerailPort _serailPort;
         private readonly IBackgroundService _backgroundService;
+
+        #endregion
+
+
+
+
+        #region prop
+
+        public TypeExchange TypeExchange => TypeExchange.SerialPort;
+
+        #endregion
+
 
 
 
 
         #region ctor
 
-        public BaseExchangeSerialPort(ISerailPort serailPort, IBackgroundService backgroundService )
+        public BaseExchangeSerialPort(ISerailPort serailPort, IBackgroundService backgroundService)
         {
             _serailPort = serailPort;
             _backgroundService = backgroundService;
         }
 
         #endregion
+
+
+
+
+
 
 
 

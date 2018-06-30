@@ -5,11 +5,16 @@ using Communication.SerialPort.Abstract;
 using Communication.SerialPort.Concrete.Sp4Win;
 using Communication.SerialPort.Option;
 using Shared;
+using Shared.Enums;
 using Worker.Background.Abstarct;
 using Worker.Background.Concrete.BackgroundSerialPort;
 
 namespace WebServer.AutofacModules
 {
+
+    /// <summary>
+    /// Каждому послед. порту создается свой IBackgroundService.
+    /// </summary>
     public class SerialPortAutofacModule : Module
     {
         private readonly SerialPortsOption _spOptions;
@@ -26,8 +31,6 @@ namespace WebServer.AutofacModules
 
         protected override void Load(ContainerBuilder builder)
         {
-            var comPorts= new List<string>{"COM1", "COM2"};
-
             foreach (var spOption in _spOptions.Serials)
             {
                 builder.RegisterType<SpWinDefault>().As<ISerailPort>()

@@ -20,8 +20,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Communication.SerialPort\Communication.SerialPort.csproj" />
+    <ProjectReference Include="..\Communication.TcpIp\Communication.TcpIp.csproj" />
     <ProjectReference Include="..\Device.ForExchange\Device.ForExchange.csproj" />
     <ProjectReference Include="..\Exchange.Base\Exchange.Base.csproj" />
+    <ProjectReference Include="..\Exchange.MasterSerialPort\Exchange.MasterSerialPort.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
     <ProjectReference Include="..\Worker.Background\Worker.Background.csproj" />
   </ItemGroup>
