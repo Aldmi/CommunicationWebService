@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Communication.SerialPort\Communication.SerialPort.csproj" />
-    <ProjectReference Include="..\Communication.TcpIp\Communication.TcpIp.csproj" />
+    <ProjectReference Include="..\Communication.SerialPort\Transport.SerialPort.csproj" />
+    <ProjectReference Include="..\Communication.TcpIp\Transport.TcpIp.csproj" />
     <ProjectReference Include="..\Device.ForExchange\Device.ForExchange.csproj" />
     <ProjectReference Include="..\Exchange.Base\Exchange.Base.csproj" />
     <ProjectReference Include="..\Exchange.MasterSerialPort\Exchange.MasterSerialPort.csproj" />

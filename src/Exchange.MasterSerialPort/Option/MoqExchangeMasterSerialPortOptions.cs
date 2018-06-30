@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Communication.SerialPort.Option;
 
 namespace Exchange.MasterSerialPort.Option
 {

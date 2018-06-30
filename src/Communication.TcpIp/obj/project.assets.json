@@ -183,9 +183,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Communication.TcpIp.csproj",
-      "projectName": "Communication.TcpIp",
-      "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Communication.TcpIp.csproj",
+      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj",
+      "projectName": "Transport.TcpIp",
+      "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj",
       "packagesPath": "C:\\Users\\Aldmi\\.nuget\\packages\\",
       "outputPath": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\obj\\",
       "projectStyle": "PackageReference",

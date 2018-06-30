@@ -4774,29 +4774,6 @@
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
       },
-      "Communication.SerialPort/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "Shared": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Communication.SerialPort.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Communication.SerialPort.dll": {}
-        }
-      },
-      "Communication.TcpIp/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "compile": {
-          "bin/placeholder/Communication.TcpIp.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Communication.TcpIp.dll": {}
-        }
-      },
       "Device.ForExchange/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -4829,9 +4806,9 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Communication.SerialPort": "1.0.0",
           "Exchange.Base": "1.0.0",
           "Shared": "1.0.0",
+          "Transport.SerialPort": "1.0.0",
           "Worker.Background": "1.0.0"
         },
         "compile": {
@@ -4849,6 +4826,29 @@
         },
         "runtime": {
           "bin/placeholder/Shared.dll": {}
+        }
+      },
+      "Transport.SerialPort/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Transport.SerialPort.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Transport.SerialPort.dll": {}
+        }
+      },
+      "Transport.TcpIp/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Transport.TcpIp.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Transport.TcpIp.dll": {}
         }
       },
       "Worker.Background/1.0.0": {
@@ -12795,16 +12795,6 @@
         "windowsazure.storage.nuspec"
       ]
     },
-    "Communication.SerialPort/1.0.0": {
-      "type": "project",
-      "path": "../Communication.SerialPort/Communication.SerialPort.csproj",
-      "msbuildProject": "../Communication.SerialPort/Communication.SerialPort.csproj"
-    },
-    "Communication.TcpIp/1.0.0": {
-      "type": "project",
-      "path": "../Communication.TcpIp/Communication.TcpIp.csproj",
-      "msbuildProject": "../Communication.TcpIp/Communication.TcpIp.csproj"
-    },
     "Device.ForExchange/1.0.0": {
       "type": "project",
       "path": "../Device.ForExchange/Device.ForExchange.csproj",
@@ -12825,6 +12815,16 @@
       "path": "../Shared/Shared.csproj",
       "msbuildProject": "../Shared/Shared.csproj"
     },
+    "Transport.SerialPort/1.0.0": {
+      "type": "project",
+      "path": "../Communication.SerialPort/Transport.SerialPort.csproj",
+      "msbuildProject": "../Communication.SerialPort/Transport.SerialPort.csproj"
+    },
+    "Transport.TcpIp/1.0.0": {
+      "type": "project",
+      "path": "../Communication.TcpIp/Transport.TcpIp.csproj",
+      "msbuildProject": "../Communication.TcpIp/Transport.TcpIp.csproj"
+    },
     "Worker.Background/1.0.0": {
       "type": "project",
       "path": "../Worker.Background/Worker.Background.csproj",
@@ -12835,14 +12835,14 @@
     ".NETCoreApp,Version=v2.0": [
       "Autofac >= 4.8.1",
       "Autofac.Extensions.DependencyInjection >= 4.2.2",
-      "Communication.SerialPort >= 1.0.0",
-      "Communication.TcpIp >= 1.0.0",
       "Device.ForExchange >= 1.0.0",
       "Exchange.Base >= 1.0.0",
       "Exchange.MasterSerialPort >= 1.0.0",
       "Microsoft.AspNetCore.All >= 2.0.8",
       "Microsoft.NETCore.App >= 2.0.0",
       "Shared >= 1.0.0",
+      "Transport.SerialPort >= 1.0.0",
+      "Transport.TcpIp >= 1.0.0",
       "Worker.Background >= 1.0.0"
     ]
   },
@@ -12877,11 +12877,11 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Communication.SerialPort.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Communication.SerialPort.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj"
             },
-            "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Communication.TcpIp.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Communication.TcpIp.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj"
             },
             "D:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\Device.ForExchange.csproj": {
               "projectPath": "D:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\Device.ForExchange.csproj"

@@ -1,7 +1,7 @@
 ﻿using System;
-using Communication.SerialPort.Option;
+using Transport.SerialPort.Option;
 
-namespace Communication.SerialPort.Abstract
+namespace Transport.SerialPort.Abstract
 {
     public interface ISerailPort : IDisposable
     {

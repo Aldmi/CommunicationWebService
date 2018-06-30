@@ -1,7 +1,7 @@
 ﻿using System.Threading;
-using Communication.SerialPort.Abstract;
 using Exchange.Base;
 using Shared.Enums;
+using Transport.SerialPort.Abstract;
 using Worker.Background.Abstarct;
 
 

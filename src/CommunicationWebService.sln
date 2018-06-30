@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServer", "CoreWithAutoFack\WebServer.csproj", "{0939D51D-2E92-4CB5-8A21-68E324CCA18F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Communication", "Communication", "{4D9420A4-768D-491A-B8B6-5890A8F0E473}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transport", "Transport", "{4D9420A4-768D-491A-B8B6-5890A8F0E473}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Communication.SerialPort", "Communication.SerialPort\Communication.SerialPort.csproj", "{F73CC810-2886-472C-8A18-5AAB3096557C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transport.SerialPort", "Communication.SerialPort\Transport.SerialPort.csproj", "{F73CC810-2886-472C-8A18-5AAB3096557C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Worker", "Worker", "{6BA95BB3-40BF-4388-B575-B962C0EE6F1D}"
 EndProject
@@ -15,17 +15,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Worker.Background", "Worker.Background\Worker.Background.csproj", "{527848AC-3519-4F76-A42F-455BE19C499D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Communication.TcpIp", "Communication.TcpIp\Communication.TcpIp.csproj", "{51722FBF-8C12-46E3-B0A0-E42DD08AD867}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transport.TcpIp", "Communication.TcpIp\Transport.TcpIp.csproj", "{51722FBF-8C12-46E3-B0A0-E42DD08AD867}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Exchange", "Exchange", "{7C287048-0F56-49D9-9DFA-DBC09E7F1B54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.MasterSerialPort", "Exchange.MasterSerialPort\Exchange.MasterSerialPort.csproj", "{441BCC5C-1DF0-4826-9246-B9FA5EDBD163}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exchange.MasterSerialPort", "Exchange.MasterSerialPort\Exchange.MasterSerialPort.csproj", "{441BCC5C-1DF0-4826-9246-B9FA5EDBD163}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.Base", "Exchange.Base\Exchange.Base.csproj", "{1F64CCC2-D64F-48F0-8845-36AB33EB54F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exchange.Base", "Exchange.Base\Exchange.Base.csproj", "{1F64CCC2-D64F-48F0-8845-36AB33EB54F8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Device", "Device", "{4B0D52D6-ED79-463F-B251-689A128DBF27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Device.ForExchange", "Device.ForExchange\Device.ForExchange.csproj", "{D680D70D-C28D-4B9B-84BD-F202EF1E102D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Device.ForExchange", "Device.ForExchange\Device.ForExchange.csproj", "{D680D70D-C28D-4B9B-84BD-F202EF1E102D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

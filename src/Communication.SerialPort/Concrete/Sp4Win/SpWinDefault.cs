@@ -1,7 +1,7 @@
-﻿using Communication.SerialPort.Abstract;
-using Communication.SerialPort.Option;
+﻿using Transport.SerialPort.Abstract;
+using Transport.SerialPort.Option;
 
-namespace Communication.SerialPort.Concrete.Sp4Win
+namespace Transport.SerialPort.Concrete.Sp4Win
 {
     public class SpWinDefault : ISerailPort
     {

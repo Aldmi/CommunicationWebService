@@ -2,12 +2,12 @@
 using System.Linq;
 using Autofac;
 using Autofac.Core;
-using Communication.SerialPort.Abstract;
 using Exchange.Base;
 using Exchange.MasterSerialPort;
 using Exchange.MasterSerialPort.Option;
 using Shared;
 using Shared.Enums;
+using Transport.SerialPort.Abstract;
 using Worker.Background.Abstarct;
 
 namespace WebServer.AutofacModules

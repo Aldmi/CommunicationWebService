@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using Autofac;
-using Communication.SerialPort.Option;
 using CoreWithAutoFack.SettingsCommunication.Model;
 using Exchange.MasterSerialPort.Option;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Transport.SerialPort.Option;
 using WebServer.AutofacModules;
 using WebServer.SettingsCommunication.Model;
 using Worker.Background.Abstarct;

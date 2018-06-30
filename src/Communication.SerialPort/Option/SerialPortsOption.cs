@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Communication.SerialPort.Option
+namespace Transport.SerialPort.Option
 {
     public enum StopBits
     {

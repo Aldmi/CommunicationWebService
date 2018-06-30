@@ -199,9 +199,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Communication.SerialPort.csproj",
-      "projectName": "Communication.SerialPort",
-      "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Communication.SerialPort.csproj",
+      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj",
+      "projectName": "Transport.SerialPort",
+      "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj",
       "packagesPath": "C:\\Users\\Aldmi\\.nuget\\packages\\",
       "outputPath": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\obj\\",
       "projectStyle": "PackageReference",

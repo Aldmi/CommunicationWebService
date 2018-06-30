@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Autofac;
 using Autofac.Core;
-using Communication.SerialPort.Abstract;
-using Communication.SerialPort.Concrete.Sp4Win;
-using Communication.SerialPort.Option;
 using Shared;
 using Shared.Enums;
+using Transport.SerialPort.Abstract;
+using Transport.SerialPort.Concrete.Sp4Win;
+using Transport.SerialPort.Option;
 using Worker.Background.Abstarct;
 using Worker.Background.Concrete.BackgroundSerialPort;
 

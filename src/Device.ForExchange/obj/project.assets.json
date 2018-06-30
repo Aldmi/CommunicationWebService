@@ -26,19 +26,6 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Communication.SerialPort/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "Shared": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Communication.SerialPort.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Communication.SerialPort.dll": {}
-        }
-      },
       "Exchange.Base/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -56,9 +43,9 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Communication.SerialPort": "1.0.0",
           "Exchange.Base": "1.0.0",
           "Shared": "1.0.0",
+          "Transport.SerialPort": "1.0.0",
           "Worker.Background": "1.0.0"
         },
         "compile": {
@@ -76,6 +63,19 @@
         },
         "runtime": {
           "bin/placeholder/Shared.dll": {}
+        }
+      },
+      "Transport.SerialPort/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Transport.SerialPort.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Transport.SerialPort.dll": {}
         }
       },
       "Worker.Background/1.0.0": {
@@ -235,11 +235,6 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Communication.SerialPort/1.0.0": {
-      "type": "project",
-      "path": "../Communication.SerialPort/Communication.SerialPort.csproj",
-      "msbuildProject": "../Communication.SerialPort/Communication.SerialPort.csproj"
-    },
     "Exchange.Base/1.0.0": {
       "type": "project",
       "path": "../Exchange.Base/Exchange.Base.csproj",
@@ -254,6 +249,11 @@
       "type": "project",
       "path": "../Shared/Shared.csproj",
       "msbuildProject": "../Shared/Shared.csproj"
+    },
+    "Transport.SerialPort/1.0.0": {
+      "type": "project",
+      "path": "../Communication.SerialPort/Transport.SerialPort.csproj",
+      "msbuildProject": "../Communication.SerialPort/Transport.SerialPort.csproj"
     },
     "Worker.Background/1.0.0": {
       "type": "project",
