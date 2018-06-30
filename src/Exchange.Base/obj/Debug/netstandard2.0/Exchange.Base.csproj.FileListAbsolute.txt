@@ -1,0 +1,8 @@
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.Base\bin\Debug\netstandard2.0\Exchange.Base.deps.json
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.Base\bin\Debug\netstandard2.0\Exchange.Base.dll
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.Base\bin\Debug\netstandard2.0\Exchange.Base.pdb
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.csproj.CoreCompileInputs.cache
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.AssemblyInfoInputs.cache
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.AssemblyInfo.cs
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.dll
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.pdb

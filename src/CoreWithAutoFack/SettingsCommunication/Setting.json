@@ -1,0 +1,53 @@
+﻿{
+  "Serials": [
+    {
+      "Port": "COM1",
+      "BaudRate": 9600
+    },
+    {
+      "Port": "COM2",
+      "BaudRate": 9600
+    }
+  ],
+
+
+  "DevicesSp": [
+    {
+      "Id": 2,
+      "Name": "MyVidorDisplay",
+      "Port": 1,
+      "Address": "2",
+      "TimeRespone": 2000,
+      "Description": "Вывод ПРИГОРОДНОГО расписания.",
+      "Binding": "ToPath:10",
+      "ExchangeRules": {
+        "Table": {
+          "Size": 2,
+          "Position": 0,
+          "Rule": {
+            "Format": "Windows-1251",
+            "Request": {
+              "maxLenght": 254,
+              "Body": "STX{AddressDevice:X2}{Nbyte:X2}"
+            },
+            "Response": {
+              "maxLenght": 254,
+              "TimeRespone": 500,
+              "Body": "STX{AddressDevice:X2}{Nbyte:X2}"
+            }
+          } 
+        }
+      } 
+    },
+    {
+      "Id": 2,
+      "Name": "MyVidorDisplay",
+      "Port": 1,
+      "Address": "1",
+      "TimeRespone": 2000,
+      "Description": "Вывод ПРИГОРОДНОГО расписания.",
+      "Binding": "ToPath:1,2,3"
+    }
+  ]
+
+}

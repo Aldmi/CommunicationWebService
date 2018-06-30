@@ -1,0 +1,8 @@
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Shared\bin\Debug\netstandard2.0\Shared.deps.json
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Shared\bin\Debug\netstandard2.0\Shared.dll
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Shared\bin\Debug\netstandard2.0\Shared.pdb
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Shared\obj\Debug\netstandard2.0\Shared.csproj.CoreCompileInputs.cache
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Shared\obj\Debug\netstandard2.0\Shared.AssemblyInfoInputs.cache
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Shared\obj\Debug\netstandard2.0\Shared.AssemblyInfo.cs
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Shared\obj\Debug\netstandard2.0\Shared.dll
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Shared\obj\Debug\netstandard2.0\Shared.pdb

@@ -1,0 +1,16 @@
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\bin\Debug\netstandard2.0\Worker.Background.deps.json
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\bin\Debug\netstandard2.0\Worker.Background.dll
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\bin\Debug\netstandard2.0\Worker.Background.pdb
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\bin\Debug\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\bin\Debug\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\bin\Debug\netstandard2.0\Shared.dll
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\bin\Debug\netstandard2.0\Shared.pdb
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\bin\Debug\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\bin\Debug\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.xml
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.csprojAssemblyReference.cache
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.csproj.CoreCompileInputs.cache
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.AssemblyInfoInputs.cache
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.AssemblyInfo.cs
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.csproj.CopyComplete
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.dll
+E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.pdb
