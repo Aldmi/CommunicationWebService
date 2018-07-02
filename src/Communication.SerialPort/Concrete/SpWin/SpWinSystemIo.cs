@@ -1,0 +1,359 @@
+﻿using System;
+using System.IO.Ports;
+using System.Linq;
+using System.Reactive.Subjects;
+using System.Threading;
+using System.Threading.Tasks;
+using Shared.Enums;
+using Shared.Helpers;
+using Transport.Base.DataProviderAbstract;
+using Transport.SerialPort.Abstract;
+using Transport.SerialPort.Option;
+using Transport.SerialPort.RxModel;
+using Parity = System.IO.Ports.Parity;
+using StopBits = System.IO.Ports.StopBits;
+
+
+namespace Transport.SerialPort.Concrete.SpWin
+{
+    public class SpWinSystemIo : ISerailPort
+    {
+        #region fields
+
+        private const int TimeCycleReConnect = 3000;
+        private readonly System.IO.Ports.SerialPort _port; //COM порт
+        private CancellationTokenSource _ctsCycleReConnect;
+
+        #endregion
+
+
+
+
+        #region prop
+
+        public SerialOption SerialOption { get; }
+
+        private bool _isOpen;
+        public bool IsOpen
+        {
+            get => _isOpen;
+            set
+            {
+                if (value == _isOpen) return;
+                _isOpen = value;
+                IsOpenChangeRx.OnNext(new IsOpenChangeRxModel { IsOpen = _isOpen, PortName = SerialOption.Port });
+            }
+        }
+
+        private string _statusString;
+        public string StatusString
+        {
+            get => _statusString;
+            set
+            {
+                if (value == _statusString) return;
+                _statusString = value;
+                StatusStringChangeRx.OnNext(new StatusStringChangeRxModel { Status = _statusString, PortName = SerialOption.Port });
+            }
+        }
+
+
+        private StatusDataExchange _statusDataExchange;
+        public StatusDataExchange StatusDataExchange
+        {
+            get => _statusDataExchange;
+            set
+            {
+                if (value == _statusDataExchange) return;
+                _statusDataExchange = value;
+                StatusDataExchangeChangeRx.OnNext(new StatusDataExchangeChangeRxModel { StatusDataExchange = _statusDataExchange, PortName = SerialOption.Port });
+            }
+        }
+
+        #endregion
+
+
+
+
+        #region ctor
+
+        public SpWinSystemIo(SerialOption option)
+        {
+            SerialOption = option;
+            _port = new System.IO.Ports.SerialPort(option.Port)
+            {
+                BaudRate = option.BaudRate,
+                DataBits = option.DataBits,
+                StopBits = (StopBits) option.StopBits,
+                Parity = (Parity) option.Parity,
+                DtrEnable = option.DtrEnable,
+                RtsEnable = option.RtsEnable
+            };
+        }
+
+        #endregion
+
+
+
+
+
+        #region Rx
+
+        public ISubject<IsOpenChangeRxModel> IsOpenChangeRx { get; } =  new Subject<IsOpenChangeRxModel>();                            //СОБЫТИЕ ИЗМЕНЕНИЯ ОТКРЫТИЯ/ЗАКРЫТИЯ ПОРТА
+        public ISubject<StatusDataExchangeChangeRxModel> StatusDataExchangeChangeRx { get; } = new Subject<StatusDataExchangeChangeRxModel>();     //СОБЫТИЕ ИЗМЕНЕНИЯ ОТПРАВКИ ДАННЫХ ПО ПОРТУ
+        public ISubject<StatusStringChangeRxModel> StatusStringChangeRx { get; } = new Subject<StatusStringChangeRxModel>();           //СОБЫТИЕ ИЗМЕНЕНИЯ СТРОКИ СТАТУСА ПОРТА
+
+        #endregion
+
+
+
+
+        #region Methode
+
+        public async Task<bool> CycleReConnect()
+        {
+            _ctsCycleReConnect= new CancellationTokenSource();
+            bool res = false;
+            while (!_ctsCycleReConnect.IsCancellationRequested && !res)
+            {
+                res = ReConnect();
+                if (!res)
+                    await Task.Delay(TimeCycleReConnect, _ctsCycleReConnect.Token);
+            }
+
+            return true;
+        }
+
+
+
+        public void CycleReConnectCancelation()
+        {
+            _ctsCycleReConnect.Cancel();
+        }
+
+
+
+        public bool ReConnect()
+        {
+            Dispose();
+            IsOpen = false;
+            StatusDataExchange = StatusDataExchange.None;
+            try
+            {
+                _port.Open();
+            }
+            catch (Exception ex)
+            {
+                IsOpen = false;
+                StatusString = $"Ошибка открытия порта: {_port.PortName}. ОШИБКА: {ex}";
+                return false;
+            }
+
+            IsOpen = true;
+            StatusString = $"Порт открыт: {_port.PortName}.";
+            return true;
+        }
+
+
+
+        public async Task ReOpen()
+        {
+            try
+            {
+                if (_port.IsOpen)
+                {
+                    _port.Close();
+                    IsOpen = false;
+                }
+
+                if (!_port.IsOpen)
+                {
+                    _port.Open();
+                    IsOpen = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusString = $"Ошибка ReOpen порта: {_port.PortName}. ОШИБКА: {ex}";
+                await CycleReConnect();
+            }
+        }
+
+
+
+
+
+        /// <summary>
+        /// Функция обмена по порту. Запрос-ожидание-ответ.
+        /// Возвращает true если результат обмена успешен.
+        /// </summary>
+        public async Task<bool> DataExchangeAsync(int timeRespoune, IExchangeDataProviderBase dataProvider, CancellationToken ct)
+        {
+            if (!IsOpen)
+                return false;
+
+            if (dataProvider == null)
+                return false;
+
+            StatusDataExchange = StatusDataExchange.Start;
+            try
+            {
+                byte[] writeBuffer = dataProvider.GetDataByte();
+                if (writeBuffer != null && writeBuffer.Any())
+                {
+
+                    StatusDataExchange = StatusDataExchange.Process;
+                    var readBuff = await RequestAndRespawnInstantlyAsync(writeBuffer, dataProvider.CountSetDataByte, timeRespoune, ct);
+                    dataProvider.SetDataByte(readBuff);
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                StatusDataExchange = StatusDataExchange.EndWithCanceled;
+                return false;
+            }
+            catch (TimeoutException)
+            {
+                //ReOpen();
+                StatusDataExchange = StatusDataExchange.EndWithTimeout;
+                return false;
+            }
+            StatusDataExchange = StatusDataExchange.End; 
+            return true;
+        }
+
+
+
+        /// <summary>
+        /// Функция посылает запрос в порт, потом отсчитывает время readTimeout и проверяет буфер порта на чтение.
+        /// Таким образом обеспечивается одинаковый промежуток времени между запросами в порт.
+        /// </summary>
+        public async Task<byte[]> RequestAndRespawnConstPeriodAsync(byte[] writeBuffer, int nBytesRead, int readTimeout, CancellationToken ct)
+        {
+            if (!_port.IsOpen)
+                return await Task<byte[]>.Factory.StartNew(() => null, ct);
+
+            //очистили буферы порта
+            _port.DiscardInBuffer();
+            _port.DiscardOutBuffer();
+
+            //отправили данные в порт
+            _port.WriteTimeout = 500;
+            _port.Write(writeBuffer, 0, writeBuffer.Length);
+
+            //ждем ответа....
+            await Task.Delay(readTimeout, ct);
+
+            //проверяем ответ
+            var buffer = new byte[nBytesRead];
+            if (_port.BytesToRead == nBytesRead)
+            {
+                _port.Read(buffer, 0, nBytesRead);
+                return buffer;
+            }
+            throw new TimeoutException("Время на ожидание ответа вышло");
+        }
+
+
+        /// <summary>
+        /// Функция посылает запрос в порт, и как только в буфер порта приходят данные сразу же проверяет их кол-во.
+        /// Как только накопится нужное кол-во байт сразу же будет возвращен ответ не дожедаясь времени readTimeout.
+        /// Таким образом период опроса не фиксированный, а определяется скоростью ответа slave устройства.
+        /// </summary>
+        private bool _isBysuRequestAndRespawn;
+        public async Task<byte[]> RequestAndRespawnInstantlyAsync(byte[] writeBuffer, int nBytesRead, int readTimeout, CancellationToken ct)
+        {
+            if (!_isBysuRequestAndRespawn)
+            {
+                _isBysuRequestAndRespawn = true;
+
+                if (!_port.IsOpen)
+                    return null;
+
+                var tcs = new TaskCompletionSource<byte[]>();
+                SerialDataReceivedEventHandler handler = null;
+                try
+                {
+                    //очистили буферы порта
+                    _port.DiscardInBuffer();
+                    _port.DiscardOutBuffer();
+
+                    //_port.WriteTimeout = 500; //??????
+                    _port.Write(writeBuffer, 0, writeBuffer.Length);     //отправили данные в порт
+
+                    //ждем ответа....
+                    handler = (o, e) =>
+                    {
+                        if (_port.BytesToRead >= nBytesRead)
+                        {
+                            var buffer = new byte[nBytesRead];
+                            _port.Read(buffer, 0, nBytesRead);
+                            tcs.TrySetResult(buffer);
+                        }
+                    };
+                    _port.DataReceived += handler;
+
+                    var buff = await HelpersAsync.WithTimeout(tcs.Task, readTimeout, ct);
+                    return buff;
+                }
+                catch (TimeoutException)
+                {
+                    tcs.TrySetCanceled();
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    StatusString = $"Ошибка работы с портом (RequestAndRespawnInstantlyAsync): {_port.PortName}. ОШИБКА: {ex}  InnerException: {ex.InnerException?.Message ?? string.Empty}";
+                    ReOpen();
+                    return null;
+                }
+                finally
+                {
+                    _port.DataReceived -= handler;
+                    _isBysuRequestAndRespawn = false;
+                }
+            }
+
+            StatusString = "Ошибка работы с портом (ПОПЫТКА ОБРАЩЕНИЯ К ЗАНЯТОМУ ПОРТУ)";
+            return null;
+        }
+
+
+
+        public void Send(byte[] data)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Recive()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        #endregion
+
+
+
+
+        #region Disposable
+
+        public void Dispose()
+        {
+            if (_port == null)
+                return;
+
+            if (_port.IsOpen)
+            {
+                //Cts.Cancel();
+                _port.DiscardInBuffer();
+                _port.DiscardOutBuffer();
+                _port.Close();
+            }
+
+            _port.Dispose();
+        }
+
+        #endregion
+    }
+}

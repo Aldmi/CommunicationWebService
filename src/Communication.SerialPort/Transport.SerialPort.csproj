@@ -5,11 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Concrete\Sp4Linux\" />
+    <Folder Include="Concrete\SpLinux\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IO.Ports" Version="4.5.0" />
+    <PackageReference Include="System.Reactive" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.csproj" />
+    <ProjectReference Include="..\Transport.Base\Transport.Base.csproj" />
   </ItemGroup>
 
 </Project>

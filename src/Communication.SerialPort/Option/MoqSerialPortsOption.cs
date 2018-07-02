@@ -17,7 +17,7 @@ namespace Transport.SerialPort.Option
                     {
                         Port = "COM1",
                         BaudRate = 9600,
-                        DataBits = 1,
+                        DataBits = 8,
                         DtrEnable = false,
                         Parity = Parity.Even,
                         StopBits = StopBits.One,
@@ -26,7 +26,7 @@ namespace Transport.SerialPort.Option
                     {
                         Port = "COM2",
                         BaudRate = 9600,
-                        DataBits = 1,
+                        DataBits = 8,
                         DtrEnable = false,
                         Parity = Parity.Even,
                         StopBits = StopBits.One,

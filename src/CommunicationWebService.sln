@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Device", "Device", "{4B0D52
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Device.ForExchange", "Device.ForExchange\Device.ForExchange.csproj", "{D680D70D-C28D-4B9B-84BD-F202EF1E102D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport.Base", "Transport.Base\Transport.Base.csproj", "{519D47B1-26AA-4860-B1E4-F80D3E328AB5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{D680D70D-C28D-4B9B-84BD-F202EF1E102D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D680D70D-C28D-4B9B-84BD-F202EF1E102D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D680D70D-C28D-4B9B-84BD-F202EF1E102D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{519D47B1-26AA-4860-B1E4-F80D3E328AB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{519D47B1-26AA-4860-B1E4-F80D3E328AB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{519D47B1-26AA-4860-B1E4-F80D3E328AB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{519D47B1-26AA-4860-B1E4-F80D3E328AB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{441BCC5C-1DF0-4826-9246-B9FA5EDBD163} = {7C287048-0F56-49D9-9DFA-DBC09E7F1B54}
 		{1F64CCC2-D64F-48F0-8845-36AB33EB54F8} = {7C287048-0F56-49D9-9DFA-DBC09E7F1B54}
 		{D680D70D-C28D-4B9B-84BD-F202EF1E102D} = {4B0D52D6-ED79-463F-B251-689A128DBF27}
+		{519D47B1-26AA-4860-B1E4-F80D3E328AB5} = {4D9420A4-768D-491A-B8B6-5890A8F0E473}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {626950A5-7C4E-424F-AC79-2AB323CA01E7}

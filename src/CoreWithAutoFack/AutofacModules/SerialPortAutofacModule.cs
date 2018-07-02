@@ -4,7 +4,7 @@ using Autofac.Core;
 using Shared;
 using Shared.Enums;
 using Transport.SerialPort.Abstract;
-using Transport.SerialPort.Concrete.Sp4Win;
+using Transport.SerialPort.Concrete.SpWin;
 using Transport.SerialPort.Option;
 using Worker.Background.Abstarct;
 using Worker.Background.Concrete.BackgroundSerialPort;
@@ -33,7 +33,7 @@ namespace WebServer.AutofacModules
         {
             foreach (var spOption in _spOptions.Serials)
             {
-                builder.RegisterType<SpWinDefault>().As<ISerailPort>()
+                builder.RegisterType<SpWinSystemIo>().As<ISerailPort>()
                     .WithParameters(new List<Parameter>
                     {
                         new NamedParameter("option", spOption),

@@ -61,5 +61,7 @@ namespace Transport.SerialPort.Option
         public StopBits StopBits { get; set; }
         public Parity Parity { get; set; }
         public bool DtrEnable { get; set; }
+        public bool RtsEnable { get; set; }
+        
     }
 }
