@@ -37,7 +37,7 @@ namespace Transport.SerialPort.Concrete.SpWin
         public bool IsOpen
         {
             get => _isOpen;
-            set
+            private set
             {
                 if (value == _isOpen) return;
                 _isOpen = value;
@@ -49,7 +49,7 @@ namespace Transport.SerialPort.Concrete.SpWin
         public string StatusString
         {
             get => _statusString;
-            set
+            private set
             {
                 if (value == _statusString) return;
                 _statusString = value;
@@ -62,13 +62,15 @@ namespace Transport.SerialPort.Concrete.SpWin
         public StatusDataExchange StatusDataExchange
         {
             get => _statusDataExchange;
-            set
+            private set
             {
                 if (value == _statusDataExchange) return;
                 _statusDataExchange = value;
                 StatusDataExchangeChangeRx.OnNext(new StatusDataExchangeChangeRxModel { StatusDataExchange = _statusDataExchange, PortName = SerialOption.Port });
             }
         }
+
+        public bool IsCycleReconnectState { get; private set; }
 
         #endregion
 
@@ -99,9 +101,9 @@ namespace Transport.SerialPort.Concrete.SpWin
 
         #region Rx
 
-        public ISubject<IsOpenChangeRxModel> IsOpenChangeRx { get; } =  new Subject<IsOpenChangeRxModel>();                            //СОБЫТИЕ ИЗМЕНЕНИЯ ОТКРЫТИЯ/ЗАКРЫТИЯ ПОРТА
+        public ISubject<IsOpenChangeRxModel> IsOpenChangeRx { get; } =  new Subject<IsOpenChangeRxModel>();                                        //СОБЫТИЕ ИЗМЕНЕНИЯ ОТКРЫТИЯ/ЗАКРЫТИЯ ПОРТА
         public ISubject<StatusDataExchangeChangeRxModel> StatusDataExchangeChangeRx { get; } = new Subject<StatusDataExchangeChangeRxModel>();     //СОБЫТИЕ ИЗМЕНЕНИЯ ОТПРАВКИ ДАННЫХ ПО ПОРТУ
-        public ISubject<StatusStringChangeRxModel> StatusStringChangeRx { get; } = new Subject<StatusStringChangeRxModel>();           //СОБЫТИЕ ИЗМЕНЕНИЯ СТРОКИ СТАТУСА ПОРТА
+        public ISubject<StatusStringChangeRxModel> StatusStringChangeRx { get; } = new Subject<StatusStringChangeRxModel>();                       //СОБЫТИЕ ИЗМЕНЕНИЯ СТРОКИ СТАТУСА ПОРТА
 
         #endregion
 
@@ -112,7 +114,8 @@ namespace Transport.SerialPort.Concrete.SpWin
 
         public async Task<bool> CycleReConnect()
         {
-            _ctsCycleReConnect= new CancellationTokenSource();
+            IsCycleReconnectState = true;
+            _ctsCycleReConnect = new CancellationTokenSource();
             bool res = false;
             while (!_ctsCycleReConnect.IsCancellationRequested && !res)
             {
@@ -120,7 +123,7 @@ namespace Transport.SerialPort.Concrete.SpWin
                 if (!res)
                     await Task.Delay(TimeCycleReConnect, _ctsCycleReConnect.Token);
             }
-
+            IsCycleReconnectState = false;
             return true;
         }
 
@@ -128,7 +131,8 @@ namespace Transport.SerialPort.Concrete.SpWin
 
         public void CycleReConnectCancelation()
         {
-            _ctsCycleReConnect.Cancel();
+            if (IsCycleReconnectState)
+             _ctsCycleReConnect.Cancel();
         }
 
 
@@ -187,13 +191,13 @@ namespace Transport.SerialPort.Concrete.SpWin
         /// Функция обмена по порту. Запрос-ожидание-ответ.
         /// Возвращает true если результат обмена успешен.
         /// </summary>
-        public async Task<bool> DataExchangeAsync(int timeRespoune, IExchangeDataProviderBase dataProvider, CancellationToken ct)
+        public async Task<StatusDataExchange> DataExchangeAsync(int timeRespoune, IExchangeDataProviderBase dataProvider, CancellationToken ct)
         {
             if (!IsOpen)
-                return false;
+                return StatusDataExchange.None;
 
             if (dataProvider == null)
-                return false;
+                return StatusDataExchange.None;
 
             StatusDataExchange = StatusDataExchange.Start;
             try
@@ -210,16 +214,16 @@ namespace Transport.SerialPort.Concrete.SpWin
             catch (OperationCanceledException)
             {
                 StatusDataExchange = StatusDataExchange.EndWithCanceled;
-                return false;
+                return StatusDataExchange.EndWithCanceled;
             }
             catch (TimeoutException)
             {
                 //ReOpen();
                 StatusDataExchange = StatusDataExchange.EndWithTimeout;
-                return false;
+                return StatusDataExchange.EndWithTimeout;
             }
             StatusDataExchange = StatusDataExchange.End; 
-            return true;
+            return StatusDataExchange.End;
         }
 
 
@@ -228,7 +232,7 @@ namespace Transport.SerialPort.Concrete.SpWin
         /// Функция посылает запрос в порт, потом отсчитывает время readTimeout и проверяет буфер порта на чтение.
         /// Таким образом обеспечивается одинаковый промежуток времени между запросами в порт.
         /// </summary>
-        public async Task<byte[]> RequestAndRespawnConstPeriodAsync(byte[] writeBuffer, int nBytesRead, int readTimeout, CancellationToken ct)
+        private async Task<byte[]> RequestAndRespawnConstPeriodAsync(byte[] writeBuffer, int nBytesRead, int readTimeout, CancellationToken ct)
         {
             if (!_port.IsOpen)
                 return await Task<byte[]>.Factory.StartNew(() => null, ct);
@@ -261,7 +265,7 @@ namespace Transport.SerialPort.Concrete.SpWin
         /// Таким образом период опроса не фиксированный, а определяется скоростью ответа slave устройства.
         /// </summary>
         private bool _isBysuRequestAndRespawn;
-        public async Task<byte[]> RequestAndRespawnInstantlyAsync(byte[] writeBuffer, int nBytesRead, int readTimeout, CancellationToken ct)
+        private async Task<byte[]> RequestAndRespawnInstantlyAsync(byte[] writeBuffer, int nBytesRead, int readTimeout, CancellationToken ct)
         {
             if (!_isBysuRequestAndRespawn)
             {
@@ -318,20 +322,8 @@ namespace Transport.SerialPort.Concrete.SpWin
             return null;
         }
 
-
-
-        public void Send(byte[] data)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool Recive()
-        {
-            throw new System.NotImplementedException();
-        }
-
-
         #endregion
+
 
 
 
@@ -345,9 +337,6 @@ namespace Transport.SerialPort.Concrete.SpWin
 
             if (_port.IsOpen)
             {
-                //Cts.Cancel();
-                _port.DiscardInBuffer();
-                _port.DiscardOutBuffer();
                 _port.Close();
             }
 
