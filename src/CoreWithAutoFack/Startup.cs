@@ -32,7 +32,7 @@ namespace WebServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IConfiguration>(provider=> AppConfiguration);
+            services.AddTransient<IConfiguration>(provider => AppConfiguration);
             services.AddMvc().AddControllersAsServices();
             services.AddOptions();
 
@@ -43,7 +43,7 @@ namespace WebServer
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            var serialPortsOption= MoqSerialPortsOption.GetSerialPortsOption();
+            var serialPortsOption = MoqSerialPortsOption.GetSerialPortsOption();
             builder.RegisterModule(new SerialPortAutofacModule(serialPortsOption));
 
             var exchSerialPortsOption = MoqExchangeMasterSerialPortOptions.GetExchangeMasterSerialPortOptions();
@@ -55,14 +55,14 @@ namespace WebServer
 
 
         public void Configure(IApplicationBuilder app,
-                              IHostingEnvironment env,
-                              ILifetimeScope scope,
-                              IConfiguration config,
-                              IOptions<SerialPortsOption> optionsSettingModel,
-                              IOptions<DevicesWithSpOptions> optionsDevicesWithSp)
+            IHostingEnvironment env,
+            ILifetimeScope scope,
+            IConfiguration config,
+            IOptions<SerialPortsOption> optionsSettingModel,
+            IOptions<DevicesWithSpOptions> optionsDevicesWithSp)
         {
-            var spPorts = optionsSettingModel.Value;
-            var httpDev = optionsDevicesWithSp.Value;
+            //var spPorts = optionsSettingModel.Value;
+            //var httpDev = optionsDevicesWithSp.Value;
 
             ConfigurationBackgroundProcess(app, scope);
             if (env.IsDevelopment())
@@ -79,8 +79,7 @@ namespace WebServer
             var lifetimeApp = app.ApplicationServices.GetService<IApplicationLifetime>();
             ApplicationStarted(lifetimeApp, scope);
             ApplicationStopping(lifetimeApp, scope);
-
-            //lifetimeApp.ApplicationStopped.Register(() => this.ApplicationContainer.Dispose());
+            ApplicationStopped(lifetimeApp, scope);
         }
 
         private void ApplicationStarted(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
@@ -99,6 +98,11 @@ namespace WebServer
             {
                 lifetimeApp.ApplicationStopping.Register(() => back.StopAsync(CancellationToken.None));
             }
+        }
+
+        private void ApplicationStopped(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
+        {
+            lifetimeApp.ApplicationStopped.Register(() => {});
         }
     }
 }

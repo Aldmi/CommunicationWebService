@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using Autofac;
 using Exchange.Base;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +13,7 @@ namespace WebServer.Controllers
     public class ValuesController : Controller
     {
         private readonly IEnumerable<IExhangeBehavior> _excBehaviors;
+        private readonly IEnumerable<IBackgroundService> _backgroundServices;
         private readonly ILifetimeScope _scope;
         private readonly ISerailPort _spService;
 
@@ -26,10 +29,10 @@ namespace WebServer.Controllers
 
         //}
 
-        public ValuesController(IEnumerable<IExhangeBehavior> excBehaviors)
+        public ValuesController(IEnumerable<IExhangeBehavior> excBehaviors, IEnumerable<IBackgroundService> backgroundServices)
         {
             _excBehaviors = excBehaviors;
-
+            _backgroundServices = backgroundServices;
         }
 
 
@@ -58,6 +61,22 @@ namespace WebServer.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
+           var background= _backgroundServices.FirstOrDefault(back => back.KeyBackground.Key == "COM1");
+           if (background == null)
+              return "NULL";
+
+            switch (id)
+            {
+                case 1:
+                    background.StopAsync(CancellationToken.None);
+                    break;
+
+                case 2:
+                    background.StartAsync(CancellationToken.None);
+                    break;
+            }
+
+
             return "value";
         }
 

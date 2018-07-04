@@ -16,10 +16,12 @@ namespace Worker.Background.Abstarct
     public interface IBackgroundService : IDisposable
     {
         KeyBackground KeyBackground { get; set; }
-        Func<int, CancellationToken> AddWork { get; set; }
-        Func<int, CancellationToken> RemoveWork { get; set; }
 
         Task StartAsync(CancellationToken cancellationToken);
         Task StopAsync(CancellationToken cancellationToken);
+
+        void AddCycleFunc(Func<CancellationToken, Task> action);
+        void RemoveCycleFunc(Func<CancellationToken, Task> action);
+        void AddOneTimeFunc(Func<CancellationToken, Task> action);
     }
 }

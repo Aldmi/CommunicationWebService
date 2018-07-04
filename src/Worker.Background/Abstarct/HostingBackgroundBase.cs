@@ -6,7 +6,10 @@ using Microsoft.Extensions.Hosting;
 
 namespace Worker.Background.Abstarct
 {
-    public abstract class HostingBackgroundBase : IBackgroundService, IHostedService
+    /// <summary>
+    /// аналог IHostedService.
+    /// </summary>
+    public abstract class HostingBackgroundBase : IBackgroundService
     {
         private Task _executingTask;
         private CancellationTokenSource _stoppingCts = new CancellationTokenSource();
@@ -16,8 +19,6 @@ namespace Worker.Background.Abstarct
         #region prop
 
         public KeyBackground KeyBackground { get; set; }
-        public Func<int, CancellationToken> AddWork { get; set; }
-        public Func<int, CancellationToken> RemoveWork { get; set; }
 
         #endregion
 
@@ -50,6 +51,7 @@ namespace Worker.Background.Abstarct
         }
 
 
+
         public virtual async Task StopAsync(CancellationToken cancellationToken)
         {
             // Stop called without start
@@ -66,17 +68,8 @@ namespace Worker.Background.Abstarct
             finally
             {
                 // Wait until the task completes or the stop token triggers
-                var task = await Task.WhenAny(_executingTask, Task.Delay(Timeout.Infinite, cancellationToken));
-                if (task == _executingTask)
-                {
-                    Console.WriteLine("_executingTask");
-                }
-                else
-                {
-                    Console.WriteLine(" cancellationToken");
-                }
+                await Task.WhenAny(_executingTask, Task.Delay(Timeout.Infinite, cancellationToken));
             }
-
         }
 
 
@@ -88,7 +81,12 @@ namespace Worker.Background.Abstarct
                 await ProcessAsync(stoppingToken);
             }
         }
+
+
         protected abstract Task ProcessAsync(CancellationToken stoppingToken);
+        public abstract void AddCycleFunc(Func<CancellationToken, Task> action);
+        public abstract void RemoveCycleFunc(Func<CancellationToken, Task> action);
+        public abstract void AddOneTimeFunc(Func<CancellationToken, Task> action);
 
         #endregion
 
