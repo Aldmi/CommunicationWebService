@@ -27,11 +27,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Device", "Device", "{4B0D52
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Device.ForExchange", "Device.ForExchange\Device.ForExchange.csproj", "{D680D70D-C28D-4B9B-84BD-F202EF1E102D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport.Base", "Transport.Base\Transport.Base.csproj", "{519D47B1-26AA-4860-B1E4-F80D3E328AB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transport.Base", "Transport.Base\Transport.Base.csproj", "{519D47B1-26AA-4860-B1E4-F80D3E328AB5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{396BCFBC-E780-4F3D-8CD6-116EF859701E}"
 	ProjectSection(SolutionItems) = preProject
 		ReadMe.txt = ReadMe.txt
+		Tasks.txt = Tasks.txt
 	EndProjectSection
 EndProject
 Global
