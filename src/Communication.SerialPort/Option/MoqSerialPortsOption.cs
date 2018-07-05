@@ -22,15 +22,15 @@ namespace Transport.SerialPort.Option
                         Parity = Parity.Even,
                         StopBits = StopBits.One,
                     },
-                    new SerialOption
-                    {
-                        Port = "COM2",
-                        BaudRate = 9600,
-                        DataBits = 8,
-                        DtrEnable = false,
-                        Parity = Parity.Even,
-                        StopBits = StopBits.One,
-                    }
+                    //new SerialOption
+                    //{
+                    //    Port = "COM2",
+                    //    BaudRate = 9600,
+                    //    DataBits = 8,
+                    //    DtrEnable = false,
+                    //    Parity = Parity.Even,
+                    //    StopBits = StopBits.One,
+                    //}
                 }
             };
         }

@@ -76,6 +76,7 @@ namespace WebServer.Controllers
                     break;
             }
 
+           var isStarted= background.IsStarted;
 
             return "value";
         }

@@ -20,6 +20,14 @@ namespace Worker.Background.Abstarct
 
         public KeyBackground KeyBackground { get; set; }
 
+        /// <summary>
+        /// Бекгроунд запущен, если задача продолжает выполняться. 
+        /// </summary>
+        public bool IsStarted => !(_executingTask == null ||
+                                  _executingTask.IsCanceled ||
+                                  _executingTask.IsCompleted ||
+                                  _executingTask.IsFaulted);
+
         #endregion
 
 

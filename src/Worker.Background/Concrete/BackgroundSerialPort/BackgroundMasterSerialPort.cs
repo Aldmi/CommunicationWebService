@@ -90,8 +90,8 @@ namespace Worker.Background.Concrete.BackgroundSerialPort
                 }
             }
 
-            await Task.Delay(2000, stoppingToken);
-            Console.WriteLine($"BackGroundMasterSp  {KeyBackground.Key}");
+            await Task.Delay(2000, stoppingToken);//DEBUG
+            Console.WriteLine($"BackGroundMasterSp  {KeyBackground.Key}");//DEBUG
         }
 
         #endregion

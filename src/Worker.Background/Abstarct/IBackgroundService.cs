@@ -17,6 +17,8 @@ namespace Worker.Background.Abstarct
     {
         KeyBackground KeyBackground { get; set; }
 
+        bool IsStarted { get; }
+
         Task StartAsync(CancellationToken cancellationToken);
         Task StopAsync(CancellationToken cancellationToken);
 
