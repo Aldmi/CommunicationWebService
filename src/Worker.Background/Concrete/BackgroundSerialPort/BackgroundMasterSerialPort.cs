@@ -39,7 +39,7 @@ namespace Worker.Background.Concrete.BackgroundSerialPort
         /// <summary>
         /// Добавление функций для циклического опроса
         /// </summary>
-        public override void AddCycleFunc(Func<CancellationToken, Task> action)
+        public override void AddCycleAction(Func<CancellationToken, Task> action)
         {
             if (action != null)
                 _cycleTimeFuncDict.TryAdd(_cycleTimeFuncDict.Count, action);
@@ -62,7 +62,7 @@ namespace Worker.Background.Concrete.BackgroundSerialPort
         /// <summary>
         /// Добавление данных для одиночной функции запроса DataExchangeAsync
         /// </summary>
-        public override void AddOneTimeFunc(Func<CancellationToken, Task> action)
+        public override void AddOneTimeAction(Func<CancellationToken, Task> action)
         {
             if (action != null)
                _oneTimeFuncQueue.Enqueue(action);

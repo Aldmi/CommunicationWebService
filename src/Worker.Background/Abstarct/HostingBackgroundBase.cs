@@ -92,9 +92,9 @@ namespace Worker.Background.Abstarct
 
 
         protected abstract Task ProcessAsync(CancellationToken stoppingToken);
-        public abstract void AddCycleFunc(Func<CancellationToken, Task> action);
+        public abstract void AddCycleAction(Func<CancellationToken, Task> action);
         public abstract void RemoveCycleFunc(Func<CancellationToken, Task> action);
-        public abstract void AddOneTimeFunc(Func<CancellationToken, Task> action);
+        public abstract void AddOneTimeAction(Func<CancellationToken, Task> action);
 
         #endregion
 
