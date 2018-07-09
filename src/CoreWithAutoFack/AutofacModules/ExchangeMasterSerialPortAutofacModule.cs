@@ -26,7 +26,7 @@ namespace WebServer.AutofacModules
         {
             foreach (var exchMSpOption in _exchangeMasterSpOptions.ExchangesMasterSp)
             {
-                builder.RegisterType<ByRulesExchangeSerialPort>().As<IExhangeBehavior>()
+                builder.RegisterType<ByRulesExchangeSerialPort>().As<IExchange>()
                     .WithParameters(new List<ResolvedParameter>
                     {      new ResolvedParameter(
                                        (pi, ctx) => (pi.ParameterType == typeof(ISerailPort) && (pi.Name == "serailPort")),

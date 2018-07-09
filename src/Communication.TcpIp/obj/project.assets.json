@@ -403,23 +403,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\admin\\.nuget\\packages\\": {},
+    "C:\\Users\\Aldmi\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj",
+      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj",
       "projectName": "Transport.TcpIp",
-      "projectPath": "C:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj",
-      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\obj\\",
+      "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj",
+      "packagesPath": "C:\\Users\\Aldmi\\.nuget\\packages\\",
+      "outputPath": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Aldmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -427,7 +427,8 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://packages.nuget.org/": {}
       },
       "frameworks": {
         "netstandard2.0": {

@@ -2,19 +2,21 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
 using Exchange.Base;
 using Exchange.Base.Model;
 using Exchange.MasterSerialPort.Option;
 using Shared.Enums;
+using Transport.Base.RxModel;
 using Transport.SerialPort.Abstract;
 using Worker.Background.Abstarct;
 
 
 namespace Exchange.MasterSerialPort
 {
-    public abstract class BaseExchangeSerialPort : IExhangeBehavior
+    public abstract class BaseExchangeSerialPort : IExchange
     {
         #region field
 
@@ -29,11 +31,14 @@ namespace Exchange.MasterSerialPort
 
         #region prop
 
-        public string TransportName => _serailPort.SerialOption.Port;
-        public UniversalInputType LastSendData { get; }
-        public IEnumerable<string> GetRuleNames => new List<string>(); //TODO: сейчас в ExchangeMasterSpOption только 1 ExchangeRule, должно быть список.
-        public TypeExchange TypeExchange => TypeExchange.SerialPort;
+        public bool IsOpen => _serailPort.IsOpen;
+        public bool IsConnect { get; }
 
+        public UniversalInputType LastSendData { get; }
+        public KeyBackground GetKeyBackground => _backgroundService.KeyBackground;
+
+        public IEnumerable<string> GetRuleNames => new List<string>(); //TODO: сейчас в ExchangeMasterSpOption только 1 ExchangeRule, должно быть список.
+     
         protected ConcurrentQueue<UniversalInputType> InDataQueue { get; set; } = new ConcurrentQueue<UniversalInputType>();
         protected UniversalInputType Data4CycleFunc { get; set; }
 
@@ -49,8 +54,6 @@ namespace Exchange.MasterSerialPort
             _serailPort = serailPort;
             _backgroundService = backgroundService;
             ExchangeMasterSpOption = exchangeMasterSpOption;
-
-            StartCycleExchange(); //TODO: запускать ценрализованно как backGround
         }
 
         #endregion
@@ -59,6 +62,37 @@ namespace Exchange.MasterSerialPort
 
 
         #region Methode
+
+        /// <summary>
+        /// Циклическое 
+        /// </summary>
+        private CancellationTokenSource _cycleReOpenedCts;
+        public async Task CycleReOpened()
+        {
+            if (_serailPort != null)
+            {
+                _cycleReOpenedCts?.Cancel();
+                _cycleReOpenedCts = new CancellationTokenSource();
+                await Task.Factory.StartNew(async () =>
+                {
+                    if (await _serailPort.CycleReOpened())
+                    {
+                        StartCycleExchange();
+                    }
+                }, _cycleReOpenedCts.Token);       
+            }   
+        }
+
+
+        public void CycleReOpenedCancelation()
+        {
+            if (!IsOpen)
+            {
+                _serailPort.CycleReOpenedCancelation();
+                _cycleReOpenedCts?.Cancel();
+            }    
+        }
+
 
         /// <summary>
         /// Добавление ЦИКЛ. функций
@@ -115,12 +149,24 @@ namespace Exchange.MasterSerialPort
 
 
 
-
-
-        #region abstractMember
+        #region AbstractMember
 
         protected abstract Task OneTimeExchangeActionAsync(CancellationToken ct);
         protected abstract Task CycleTimeExchangeActionAsync(CancellationToken ct);
+
+        #endregion
+
+
+
+        #region RxEvent
+
+        public ISubject<IExchange> IsDataExchangeSuccessChange { get; } //TODO: Добавить событие обмена
+        public ISubject<IExchange> IsConnectChange { get; }
+        public ISubject<IExchange> LastSendDataChange { get; }
+
+        public ISubject<IsOpenChangeRxModel> IsOpenChangeTransportRx => _serailPort.IsOpenChangeRx;
+        public ISubject<StatusDataExchangeChangeRxModel> StatusDataExchangeChangeTransportRx => _serailPort.StatusDataExchangeChangeRx;
+        public ISubject<StatusStringChangeRxModel> StatusStringChangeTransportRx => _serailPort.StatusStringChangeRx;
 
         #endregion
     }

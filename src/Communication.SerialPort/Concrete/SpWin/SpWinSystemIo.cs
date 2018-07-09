@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using Shared.Enums;
 using Shared.Helpers;
 using Transport.Base.DataProviderAbstract;
+using Transport.Base.RxModel;
 using Transport.SerialPort.Abstract;
 using Transport.SerialPort.Option;
-using Transport.SerialPort.RxModel;
 using Parity = System.IO.Ports.Parity;
 using StopBits = System.IO.Ports.StopBits;
 
@@ -20,9 +20,9 @@ namespace Transport.SerialPort.Concrete.SpWin
     {
         #region fields
 
-        private const int TimeCycleReConnect = 3000;
+        private const int TimeCycleReOpened = 3000;
         private readonly System.IO.Ports.SerialPort _port; //COM порт
-        private CancellationTokenSource _ctsCycleReConnect;
+        private CancellationTokenSource _ctsCycleReOpened;
 
         #endregion
 
@@ -41,7 +41,7 @@ namespace Transport.SerialPort.Concrete.SpWin
             {
                 if (value == _isOpen) return;
                 _isOpen = value;
-                IsOpenChangeRx.OnNext(new IsOpenChangeRxModel { IsOpen = _isOpen, PortName = SerialOption.Port });
+                IsOpenChangeRx.OnNext(new IsOpenChangeRxModel { IsOpen = _isOpen, TransportName = SerialOption.Port });
             }
         }
 
@@ -53,7 +53,7 @@ namespace Transport.SerialPort.Concrete.SpWin
             {
                 if (value == _statusString) return;
                 _statusString = value;
-                StatusStringChangeRx.OnNext(new StatusStringChangeRxModel { Status = _statusString, PortName = SerialOption.Port });
+                StatusStringChangeRx.OnNext(new StatusStringChangeRxModel { Status = _statusString, TransportName = SerialOption.Port });
             }
         }
 
@@ -66,11 +66,11 @@ namespace Transport.SerialPort.Concrete.SpWin
             {
                 if (value == _statusDataExchange) return;
                 _statusDataExchange = value;
-                StatusDataExchangeChangeRx.OnNext(new StatusDataExchangeChangeRxModel { StatusDataExchange = _statusDataExchange, PortName = SerialOption.Port });
+                StatusDataExchangeChangeRx.OnNext(new StatusDataExchangeChangeRxModel { StatusDataExchange = _statusDataExchange, TransportName = SerialOption.Port });
             }
         }
 
-        public bool IsCycleReconnectState { get; private set; }
+        public bool IsCycleReopened { get; private set; }
 
         #endregion
 
@@ -98,7 +98,6 @@ namespace Transport.SerialPort.Concrete.SpWin
 
 
 
-
         #region Rx
 
         public ISubject<IsOpenChangeRxModel> IsOpenChangeRx { get; } =  new Subject<IsOpenChangeRxModel>();                                        //СОБЫТИЕ ИЗМЕНЕНИЯ ОТКРЫТИЯ/ЗАКРЫТИЯ ПОРТА
@@ -112,32 +111,32 @@ namespace Transport.SerialPort.Concrete.SpWin
 
         #region Methode
 
-        public async Task<bool> CycleReConnect()
+        public async Task<bool> CycleReOpened()
         {
-            IsCycleReconnectState = true;
-            _ctsCycleReConnect = new CancellationTokenSource();
+            IsCycleReopened = true;
+            _ctsCycleReOpened = new CancellationTokenSource();
             bool res = false;
-            while (!_ctsCycleReConnect.IsCancellationRequested && !res)
+            while (!_ctsCycleReOpened.IsCancellationRequested && !res)
             {
-                res = ReConnect();
+                res = ReOpenWithDispose();
                 if (!res)
-                    await Task.Delay(TimeCycleReConnect, _ctsCycleReConnect.Token);
+                    await Task.Delay(TimeCycleReOpened, _ctsCycleReOpened.Token);
             }
-            IsCycleReconnectState = false;
+            IsCycleReopened = false;
             return true;
         }
 
 
 
-        public void CycleReConnectCancelation()
+        public void CycleReOpenedCancelation()
         {
-            if (IsCycleReconnectState)
-             _ctsCycleReConnect.Cancel();
+            if (IsCycleReopened)
+             _ctsCycleReOpened.Cancel();
         }
 
 
 
-        public bool ReConnect()
+        private bool ReOpenWithDispose()
         {
             Dispose();
             IsOpen = false;
@@ -179,7 +178,7 @@ namespace Transport.SerialPort.Concrete.SpWin
             catch (Exception ex)
             {
                 StatusString = $"Ошибка ReOpen порта: {_port.PortName}. ОШИБКА: {ex}";
-                await CycleReConnect();
+                await CycleReOpened();
             }
         }
 

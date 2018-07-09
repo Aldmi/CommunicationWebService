@@ -1,8 +1,8 @@
-﻿namespace Transport.SerialPort.RxModel
+﻿namespace Transport.Base.RxModel
 {
     public class IsOpenChangeRxModel
     {
         public bool IsOpen { get; set; }
-        public string PortName { get; set; }
+        public string TransportName { get; set; }
     }
 }

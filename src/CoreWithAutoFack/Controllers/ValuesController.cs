@@ -12,7 +12,7 @@ namespace WebServer.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        private readonly IEnumerable<IExhangeBehavior> _excBehaviors;
+        private readonly IEnumerable<IExchange> _excBehaviors;
         private readonly IEnumerable<IBackgroundService> _backgroundServices;
         private readonly ILifetimeScope _scope;
         private readonly ISerailPort _spService;
@@ -29,7 +29,7 @@ namespace WebServer.Controllers
 
         //}
 
-        public ValuesController(IEnumerable<IExhangeBehavior> excBehaviors, IEnumerable<IBackgroundService> backgroundServices)
+        public ValuesController(IEnumerable<IExchange> excBehaviors, IEnumerable<IBackgroundService> backgroundServices)
         {
             _excBehaviors = excBehaviors;
             _backgroundServices = backgroundServices;

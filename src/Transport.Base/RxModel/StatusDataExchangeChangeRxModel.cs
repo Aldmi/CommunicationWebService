@@ -1,10 +1,10 @@
 ﻿using Shared.Enums;
 
-namespace Transport.SerialPort.RxModel
+namespace Transport.Base.RxModel
 {
     public class StatusDataExchangeChangeRxModel
     {
         public StatusDataExchange StatusDataExchange { get; set; }
-        public string PortName { get; set; }
+        public string TransportName { get; set; }
     }
 }

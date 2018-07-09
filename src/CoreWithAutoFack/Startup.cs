@@ -2,6 +2,7 @@
 using System.Threading;
 using Autofac;
 using CoreWithAutoFack.SettingsCommunication.Model;
+using Exchange.Base;
 using Exchange.MasterSerialPort.Option;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -89,6 +90,12 @@ namespace WebServer
             {
                 lifetimeApp.ApplicationStarted.Register(() => back.StartAsync(CancellationToken.None));
             }
+
+            var exchangeServices = scope.Resolve<IEnumerable<IExchange>>();
+            foreach (var exchange in exchangeServices)
+            {
+                lifetimeApp.ApplicationStarted.Register(async () => await exchange.CycleReOpened());
+            }
         }
 
         private void ApplicationStopping(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
@@ -97,6 +104,12 @@ namespace WebServer
             foreach (var back in backgroundServices)
             {
                 lifetimeApp.ApplicationStopping.Register(() => back.StopAsync(CancellationToken.None));
+            }
+
+            var exchangeServices = scope.Resolve<IEnumerable<IExchange>>();
+            foreach (var exchange in exchangeServices)
+            {
+                lifetimeApp.ApplicationStopping.Register(() => exchange.CycleReOpenedCancelation());
             }
         }
 
