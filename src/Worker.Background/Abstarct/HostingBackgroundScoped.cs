@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Types;
 
 namespace Worker.Background.Abstarct
 {
@@ -10,7 +11,7 @@ namespace Worker.Background.Abstarct
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
 
-        protected HostingBackgroundScoped(IServiceScopeFactory serviceScopeFactory, KeyBackground keyBackground) : base(keyBackground)
+        protected HostingBackgroundScoped(IServiceScopeFactory serviceScopeFactory, KeyExchange keyExchange) : base(keyExchange)
         {
             _serviceScopeFactory = serviceScopeFactory;
         }

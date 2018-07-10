@@ -3,6 +3,7 @@ using Autofac;
 using Autofac.Core;
 using Shared;
 using Shared.Enums;
+using Shared.Types;
 using Transport.SerialPort.Abstract;
 using Transport.SerialPort.Concrete.SpWin;
 using Transport.SerialPort.Option;
@@ -44,7 +45,7 @@ namespace WebServer.AutofacModules
                 builder.RegisterType<BackgroundMasterSerialPort>().As<IBackgroundService>()
                     .WithParameters(new List<Parameter>
                     {
-                       new NamedParameter("keyBackground", new KeyBackground {Key = spOption.Port, TypeExchange = TypeExchange.SerialPort}),
+                       new NamedParameter("keyBackground", new KeyExchange {Key = spOption.Port, TypeExchange = TypeExchange.SerialPort}),
                     })
                     .SingleInstance();
             }

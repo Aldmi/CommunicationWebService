@@ -2,6 +2,7 @@
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Exchange.Base.Model;
+using Shared.Types;
 using Transport.Base.RxModel;
 using Worker.Background.Abstarct;
 
@@ -15,7 +16,7 @@ namespace Exchange.Base
         #region StateExchange
         bool IsOpen { get; }                                                      //Соединение открыто
         bool IsConnect { get; }                                                   //Устройсвто на связи по открытому соединению (определяется по правильным ответам от ус-ва)
-        KeyBackground GetKeyBackground { get; }                                   //ключ бекгроугда (определяет тип обмена)
+        KeyExchange GetKeyExchange { get; }                                       //ключ бекгроугда (определяет тип обмена)
         UniversalInputType LastSendData { get; }                                  //Последние отосланные данные
         IEnumerable<string> GetRuleNames { get; }                                 //Отдать название установленных правил обмена
         #endregion

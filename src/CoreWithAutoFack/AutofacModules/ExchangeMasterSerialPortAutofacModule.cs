@@ -33,7 +33,7 @@ namespace WebServer.AutofacModules
                                        (pi, ctx) => ctx.Resolve<IEnumerable<ISerailPort>>().FirstOrDefault(port=> port.SerialOption.Port == exchMSpOption.PortName)),
                            new ResolvedParameter(
                                        (pi, ctx) => (pi.ParameterType == typeof(IBackgroundService) && (pi.Name == "backgroundService")),
-                                       (pi, ctx) => ctx.Resolve<IEnumerable<IBackgroundService>>().FirstOrDefault(backgr=> backgr.KeyBackground.TypeExchange == TypeExchange.SerialPort && backgr.KeyBackground.Key == exchMSpOption.PortName)),
+                                       (pi, ctx) => ctx.Resolve<IEnumerable<IBackgroundService>>().FirstOrDefault(backgr=> backgr.KeyExchange.TypeExchange == TypeExchange.SerialPort && backgr.KeyExchange.Key == exchMSpOption.PortName)),
                            new ResolvedParameter(
                                        (pi, ctx) => (pi.ParameterType == typeof(ExchangeMasterSpOption) && (pi.Name == "exchangeMasterSpOption")),
                                        (pi, ctx) => exchMSpOption)

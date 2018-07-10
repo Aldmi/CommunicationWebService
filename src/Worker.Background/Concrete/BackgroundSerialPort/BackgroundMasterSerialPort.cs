@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Types;
 using Worker.Background.Abstarct;
 
 namespace Worker.Background.Concrete.BackgroundSerialPort
@@ -23,8 +24,8 @@ namespace Worker.Background.Concrete.BackgroundSerialPort
 
         #region ctor
 
-        public BackgroundMasterSerialPort(IServiceScopeFactory serviceScopeFactory, KeyBackground keyBackground) 
-            : base(serviceScopeFactory, keyBackground)
+        public BackgroundMasterSerialPort(IServiceScopeFactory serviceScopeFactory, KeyExchange keyExchange) 
+            : base(serviceScopeFactory, keyExchange)
         {
         }
 
@@ -91,7 +92,7 @@ namespace Worker.Background.Concrete.BackgroundSerialPort
             }
 
             await Task.Delay(2000, stoppingToken);//DEBUG
-            Console.WriteLine($"BackGroundMasterSp  {KeyBackground.Key}");//DEBUG
+            Console.WriteLine($"BackGroundMasterSp  {KeyExchange.Key}");//DEBUG
         }
 
         #endregion

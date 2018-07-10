@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Exchange.Base;
 using Exchange.Base.Model;
 using Exchange.MasterSerialPort.Option;
+using Shared.Types;
 using Transport.Base.RxModel;
 using Transport.SerialPort.Abstract;
 using Worker.Background.Abstarct;
@@ -33,7 +34,7 @@ namespace Exchange.MasterSerialPort
         public bool IsConnect { get; }
 
         public UniversalInputType LastSendData { get; }
-        public KeyBackground GetKeyBackground => _backgroundService.KeyBackground;
+        public KeyExchange GetKeyExchange => _backgroundService.KeyExchange;
 
         public IEnumerable<string> GetRuleNames => new List<string>(); //TODO: сейчас в ExchangeMasterSpOption только 1 ExchangeRule, должно быть список.
      

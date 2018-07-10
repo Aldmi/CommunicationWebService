@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using Autofac;
-using CoreWithAutoFack.SettingsCommunication.Model;
 using Exchange.Base;
 using Exchange.MasterSerialPort.Option;
 using Microsoft.AspNetCore.Builder;

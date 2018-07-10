@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
+using Shared.Types;
 
 
 namespace Worker.Background.Abstarct
@@ -18,7 +19,7 @@ namespace Worker.Background.Abstarct
 
         #region prop
 
-        public KeyBackground KeyBackground { get; set; }
+        public KeyExchange KeyExchange { get; set; }
 
         /// <summary>
         /// Бекгроунд запущен, если задача продолжает выполняться. 
@@ -35,9 +36,9 @@ namespace Worker.Background.Abstarct
 
         #region ctor
 
-        protected HostingBackgroundBase(KeyBackground key)
+        protected HostingBackgroundBase(KeyExchange key)
         {
-            KeyBackground = key;
+            KeyExchange = key;
         }
 
         #endregion
