@@ -50,6 +50,8 @@ namespace WebServer
             var exchSerialPortsOption = MoqExchangeMasterSerialPortOptions.GetExchangeMasterSerialPortOptions();
             builder.RegisterModule(new ExchangeMasterSerialPortAutofacModule(exchSerialPortsOption));
 
+            builder.RegisterModule(new EventBusAutofacModule());
+
             builder.RegisterModule(new ControllerAutofacModule());
         }
 

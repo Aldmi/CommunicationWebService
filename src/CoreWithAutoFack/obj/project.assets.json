@@ -69,6 +69,15 @@
           }
         }
       },
+      "MemBus/4.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/MemBus.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/MemBus.dll": {}
+        }
+      },
       "Microsoft.ApplicationInsights/2.4.0": {
         "type": "package",
         "dependencies": {
@@ -4872,6 +4881,20 @@
           "bin/placeholder/Exchange.MasterSerialPort.dll": {}
         }
       },
+      "Infrastructure.EventBus/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "MemBus": "4.0.1",
+          "System.Reactive": "4.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Infrastructure.EventBus.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Infrastructure.EventBus.dll": {}
+        }
+      },
       "Shared/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -4982,6 +5005,23 @@
         "runtimes/win-arm/native/libuv.dll",
         "runtimes/win-x64/native/libuv.dll",
         "runtimes/win-x86/native/libuv.dll"
+      ]
+    },
+    "MemBus/4.0.1": {
+      "sha512": "hDJ2VNiLJnG5aojiYJZnIPh74by+wdm2M9sfd6kgbPqtKZkHmPm6xxH/MdxuGo0xTtshZspBsC0QefDRSQUeyw==",
+      "type": "package",
+      "path": "membus/4.0.1",
+      "files": [
+        "lib/net45/MemBus.dll",
+        "lib/net45/MemBus.xml",
+        "lib/net46/MemBus.dll",
+        "lib/net46/MemBus.xml",
+        "lib/netstandard1.6/MemBus.dll",
+        "lib/netstandard1.6/MemBus.xml",
+        "lib/netstandard2.0/MemBus.dll",
+        "lib/netstandard2.0/MemBus.xml",
+        "membus.4.0.1.nupkg.sha512",
+        "membus.nuspec"
       ]
     },
     "Microsoft.ApplicationInsights/2.4.0": {
@@ -13039,6 +13079,11 @@
       "path": "../Exchange.MasterSerialPort/Exchange.MasterSerialPort.csproj",
       "msbuildProject": "../Exchange.MasterSerialPort/Exchange.MasterSerialPort.csproj"
     },
+    "Infrastructure.EventBus/1.0.0": {
+      "type": "project",
+      "path": "../Infrastructure/Infrastructure.EventBus.csproj",
+      "msbuildProject": "../Infrastructure/Infrastructure.EventBus.csproj"
+    },
     "Shared/1.0.0": {
       "type": "project",
       "path": "../Shared/Shared.csproj",
@@ -13072,6 +13117,7 @@
       "Device.ForExchange >= 1.0.0",
       "Exchange.Base >= 1.0.0",
       "Exchange.MasterSerialPort >= 1.0.0",
+      "Infrastructure.EventBus >= 1.0.0",
       "Microsoft.AspNetCore.All >= 2.0.8",
       "Microsoft.NETCore.App >= 2.0.0",
       "Shared >= 1.0.0",
@@ -13125,6 +13171,9 @@
             },
             "C:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj": {
               "projectPath": "C:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj"
+            },
+            "C:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj"
             },
             "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
               "projectPath": "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
