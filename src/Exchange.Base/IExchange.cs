@@ -2,7 +2,6 @@
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Exchange.Base.Model;
-using Shared.Enums;
 using Transport.Base.RxModel;
 using Worker.Background.Abstarct;
 
@@ -21,6 +20,7 @@ namespace Exchange.Base
         IEnumerable<string> GetRuleNames { get; }                                 //Отдать название установленных правил обмена
         #endregion
 
+
         #region StartStop
         Task CycleReOpened();
         void CycleReOpenedCancelation();
@@ -28,17 +28,20 @@ namespace Exchange.Base
         void StopCycleExchange();                                                              //Остановить цикл. обмен (УДАЛИТЬ функцию цикл обмена из бекграунд)
         #endregion
 
+
         #region SendData
         void SendCommand(string commandName, UniversalInputType data4Command = null);           //однократно выполняемая команда
         void SendOneTimeData(UniversalInputType inData);                                        //однократно отсылаемые данные (если указанны правила, то только для этих правил)
         void SendCycleTimeData(UniversalInputType inData);                                      //циклически отсылаемые данные
         #endregion
 
+
         #region ExchangeRx
         ISubject<IExchange> IsDataExchangeSuccessChange { get; }
         ISubject<IExchange> IsConnectChange { get; }
         ISubject<IExchange> LastSendDataChange { get; }
         #endregion
+
 
         #region TransportRx
         ISubject<IsOpenChangeRxModel> IsOpenChangeTransportRx { get; }                                  //ПРОКИНУТОЕ СОБЫТИЕ ТРАНСПОРТА. ОТКРЫТИЯ/ЗАКРЫТИЯ ПОРТА

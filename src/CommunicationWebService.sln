@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServer", "CoreWithAutoFack\WebServer.csproj", "{0939D51D-2E92-4CB5-8A21-68E324CCA18F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1FD62A56-72ED-42B7-9F7D-549F7FA2CD00} = {1FD62A56-72ED-42B7-9F7D-549F7FA2CD00}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transport", "Transport", "{4D9420A4-768D-491A-B8B6-5890A8F0E473}"
 EndProject
@@ -34,6 +37,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		ReadMe.txt = ReadMe.txt
 		Tasks.txt = Tasks.txt
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.EventBus", "Infrastructure\Infrastructure.EventBus.csproj", "{1FD62A56-72ED-42B7-9F7D-549F7FA2CD00}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{27B62A9A-A8C6-4ECD-BA67-43024501EEA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +84,10 @@ Global
 		{519D47B1-26AA-4860-B1E4-F80D3E328AB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{519D47B1-26AA-4860-B1E4-F80D3E328AB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{519D47B1-26AA-4860-B1E4-F80D3E328AB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FD62A56-72ED-42B7-9F7D-549F7FA2CD00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FD62A56-72ED-42B7-9F7D-549F7FA2CD00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FD62A56-72ED-42B7-9F7D-549F7FA2CD00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FD62A56-72ED-42B7-9F7D-549F7FA2CD00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +100,7 @@ Global
 		{1F64CCC2-D64F-48F0-8845-36AB33EB54F8} = {7C287048-0F56-49D9-9DFA-DBC09E7F1B54}
 		{D680D70D-C28D-4B9B-84BD-F202EF1E102D} = {4B0D52D6-ED79-463F-B251-689A128DBF27}
 		{519D47B1-26AA-4860-B1E4-F80D3E328AB5} = {4D9420A4-768D-491A-B8B6-5890A8F0E473}
+		{1FD62A56-72ED-42B7-9F7D-549F7FA2CD00} = {27B62A9A-A8C6-4ECD-BA67-43024501EEA9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {626950A5-7C4E-424F-AC79-2AB323CA01E7}

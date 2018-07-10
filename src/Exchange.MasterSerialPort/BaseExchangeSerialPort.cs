@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
 using Exchange.Base;
 using Exchange.Base.Model;
 using Exchange.MasterSerialPort.Option;
-using Shared.Enums;
 using Transport.Base.RxModel;
 using Transport.SerialPort.Abstract;
 using Worker.Background.Abstarct;
