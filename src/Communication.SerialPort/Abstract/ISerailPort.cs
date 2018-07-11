@@ -3,6 +3,7 @@ using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
 using Shared.Enums;
+using Shared.Types;
 using Transport.Base.DataProviderAbstract;
 using Transport.Base.RxModel;
 using Transport.SerialPort.Option;
@@ -10,7 +11,7 @@ using Transport.SerialPort.Option;
 
 namespace Transport.SerialPort.Abstract
 {
-    public interface ISerailPort : IDisposable
+    public interface ISerailPort : ISupportExchangeKey, IDisposable
     {
         SerialOption SerialOption { get; }                                                     //НАСТРОЙКИ ПОРТА
 

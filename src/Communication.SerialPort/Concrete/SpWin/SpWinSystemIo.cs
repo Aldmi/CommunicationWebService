@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Shared.Enums;
 using Shared.Helpers;
+using Shared.Types;
 using Transport.Base.DataProviderAbstract;
 using Transport.Base.RxModel;
 using Transport.SerialPort.Abstract;
@@ -32,6 +33,7 @@ namespace Transport.SerialPort.Concrete.SpWin
         #region prop
 
         public SerialOption SerialOption { get; }
+        public KeyExchange KeyExchange { get; }
 
         private bool _isOpen;
         public bool IsOpen
@@ -79,9 +81,10 @@ namespace Transport.SerialPort.Concrete.SpWin
 
         #region ctor
 
-        public SpWinSystemIo(SerialOption option)
+        public SpWinSystemIo(SerialOption option, KeyExchange keyExchange)
         {
             SerialOption = option;
+            KeyExchange = keyExchange;
             _port = new System.IO.Ports.SerialPort(option.Port)
             {
                 BaudRate = option.BaudRate,
@@ -343,5 +346,7 @@ namespace Transport.SerialPort.Concrete.SpWin
         }
 
         #endregion
+
+
     }
 }

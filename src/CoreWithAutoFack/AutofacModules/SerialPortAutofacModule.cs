@@ -34,18 +34,20 @@ namespace WebServer.AutofacModules
         {
             foreach (var spOption in _spOptions.Serials)
             {
+                var keyExchange = new KeyExchange(spOption.Port, TransportType.SerialPort);
+
                 builder.RegisterType<SpWinSystemIo>().As<ISerailPort>()
                     .WithParameters(new List<Parameter>
                     {
                         new NamedParameter("option", spOption),
+                        new NamedParameter("keyExchange", keyExchange)
                     })
                     .SingleInstance();
               
-
                 builder.RegisterType<BackgroundMasterSerialPort>().As<IBackgroundService>()
                     .WithParameters(new List<Parameter>
                     {
-                       new NamedParameter("keyBackground", new KeyExchange {Key = spOption.Port, TypeExchange = TypeExchange.SerialPort}),
+                       new NamedParameter("keyExchange", keyExchange),
                     })
                     .SingleInstance();
             }

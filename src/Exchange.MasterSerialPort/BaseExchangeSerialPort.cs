@@ -2,11 +2,13 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reactive.Subjects;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Threading.Tasks;
 using Exchange.Base;
 using Exchange.Base.Model;
 using Exchange.MasterSerialPort.Option;
+using Shared.Enums;
 using Shared.Types;
 using Transport.Base.RxModel;
 using Transport.SerialPort.Abstract;
@@ -32,9 +34,9 @@ namespace Exchange.MasterSerialPort
 
         public bool IsOpen => _serailPort.IsOpen;
         public bool IsConnect { get; }
+        public KeyExchange KeyExchange => _backgroundService.KeyExchange;
 
         public UniversalInputType LastSendData { get; }
-        public KeyExchange GetKeyExchange => _backgroundService.KeyExchange;
 
         public IEnumerable<string> GetRuleNames => new List<string>(); //TODO: сейчас в ExchangeMasterSpOption только 1 ExchangeRule, должно быть список.
      
@@ -168,5 +170,7 @@ namespace Exchange.MasterSerialPort
         public ISubject<StatusStringChangeRxModel> StatusStringChangeTransportRx => _serailPort.StatusStringChangeRx;
 
         #endregion
+
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Shared.Enums
 {
-    public enum TypeExchange
+    public enum TransportType
     {
         None,
         SerialPort,

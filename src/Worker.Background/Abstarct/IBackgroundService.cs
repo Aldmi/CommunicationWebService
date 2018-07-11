@@ -6,10 +6,8 @@ using Shared.Types;
 
 namespace Worker.Background.Abstarct
 {
-    public interface IBackgroundService : IDisposable
+    public interface IBackgroundService : ISupportExchangeKey, IDisposable
     {
-        KeyExchange KeyExchange { get; set; }
-
         bool IsStarted { get; }
 
         Task StartAsync(CancellationToken cancellationToken);

@@ -11,12 +11,11 @@ namespace Exchange.Base
     /// <summary>
     /// УНИВЕРСАЛЬНЫЙ ОБМЕН ДАННЫМИ СО ВСЕМИ УСТРОЙСТВАМИ.
     /// </summary>
-    public interface IExchange
+    public interface IExchange : ISupportExchangeKey
     {
         #region StateExchange
         bool IsOpen { get; }                                                      //Соединение открыто
         bool IsConnect { get; }                                                   //Устройсвто на связи по открытому соединению (определяется по правильным ответам от ус-ва)
-        KeyExchange GetKeyExchange { get; }                                       //ключ бекгроугда (определяет тип обмена)
         UniversalInputType LastSendData { get; }                                  //Последние отосланные данные
         IEnumerable<string> GetRuleNames { get; }                                 //Отдать название установленных правил обмена
         #endregion

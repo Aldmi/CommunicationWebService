@@ -19,7 +19,7 @@ namespace Worker.Background.Abstarct
 
         #region prop
 
-        public KeyExchange KeyExchange { get; set; }
+        public KeyExchange KeyExchange { get; }
 
         /// <summary>
         /// Бекгроунд запущен, если задача продолжает выполняться. 

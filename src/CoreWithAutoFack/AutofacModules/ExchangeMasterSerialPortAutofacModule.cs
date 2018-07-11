@@ -7,6 +7,7 @@ using Exchange.MasterSerialPort;
 using Exchange.MasterSerialPort.Option;
 using Shared;
 using Shared.Enums;
+using Shared.Types;
 using Transport.SerialPort.Abstract;
 using Worker.Background.Abstarct;
 
@@ -26,6 +27,8 @@ namespace WebServer.AutofacModules
         {
             foreach (var exchMSpOption in _exchangeMasterSpOptions.ExchangesMasterSp)
             {
+                var keyExchange = new KeyExchange(exchMSpOption.PortName, TransportType.SerialPort);//TODO: искать по ключу
+
                 builder.RegisterType<ByRulesExchangeSerialPort>().As<IExchange>()
                     .WithParameters(new List<ResolvedParameter>
                     {      new ResolvedParameter(
@@ -33,7 +36,7 @@ namespace WebServer.AutofacModules
                                        (pi, ctx) => ctx.Resolve<IEnumerable<ISerailPort>>().FirstOrDefault(port=> port.SerialOption.Port == exchMSpOption.PortName)),
                            new ResolvedParameter(
                                        (pi, ctx) => (pi.ParameterType == typeof(IBackgroundService) && (pi.Name == "backgroundService")),
-                                       (pi, ctx) => ctx.Resolve<IEnumerable<IBackgroundService>>().FirstOrDefault(backgr=> backgr.KeyExchange.TypeExchange == TypeExchange.SerialPort && backgr.KeyExchange.Key == exchMSpOption.PortName)),
+                                       (pi, ctx) => ctx.Resolve<IEnumerable<IBackgroundService>>().FirstOrDefault(backgr=> backgr.KeyExchange.TransportType == TransportType.SerialPort && backgr.KeyExchange.Key == exchMSpOption.PortName)),
                            new ResolvedParameter(
                                        (pi, ctx) => (pi.ParameterType == typeof(ExchangeMasterSpOption) && (pi.Name == "exchangeMasterSpOption")),
                                        (pi, ctx) => exchMSpOption)
