@@ -33,7 +33,7 @@ namespace Transport.SerialPort.Concrete.SpWin
         #region prop
 
         public SerialOption SerialOption { get; }
-        public KeyExchange KeyExchange { get; }
+        public KeyTransport KeyTransport { get; }
 
         private bool _isOpen;
         public bool IsOpen
@@ -81,10 +81,10 @@ namespace Transport.SerialPort.Concrete.SpWin
 
         #region ctor
 
-        public SpWinSystemIo(SerialOption option, KeyExchange keyExchange)
+        public SpWinSystemIo(SerialOption option, KeyTransport keyTransport)
         {
             SerialOption = option;
-            KeyExchange = keyExchange;
+            KeyTransport = keyTransport;
             _port = new System.IO.Ports.SerialPort(option.Port)
             {
                 BaudRate = option.BaudRate,

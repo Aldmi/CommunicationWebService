@@ -19,7 +19,7 @@ namespace Worker.Background.Abstarct
 
         #region prop
 
-        public KeyExchange KeyExchange { get; }
+        public KeyTransport KeyTransport { get; }
 
         /// <summary>
         /// Бекгроунд запущен, если задача продолжает выполняться. 
@@ -36,9 +36,9 @@ namespace Worker.Background.Abstarct
 
         #region ctor
 
-        protected HostingBackgroundBase(KeyExchange key)
+        protected HostingBackgroundBase(KeyTransport key)
         {
-            KeyExchange = key;
+            KeyTransport = key;
         }
 
         #endregion

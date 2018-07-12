@@ -6,7 +6,7 @@ using Shared.Types;
 
 namespace Worker.Background.Abstarct
 {
-    public interface IBackgroundService : ISupportExchangeKey, IDisposable
+    public interface IBackgroundService : ISupportKeyTransport, IDisposable
     {
         bool IsStarted { get; }
 

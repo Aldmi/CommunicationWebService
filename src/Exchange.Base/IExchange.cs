@@ -11,7 +11,7 @@ namespace Exchange.Base
     /// <summary>
     /// УНИВЕРСАЛЬНЫЙ ОБМЕН ДАННЫМИ СО ВСЕМИ УСТРОЙСТВАМИ.
     /// </summary>
-    public interface IExchange : ISupportExchangeKey
+    public interface IExchange : ISupportKeyTransport
     {
         #region StateExchange
         bool IsOpen { get; }                                                      //Соединение открыто

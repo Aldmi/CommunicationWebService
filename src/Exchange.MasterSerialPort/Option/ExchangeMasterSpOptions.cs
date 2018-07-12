@@ -2,7 +2,6 @@
 
 namespace Exchange.MasterSerialPort.Option
 {
-
     public class ExchangeMasterSpOptions
     {
         public List<ExchangeMasterSpOption> ExchangesMasterSp { get; set; }
@@ -10,6 +9,7 @@ namespace Exchange.MasterSerialPort.Option
 
     public class ExchangeMasterSpOption
     {
+        public int Id { get; set; }
         public string PortName { get; set; }
         public string Address { get; set; }
         public int TimeResponse { get; set; }

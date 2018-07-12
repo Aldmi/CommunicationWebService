@@ -1,25 +1,68 @@
 ﻿{
-  "Serials": [
+  "Transports": [
     {
-      "Port": "COM1",
-      "BaudRate": 9600
+      "Serial": [
+        {
+          "Port": "COM1",
+          "BaudRate": 9600,
+          "DataBits": 8,
+          "StopBits": 1,
+          "Parity": "None",
+          "DtrEnable": "False",
+          "RtsEnable": "False"
+        },
+        {
+          "Port": "COM2",
+          "BaudRate": 57600,
+          "DataBits": 8,
+          "StopBits": 1,
+          "Parity": "None",
+          "DtrEnable": "False",
+          "RtsEnable": "False"
+        }
+      ]
     },
+
     {
-      "Port": "COM2",
-      "BaudRate": 9600
+      "TcpIp": [
+        {
+        },
+        {
+        }
+      ]
+    },
+
+    {
+      "Http": [
+        {
+          "Name": "Http4Table1",
+          "Address": "http://cms.indigointeractive.ru/rasp/upload.php?terminalid=61",
+          "Header": [
+            {
+              "Method": "POST",
+              "User-Agent": "Mozilla/3.0 (compatible; Indy Library)",
+              "Accept": "text/html, */*",
+              "Connection": "Keep-Alive",
+              "Content-Type": "multipart/form-data",
+              "Content-Disposition": "\"form-data; name=\"username\"; filename=\"xDoc.xml\"\""
+            }
+          ]
+        },
+        {
+        }
+      ]
     }
   ],
 
 
-  "DevicesSp": [
+
+  "Exchanges": [
     {
-      "Id": 2,
-      "Name": "MyVidorDisplay",
-      "Port": 1,
-      "Address": "2",
-      "TimeRespone": 2000,
-      "Description": "Вывод ПРИГОРОДНОГО расписания.",
-      "Binding": "ToPath:10",
+      "Id": "1",
+      "KeyTransport": {
+        "Type": "Serial",
+        "Key": "COM1"
+      },
       "ExchangeRules": {
         "Table": {
           "Size": 2,
@@ -35,19 +78,44 @@
               "TimeRespone": 500,
               "Body": "STX{AddressDevice:X2}{Nbyte:X2}"
             }
-          } 
+          }
         }
-      } 
+      }
     },
+
     {
-      "Id": 2,
-      "Name": "MyVidorDisplay",
-      "Port": 1,
-      "Address": "1",
-      "TimeRespone": 2000,
+      "Id": "2",
+      "KeyTransport": {
+        "Type": "Serial",
+        "Key": "COM1"
+      },
+      "Provider": {
+        "Name": "VidorBase",
+        "Address": "1",
+        "TimeRespone": 500
+      }
+    },
+
+    {
+      "Id": "3",
+      "KeyTransport": {
+        "Type": "Http",
+        "Key": "Http4Table1"
+      }
+    }
+  ],
+
+
+
+  "Devices": [
+    {
+      "Id": "1",
+      "Name": "VidorDisplay",
       "Description": "Вывод ПРИГОРОДНОГО расписания.",
-      "Binding": "ToPath:1,2,3"
+      "ExchangesId": [
+        "1",
+        "2"
+      ]
     }
   ]
-
 }

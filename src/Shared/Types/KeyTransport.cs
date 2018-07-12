@@ -3,7 +3,7 @@ using Shared.Enums;
 
 namespace Shared.Types
 {
-    public class KeyExchange : IEquatable<KeyExchange>
+    public class KeyTransport : IEquatable<KeyTransport>
     {
         #region prop
 
@@ -14,10 +14,9 @@ namespace Shared.Types
 
 
 
-
         #region prop
 
-        public KeyExchange(string key, TransportType transportType )
+        public KeyTransport(string key, TransportType transportType )
         {
             Key = key;
             TransportType = transportType;
@@ -29,14 +28,11 @@ namespace Shared.Types
 
         #region IEquatable Members
 
-        public bool Equals(KeyExchange other)
+        public bool Equals(KeyTransport other)
         {
             return other != null && ((Key == other.Key) && (other.TransportType == TransportType));
         }
 
         #endregion
-
-
-
     }
 }

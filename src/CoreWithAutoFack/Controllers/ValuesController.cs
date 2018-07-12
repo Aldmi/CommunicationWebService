@@ -61,7 +61,7 @@ namespace WebServer.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-           var background= _backgroundServices.FirstOrDefault(back => back.KeyExchange.Key == "COM1");
+           var background= _backgroundServices.FirstOrDefault(back => back.KeyTransport.Key == "COM1");
            if (background == null)
               return "NULL";
 

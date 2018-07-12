@@ -21,16 +21,14 @@ namespace Worker.Background.Concrete.BackgroundSerialPort
 
 
 
-
         #region ctor
 
-        public BackgroundMasterSerialPort(IServiceScopeFactory serviceScopeFactory, KeyExchange keyExchange) 
-            : base(serviceScopeFactory, keyExchange)
+        public BackgroundMasterSerialPort(IServiceScopeFactory serviceScopeFactory, KeyTransport keyTransport) 
+            : base(serviceScopeFactory, keyTransport)
         {
         }
 
         #endregion
-
 
 
 
@@ -92,7 +90,7 @@ namespace Worker.Background.Concrete.BackgroundSerialPort
             }
 
             await Task.Delay(2000, stoppingToken);//DEBUG
-            Console.WriteLine($"BackGroundMasterSp  {KeyExchange.Key}");//DEBUG
+            Console.WriteLine($"BackGroundMasterSp  {KeyTransport.Key}");//DEBUG
         }
 
         #endregion

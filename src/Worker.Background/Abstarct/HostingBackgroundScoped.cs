@@ -11,7 +11,7 @@ namespace Worker.Background.Abstarct
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
 
-        protected HostingBackgroundScoped(IServiceScopeFactory serviceScopeFactory, KeyExchange keyExchange) : base(keyExchange)
+        protected HostingBackgroundScoped(IServiceScopeFactory serviceScopeFactory, KeyTransport keyTransport) : base(keyTransport)
         {
             _serviceScopeFactory = serviceScopeFactory;
         }

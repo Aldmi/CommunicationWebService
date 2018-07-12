@@ -10,6 +10,7 @@ namespace Exchange.MasterSerialPort.Option
                 {
                     new ExchangeMasterSpOption
                     {
+                        Id = 1,
                         PortName = "COM1",
                         Address = "1",
                         TimeResponse = 1000,
@@ -38,6 +39,7 @@ namespace Exchange.MasterSerialPort.Option
                     },
                     //new ExchangeMasterSpOption
                     //{
+                    //      Id = 2,
                     //    PortName = "COM1",
                     //    Address = "2",
                     //    TimeResponse = 1000,

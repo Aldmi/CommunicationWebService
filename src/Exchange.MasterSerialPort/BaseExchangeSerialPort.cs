@@ -34,7 +34,7 @@ namespace Exchange.MasterSerialPort
 
         public bool IsOpen => _serailPort.IsOpen;
         public bool IsConnect { get; }
-        public KeyExchange KeyExchange => _backgroundService.KeyExchange;
+        public KeyTransport KeyTransport => _backgroundService.KeyTransport;
 
         public UniversalInputType LastSendData { get; }
 

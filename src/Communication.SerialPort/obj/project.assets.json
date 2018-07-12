@@ -45,7 +45,7 @@
           }
         }
       },
-      "NETStandard.Library/2.0.1": {
+      "NETStandard.Library/2.0.3": {
         "type": "package",
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
@@ -278,14 +278,13 @@
         "version.txt"
       ]
     },
-    "NETStandard.Library/2.0.1": {
-      "sha512": "oA6nwv9MhEKYvLpjZ0ggSpb1g4CQViDVQjLUcDWg598jtvJbpfeP2reqwI1GLW2TbxC/Ml7xL6BBR1HmKPXlTg==",
+    "NETStandard.Library/2.0.3": {
+      "sha512": "st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "type": "package",
-      "path": "netstandard.library/2.0.1",
+      "path": "netstandard.library/2.0.3",
       "files": [
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "build/NETStandard.Library.targets",
         "build/netstandard2.0/NETStandard.Library.targets",
         "build/netstandard2.0/ref/Microsoft.Win32.Primitives.dll",
         "build/netstandard2.0/ref/System.AppContext.dll",
@@ -402,7 +401,7 @@
         "build/netstandard2.0/ref/netstandard.dll",
         "build/netstandard2.0/ref/netstandard.xml",
         "lib/netstandard1.0/_._",
-        "netstandard.library.2.0.1.nupkg.sha512",
+        "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
     },
@@ -823,7 +822,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "NETStandard.Library >= 2.0.1",
+      "NETStandard.Library >= 2.0.3",
       "Shared >= 1.0.0",
       "System.IO.Ports >= 4.5.0",
       "System.Reactive >= 4.0.0",
@@ -831,23 +830,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\admin\\.nuget\\packages\\": {},
+    "C:\\Users\\Aldmi\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj",
+      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj",
       "projectName": "Transport.SerialPort",
-      "projectPath": "C:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj",
-      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\obj\\",
+      "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj",
+      "packagesPath": "C:\\Users\\Aldmi\\.nuget\\packages\\",
+      "outputPath": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Aldmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -855,16 +854,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://packages.nuget.org/": {}
       },
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Transport.Base\\Transport.Base.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Transport.Base\\Transport.Base.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Transport.Base\\Transport.Base.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Transport.Base\\Transport.Base.csproj"
             }
           }
         }
@@ -881,7 +881,7 @@
           "NETStandard.Library": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[2.0.1, )",
+            "version": "[2.0.3, )",
             "autoReferenced": true
           },
           "System.IO.Ports": {

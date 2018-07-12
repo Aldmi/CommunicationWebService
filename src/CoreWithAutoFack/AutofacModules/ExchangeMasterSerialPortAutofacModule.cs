@@ -27,16 +27,15 @@ namespace WebServer.AutofacModules
         {
             foreach (var exchMSpOption in _exchangeMasterSpOptions.ExchangesMasterSp)
             {
-                var keyExchange = new KeyExchange(exchMSpOption.PortName, TransportType.SerialPort);//TODO: искать по ключу
-
+                var keyTransport = new KeyTransport(exchMSpOption.PortName, TransportType.SerialPort);
                 builder.RegisterType<ByRulesExchangeSerialPort>().As<IExchange>()
                     .WithParameters(new List<ResolvedParameter>
                     {      new ResolvedParameter(
                                        (pi, ctx) => (pi.ParameterType == typeof(ISerailPort) && (pi.Name == "serailPort")),
-                                       (pi, ctx) => ctx.Resolve<IEnumerable<ISerailPort>>().FirstOrDefault(port=> port.SerialOption.Port == exchMSpOption.PortName)),
+                                       (pi, ctx) => ctx.Resolve<IEnumerable<ISerailPort>>().FirstOrDefault(port=> port.KeyTransport.Equals(keyTransport))),
                            new ResolvedParameter(
                                        (pi, ctx) => (pi.ParameterType == typeof(IBackgroundService) && (pi.Name == "backgroundService")),
-                                       (pi, ctx) => ctx.Resolve<IEnumerable<IBackgroundService>>().FirstOrDefault(backgr=> backgr.KeyExchange.TransportType == TransportType.SerialPort && backgr.KeyExchange.Key == exchMSpOption.PortName)),
+                                       (pi, ctx) => ctx.Resolve<IEnumerable<IBackgroundService>>().FirstOrDefault(backgr=> backgr.KeyTransport.Equals(keyTransport))),
                            new ResolvedParameter(
                                        (pi, ctx) => (pi.ParameterType == typeof(ExchangeMasterSpOption) && (pi.Name == "exchangeMasterSpOption")),
                                        (pi, ctx) => exchMSpOption)

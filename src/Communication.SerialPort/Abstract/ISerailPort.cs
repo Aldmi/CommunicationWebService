@@ -11,7 +11,7 @@ using Transport.SerialPort.Option;
 
 namespace Transport.SerialPort.Abstract
 {
-    public interface ISerailPort : ISupportExchangeKey, IDisposable
+    public interface ISerailPort : ISupportKeyTransport, IDisposable
     {
         SerialOption SerialOption { get; }                                                     //НАСТРОЙКИ ПОРТА
 
