@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Types;
+using Worker.Background.Abstarct.HostingBackground;
 
 namespace Worker.Background.Abstarct
 {

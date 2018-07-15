@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
 using Shared.Types;
 
-
-namespace Worker.Background.Abstarct
+namespace Worker.Background.Abstarct.HostingBackground
 {
     /// <summary>
     /// аналог IHostedService.
@@ -16,7 +14,6 @@ namespace Worker.Background.Abstarct
         private CancellationTokenSource _stoppingCts = new CancellationTokenSource();
 
 
-
         #region prop
 
         public KeyTransport KeyTransport { get; }
@@ -25,13 +22,11 @@ namespace Worker.Background.Abstarct
         /// Бекгроунд запущен, если задача продолжает выполняться. 
         /// </summary>
         public bool IsStarted => !(_executingTask == null ||
-                                  _executingTask.IsCanceled ||
-                                  _executingTask.IsCompleted ||
-                                  _executingTask.IsFaulted);
+                                   _executingTask.IsCanceled ||
+                                   _executingTask.IsCompleted ||
+                                   _executingTask.IsFaulted);
 
         #endregion
-
-
 
 
         #region ctor
@@ -42,8 +37,6 @@ namespace Worker.Background.Abstarct
         }
 
         #endregion
-
-
 
 
         #region Methode
@@ -58,7 +51,6 @@ namespace Worker.Background.Abstarct
             }
             return Task.CompletedTask;
         }
-
 
 
         public virtual async Task StopAsync(CancellationToken cancellationToken)
@@ -82,7 +74,6 @@ namespace Worker.Background.Abstarct
         }
 
 
-
         protected virtual async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
@@ -98,8 +89,6 @@ namespace Worker.Background.Abstarct
         public abstract void AddOneTimeAction(Func<CancellationToken, Task> action);
 
         #endregion
-
-
 
 
         #region Disposable

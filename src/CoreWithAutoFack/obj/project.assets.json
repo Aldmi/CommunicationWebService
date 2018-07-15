@@ -4833,6 +4833,27 @@
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
       },
+      "BL.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Device.ForExchange": "1.0.0",
+          "Exchange.Base": "1.0.0",
+          "Exchange.MasterSerialPort": "1.0.0",
+          "Infrastructure.EventBus": "1.0.0",
+          "Shared": "1.0.0",
+          "Transport.Base": "1.0.0",
+          "Transport.SerialPort": "1.0.0",
+          "Transport.TcpIp": "1.0.0",
+          "Worker.Background": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BL.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BL.Services.dll": {}
+        }
+      },
       "Device.ForExchange/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -13064,6 +13085,11 @@
         "windowsazure.storage.nuspec"
       ]
     },
+    "BL.Services/1.0.0": {
+      "type": "project",
+      "path": "../BL.Services/BL.Services.csproj",
+      "msbuildProject": "../BL.Services/BL.Services.csproj"
+    },
     "Device.ForExchange/1.0.0": {
       "type": "project",
       "path": "../Device.ForExchange/Device.ForExchange.csproj",
@@ -13114,6 +13140,7 @@
     ".NETCoreApp,Version=v2.0": [
       "Autofac >= 4.8.1",
       "Autofac.Extensions.DependencyInjection >= 4.2.2",
+      "BL.Services >= 1.0.0",
       "Device.ForExchange >= 1.0.0",
       "Exchange.Base >= 1.0.0",
       "Exchange.MasterSerialPort >= 1.0.0",
@@ -13158,6 +13185,9 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
+            "D:\\Git\\CommunicationWebService\\src\\BL.Services\\BL.Services.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\BL.Services\\BL.Services.csproj"
+            },
             "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj": {
               "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj"
             },

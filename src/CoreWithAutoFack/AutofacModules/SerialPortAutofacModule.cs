@@ -8,7 +8,7 @@ using Transport.SerialPort.Abstract;
 using Transport.SerialPort.Concrete.SpWin;
 using Transport.SerialPort.Option;
 using Worker.Background.Abstarct;
-using Worker.Background.Concrete.BackgroundSerialPort;
+using Worker.Background.Concrete;
 
 namespace WebServer.AutofacModules
 {
@@ -44,7 +44,7 @@ namespace WebServer.AutofacModules
                     })
                     .SingleInstance();
               
-                builder.RegisterType<BackgroundMasterSerialPort>().As<IBackgroundService>()
+                builder.RegisterType<BackgroundService>().As<IBackgroundService>()
                     .WithParameters(new List<Parameter>
                     {
                        new NamedParameter("keyTransport", keyTransport),

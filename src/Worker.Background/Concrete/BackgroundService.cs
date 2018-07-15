@@ -7,14 +7,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Shared.Types;
 using Worker.Background.Abstarct;
 
-namespace Worker.Background.Concrete.BackgroundSerialPort
+
+namespace Worker.Background.Concrete
 {
-    public class BackgroundMasterSerialPort : HostingBackgroundScoped
+    public class BackgroundService : HostingBackgroundScoped
     {
         #region Field
 
-        private readonly ConcurrentDictionary<int, Func<CancellationToken, Task>> _cycleTimeFuncDict = new ConcurrentDictionary<int, Func<CancellationToken, Task>>();
-        private readonly ConcurrentQueue<Func<CancellationToken, Task>> _oneTimeFuncQueue = new ConcurrentQueue<Func<CancellationToken, Task>>();
+        private readonly ConcurrentDictionary<int, Func<CancellationToken, Task>> _cycleTimeFuncDict =
+            new ConcurrentDictionary<int, Func<CancellationToken, Task>>();
+
+        private readonly ConcurrentQueue<Func<CancellationToken, Task>> _oneTimeFuncQueue =
+            new ConcurrentQueue<Func<CancellationToken, Task>>();
 
         #endregion
 
@@ -23,7 +27,7 @@ namespace Worker.Background.Concrete.BackgroundSerialPort
 
         #region ctor
 
-        public BackgroundMasterSerialPort(IServiceScopeFactory serviceScopeFactory, KeyTransport keyTransport) 
+        public BackgroundService(IServiceScopeFactory serviceScopeFactory, KeyTransport keyTransport)
             : base(serviceScopeFactory, keyTransport)
         {
         }
@@ -64,11 +68,12 @@ namespace Worker.Background.Concrete.BackgroundSerialPort
         public override void AddOneTimeAction(Func<CancellationToken, Task> action)
         {
             if (action != null)
-               _oneTimeFuncQueue.Enqueue(action);
+                _oneTimeFuncQueue.Enqueue(action);
         }
 
 
-        protected override async Task ExecuteInScopeAsync(IServiceProvider serviceProvider, CancellationToken stoppingToken)
+        protected override async Task ExecuteInScopeAsync(IServiceProvider serviceProvider,
+            CancellationToken stoppingToken)
         {
             var indexCycleFunc = 0;
             //вызов циклических функций--------------------------------------------------------------------
@@ -89,12 +94,10 @@ namespace Worker.Background.Concrete.BackgroundSerialPort
                 }
             }
 
-            await Task.Delay(2000, stoppingToken);//DEBUG
-            Console.WriteLine($"BackGroundMasterSp  {KeyTransport.Key}");//DEBUG
+            await Task.Delay(2000, stoppingToken); //DEBUG
+            Console.WriteLine($"BackGroundMasterSp  {KeyTransport.Key}"); //DEBUG
         }
 
         #endregion
     }
-
-
 }
