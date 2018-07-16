@@ -6,21 +6,21 @@ namespace DAL.Abstract.Concrete
     /// <summary>
     /// Доступ к транспорту послед. порты
     /// </summary>
-    public interface ISerialPortRepository : IGenericDataRepository<Serial>
+    public interface ISerialPortOptionRepository : IGenericDataRepository<SerialOption>
     {  
     }
 
     /// <summary>
     /// Доступ к транспорту TcpIp
     /// </summary>
-    public interface ITcpIpRepository : IGenericDataRepository<TcpIp>
+    public interface ITcpIpOptionRepository : IGenericDataRepository<TcpIpOption>
     {
     }
 
     /// <summary>
     /// Доступ к транспорту Http
     /// </summary>
-    public interface IHttpRepository : IGenericDataRepository<Http>
+    public interface IHttpOptionRepository : IGenericDataRepository<HttpOption>
     {
     }
 
@@ -28,7 +28,7 @@ namespace DAL.Abstract.Concrete
     /// <summary>
     /// Доступ Exchange
     /// </summary>
-    public interface IExchangeRepository : IGenericDataRepository<Entities.Exchange.Exchange>
+    public interface IExchangeOptionRepository : IGenericDataRepository<Entities.Exchange.ExchangeOption>
     {
     }
 

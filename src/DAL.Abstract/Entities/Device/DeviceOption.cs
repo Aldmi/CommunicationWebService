@@ -2,7 +2,7 @@
 
 namespace DAL.Abstract.Entities.Device
 {
-    public class Device : EntityBase
+    public class DeviceOption : EntityBase
     {
         public string Name { get; set; }
         public string Description { get; set; }

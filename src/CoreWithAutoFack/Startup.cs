@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using Autofac;
+using DAL.Abstract.Concrete;
+using DAL.Abstract.Extensions;
+using DAL.InMemory.Repository;
 using Exchange.Base;
 using Exchange.MasterSerialPort.Option;
 using Microsoft.AspNetCore.Builder;
@@ -43,6 +46,10 @@ namespace WebServer
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            var connectionString = "Test connection String";
+            builder.RegisterModule(new RepositoryAutofacModule(connectionString));
+
+
             var serialPortsOption = MoqSerialPortsOption.GetSerialPortsOption();
             builder.RegisterModule(new SerialPortAutofacModule(serialPortsOption));
 
@@ -86,6 +93,8 @@ namespace WebServer
 
         private void ApplicationStarted(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
         {
+            Initialize(scope);
+
             var backgroundServices = scope.Resolve<IEnumerable<IBackgroundService>>();
             foreach (var back in backgroundServices)
             {
@@ -117,6 +126,20 @@ namespace WebServer
         private void ApplicationStopped(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
         {
             lifetimeApp.ApplicationStopped.Register(() => {});
+        }
+
+
+        /// <summary>
+        /// Инициализация системы.
+        /// </summary>
+        private void Initialize(ILifetimeScope scope)
+        {
+            var env = scope.Resolve<IHostingEnvironment>();
+            if (env.IsDevelopment())
+            {
+                var serialPortOptionRepository = scope.Resolve<ISerialPortOptionRepository>();
+                serialPortOptionRepository.Initialize();
+            }
         }
     }
 }

@@ -4854,6 +4854,30 @@
           "bin/placeholder/BL.Services.dll": {}
         }
       },
+      "DAL.Abstract/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/DAL.Abstract.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DAL.Abstract.dll": {}
+        }
+      },
+      "DAL.InMemory/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "DAL.Abstract": "1.0.0",
+          "Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DAL.InMemory.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DAL.InMemory.dll": {}
+        }
+      },
       "Device.ForExchange/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -13090,6 +13114,16 @@
       "path": "../BL.Services/BL.Services.csproj",
       "msbuildProject": "../BL.Services/BL.Services.csproj"
     },
+    "DAL.Abstract/1.0.0": {
+      "type": "project",
+      "path": "../DAL.Abstract/DAL.Abstract.csproj",
+      "msbuildProject": "../DAL.Abstract/DAL.Abstract.csproj"
+    },
+    "DAL.InMemory/1.0.0": {
+      "type": "project",
+      "path": "../DAL.InMemory/DAL.InMemory.csproj",
+      "msbuildProject": "../DAL.InMemory/DAL.InMemory.csproj"
+    },
     "Device.ForExchange/1.0.0": {
       "type": "project",
       "path": "../Device.ForExchange/Device.ForExchange.csproj",
@@ -13141,6 +13175,8 @@
       "Autofac >= 4.8.1",
       "Autofac.Extensions.DependencyInjection >= 4.2.2",
       "BL.Services >= 1.0.0",
+      "DAL.Abstract >= 1.0.0",
+      "DAL.InMemory >= 1.0.0",
       "Device.ForExchange >= 1.0.0",
       "Exchange.Base >= 1.0.0",
       "Exchange.MasterSerialPort >= 1.0.0",
@@ -13193,6 +13229,12 @@
             },
             "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj": {
               "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj"
+            },
+            "D:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj"
+            },
+            "D:\\Git\\CommunicationWebService\\src\\DAL.InMemory\\DAL.InMemory.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\DAL.InMemory\\DAL.InMemory.csproj"
             },
             "D:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\Device.ForExchange.csproj": {
               "projectPath": "D:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\Device.ForExchange.csproj"
