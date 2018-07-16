@@ -1,6 +1,4 @@
-﻿using DAL.Abstract.Entities;
-
-namespace DAL.Abstract.Concrete.Transport
+﻿namespace DAL.Abstract.Entities.Transport
 {
     public class Serial : EntityBase
     {

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using DAL.Abstract.Entities;
 
-namespace DAL.Abstract.Concrete.Transport
+namespace DAL.Abstract.Entities.Transport
 {
     public class Http : EntityBase
     {

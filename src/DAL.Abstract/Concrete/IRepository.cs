@@ -1,6 +1,5 @@
 ﻿using DAL.Abstract.Abstract;
-using DAL.Abstract.Concrete.Transport;
-
+using DAL.Abstract.Entities.Transport;
 
 namespace DAL.Abstract.Concrete
 {
@@ -22,6 +21,14 @@ namespace DAL.Abstract.Concrete
     /// Доступ к транспорту Http
     /// </summary>
     public interface IHttpRepository : IGenericDataRepository<Http>
+    {
+    }
+
+
+    /// <summary>
+    /// Доступ Exchange
+    /// </summary>
+    public interface IExchangeRepository : IGenericDataRepository<Entities.Exchange.Exchange>
     {
     }
 
