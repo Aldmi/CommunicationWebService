@@ -1,4 +1,5 @@
 ﻿using DAL.Abstract.Abstract;
+using DAL.Abstract.Entities.Exchange;
 using DAL.Abstract.Entities.Transport;
 
 namespace DAL.Abstract.Concrete
@@ -28,7 +29,7 @@ namespace DAL.Abstract.Concrete
     /// <summary>
     /// Доступ Exchange
     /// </summary>
-    public interface IExchangeOptionRepository : IGenericDataRepository<Entities.Exchange.ExchangeOption>
+    public interface IExchangeOptionRepository : IGenericDataRepository<ExchangeOption>
     {
     }
 

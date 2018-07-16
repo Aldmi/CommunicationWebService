@@ -137,8 +137,11 @@ namespace WebServer
             var env = scope.Resolve<IHostingEnvironment>();
             if (env.IsDevelopment())
             {
+                //ИНИЦИАЛИЦИЯ РЕПОЗИТОРИЕВ
                 var serialPortOptionRepository = scope.Resolve<ISerialPortOptionRepository>();
                 serialPortOptionRepository.Initialize();
+                var exchangeOptionRepository = scope.Resolve<IExchangeOptionRepository>();
+                exchangeOptionRepository.Initialize();
             }
         }
     }
