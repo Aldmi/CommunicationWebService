@@ -3,9 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Types;
-using Worker.Background.Abstarct.HostingBackground;
 
-namespace Worker.Background.Abstarct
+namespace Worker.Background.Abstarct.HostingBackground
 {
     public abstract class HostingBackgroundScoped : HostingBackgroundBase
     {
@@ -25,10 +24,19 @@ namespace Worker.Background.Abstarct
         /// </summary>
         protected override async Task ProcessAsync(CancellationToken stoppingToken)
         {
-            using (var scope = _serviceScopeFactory.CreateScope())
+            try
             {
-                await ExecuteInScopeAsync(scope.ServiceProvider, stoppingToken);
+                using (var scope = _serviceScopeFactory.CreateScope())  //TODO: _serviceScopeFactory IsDisposed
+                {
+                    await ExecuteInScopeAsync(scope.ServiceProvider, stoppingToken);
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+      
         }
 
 

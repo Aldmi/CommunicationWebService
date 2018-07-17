@@ -5,12 +5,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Types;
-using Worker.Background.Abstarct;
+using Worker.Background.Abstarct.HostingBackground;
 
 
 namespace Worker.Background.Concrete
 {
-    public class BackgroundService : HostingBackgroundScoped
+    public class BackgroundScoped : HostingBackgroundScoped
     {
         #region Field
 
@@ -27,7 +27,7 @@ namespace Worker.Background.Concrete
 
         #region ctor
 
-        public BackgroundService(IServiceScopeFactory serviceScopeFactory, KeyTransport keyTransport)
+        public BackgroundScoped(IServiceScopeFactory serviceScopeFactory, KeyTransport keyTransport)
             : base(serviceScopeFactory, keyTransport)
         {
         }
@@ -72,8 +72,7 @@ namespace Worker.Background.Concrete
         }
 
 
-        protected override async Task ExecuteInScopeAsync(IServiceProvider serviceProvider,
-            CancellationToken stoppingToken)
+        protected override async Task ExecuteInScopeAsync(IServiceProvider serviceProvider, CancellationToken stoppingToken)
         {
             var indexCycleFunc = 0;
             //вызов циклических функций--------------------------------------------------------------------

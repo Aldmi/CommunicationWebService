@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Exchange.Base.Model;
 using Shared.Types;
 using Transport.Base.RxModel;
-using Worker.Background.Abstarct;
 
 namespace Exchange.Base
 {

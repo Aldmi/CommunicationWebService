@@ -1,20 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Autofac;
+using BL.Services;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
-using DAL.InMemory.Repository;
 using Exchange.Base;
-using Exchange.MasterSerialPort.Option;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Transport.SerialPort.Option;
+using Shared.Enums;
+using Shared.Types;
+using Transport.SerialPort.Concrete.SpWin;
 using WebServer.AutofacModules;
-using WebServer.SettingsCommunication.Model;
 using Worker.Background.Abstarct;
+using Worker.Background.Concrete;
 
 namespace WebServer
 {
@@ -39,8 +40,8 @@ namespace WebServer
             services.AddMvc().AddControllersAsServices();
             services.AddOptions();
 
-            services.Configure<SerialPortsOption>(AppConfiguration);
-            services.Configure<DevicesWithSpOptions>(AppConfiguration);
+            //services.Configure<SerialPortsOption>(AppConfiguration);
+            //services.Configure<DevicesWithSpOptions>(AppConfiguration);
         }
 
 
@@ -50,14 +51,8 @@ namespace WebServer
             builder.RegisterModule(new RepositoryAutofacModule(connectionString));
 
 
-            var serialPortsOption = MoqSerialPortsOption.GetSerialPortsOption();
-            builder.RegisterModule(new SerialPortAutofacModule(serialPortsOption));
-
-            var exchSerialPortsOption = MoqExchangeMasterSerialPortOptions.GetExchangeMasterSerialPortOptions();
-            builder.RegisterModule(new ExchangeMasterSerialPortAutofacModule(exchSerialPortsOption));
-
+            builder.RegisterModule(new BlServiceAutofacModule());
             builder.RegisterModule(new EventBusAutofacModule());
-
             builder.RegisterModule(new ControllerAutofacModule());
         }
 
@@ -66,9 +61,7 @@ namespace WebServer
         public void Configure(IApplicationBuilder app,
             IHostingEnvironment env,
             ILifetimeScope scope,
-            IConfiguration config,
-            IOptions<SerialPortsOption> optionsSettingModel,
-            IOptions<DevicesWithSpOptions> optionsDevicesWithSp)
+            IConfiguration config)
         {
             //var spPorts = optionsSettingModel.Value;
             //var httpDev = optionsDevicesWithSp.Value;
@@ -95,8 +88,8 @@ namespace WebServer
         {
             Initialize(scope);
 
-            var backgroundServices = scope.Resolve<IEnumerable<IBackgroundService>>();
-            foreach (var back in backgroundServices)
+            var backgroundServices = scope.Resolve<BackgroundCollectionService>();
+            foreach (var back in backgroundServices.Backgrounds)
             {
                 lifetimeApp.ApplicationStarted.Register(() => back.StartAsync(CancellationToken.None));
             }
@@ -110,8 +103,8 @@ namespace WebServer
 
         private void ApplicationStopping(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
         {
-            var backgroundServices = scope.Resolve<IEnumerable<IBackgroundService>>();
-            foreach (var back in backgroundServices)
+            var backgroundServices = scope.Resolve<BackgroundCollectionService>();
+            foreach (var back in backgroundServices.Backgrounds)
             {
                 lifetimeApp.ApplicationStopping.Register(() => back.StopAsync(CancellationToken.None));
             }
@@ -135,14 +128,34 @@ namespace WebServer
         private void Initialize(ILifetimeScope scope)
         {
             var env = scope.Resolve<IHostingEnvironment>();
+            var serialPortOptionRepository = scope.Resolve<ISerialPortOptionRepository>();
+            var exchangeOptionRepository = scope.Resolve<IExchangeOptionRepository>();
+            var serialPortCollectionService = scope.Resolve<SerialPortCollectionService>();
+            var backgroundCollectionService = scope.Resolve<BackgroundCollectionService>();
+
             if (env.IsDevelopment())
             {
                 //ИНИЦИАЛИЦИЯ РЕПОЗИТОРИЕВ
-                var serialPortOptionRepository = scope.Resolve<ISerialPortOptionRepository>();
                 serialPortOptionRepository.Initialize();
-                var exchangeOptionRepository = scope.Resolve<IExchangeOptionRepository>();
                 exchangeOptionRepository.Initialize();
             }
+
+            try
+            {
+                foreach (var spOption in serialPortOptionRepository.List())
+                {
+                    var keyTransport = new KeyTransport(spOption.Port, TransportType.SerialPort);
+                    var sp = new SpWinSystemIo(spOption, keyTransport);
+                    serialPortCollectionService.AddNew(keyTransport, sp);
+                    var bg = new BackgroundScoped(scope.Resolve<IServiceScopeFactory>(), keyTransport);
+                    backgroundCollectionService.AddNew(keyTransport, bg);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }   
         }
     }
 }

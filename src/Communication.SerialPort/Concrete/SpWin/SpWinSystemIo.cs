@@ -4,13 +4,13 @@ using System.Linq;
 using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
+using DAL.Abstract.Entities.Transport;
 using Shared.Enums;
 using Shared.Helpers;
 using Shared.Types;
 using Transport.Base.DataProviderAbstract;
 using Transport.Base.RxModel;
 using Transport.SerialPort.Abstract;
-using Transport.SerialPort.Option;
 using Parity = System.IO.Ports.Parity;
 using StopBits = System.IO.Ports.StopBits;
 

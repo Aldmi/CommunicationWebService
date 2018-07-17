@@ -8,7 +8,7 @@ namespace Worker.Background.Abstarct.HostingBackground
     /// <summary>
     /// аналог IHostedService.
     /// </summary>
-    public abstract class HostingBackgroundBase : IBackgroundService
+    public abstract class HostingBackgroundBase : IBackground
     {
         private Task _executingTask;
         private CancellationTokenSource _stoppingCts = new CancellationTokenSource();

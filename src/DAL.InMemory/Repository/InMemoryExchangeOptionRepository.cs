@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Exchange;
-using DAL.Abstract.Entities.Transport;
 
 namespace DAL.InMemory.Repository
 {

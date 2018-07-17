@@ -3,7 +3,6 @@ using Autofac;
 using Autofac.Core;
 using DAL.Abstract.Concrete;
 using DAL.InMemory.Repository;
-using Microsoft.ApplicationInsights.Channel;
 
 namespace WebServer.AutofacModules
 {
@@ -27,6 +26,13 @@ namespace WebServer.AutofacModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<InMemorySerialPortOptionRepository>().As<ISerialPortOptionRepository>()
+                .WithParameters(new List<Parameter>
+                {
+                    new NamedParameter("connectionString", _connectionString),
+                })
+                .SingleInstance();
+
+            builder.RegisterType<InMemoryExchangeOptionRepository>().As<IExchangeOptionRepository>()
                 .WithParameters(new List<Parameter>
                 {
                     new NamedParameter("connectionString", _connectionString),

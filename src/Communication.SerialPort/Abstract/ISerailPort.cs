@@ -2,11 +2,12 @@
 using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
+using DAL.Abstract.Entities.Transport;
 using Shared.Enums;
 using Shared.Types;
 using Transport.Base.DataProviderAbstract;
 using Transport.Base.RxModel;
-using Transport.SerialPort.Option;
+
 
 
 namespace Transport.SerialPort.Abstract

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Shared.Enums;
 using Shared.Types;
 
 namespace Worker.Background.Abstarct
 {
-    public interface IBackgroundService : ISupportKeyTransport, IDisposable
+    public interface IBackground : ISupportKeyTransport, IDisposable
     {
         bool IsStarted { get; }
 

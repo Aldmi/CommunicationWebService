@@ -13,7 +13,7 @@ namespace WebServer.Controllers
     public class ValuesController : Controller
     {
         private readonly IEnumerable<IExchange> _excBehaviors;
-        private readonly IEnumerable<IBackgroundService> _backgroundServices;
+        private readonly IEnumerable<IBackground> _backgroundServices;
         private readonly ILifetimeScope _scope;
         private readonly ISerailPort _spService;
 
@@ -29,11 +29,11 @@ namespace WebServer.Controllers
 
         //}
 
-        public ValuesController(IEnumerable<IExchange> excBehaviors, IEnumerable<IBackgroundService> backgroundServices)
-        {
-            _excBehaviors = excBehaviors;
-            _backgroundServices = backgroundServices;
-        }
+        //public ValuesController(IEnumerable<IExchange> excBehaviors, IEnumerable<IBackground> backgroundServices)
+        //{
+        //    _excBehaviors = excBehaviors;
+        //    _backgroundServices = backgroundServices;
+        //}
 
 
 

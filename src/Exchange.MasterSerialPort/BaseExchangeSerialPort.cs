@@ -2,13 +2,11 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reactive.Subjects;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Threading.Tasks;
+using DAL.Abstract.Entities.Exchange;
 using Exchange.Base;
 using Exchange.Base.Model;
-using Exchange.MasterSerialPort.Option;
-using Shared.Enums;
 using Shared.Types;
 using Transport.Base.RxModel;
 using Transport.SerialPort.Abstract;
@@ -22,8 +20,8 @@ namespace Exchange.MasterSerialPort
         #region field
 
         private readonly ISerailPort _serailPort;
-        private readonly IBackgroundService _backgroundService;
-        protected readonly ExchangeMasterSpOption ExchangeMasterSpOption;
+        private readonly IBackground _background;
+        protected readonly ExchangeOption ExchangeOption;
 
         #endregion
 
@@ -34,7 +32,7 @@ namespace Exchange.MasterSerialPort
 
         public bool IsOpen => _serailPort.IsOpen;
         public bool IsConnect { get; }
-        public KeyTransport KeyTransport => _backgroundService.KeyTransport;
+        public KeyTransport KeyTransport => _background.KeyTransport;
 
         public UniversalInputType LastSendData { get; }
 
@@ -50,11 +48,11 @@ namespace Exchange.MasterSerialPort
 
         #region ctor
 
-        protected BaseExchangeSerialPort(ISerailPort serailPort, IBackgroundService backgroundService, ExchangeMasterSpOption exchangeMasterSpOption)
+        protected BaseExchangeSerialPort(ISerailPort serailPort, IBackground background, ExchangeOption exchangeOption)
         {
             _serailPort = serailPort;
-            _backgroundService = backgroundService;
-            ExchangeMasterSpOption = exchangeMasterSpOption;
+            _background = background;
+            ExchangeOption = exchangeOption;
         }
 
         #endregion
@@ -100,7 +98,7 @@ namespace Exchange.MasterSerialPort
         /// </summary>
         public void StartCycleExchange()
         {
-            _backgroundService.AddCycleAction(CycleTimeExchangeActionAsync);
+            _background.AddCycleAction(CycleTimeExchangeActionAsync);
         }
 
 
@@ -109,7 +107,7 @@ namespace Exchange.MasterSerialPort
         /// </summary>
         public void StopCycleExchange()
         {
-            _backgroundService.RemoveCycleFunc(CycleTimeExchangeActionAsync);
+            _background.RemoveCycleFunc(CycleTimeExchangeActionAsync);
         }
 
 
@@ -132,7 +130,7 @@ namespace Exchange.MasterSerialPort
             if (inData != null)
             {
                 InDataQueue.Enqueue(inData);
-                _backgroundService.AddOneTimeAction(OneTimeExchangeActionAsync);
+                _background.AddOneTimeAction(OneTimeExchangeActionAsync);
             }
         }
 

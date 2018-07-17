@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Exchange.MasterSerialPort.Option;
+using DAL.Abstract.Entities.Exchange;
 using Transport.SerialPort.Abstract;
 using Worker.Background.Abstarct;
 
@@ -14,8 +14,8 @@ namespace Exchange.MasterSerialPort
     {
         #region prop
 
-        public ByRulesExchangeSerialPort(ISerailPort serailPort, IBackgroundService backgroundService, ExchangeMasterSpOption exchangeMasterSpOption)
-            : base(serailPort, backgroundService, exchangeMasterSpOption)
+        public ByRulesExchangeSerialPort(ISerailPort serailPort, IBackground background, ExchangeOption exchangeOption)
+            : base(serailPort, background, exchangeOption)
         {
 
         }
@@ -35,7 +35,7 @@ namespace Exchange.MasterSerialPort
         protected override async Task CycleTimeExchangeActionAsync(CancellationToken ct)
         {
             await Task.Delay(2000, ct);//DEBUG
-            Console.WriteLine($"ExchangeMasterSpOption.PortName=  {ExchangeMasterSpOption.PortName}");//DEBUG
+            Console.WriteLine($"ExchangeMasterSpOption.PortName=  {ExchangeOption.KeyTransport["key"]}");//DEBUG
         }
 
         #endregion

@@ -186,6 +186,16 @@
           }
         }
       },
+      "DAL.Abstract/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/DAL.Abstract.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DAL.Abstract.dll": {}
+        }
+      },
       "Exchange.Base/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -246,6 +256,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "DAL.Abstract": "1.0.0",
           "Shared": "1.0.0",
           "System.IO.Ports": "4.5.0",
           "System.Reactive": "4.0.0",
@@ -871,6 +882,11 @@
         "version.txt"
       ]
     },
+    "DAL.Abstract/1.0.0": {
+      "type": "project",
+      "path": "../DAL.Abstract/DAL.Abstract.csproj",
+      "msbuildProject": "../DAL.Abstract/DAL.Abstract.csproj"
+    },
     "Exchange.Base/1.0.0": {
       "type": "project",
       "path": "../Exchange.Base/Exchange.Base.csproj",
@@ -912,23 +928,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Aldmi\\.nuget\\packages\\": {},
+    "C:\\Users\\admin\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\Device.ForExchange.csproj",
+      "projectUniqueName": "C:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\Device.ForExchange.csproj",
       "projectName": "Device.ForExchange",
-      "projectPath": "D:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\Device.ForExchange.csproj",
-      "packagesPath": "C:\\Users\\Aldmi\\.nuget\\packages\\",
-      "outputPath": "D:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\obj\\",
+      "projectPath": "C:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\Device.ForExchange.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Aldmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -936,20 +952,19 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://packages.nuget.org/": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "D:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj"
             },
-            "D:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj"
             },
-            "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
             }
           }
         }
