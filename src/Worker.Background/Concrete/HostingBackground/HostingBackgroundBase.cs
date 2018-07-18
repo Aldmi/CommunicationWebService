@@ -2,8 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Shared.Types;
+using Worker.Background.Abstarct;
 
-namespace Worker.Background.Abstarct.HostingBackground
+namespace Worker.Background.Concrete.HostingBackground
 {
     /// <summary>
     /// аналог IHostedService.
@@ -39,17 +40,15 @@ namespace Worker.Background.Abstarct.HostingBackground
         #endregion
 
 
+
+
         #region Methode
 
         public virtual Task StartAsync(CancellationToken cancellationToken)
         {
             _stoppingCts = new CancellationTokenSource();
             _executingTask = ExecuteAsync(_stoppingCts.Token);
-            if (_executingTask.IsCompleted)
-            {
-                return _executingTask;
-            }
-            return Task.CompletedTask;
+            return _executingTask.IsCompleted ? _executingTask : Task.CompletedTask;
         }
 
 

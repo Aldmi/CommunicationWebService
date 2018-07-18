@@ -22,29 +22,3 @@ E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Device.ForExchange\obj\Debu
 E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Device.ForExchange\obj\Debug\netstandard2.0\Device.ForExchange.csproj.CopyComplete
 E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Device.ForExchange\obj\Debug\netstandard2.0\Device.ForExchange.dll
 E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Device.ForExchange\obj\Debug\netstandard2.0\Device.ForExchange.pdb
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Device.ForExchange.deps.json
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Device.ForExchange.dll
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Device.ForExchange.pdb
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Exchange.Base.dll
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Exchange.MasterSerialPort.dll
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Shared.dll
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Transport.Base.dll
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Transport.SerialPort.dll
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Worker.Background.dll
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Exchange.Base.pdb
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Exchange.MasterSerialPort.pdb
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Shared.pdb
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Transport.Base.pdb
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Worker.Background.pdb
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Transport.SerialPort.pdb
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.xml
-C:\Git\CommunicationWebService\src\Device.ForExchange\obj\Debug\netstandard2.0\Device.ForExchange.csprojAssemblyReference.cache
-C:\Git\CommunicationWebService\src\Device.ForExchange\obj\Debug\netstandard2.0\Device.ForExchange.csproj.CoreCompileInputs.cache
-C:\Git\CommunicationWebService\src\Device.ForExchange\obj\Debug\netstandard2.0\Device.ForExchange.AssemblyInfoInputs.cache
-C:\Git\CommunicationWebService\src\Device.ForExchange\obj\Debug\netstandard2.0\Device.ForExchange.AssemblyInfo.cs
-C:\Git\CommunicationWebService\src\Device.ForExchange\obj\Debug\netstandard2.0\Device.ForExchange.csproj.CopyComplete
-C:\Git\CommunicationWebService\src\Device.ForExchange\obj\Debug\netstandard2.0\Device.ForExchange.dll
-C:\Git\CommunicationWebService\src\Device.ForExchange\obj\Debug\netstandard2.0\Device.ForExchange.pdb
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\DAL.Abstract.dll
-C:\Git\CommunicationWebService\src\Device.ForExchange\bin\Debug\netstandard2.0\DAL.Abstract.pdb

@@ -3,22 +3,16 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using Shared.Types;
-using Worker.Background.Abstarct.HostingBackground;
 
-
-namespace Worker.Background.Concrete
+namespace Worker.Background.Concrete.HostingBackground
 {
-    public class BackgroundScoped : HostingBackgroundScoped
+    public class HostingBackgroundTransport : HostingBackgroundBase
     {
         #region Field
 
-        private readonly ConcurrentDictionary<int, Func<CancellationToken, Task>> _cycleTimeFuncDict =
-            new ConcurrentDictionary<int, Func<CancellationToken, Task>>();
-
-        private readonly ConcurrentQueue<Func<CancellationToken, Task>> _oneTimeFuncQueue =
-            new ConcurrentQueue<Func<CancellationToken, Task>>();
+        private readonly ConcurrentDictionary<int, Func<CancellationToken, Task>> _cycleTimeFuncDict = new ConcurrentDictionary<int, Func<CancellationToken, Task>>();
+        private readonly ConcurrentQueue<Func<CancellationToken, Task>> _oneTimeFuncQueue = new ConcurrentQueue<Func<CancellationToken, Task>>();
 
         #endregion
 
@@ -27,8 +21,7 @@ namespace Worker.Background.Concrete
 
         #region ctor
 
-        public BackgroundScoped(IServiceScopeFactory serviceScopeFactory, KeyTransport keyTransport)
-            : base(serviceScopeFactory, keyTransport)
+        public HostingBackgroundTransport(KeyTransport keyTransport) : base(keyTransport)
         {
         }
 
@@ -72,7 +65,7 @@ namespace Worker.Background.Concrete
         }
 
 
-        protected override async Task ExecuteInScopeAsync(IServiceProvider serviceProvider, CancellationToken stoppingToken)
+        protected override async Task ProcessAsync(CancellationToken stoppingToken)
         {
             var indexCycleFunc = 0;
             //вызов циклических функций--------------------------------------------------------------------

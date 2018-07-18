@@ -16,6 +16,7 @@ using Transport.SerialPort.Concrete.SpWin;
 using WebServer.AutofacModules;
 using Worker.Background.Abstarct;
 using Worker.Background.Concrete;
+using Worker.Background.Concrete.HostingBackground;
 
 namespace WebServer
 {
@@ -125,7 +126,7 @@ namespace WebServer
         /// <summary>
         /// Инициализация системы.
         /// </summary>
-        private void Initialize(ILifetimeScope scope)
+        private void Initialize(IComponentContext scope)
         {
             var env = scope.Resolve<IHostingEnvironment>();
             var serialPortOptionRepository = scope.Resolve<ISerialPortOptionRepository>();
@@ -146,8 +147,8 @@ namespace WebServer
                 {
                     var keyTransport = new KeyTransport(spOption.Port, TransportType.SerialPort);
                     var sp = new SpWinSystemIo(spOption, keyTransport);
+                    var bg = new HostingBackgroundTransport(keyTransport);
                     serialPortCollectionService.AddNew(keyTransport, sp);
-                    var bg = new BackgroundScoped(scope.Resolve<IServiceScopeFactory>(), keyTransport);
                     backgroundCollectionService.AddNew(keyTransport, bg);
                 }
             }
