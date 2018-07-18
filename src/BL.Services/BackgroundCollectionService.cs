@@ -30,8 +30,11 @@ namespace BL.Services
         }
 
 
-   
-        #endregion
+        public IBackground Get(KeyTransport keyTransport)
+        {
+            return BackgroundDict[keyTransport];
+        }
 
+        #endregion
     }
 }

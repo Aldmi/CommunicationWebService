@@ -15,7 +15,7 @@ namespace DAL.Abstract.Extensions
                     Id = 1,
                     KeyTransport = new Dictionary<string, string>
                     {
-                        {"Type", "Serial"},
+                        {"Type", "SerialPort"},
                         {"Key", "COM1"}
                     },
                     Provider = new Provider

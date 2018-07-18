@@ -6,6 +6,7 @@ using BL.Services;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
 using Exchange.Base;
+using Exchange.MasterSerialPort;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -77,13 +78,14 @@ namespace WebServer
         }
 
 
-        public void ConfigurationBackgroundProcess(IApplicationBuilder app, ILifetimeScope scope)
+        private void ConfigurationBackgroundProcess(IApplicationBuilder app, ILifetimeScope scope)
         {
             var lifetimeApp = app.ApplicationServices.GetService<IApplicationLifetime>();
             ApplicationStarted(lifetimeApp, scope);
             ApplicationStopping(lifetimeApp, scope);
             ApplicationStopped(lifetimeApp, scope);
         }
+
 
         private void ApplicationStarted(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
         {
@@ -95,12 +97,13 @@ namespace WebServer
                 lifetimeApp.ApplicationStarted.Register(() => back.StartAsync(CancellationToken.None));
             }
 
-            var exchangeServices = scope.Resolve<IEnumerable<IExchange>>();
-            foreach (var exchange in exchangeServices)
+            var exchangeServices = scope.Resolve<ExchangeCollectionService>();
+            foreach (var exchange in exchangeServices.Exchanges)
             {
                 lifetimeApp.ApplicationStarted.Register(async () => await exchange.CycleReOpened());
             }
         }
+
 
         private void ApplicationStopping(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
         {
@@ -110,12 +113,13 @@ namespace WebServer
                 lifetimeApp.ApplicationStopping.Register(() => back.StopAsync(CancellationToken.None));
             }
 
-            var exchangeServices = scope.Resolve<IEnumerable<IExchange>>();
-            foreach (var exchange in exchangeServices)
+            var exchangeServices = scope.Resolve<ExchangeCollectionService>();
+            foreach (var exchange in exchangeServices.Exchanges)
             {
                 lifetimeApp.ApplicationStopping.Register(() => exchange.CycleReOpenedCancelation());
             }
         }
+
 
         private void ApplicationStopped(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
         {
@@ -133,6 +137,7 @@ namespace WebServer
             var exchangeOptionRepository = scope.Resolve<IExchangeOptionRepository>();
             var serialPortCollectionService = scope.Resolve<SerialPortCollectionService>();
             var backgroundCollectionService = scope.Resolve<BackgroundCollectionService>();
+            var exchangeCollectionService = scope.Resolve<ExchangeCollectionService>();
 
             if (env.IsDevelopment())
             {
@@ -143,6 +148,7 @@ namespace WebServer
 
             try
             {
+                //ADD SERIAL PORTS--------------------------------------------------------------------
                 foreach (var spOption in serialPortOptionRepository.List())
                 {
                     var keyTransport = new KeyTransport(spOption.Port, TransportType.SerialPort);
@@ -151,9 +157,20 @@ namespace WebServer
                     serialPortCollectionService.AddNew(keyTransport, sp);
                     backgroundCollectionService.AddNew(keyTransport, bg);
                 }
+
+                //ADD EXCHANGES------------------------------------------------------------------------
+                foreach (var exchOption in exchangeOptionRepository.List())
+                {
+                    var keyTransport= new KeyTransport(exchOption.KeyTransport);
+                    var sp= serialPortCollectionService.Get(keyTransport);
+                    var bg= backgroundCollectionService.Get(keyTransport);
+                    var exch = new ByRulesExchangeSerialPort(sp, bg, exchOption);
+                    exchangeCollectionService.AddNew(keyTransport, exch);
+                }
             }
             catch (Exception e)
             {
+                //LOG
                 Console.WriteLine(e);
                 throw;
             }   

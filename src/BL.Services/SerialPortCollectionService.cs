@@ -14,12 +14,9 @@ namespace BL.Services
         #region prop
 
         private Dictionary<KeyTransport, ISerailPort> SerialDict { get;  } = new Dictionary<KeyTransport, ISerailPort>();
-
+        public IEnumerable<ISerailPort> SerailPorts => SerialDict.Values;
 
         #endregion
-
-
-
 
 
 
@@ -48,9 +45,12 @@ namespace BL.Services
             return DictionaryCrudResult.Removed;
         }
 
+
+        public ISerailPort Get(KeyTransport keyTransport)
+        {
+            return SerialDict[keyTransport];
+        }
+
         #endregion
     }
-
-
-
 }
