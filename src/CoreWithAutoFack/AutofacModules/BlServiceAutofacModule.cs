@@ -1,5 +1,9 @@
 ﻿using Autofac;
 using BL.Services;
+using BL.Services.Storage;
+using Exchange.Base;
+using Transport.SerialPort.Abstract;
+using Worker.Background.Abstarct;
 
 namespace WebServer.AutofacModules
 {
@@ -10,9 +14,9 @@ namespace WebServer.AutofacModules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<SerialPortCollectionService>().SingleInstance(); 
-            builder.RegisterType<BackgroundCollectionService>().SingleInstance();
-            builder.RegisterType<ExchangeCollectionService>().SingleInstance();
+            builder.RegisterType<SerialPortStorageService>().SingleInstance(); 
+            builder.RegisterType<BackgroundStorageService>().SingleInstance();
+            builder.RegisterType<ExchangeStorageService>().SingleInstance();
         }
     }
 }

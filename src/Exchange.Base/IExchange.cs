@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Exchange.Base.Model;
@@ -10,7 +11,7 @@ namespace Exchange.Base
     /// <summary>
     /// УНИВЕРСАЛЬНЫЙ ОБМЕН ДАННЫМИ СО ВСЕМИ УСТРОЙСТВАМИ.
     /// </summary>
-    public interface IExchange : ISupportKeyTransport
+    public interface IExchange : ISupportKeyTransport, IDisposable
     {
         #region StateExchange
         bool IsOpen { get; }                                                      //Соединение открыто

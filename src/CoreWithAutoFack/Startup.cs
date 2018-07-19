@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Autofac;
 using BL.Services;
+using BL.Services.Storage;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
 using Exchange.Base;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Enums;
 using Shared.Types;
+using Transport.SerialPort.Abstract;
 using Transport.SerialPort.Concrete.SpWin;
 using WebServer.AutofacModules;
 using Worker.Background.Abstarct;
@@ -91,14 +93,14 @@ namespace WebServer
         {
             Initialize(scope);
 
-            var backgroundServices = scope.Resolve<BackgroundCollectionService>();
-            foreach (var back in backgroundServices.Backgrounds)
+            var backgroundServices = scope.Resolve<BackgroundStorageService>();
+            foreach (var back in backgroundServices.Values)
             {
                 lifetimeApp.ApplicationStarted.Register(() => back.StartAsync(CancellationToken.None));
             }
 
-            var exchangeServices = scope.Resolve<ExchangeCollectionService>();
-            foreach (var exchange in exchangeServices.Exchanges)
+            var exchangeServices = scope.Resolve<ExchangeStorageService>();
+            foreach (var exchange in exchangeServices.Values)
             {
                 lifetimeApp.ApplicationStarted.Register(async () => await exchange.CycleReOpened());
             }
@@ -107,14 +109,14 @@ namespace WebServer
 
         private void ApplicationStopping(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
         {
-            var backgroundServices = scope.Resolve<BackgroundCollectionService>();
-            foreach (var back in backgroundServices.Backgrounds)
+            var backgroundServices = scope.Resolve<BackgroundStorageService>();
+            foreach (var back in backgroundServices.Values)
             {
                 lifetimeApp.ApplicationStopping.Register(() => back.StopAsync(CancellationToken.None));
             }
 
-            var exchangeServices = scope.Resolve<ExchangeCollectionService>();
-            foreach (var exchange in exchangeServices.Exchanges)
+            var exchangeServices = scope.Resolve<ExchangeStorageService>();
+            foreach (var exchange in exchangeServices.Values)
             {
                 lifetimeApp.ApplicationStopping.Register(() => exchange.CycleReOpenedCancelation());
             }
@@ -135,9 +137,9 @@ namespace WebServer
             var env = scope.Resolve<IHostingEnvironment>();
             var serialPortOptionRepository = scope.Resolve<ISerialPortOptionRepository>();
             var exchangeOptionRepository = scope.Resolve<IExchangeOptionRepository>();
-            var serialPortCollectionService = scope.Resolve<SerialPortCollectionService>();
-            var backgroundCollectionService = scope.Resolve<BackgroundCollectionService>();
-            var exchangeCollectionService = scope.Resolve<ExchangeCollectionService>();
+            var serialPortCollectionService = scope.Resolve<SerialPortStorageService>();
+            var backgroundCollectionService = scope.Resolve<BackgroundStorageService>();
+            var exchangeCollectionService = scope.Resolve<ExchangeStorageService>();
 
             if (env.IsDevelopment())
             {
