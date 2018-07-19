@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using DAL.Abstract.Entities;
 using Shared.Enums;
 using Shared.Types;
 
 namespace BL.Services.Storage
 {
-    public class StorageService<T>  where T : class, IDisposable 
+    public class StorageService<T>  where T : class , IDisposable 
     {
         #region prop
 
@@ -46,6 +48,11 @@ namespace BL.Services.Storage
         {
             return Storage[keyTransport];
         }
+
+        //public T Get(int id)
+        //{
+        //    return Storage.Values.FirstOrDefault(v=>v.Id == id);
+        //}
 
         #endregion
 

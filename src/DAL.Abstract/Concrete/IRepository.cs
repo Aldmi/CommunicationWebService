@@ -1,4 +1,5 @@
 ﻿using DAL.Abstract.Abstract;
+using DAL.Abstract.Entities.Device;
 using DAL.Abstract.Entities.Exchange;
 using DAL.Abstract.Entities.Transport;
 
@@ -30,6 +31,15 @@ namespace DAL.Abstract.Concrete
     /// Доступ Exchange
     /// </summary>
     public interface IExchangeOptionRepository : IGenericDataRepository<ExchangeOption>
+    {
+    }
+
+
+    
+    /// <summary>
+    /// Доступ Device
+    /// </summary>
+    public interface IDeviceOptionRepository : IGenericDataRepository<DeviceOption>
     {
     }
 

@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Exchange.Base\Exchange.Base.csproj" />
     <ProjectReference Include="..\Exchange.MasterSerialPort\Exchange.MasterSerialPort.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.EventBus.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 

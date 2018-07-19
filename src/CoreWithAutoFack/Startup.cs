@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Autofac;
 using BL.Services;
@@ -8,6 +9,7 @@ using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
 using Exchange.Base;
 using Exchange.MasterSerialPort;
+using Infrastructure.EventBus.Abstract;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -55,7 +57,7 @@ namespace WebServer
             builder.RegisterModule(new RepositoryAutofacModule(connectionString));
 
 
-            builder.RegisterModule(new BlServiceAutofacModule());
+            builder.RegisterModule(new BlStorageAutofacModule());
             builder.RegisterModule(new EventBusAutofacModule());
             builder.RegisterModule(new ControllerAutofacModule());
         }
@@ -137,38 +139,50 @@ namespace WebServer
             var env = scope.Resolve<IHostingEnvironment>();
             var serialPortOptionRepository = scope.Resolve<ISerialPortOptionRepository>();
             var exchangeOptionRepository = scope.Resolve<IExchangeOptionRepository>();
-            var serialPortCollectionService = scope.Resolve<SerialPortStorageService>();
-            var backgroundCollectionService = scope.Resolve<BackgroundStorageService>();
-            var exchangeCollectionService = scope.Resolve<ExchangeStorageService>();
-
-            if (env.IsDevelopment())
-            {
-                //ИНИЦИАЛИЦИЯ РЕПОЗИТОРИЕВ
-                serialPortOptionRepository.Initialize();
-                exchangeOptionRepository.Initialize();
-            }
+            var deviceOptionRepository = scope.Resolve<IDeviceOptionRepository>();
+            var serialPortStorageService = scope.Resolve<SerialPortStorageService>();
+            var backgroundStorageService = scope.Resolve<BackgroundStorageService>();
+            var exchangeStorageService = scope.Resolve<ExchangeStorageService>();
+            var eventBus = scope.Resolve<IEventBus>();
 
             try
             {
+                if (env.IsDevelopment())
+                {
+                    //ИНИЦИАЛИЦИЯ РЕПОЗИТОРИЕВ------------------------------------------------------------
+                    serialPortOptionRepository.Initialize();
+                    exchangeOptionRepository.Initialize();
+                    deviceOptionRepository.Initialize();
+                }
+
                 //ADD SERIAL PORTS--------------------------------------------------------------------
                 foreach (var spOption in serialPortOptionRepository.List())
                 {
                     var keyTransport = new KeyTransport(spOption.Port, TransportType.SerialPort);
                     var sp = new SpWinSystemIo(spOption, keyTransport);
                     var bg = new HostingBackgroundTransport(keyTransport);
-                    serialPortCollectionService.AddNew(keyTransport, sp);
-                    backgroundCollectionService.AddNew(keyTransport, bg);
+                    serialPortStorageService.AddNew(keyTransport, sp);
+                    backgroundStorageService.AddNew(keyTransport, bg);
                 }
 
                 //ADD EXCHANGES------------------------------------------------------------------------
                 foreach (var exchOption in exchangeOptionRepository.List())
                 {
                     var keyTransport= new KeyTransport(exchOption.KeyTransport);
-                    var sp= serialPortCollectionService.Get(keyTransport);
-                    var bg= backgroundCollectionService.Get(keyTransport);
+                    var sp= serialPortStorageService.Get(keyTransport);
+                    var bg= backgroundStorageService.Get(keyTransport);
                     var exch = new ByRulesExchangeSerialPort(sp, bg, exchOption);
-                    exchangeCollectionService.AddNew(keyTransport, exch);
+                    exchangeStorageService.AddNew(keyTransport, exch);
                 }
+
+                //ADD DEVICES------------------------------------------------------------------------
+                foreach (var deviceOption in deviceOptionRepository.List())
+                {
+                    //var excanges= exchangeStorageService.Values.FirstOrDefault(exch=>exch.I)
+                   // var device= new Device.ForExchange.Device(deviceOption, )
+                }
+
+
             }
             catch (Exception e)
             {

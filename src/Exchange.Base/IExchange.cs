@@ -37,16 +37,16 @@ namespace Exchange.Base
 
 
         #region ExchangeRx
-        ISubject<IExchange> IsDataExchangeSuccessChange { get; }
-        ISubject<IExchange> IsConnectChange { get; }
-        ISubject<IExchange> LastSendDataChange { get; }
+        ISubject<IExchange> IsDataExchangeSuccessChangeRx { get; }                         //TODO: сделать строго типизированные события NameRxModel
+        ISubject<IExchange> IsConnectChangeRx { get; }
+        ISubject<IExchange> LastSendDataChangeRx { get; }
         #endregion
 
 
         #region TransportRx
         ISubject<IsOpenChangeRxModel> IsOpenChangeTransportRx { get; }                                  //ПРОКИНУТОЕ СОБЫТИЕ ТРАНСПОРТА. ОТКРЫТИЯ/ЗАКРЫТИЯ ПОРТА
-        ISubject<StatusDataExchangeChangeRxModel> StatusDataExchangeChangeTransportRx { get; }          // ПРОКИНУТОЕ СОБЫТИЕ ТРАНСПОРТА. СМЕНЫ СОСТОЯНИЯ СТАТУСА ОБМЕНА 
-        ISubject<StatusStringChangeRxModel> StatusStringChangeTransportRx { get; }                      // ПРОКИНУТОЕ СОБЫТИЕ ТРАНСПОРТА. СМЕНЫ СТРОКИ СТАТУСА ПОРТА
+        ISubject<StatusDataExchangeChangeRxModel> StatusDataExchangeChangeTransportRx { get; }          //ПРОКИНУТОЕ СОБЫТИЕ ТРАНСПОРТА. СМЕНЫ СОСТОЯНИЯ СТАТУСА ОБМЕНА 
+        ISubject<StatusStringChangeRxModel> StatusStringChangeTransportRx { get; }                      //ПРОКИНУТОЕ СОБЫТИЕ ТРАНСПОРТА. СМЕНЫ СТРОКИ СТАТУСА ПОРТА
         #endregion         
     }
 }

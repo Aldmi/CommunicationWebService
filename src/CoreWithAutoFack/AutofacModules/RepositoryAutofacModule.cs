@@ -38,6 +38,13 @@ namespace WebServer.AutofacModules
                     new NamedParameter("connectionString", _connectionString),
                 })
                 .SingleInstance();
+
+            builder.RegisterType<InMemoryDeviceOptionRepository>().As<IDeviceOptionRepository>()
+                .WithParameters(new List<Parameter>
+                {
+                    new NamedParameter("connectionString", _connectionString),
+                })
+                .SingleInstance();
         }
     }
 }

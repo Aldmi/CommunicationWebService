@@ -159,9 +159,9 @@ namespace Exchange.MasterSerialPort
 
         #region RxEvent
 
-        public ISubject<IExchange> IsDataExchangeSuccessChange { get; } //TODO: Добавить событие обмена
-        public ISubject<IExchange> IsConnectChange { get; }
-        public ISubject<IExchange> LastSendDataChange { get; }
+        public ISubject<IExchange> IsDataExchangeSuccessChangeRx { get; } //TODO: Добавить событие обмена
+        public ISubject<IExchange> IsConnectChangeRx { get; }
+        public ISubject<IExchange> LastSendDataChangeRx { get; }
 
         public ISubject<IsOpenChangeRxModel> IsOpenChangeTransportRx => _serailPort.IsOpenChangeRx;
         public ISubject<StatusDataExchangeChangeRxModel> StatusDataExchangeChangeTransportRx => _serailPort.StatusDataExchangeChangeRx;

@@ -8,15 +8,4 @@ namespace DAL.Abstract.Entities.Exchange
         public ExchangeRule ExchangeRule { get; set; }
         public Provider Provider { get; set; }
     }
-
-
-
-
-
-
-
-
-
-
-
 }

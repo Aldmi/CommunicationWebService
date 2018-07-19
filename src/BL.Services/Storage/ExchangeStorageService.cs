@@ -1,7 +1,6 @@
-﻿using BL.Services.Storage;
-using Exchange.Base;
+﻿using Exchange.Base;
 
-namespace BL.Services
+namespace BL.Services.Storage
 {
     public class ExchangeStorageService: StorageService<IExchange>
     {

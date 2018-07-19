@@ -4884,6 +4884,7 @@
         "dependencies": {
           "Exchange.Base": "1.0.0",
           "Exchange.MasterSerialPort": "1.0.0",
+          "Infrastructure.EventBus": "1.0.0",
           "Shared": "1.0.0",
           "System.Reactive": "4.0.0"
         },

@@ -8,9 +8,9 @@ using Worker.Background.Abstarct;
 namespace WebServer.AutofacModules
 {
     /// <summary>
-    /// Каждому послед. порту создается свой IBackgroundService.
+    /// Регистрируем сервисы хранения бизнесс логики
     /// </summary>
-    public class BlServiceAutofacModule : Module
+    public class BlStorageAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
