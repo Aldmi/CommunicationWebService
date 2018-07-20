@@ -310,7 +310,7 @@ namespace Transport.SerialPort.Concrete.SpWin
                 catch (Exception ex)
                 {
                     StatusString = $"Ошибка работы с портом (RequestAndRespawnInstantlyAsync): {_port.PortName}. ОШИБКА: {ex}  InnerException: {ex.InnerException?.Message ?? string.Empty}";
-                    ReOpen();
+                    //ReOpen();
                     return null;
                 }
                 finally

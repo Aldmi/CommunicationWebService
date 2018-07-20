@@ -19,7 +19,8 @@ namespace DAL.Abstract.Extensions
                     Name = "Vidor1",
                     ExchangeKeys = new List<KeyTransport>
                     {
-                        new KeyTransport("COM1", TransportType.SerialPort)
+                        new KeyTransport("COM1", TransportType.SerialPort),
+                        new KeyTransport("COM2", TransportType.SerialPort)
                     }
                 }
             };

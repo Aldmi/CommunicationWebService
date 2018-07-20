@@ -20,25 +20,3 @@ E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.MasterSerialPort\o
 E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.MasterSerialPort\obj\Debug\netstandard2.0\Exchange.MasterSerialPort.csproj.CopyComplete
 E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.MasterSerialPort\obj\Debug\netstandard2.0\Exchange.MasterSerialPort.dll
 E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.MasterSerialPort\obj\Debug\netstandard2.0\Exchange.MasterSerialPort.pdb
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\obj\Debug\netstandard2.0\Exchange.MasterSerialPort.csprojAssemblyReference.cache
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\obj\Debug\netstandard2.0\Exchange.MasterSerialPort.csproj.CoreCompileInputs.cache
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\obj\Debug\netstandard2.0\Exchange.MasterSerialPort.AssemblyInfoInputs.cache
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\obj\Debug\netstandard2.0\Exchange.MasterSerialPort.AssemblyInfo.cs
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\Exchange.MasterSerialPort.deps.json
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\Exchange.MasterSerialPort.dll
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\Exchange.MasterSerialPort.pdb
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\DAL.Abstract.dll
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\Exchange.Base.dll
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\Shared.dll
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\Transport.Base.dll
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\Transport.SerialPort.dll
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\Worker.Background.dll
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\Transport.SerialPort.pdb
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\Exchange.Base.pdb
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\Shared.pdb
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\Worker.Background.pdb
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\Transport.Base.pdb
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\bin\Debug\netstandard2.0\DAL.Abstract.pdb
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\obj\Debug\netstandard2.0\Exchange.MasterSerialPort.csproj.CopyComplete
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\obj\Debug\netstandard2.0\Exchange.MasterSerialPort.dll
-D:\Git\CommunicationWebService\src\Exchange.MasterSerialPort\obj\Debug\netstandard2.0\Exchange.MasterSerialPort.pdb

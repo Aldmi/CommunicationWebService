@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Shared.Enums;
 using Shared.Types;
 
 namespace BL.Services.Storage
 {
-    public class StorageService<TKey, TValue>  where TValue : class , IDisposable 
+    public class StorageService<TKey, TValue> where TKey : IEquatable<TKey>
+                                              where TValue : class, IDisposable                                        
     {
         #region prop
 
-        private Dictionary<TKey, TValue> Storage { get;  } = new Dictionary<TKey, TValue>();
+    private Dictionary<TKey, TValue> Storage { get;  } = new Dictionary<TKey, TValue>();
         public IEnumerable<TValue> Values => Storage.Values;
 
         #endregion
@@ -42,9 +44,20 @@ namespace BL.Services.Storage
         }
 
 
-        public TValue Get(TKey keyTransport)
+        public TValue Get(TKey key)
         {
-            return Storage[keyTransport];
+            if (!Storage.ContainsKey(key))
+            {
+                return null;
+            }
+
+            return Storage[key];
+        }
+
+
+        public IEnumerable<TValue> GetMany(IEnumerable<TKey> keys)
+        {
+            return Storage.Where(item => keys.FirstOrDefault(key => key.Equals(item.Key)) != null).Select(pair=> pair.Value);  
         }
 
         #endregion

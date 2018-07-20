@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using Autofac;
+using BL.Services.Storage;
 using Exchange.Base;
 using Microsoft.AspNetCore.Mvc;
 using Transport.SerialPort.Abstract;
@@ -12,6 +13,7 @@ namespace WebServer.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private readonly SerialPortStorageService _spSrStorageService;
         private readonly IEnumerable<IExchange> _excBehaviors;
         private readonly IEnumerable<IBackground> _backgroundServices;
         private readonly ILifetimeScope _scope;
@@ -19,10 +21,10 @@ namespace WebServer.Controllers
 
 
 
-        //public ValuesController(ISerailPort spService)
-        //{
-        //    _spService = spService;
-        //}
+        public ValuesController(SerialPortStorageService spSrStorageService)
+        {
+            _spSrStorageService = spSrStorageService;
+        }
 
         //public ValuesController(IEnumerable<ISerailPort> spServices, IEnumerable<IBackgroundService> backgroundServices)
         //{

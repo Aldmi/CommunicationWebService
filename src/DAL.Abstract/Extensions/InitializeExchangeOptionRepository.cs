@@ -23,6 +23,30 @@ namespace DAL.Abstract.Extensions
                         Name = "VidorBase",
                         TimeRespone = 500
                     }
+                },
+                new ExchangeOption
+                {
+                    Id = 2,
+                    KeyTransport = new KeyTransport("COM2", TransportType.SerialPort),
+                    Provider = new Provider
+                    {
+                        Id = 1,
+                        Address = "12",
+                        Name = "Table",
+                        TimeRespone = 500
+                    }
+                },
+                new ExchangeOption
+                {
+                    Id = 2,
+                    KeyTransport = new KeyTransport("http:\\google.com", TransportType.Http),
+                    Provider = new Provider
+                    {
+                        Id = 1,
+                        Address = "http:\\google.com",
+                        Name = "VidorBase",
+                        TimeRespone = 500
+                    }
                 }
             };
 

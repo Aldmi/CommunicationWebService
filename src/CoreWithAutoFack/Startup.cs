@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using Autofac;
 using BL.Services.Storage;
@@ -136,13 +137,14 @@ namespace WebServer
             var serialPortStorageService = scope.Resolve<SerialPortStorageService>();
             var backgroundStorageService = scope.Resolve<BackgroundStorageService>();
             var exchangeStorageService = scope.Resolve<ExchangeStorageService>();
+            var deviceStorageService = scope.Resolve<DeviceStorageService>();
             var eventBus = scope.Resolve<IEventBus>();
 
             try
             {
-                if (env.IsDevelopment())
+                if (env.IsDevelopment()) //TODO: добавить переменную окружения OS (win/linux)
                 {
-                    //ИНИЦИАЛИЦИЯ РЕПОЗИТОРИЕВ------------------------------------------------------------
+                    //ИНИЦИАЛИЦИЯ РЕПОЗИТОРИЕВ--------------------------------------------------------
                     serialPortOptionRepository.Initialize();
                     exchangeOptionRepository.Initialize();
                     deviceOptionRepository.Initialize();
@@ -164,18 +166,18 @@ namespace WebServer
                     var keyTransport= exchOption.KeyTransport;
                     var sp= serialPortStorageService.Get(keyTransport);
                     var bg= backgroundStorageService.Get(keyTransport);
+                    if (sp == null || bg == null) continue;
                     var exch = new ByRulesExchangeSerialPort(sp, bg, exchOption);
                     exchangeStorageService.AddNew(keyTransport, exch);
                 }
 
-                //ADD DEVICES------------------------------------------------------------------------
+                //ADD DEVICES--------------------------------------------------------------------------
                 foreach (var deviceOption in deviceOptionRepository.List())
                 {
-                    //var excanges= exchangeStorageService.Values.FirstOrDefault(exch=>exch.I)
-                   // var device= new Device.ForExchange.Device(deviceOption, )
+                    var excanges= exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
+                    var device= new Device.Base.Device(deviceOption, excanges, eventBus);
+                    deviceStorageService.AddNew(deviceOption.Id, device);
                 }
-
-
             }
             catch (Exception e)
             {
