@@ -18,7 +18,7 @@ namespace Device.Base
         #region field
 
         private readonly IEventBus _eventBus;
-        private readonly List<IDisposable> _disposeExchangesEventHandlers = new List<IDisposable>();
+        private List<IDisposable> _disposeExchangesEventHandlers = new List<IDisposable>();
 
         #endregion
 

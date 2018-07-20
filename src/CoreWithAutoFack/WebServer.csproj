@@ -25,7 +25,7 @@
     <ProjectReference Include="..\Communication.TcpIp\Transport.TcpIp.csproj" />
     <ProjectReference Include="..\DAL.Abstract\DAL.Abstract.csproj" />
     <ProjectReference Include="..\DAL.InMemory\DAL.InMemory.csproj" />
-    <ProjectReference Include="..\Device.ForExchange\Device.ForExchange.csproj" />
+    <ProjectReference Include="..\Device.Base\Device.Base.csproj" />
     <ProjectReference Include="..\Exchange.Base\Exchange.Base.csproj" />
     <ProjectReference Include="..\Exchange.MasterSerialPort\Exchange.MasterSerialPort.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.EventBus.csproj" />

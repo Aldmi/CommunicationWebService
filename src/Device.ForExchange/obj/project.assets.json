@@ -785,8 +785,6 @@
       "type": "package",
       "path": "system.runtime.interopservices.windowsruntime/4.3.0",
       "files": [
-        "System.Runtime.InteropServices.WindowsRuntime.4.3.0.nupkg.sha512",
-        "System.Runtime.InteropServices.WindowsRuntime.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -836,7 +834,9 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "runtimes/aot/lib/netcore50/System.Runtime.InteropServices.WindowsRuntime.dll"
+        "runtimes/aot/lib/netcore50/System.Runtime.InteropServices.WindowsRuntime.dll",
+        "system.runtime.interopservices.windowsruntime.4.3.0.nupkg.sha512",
+        "system.runtime.interopservices.windowsruntime.nuspec"
       ]
     },
     "System.Security.AccessControl/4.5.0": {
@@ -974,23 +974,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\admin\\.nuget\\packages\\": {},
+    "C:\\Users\\Aldmi\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\Device.ForExchange.csproj",
-      "projectName": "Device.ForExchange",
-      "projectPath": "C:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\Device.ForExchange.csproj",
-      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\obj\\",
+      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\Device.Base.csproj",
+      "projectName": "Device.Base",
+      "projectPath": "D:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\Device.Base.csproj",
+      "packagesPath": "C:\\Users\\Aldmi\\.nuget\\packages\\",
+      "outputPath": "D:\\Git\\CommunicationWebService\\src\\Device.ForExchange\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Aldmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -998,22 +998,23 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://packages.nuget.org/": {}
       },
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
             }
           }
         }

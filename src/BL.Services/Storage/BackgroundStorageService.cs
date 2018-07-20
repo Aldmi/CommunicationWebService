@@ -1,8 +1,9 @@
-﻿using Worker.Background.Abstarct;
+﻿using Shared.Types;
+using Worker.Background.Abstarct;
 
 namespace BL.Services.Storage
 {
-    public class BackgroundStorageService : StorageService<IBackground>
+    public class BackgroundStorageService : StorageService<KeyTransport, IBackground>
     {
 
     }

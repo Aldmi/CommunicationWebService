@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using Autofac;
-using BL.Services;
 using BL.Services.Storage;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
-using Exchange.Base;
 using Exchange.MasterSerialPort;
 using Infrastructure.EventBus.Abstract;
 using Microsoft.AspNetCore.Builder;
@@ -16,11 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Enums;
 using Shared.Types;
-using Transport.SerialPort.Abstract;
 using Transport.SerialPort.Concrete.SpWin;
 using WebServer.AutofacModules;
-using Worker.Background.Abstarct;
-using Worker.Background.Concrete;
 using Worker.Background.Concrete.HostingBackground;
 
 namespace WebServer

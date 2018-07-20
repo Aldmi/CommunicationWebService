@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using DAL.Abstract.Entities;
 using Shared.Enums;
 using Shared.Types;
 
 namespace BL.Services.Storage
 {
-    public class StorageService<T>  where T : class , IDisposable 
+    public class StorageService<TKey, TValue>  where TValue : class , IDisposable 
     {
         #region prop
 
-        private Dictionary<KeyTransport, T> Storage { get;  } = new Dictionary<KeyTransport, T>();
-        public IEnumerable<T> Values => Storage.Values;
+        private Dictionary<TKey, TValue> Storage { get;  } = new Dictionary<TKey, TValue>();
+        public IEnumerable<TValue> Values => Storage.Values;
 
         #endregion
 
@@ -20,7 +18,7 @@ namespace BL.Services.Storage
 
         #region Methode
 
-        public DictionaryCrudResult AddNew(KeyTransport key, T value)
+        public DictionaryCrudResult AddNew(TKey key, TValue value)
         {
             if (Storage.ContainsKey(key))
             {
@@ -31,7 +29,7 @@ namespace BL.Services.Storage
         }
 
 
-        public DictionaryCrudResult Remove(KeyTransport key)
+        public DictionaryCrudResult Remove(TKey key)
         {
             if (Storage.ContainsKey(key))
             {
@@ -44,15 +42,10 @@ namespace BL.Services.Storage
         }
 
 
-        public T Get(KeyTransport keyTransport)
+        public TValue Get(TKey keyTransport)
         {
             return Storage[keyTransport];
         }
-
-        //public T Get(int id)
-        //{
-        //    return Storage.Values.FirstOrDefault(v=>v.Id == id);
-        //}
 
         #endregion
 

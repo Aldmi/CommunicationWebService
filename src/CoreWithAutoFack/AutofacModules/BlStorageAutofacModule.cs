@@ -1,9 +1,5 @@
 ﻿using Autofac;
-using BL.Services;
 using BL.Services.Storage;
-using Exchange.Base;
-using Transport.SerialPort.Abstract;
-using Worker.Background.Abstarct;
 
 namespace WebServer.AutofacModules
 {
@@ -17,6 +13,7 @@ namespace WebServer.AutofacModules
             builder.RegisterType<SerialPortStorageService>().SingleInstance(); 
             builder.RegisterType<BackgroundStorageService>().SingleInstance();
             builder.RegisterType<ExchangeStorageService>().SingleInstance();
+            builder.RegisterType<DeviceStorageService>().SingleInstance();
         }
     }
 }
