@@ -35,7 +35,7 @@ namespace Exchange.MasterSerialPort
         protected override async Task CycleTimeExchangeActionAsync(CancellationToken ct)
         {
             await Task.Delay(2000, ct);//DEBUG
-            Console.WriteLine($"ExchangeMasterSpOption.PortName=  {ExchangeOption.KeyTransport["key"]}");//DEBUG
+            Console.WriteLine($"ExchangeOption.KeyTransport.Key=  {ExchangeOption.KeyTransport.Key}");//DEBUG
         }
 
         #endregion

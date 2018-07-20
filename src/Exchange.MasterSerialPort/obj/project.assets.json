@@ -189,6 +189,9 @@
       "DAL.Abstract/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Shared": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/DAL.Abstract.dll": {}
         },

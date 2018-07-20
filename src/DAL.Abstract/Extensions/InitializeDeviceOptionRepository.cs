@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Device;
+using Shared.Enums;
+using Shared.Types;
 
 namespace DAL.Abstract.Extensions
 {
@@ -15,9 +17,9 @@ namespace DAL.Abstract.Extensions
                     Id = 1,
                     Description = "Табло1",
                     Name = "Vidor1",
-                    ExchangesId = new List<int>
+                    ExchangeKeys = new List<KeyTransport>
                     {
-                        1
+                        new KeyTransport("COM1", TransportType.SerialPort)
                     }
                 }
             };

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Exchange;
+using Shared.Enums;
+using Shared.Types;
 
 namespace DAL.Abstract.Extensions
 {
@@ -13,11 +15,7 @@ namespace DAL.Abstract.Extensions
                 new ExchangeOption
                 {
                     Id = 1,
-                    KeyTransport = new Dictionary<string, string>
-                    {
-                        {"Type", "SerialPort"},
-                        {"Key", "COM1"}
-                    },
+                    KeyTransport = new KeyTransport("COM1", TransportType.SerialPort),
                     Provider = new Provider
                     {
                         Id = 1,

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Shared.Types;
 
 namespace DAL.Abstract.Entities.Device
 {
@@ -6,6 +7,6 @@ namespace DAL.Abstract.Entities.Device
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<int> ExchangesId { get; set; }   //TODO: заменить на коллекцию ключей (KeyTransport) для ссылки на ExchangeOption.
+        public List<KeyTransport> ExchangeKeys { get; set; }
     }
 }

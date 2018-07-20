@@ -161,7 +161,7 @@ namespace WebServer
                 //ADD EXCHANGES------------------------------------------------------------------------
                 foreach (var exchOption in exchangeOptionRepository.List())
                 {
-                    var keyTransport= new KeyTransport(exchOption.KeyTransport);
+                    var keyTransport= exchOption.KeyTransport;
                     var sp= serialPortStorageService.Get(keyTransport);
                     var bg= backgroundStorageService.Get(keyTransport);
                     var exch = new ByRulesExchangeSerialPort(sp, bg, exchOption);
