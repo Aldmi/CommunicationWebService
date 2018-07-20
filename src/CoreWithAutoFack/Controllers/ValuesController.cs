@@ -10,6 +10,9 @@ using Worker.Background.Abstarct;
 
 namespace WebServer.Controllers
 {
+    /// <summary>
+    /// Все singleton сервисы передаваемые через DI, в контроллеры, должны быть ПОТОКОБЕЗОПАСНЫЕ.
+    /// </summary>
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
