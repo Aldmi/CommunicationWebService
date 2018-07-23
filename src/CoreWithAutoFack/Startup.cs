@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using Autofac;
+using AutoMapper;
 using BL.Services.Storage;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
@@ -37,8 +38,10 @@ namespace WebServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IConfiguration>(provider => AppConfiguration);
-            services.AddMvc().AddControllersAsServices();
+            services.AddMvc().AddControllersAsServices().AddJsonOptions(o => o.SerializerSettings.ContractResolver= new Newtonsoft.Json.Serialization.DefaultContractResolver()); //???
             services.AddOptions();
+            services.AddAutoMapper();
+        
 
             //services.Configure<SerialPortsOption>(AppConfiguration);
             //services.Configure<DevicesWithSpOptions>(AppConfiguration);

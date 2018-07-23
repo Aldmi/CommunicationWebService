@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Threading;
 using Autofac;
+using AutoMapper;
 using BL.Services.Storage;
 using Exchange.Base;
 using Microsoft.AspNetCore.Mvc;
 using Transport.SerialPort.Abstract;
+using WebServer.AutoMapperConfig;
 using Worker.Background.Abstarct;
 
 namespace WebServer.Controllers
@@ -17,6 +19,7 @@ namespace WebServer.Controllers
     public class ValuesController : Controller
     {
         private readonly SerialPortStorageService _spSrStorageService;
+        private readonly IMapper _mapper;
         private readonly IEnumerable<IExchange> _excBehaviors;
         private readonly IEnumerable<IBackground> _backgroundServices;
         private readonly ILifetimeScope _scope;
@@ -24,9 +27,10 @@ namespace WebServer.Controllers
 
 
 
-        public ValuesController(SerialPortStorageService spSrStorageService)
+        public ValuesController(SerialPortStorageService spSrStorageService, IMapper mapper)
         {
             _spSrStorageService = spSrStorageService;
+            _mapper = mapper;
         }
 
         //public ValuesController(IEnumerable<ISerailPort> spServices, IEnumerable<IBackgroundService> backgroundServices)
@@ -59,6 +63,9 @@ namespace WebServer.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
+           //var user = new User() {Name = "dsfdsdfsfsdgdfgh"};
+           //var userDto=  _mapper.Map<UserDto>(user);
+
             return new string[] { "value1", "value2" };
         }
 

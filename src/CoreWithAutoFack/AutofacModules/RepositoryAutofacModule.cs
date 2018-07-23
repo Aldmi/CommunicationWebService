@@ -32,6 +32,20 @@ namespace WebServer.AutofacModules
                 })
                 .SingleInstance();
 
+            builder.RegisterType<InMemoryTcpIpOptionRepository>().As<ITcpIpOptionRepository>()
+                .WithParameters(new List<Parameter>
+                {
+                    new NamedParameter("connectionString", _connectionString),
+                })
+                .SingleInstance();
+
+            builder.RegisterType<InMemoryHttpOptionRepository>().As<IHttpOptionRepository>()
+                .WithParameters(new List<Parameter>
+                {
+                    new NamedParameter("connectionString", _connectionString),
+                })
+                .SingleInstance();
+
             builder.RegisterType<InMemoryExchangeOptionRepository>().As<IExchangeOptionRepository>()
                 .WithParameters(new List<Parameter>
                 {

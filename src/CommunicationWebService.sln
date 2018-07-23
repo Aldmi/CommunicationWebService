@@ -50,7 +50,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL.Abstract", "DAL.Abstrac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL.InMemory", "DAL.InMemory\DAL.InMemory.csproj", "{ABF4134A-CECB-47FF-A7AB-EB67B696FA3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Device.Base", "Device.Base\Device.Base.csproj", "{8681D4FD-4CE5-4565-B883-3EAD50CB6435}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Device.Base", "Device.Base\Device.Base.csproj", "{8681D4FD-4CE5-4565-B883-3EAD50CB6435}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
