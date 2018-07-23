@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using Shared.Enums;
 using Shared.Types;
 using Transport.SerialPort.Concrete.SpWin;
@@ -38,7 +39,13 @@ namespace WebServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IConfiguration>(provider => AppConfiguration);
-            services.AddMvc().AddControllersAsServices().AddJsonOptions(o => o.SerializerSettings.ContractResolver= new Newtonsoft.Json.Serialization.DefaultContractResolver()); //???
+            services.AddMvc()
+                .AddControllersAsServices()
+                .AddJsonOptions(o =>
+            {              
+                o.SerializerSettings.Formatting = Formatting.Indented;
+                o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            }); 
             services.AddOptions();
             services.AddAutoMapper();
         
