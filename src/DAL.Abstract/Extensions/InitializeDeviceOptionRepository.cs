@@ -17,7 +17,7 @@ namespace DAL.Abstract.Extensions
                     Id = 1,
                     Description = "Табло1",
                     Name = "Vidor1",
-                    ExchangeKeys = new List<KeyTransport>
+                    KeyTransports = new List<KeyTransport>
                     {
                         new KeyTransport("COM1", TransportType.SerialPort),
                         new KeyTransport("COM2", TransportType.SerialPort)

@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using WebServer.DTO.DevicesOptionDTO;
+using Shared.Enums;
+using Shared.Types;
+using WebServer.DTO.JSON.OptionsDto;
 
 namespace WebServer.Controllers
 {
@@ -54,14 +56,14 @@ namespace WebServer.Controllers
         {
             var deviceOptionDto = new DevicesOptionJsonDto
             {
-                DeviceOptions = _deviceOptionRep.List().ToList(),
-                ExchangeOptions = _exchangeOptionRep.List().ToList(),
-                TransportOptionsDto = new TransportOptionsDto
-                {
-                    SerialOptions = _spOptionRep.List().ToList(),
-                    TcpIpOptions = _tcpIpOptionRep.List().ToList(),
-                    HttpOptions = _httpOptionRep.List().ToList()
-                }
+                //DeviceOptions = _deviceOptionRep.List().ToList(),
+                //ExchangeOptions = _exchangeOptionRep.List().ToList(),
+                //TransportOptionsDto = new TransportOptionsDto
+                //{
+                //    SerialOptions = _spOptionRep.List().ToList(),
+                //    TcpIpOptions = _tcpIpOptionRep.List().ToList(),
+                //    HttpOptions = _httpOptionRep.List().ToList()
+                //}
             };
 
             await Task.Delay(100);
@@ -73,14 +75,39 @@ namespace WebServer.Controllers
 
         // POST api/devicesoption
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post(string value)
         {
+
         }
 
 
 
+        //DEBUG---------------------------------------------------------------------------
 
+        [HttpGet]
+        [Route("TestDto")]
+        public async Task<TestDto> TestDtoGet()
+        {
+           var testDto= new TestDto()
+           {
+               IsActive = true,
+               Name = "sddssfsgfd",
+               InnerType = new InnerType{ Id = 128}
+               //KeyTransport = new KeyTransport ("COM1", TransportType.SerialPort)
+           };
+            await Task.Delay(100);
 
+            return testDto;
+        }
+
+        [HttpPost]
+        [Route("TestDto")]
+        public void Post([FromBody]TestDto value)
+        {
+
+        }
+
+        //DEBUG---------------------------------------------------------------------------
 
 
     }

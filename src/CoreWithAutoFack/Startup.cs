@@ -184,7 +184,7 @@ namespace WebServer
                 //ADD DEVICES--------------------------------------------------------------------------
                 foreach (var deviceOption in deviceOptionRepository.List())
                 {
-                    var excanges= exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
+                    var excanges= exchangeStorageService.GetMany(deviceOption.KeyTransports).ToList();
                     var device= new Device.Base.Device(deviceOption, excanges, eventBus);
                     deviceStorageService.AddNew(deviceOption.Id, device);
                 }
