@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using BL.Services.Editors;
 using BL.Services.Storage;
 
 namespace WebServer.AutofacModules
@@ -14,6 +15,7 @@ namespace WebServer.AutofacModules
             builder.RegisterType<BackgroundStorageService>().SingleInstance();
             builder.RegisterType<ExchangeStorageService>().SingleInstance();
             builder.RegisterType<DeviceStorageService>().SingleInstance();
+            builder.RegisterType<EditorStoragesService>().InstancePerDependency();            
         }
     }
 }

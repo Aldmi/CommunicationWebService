@@ -3,11 +3,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Shared.Enums;
-using Shared.Types;
 
 namespace BL.Services.Storage
 {
-    public class StorageService<TKey, TValue> where TKey : IEquatable<TKey>
+    public class StorageServiceBase<TKey, TValue> where TKey : IEquatable<TKey>
                                               where TValue : class, IDisposable
     {
         #region prop

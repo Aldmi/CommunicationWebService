@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Device;
+using DAL.Abstract.Entities.Transport;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Shared.Enums;
@@ -114,11 +115,17 @@ namespace WebServer.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            var deviceOptionDto= data.DeviceOptions.FirstOrDefault();     
+            var deviceOption= _mapper.Map<DeviceOption>(deviceOptionDto);
 
-            var deviceOptionsDto= data.DeviceOptions;
-            var deviceOptions= _mapper.Map<List<DeviceOption>>(deviceOptionsDto);
 
-  
+           var spOptionDto= data.TransportOptionsDto.SerialOptions.FirstOrDefault();
+           var spOption = _mapper.Map<SerialOption>(spOptionDto);
+
+            //1. Добавить транспорт, его может не быть 
+            //2. Добавить обмен, его может не быть
+            //3. Добавить Device.
+
             return Ok();
         }
 
