@@ -17,6 +17,7 @@ namespace WebServer.AutoMapperConfig
             CreateMap<SerialOption, SerialOptionDto>().ReverseMap();
             CreateMap<TcpIpOption, TcpIpOptionDto>().ReverseMap();
             CreateMap<HttpOption, HttpOptionDto>().ReverseMap();
+            CreateMap<TransportOption, TransportOptionsDto>().ReverseMap();
 
             // CreateMap<User, UserDto>();
         }

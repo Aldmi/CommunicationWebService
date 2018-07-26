@@ -4,7 +4,6 @@ using BL.Services.Storage;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Device;
 using DAL.Abstract.Entities.Exchange;
-using DAL.Abstract.Entities.Transport;
 using Exchange.MasterSerialPort;
 using Infrastructure.EventBus.Abstract;
 using Shared.Enums;
@@ -12,13 +11,13 @@ using Shared.Types;
 using Transport.SerialPort.Concrete.SpWin;
 using Worker.Background.Concrete.HostingBackground;
 
-namespace BL.Services.Editors
+namespace BL.Services.Mediators
 {
     /// <summary>
-    /// Сервис объединяет все Storage,
+    /// Сервис объединяет работу со всеми Storage,
     /// и предоставляет интерфейс для Добавления/Удаления элементов в Storage
     /// </summary>
-    public class EditorStoragesService
+    public class MediatorForStorages
     {
         #region fields
 
@@ -31,11 +30,9 @@ namespace BL.Services.Editors
         #endregion
 
 
-
-
         #region ctor
 
-        public EditorStoragesService(SerialPortStorageService serialPortStorageService,
+        public MediatorForStorages(SerialPortStorageService serialPortStorageService,
             BackgroundStorageService backgroundStorageService,
             ExchangeStorageService exchangeStorageService,
             DeviceStorageService deviceStorageService,
@@ -51,12 +48,11 @@ namespace BL.Services.Editors
         #endregion
 
 
-
         #region Methode
 
         public void InitializeByRepositoryOption(ISerialPortOptionRepository serialPortOptionRepository,
-                                                 IExchangeOptionRepository exchangeOptionRepository,
-                                                 IDeviceOptionRepository deviceOptionRepository)
+            IExchangeOptionRepository exchangeOptionRepository,
+            IDeviceOptionRepository deviceOptionRepository)
         {
             //ADD SERIAL PORTS--------------------------------------------------------------------
             foreach (var spOption in serialPortOptionRepository.List())
@@ -92,9 +88,9 @@ namespace BL.Services.Editors
         /// </summary>
         public void AddDevice(DeviceOption deviceOption)
         {
-          var exchanges= _exchangeStorageService.GetMany(deviceOption.KeyTransports).ToList();
-          var device = new Device.Base.Device(deviceOption, exchanges, _eventBus);
-          _deviceStorageService.AddNew(deviceOption.Id, device);
+            var exchanges = _exchangeStorageService.GetMany(deviceOption.KeyTransports).ToList();
+            var device = new Device.Base.Device(deviceOption, exchanges, _eventBus);
+            _deviceStorageService.AddNew(deviceOption.Id, device);
         }
 
 
@@ -115,7 +111,6 @@ namespace BL.Services.Editors
         }
 
 
-
         //public void AddDevice(DeviceOption deviceOption,
         //                      ExchangeOption exchangeOption,
         //                      SerialOption serialOption = null,
@@ -131,11 +126,9 @@ namespace BL.Services.Editors
         /// </summary>
         public void RemoveDevice(DeviceOption deviceOption)
         {
-
         }
 
         #endregion
-
     }
 }
 

@@ -7,8 +7,8 @@ namespace WebServer.DTO.JSON.OptionsDto.TransportOption
     /// </summary>
     public class TransportOptionsDto
     {
-        public List<SerialOptionDto> SerialOptions { get; set; }  
-        public List<TcpIpOptionDto> TcpIpOptions { get; set; }  
-        public List<HttpOptionDto> HttpOptions { get; set; }  
+        public IEnumerable<SerialOptionDto> SerialOptions { get; set; }  
+        public IEnumerable<TcpIpOptionDto> TcpIpOptions { get; set; }  
+        public IEnumerable<HttpOptionDto> HttpOptions { get; set; }  
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using BL.Services.Mediators;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Device;
 using DAL.Abstract.Entities.Transport;
@@ -30,6 +31,7 @@ namespace WebServer.Controllers
         private readonly IHttpOptionRepository _httpOptionRep;
         private readonly IExchangeOptionRepository _exchangeOptionRep;
         private readonly IDeviceOptionRepository _deviceOptionRep;
+        private readonly MediatorForOptionsRepository _mediatorForOptionsRep;
         private readonly IMapper _mapper;
 
         #endregion
@@ -44,6 +46,7 @@ namespace WebServer.Controllers
             IHttpOptionRepository httpOptionRep,
             IExchangeOptionRepository exchangeOptionRep,
             IDeviceOptionRepository deviceOptionRep,
+            MediatorForOptionsRepository mediatorForOptionsRep,
             IMapper mapper)
         {
             _spOptionRep = spOptionRep;
@@ -51,6 +54,7 @@ namespace WebServer.Controllers
             _httpOptionRep = httpOptionRep;
             _exchangeOptionRep = exchangeOptionRep;
             _deviceOptionRep = deviceOptionRep;
+            _mediatorForOptionsRep = mediatorForOptionsRep;
             _mapper = mapper;
         }
 
@@ -66,7 +70,10 @@ namespace WebServer.Controllers
         {
             try
             {
-                var deviceOptions= _deviceOptionRep.List().ToList();
+                //TODO: Прямую работу с репозиториями заменить на MediatorForOptionsRepository
+
+
+                var deviceOptions = _deviceOptionRep.List().ToList();
                 var exchangeOptions= _exchangeOptionRep.List().ToList();
                 var serialOptions= _spOptionRep.List().ToList();
                 var tcpIpOptions= _tcpIpOptionRep.List().ToList();

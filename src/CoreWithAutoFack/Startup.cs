@@ -60,8 +60,8 @@ namespace WebServer
             var connectionString = "Test connection String";
             builder.RegisterModule(new RepositoryAutofacModule(connectionString));
 
-
             builder.RegisterModule(new BlStorageAutofacModule());
+            builder.RegisterModule(new MediatorsAutofacModule());
             builder.RegisterModule(new EventBusAutofacModule());
             builder.RegisterModule(new ControllerAutofacModule());
         }
