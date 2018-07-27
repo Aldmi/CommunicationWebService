@@ -17,10 +17,10 @@ namespace DAL.Abstract.Extensions
                     Id = 1,
                     Description = "Табло1",
                     Name = "Vidor1",
-                    KeyTransports = new List<KeyTransport>
+                    ExchangeKeys = new List<string>
                     {
-                        new KeyTransport("COM1", TransportType.SerialPort),
-                        new KeyTransport("COM2", TransportType.SerialPort)
+                        "SP_COM1_Vidor1",
+                        "SP_COM2_Vidor2"
                     }
                 }
             };

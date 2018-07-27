@@ -72,7 +72,6 @@ namespace WebServer.Controllers
             {
                 //TODO: Прямую работу с репозиториями заменить на MediatorForOptionsRepository
 
-
                 var deviceOptions = _deviceOptionRep.List().ToList();
                 var exchangeOptions= _exchangeOptionRep.List().ToList();
                 var serialOptions= _spOptionRep.List().ToList();
@@ -89,13 +88,16 @@ namespace WebServer.Controllers
                 {
                     DeviceOptions = deviceOptionsDto,
                     ExchangeOptions = exchangeOptionsDto,
-                    TransportOptionsDto = new TransportOptionsDto
+                    TransportOptions = new TransportOptionsDto
                     {
                         SerialOptions = serialOptionsDto,
                         TcpIpOptions = tcpIpOptionsDto,
                         HttpOptions = httpOptionsDto
                     }
                 };
+
+                //throw new Exception("fdfdf");
+
                 await Task.Delay(100);//DEBUG
                 return deviceOptionDto;
             }
@@ -103,7 +105,7 @@ namespace WebServer.Controllers
             {
                 Console.WriteLine(e);
                 //LOG
-                return null;
+                return null;     //TODO: Как пересылать ошибки на GET запрос
             }
         }
 
@@ -122,16 +124,28 @@ namespace WebServer.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var deviceOptionDto= data.DeviceOptions.FirstOrDefault();     
-            var deviceOption= _mapper.Map<DeviceOption>(deviceOptionDto);
+
+            try
+            {
+                var deviceOptionDto = data.DeviceOptions.FirstOrDefault();
+                var deviceOption = _mapper.Map<DeviceOption>(deviceOptionDto);
 
 
-           var spOptionDto= data.TransportOptionsDto.SerialOptions.FirstOrDefault();
-           var spOption = _mapper.Map<SerialOption>(spOptionDto);
+               // var spOptionDto = data.TransportOptionsDto.SerialOptions.FirstOrDefault();
+               // var spOption = _mapper.Map<SerialOption>(spOptionDto);
 
-            //1. Добавить транспорт, его может не быть 
-            //2. Добавить обмен, его может не быть
-            //3. Добавить Device.
+                //1. Добавить транспорт, его может не быть 
+                //2. Добавить обмен, его может не быть
+                //3. Добавить Device.
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                //LOG
+                return null;
+            }
+
+
 
             return Ok();
         }

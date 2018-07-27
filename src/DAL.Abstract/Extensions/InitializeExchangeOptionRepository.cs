@@ -14,6 +14,7 @@ namespace DAL.Abstract.Extensions
             {
                 new ExchangeOption
                 {
+                    Key = "SP_COM1_Vidor1",
                     Id = 1,
                     KeyTransport = new KeyTransport("COM1", TransportType.SerialPort),
                     Provider = new Provider
@@ -26,6 +27,7 @@ namespace DAL.Abstract.Extensions
                 },
                 new ExchangeOption
                 {
+                    Key = "SP_COM2_Vidor2",
                     Id = 2,
                     KeyTransport = new KeyTransport("COM2", TransportType.SerialPort),
                     Provider = new Provider
@@ -38,6 +40,7 @@ namespace DAL.Abstract.Extensions
                 },
                 new ExchangeOption
                 {
+                    Key = "HTTP_google.com_Table1",
                     Id = 2,
                     KeyTransport = new KeyTransport("http:\\google.com", TransportType.Http),
                     Provider = new Provider

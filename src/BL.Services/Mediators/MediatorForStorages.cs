@@ -71,8 +71,9 @@ namespace BL.Services.Mediators
                 var sp = _serialPortStorageService.Get(keyTransport);
                 var bg = _backgroundStorageService.Get(keyTransport);
                 if (sp == null || bg == null) continue;
+                var key = exchOption.Key;
                 var exch = new ByRulesExchangeSerialPort(sp, bg, exchOption);
-                _exchangeStorageService.AddNew(keyTransport, exch);
+                _exchangeStorageService.AddNew(key, exch);
             }
 
             //ADD DEVICES--------------------------------------------------------------------------
@@ -88,8 +89,8 @@ namespace BL.Services.Mediators
         /// </summary>
         public void AddDevice(DeviceOption deviceOption)
         {
-            var exchanges = _exchangeStorageService.GetMany(deviceOption.KeyTransports).ToList();
-            var device = new Device.Base.Device(deviceOption, exchanges, _eventBus);
+            var excanges = _exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
+            var device = new Device.Base.Device(deviceOption, excanges, _eventBus);
             _deviceStorageService.AddNew(deviceOption.Id, device);
         }
 
@@ -105,8 +106,9 @@ namespace BL.Services.Mediators
                 var sp = _serialPortStorageService.Get(keyTransport);
                 var bg = _backgroundStorageService.Get(keyTransport);
                 if (sp == null || bg == null) continue;
+                var key = exchOption.Key;
                 var exch = new ByRulesExchangeSerialPort(sp, bg, exchOption);
-                _exchangeStorageService.AddNew(keyTransport, exch);
+                _exchangeStorageService.AddNew(key, exch);
             }
         }
 

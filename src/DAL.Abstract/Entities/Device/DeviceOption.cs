@@ -7,6 +7,6 @@ namespace DAL.Abstract.Entities.Device
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<KeyTransport> KeyTransports { get; set; }
+        public List<string> ExchangeKeys { get; set; }
     }
 }

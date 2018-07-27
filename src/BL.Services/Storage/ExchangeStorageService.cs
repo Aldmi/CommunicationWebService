@@ -3,7 +3,7 @@ using Shared.Types;
 
 namespace BL.Services.Storage
 {
-    public class ExchangeStorageService : StorageServiceBase<KeyTransport, IExchange>
+    public class ExchangeStorageService : StorageServiceBase<string, IExchange>
     {
 
     }

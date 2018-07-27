@@ -12,7 +12,7 @@ namespace WebServer.DTO.JSON.OptionsDto.DeviceOption
 
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Список ключей KeyTransports не может быть пуст")]
-        public List<KeyTransportDto> KeyTransports { get; set; }
+        [Required(ErrorMessage = "Список ключей ExchangeKeys не может быть пуст")]
+        public List<string> ExchangeKeys { get; set; }
     }
 }

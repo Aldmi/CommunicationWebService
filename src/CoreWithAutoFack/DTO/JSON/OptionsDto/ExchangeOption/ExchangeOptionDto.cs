@@ -6,7 +6,10 @@ namespace WebServer.DTO.JSON.OptionsDto.ExchangeOption
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Для Exchange, KeyTransport не может быть NULL")]
+        [Required(ErrorMessage = "Key для Exchange не может быть NULL")]
+        public string Key { get; set; }
+
+        [Required(ErrorMessage = "KeyTransport для Exchange не может быть NULL")]
         public KeyTransportDto KeyTransport { get; set; }
 
         public ExchangeRuleDto ExchangeRule { get; set; }
