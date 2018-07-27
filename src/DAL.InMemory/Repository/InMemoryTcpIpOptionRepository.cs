@@ -50,12 +50,18 @@ namespace DAL.InMemory.Repository
 
         public void Add(TcpIpOption entity)
         {
+            entity.Id = CalcMaxId() + 1;
             TcpIpOptions.Add(entity);
         }
 
 
         public void AddRange(IEnumerable<TcpIpOption> entitys)
         {
+            var maxId = CalcMaxId();
+            foreach (var entity in entitys)
+            {
+                entity.Id = ++maxId;
+            }
             TcpIpOptions.AddRange(entitys);
         }
 
@@ -80,6 +86,19 @@ namespace DAL.InMemory.Repository
                 var index = TcpIpOptions.IndexOf(findItem);
                 TcpIpOptions[index] = entity;
             }
+        }
+
+
+        public bool IsExist(Expression<Func<TcpIpOption, bool>> predicate)
+        {
+            return TcpIpOptions.FirstOrDefault(predicate.Compile()) != null;
+        }
+
+
+        private int CalcMaxId()
+        {
+            var maxId = TcpIpOptions.Any() ? TcpIpOptions.Max(d => d.Id) : 0;
+            return maxId;
         }
 
         #endregion

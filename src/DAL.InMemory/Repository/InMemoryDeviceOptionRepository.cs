@@ -49,12 +49,18 @@ namespace DAL.InMemory.Repository
 
         public void Add(DeviceOption entity)
         {
+            entity.Id = CalcMaxId() + 1;
             DeviceOptions.Add(entity);
         }
 
 
         public void AddRange(IEnumerable<DeviceOption> entitys)
         {
+            var maxId = CalcMaxId();
+            foreach (var entity in entitys)
+            {
+                entity.Id = ++maxId;
+            }
             DeviceOptions.AddRange(entitys);
         }
 
@@ -79,6 +85,19 @@ namespace DAL.InMemory.Repository
                 var index = DeviceOptions.IndexOf(findItem);
                 DeviceOptions[index] = entity;
             }
+        }
+
+
+        public bool IsExist(Expression<Func<DeviceOption, bool>> predicate)
+        {
+            return DeviceOptions.FirstOrDefault(predicate.Compile()) != null;
+        }
+
+
+        private int CalcMaxId()
+        {
+            var maxId =  DeviceOptions.Any() ? DeviceOptions.Max(d => d.Id) : 0;
+            return maxId;
         }
 
         #endregion

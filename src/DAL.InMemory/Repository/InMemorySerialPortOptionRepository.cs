@@ -50,12 +50,18 @@ namespace DAL.InMemory.Repository
 
         public void Add(SerialOption entity)
         {
+            entity.Id = CalcMaxId() + 1;
             Serials.Add(entity);
         }
 
 
         public void AddRange(IEnumerable<SerialOption> entitys)
         {
+            var maxId = CalcMaxId();
+            foreach (var entity in entitys)
+            {
+                entity.Id = ++maxId;
+            }
             Serials.AddRange(entitys);
         }
 
@@ -81,6 +87,20 @@ namespace DAL.InMemory.Repository
                 Serials[index] = entity;
             }
         }
+
+
+        public bool IsExist(Expression<Func<SerialOption, bool>> predicate)
+        {
+            return Serials.FirstOrDefault(predicate.Compile()) != null;
+        }
+
+
+        private int CalcMaxId()
+        {
+            var maxId = Serials.Any() ? Serials.Max(d => d.Id) : 0;
+            return maxId;
+        }
+
 
         #endregion
     }

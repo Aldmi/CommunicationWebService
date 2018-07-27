@@ -14,6 +14,7 @@ namespace DAL.Abstract.Abstract
         void Delete(T entity);
         void Delete(Expression<Func<T, bool>> predicate);
         void Edit(T entity);
+        bool IsExist(Expression<Func<T, bool>> predicate);
     }
 
     //IList<T> GetAll(params Expression<Func<T, object>>[] navigationProperties);

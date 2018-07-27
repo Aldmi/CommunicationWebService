@@ -48,12 +48,18 @@ namespace DAL.InMemory.Repository
 
         public void Add(ExchangeOption entity)
         {
+            entity.Id = CalcMaxId() + 1;
             ExchangeOptions.Add(entity);
         }
 
 
         public void AddRange(IEnumerable<ExchangeOption> entitys)
         {
+            var maxId = CalcMaxId();
+            foreach (var entity in entitys)
+            {
+                entity.Id = ++maxId;
+            }
             ExchangeOptions.AddRange(entitys);
         }
 
@@ -78,6 +84,19 @@ namespace DAL.InMemory.Repository
                 var index = ExchangeOptions.IndexOf(findItem);
                 ExchangeOptions[index] = entity;
             }
+        }
+
+
+        public bool IsExist(Expression<Func<ExchangeOption, bool>> predicate)
+        {
+            return ExchangeOptions.FirstOrDefault(predicate.Compile()) != null;
+        }
+
+
+        private int CalcMaxId()
+        {
+            var maxId = ExchangeOptions.Any() ? ExchangeOptions.Max(d => d.Id) : 0;
+            return maxId;
         }
 
         #endregion

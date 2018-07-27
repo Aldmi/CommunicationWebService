@@ -50,5 +50,12 @@ namespace Shared.Types
         }
 
         #endregion
+
+
+
+        public override string ToString()
+        {
+            return $"TransportType= {TransportType}  Key={Key}";
+        }
     }
 }

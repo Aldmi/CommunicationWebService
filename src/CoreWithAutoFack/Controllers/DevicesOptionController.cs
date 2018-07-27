@@ -89,7 +89,7 @@ namespace WebServer.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]AgregatorOptionDto data)
         {         
-            if (data==null)
+            if (data == null)
             {
                 ModelState.AddModelError("AgregatorOptionDto", "POST body is null");
                 return BadRequest(ModelState);
@@ -101,63 +101,22 @@ namespace WebServer.Controllers
             try
             {
                 var deviceOptionDto = data.DeviceOptions?.FirstOrDefault();
-                var exchangeOptionDto = data.ExchangeOptions?.FirstOrDefault();
+                var exchangeOptionDto = data.ExchangeOptions;
                 var transportOptionDto = data.TransportOptions;
-
                 var deviceOption = _mapper.Map<DeviceOption>(deviceOptionDto);
-                var exchangeOption = _mapper.Map<ExchangeOption>(exchangeOptionDto);
+                var exchangeOption = _mapper.Map<IEnumerable<ExchangeOption>>(exchangeOptionDto);
                 var transportOption = _mapper.Map<TransportOption>(transportOptionDto);
-
                 _mediatorForOptionsRep.AddDeviceOption(deviceOption, exchangeOption, transportOption);
-
-                // var spOptionDto = data.TransportOptionsDto.SerialOptions.FirstOrDefault();
-                // var spOption = _mapper.Map<SerialOption>(spOptionDto);
-
-                //1. Добавить транспорт, его может не быть 
-                //2. Добавить обмен, его может не быть
-                //3. Добавить Device.
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 //LOG
-                return null;
+                ModelState.AddModelError("AgregatorOptionDto", e.Message);
+                return BadRequest(ModelState);
             }
-
-
 
             return Ok();
         }
-
-
-
-        //DEBUG---------------------------------------------------------------------------
-
-        //[HttpGet]
-        //[Route("TestDto")]
-        //public async Task<TestDto> TestDtoGet()
-        //{
-        //   var testDto= new TestDto()
-        //   {
-        //       IsActive = true,
-        //       Name = "sddssfsgfd",
-        //       InnerType = new InnerType{ Id = 128}
-        //       //KeyTransport = new KeyTransport ("COM1", TransportType.SerialPort)
-        //   };
-        //    await Task.Delay(100);
-
-        //    return testDto;
-        //}
-
-        //[HttpPost]
-        //[Route("TestDto")]
-        //public void Post([FromBody]TestDto value)
-        //{
-
-        //}
-
-        //DEBUG---------------------------------------------------------------------------
-
-
     }
 }

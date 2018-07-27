@@ -49,12 +49,18 @@ namespace DAL.InMemory.Repository
 
         public void Add(HttpOption entity)
         {
+            entity.Id = CalcMaxId() + 1;
             HttpOptions.Add(entity);
         }
 
 
         public void AddRange(IEnumerable<HttpOption> entitys)
         {
+            var maxId = CalcMaxId();
+            foreach (var entity in entitys)
+            {
+                entity.Id = ++maxId;
+            }
             HttpOptions.AddRange(entitys);
         }
 
@@ -80,6 +86,18 @@ namespace DAL.InMemory.Repository
             }
         }
 
+
+        public bool IsExist(Expression<Func<HttpOption, bool>> predicate)
+        {
+            return HttpOptions.FirstOrDefault(predicate.Compile()) != null;
+        }
+
+
+        private int CalcMaxId()
+        {
+            var maxId = HttpOptions.Any() ? HttpOptions.Max(d => d.Id) : 0;
+            return maxId;
+        }
         #endregion
     }
 }
