@@ -6,6 +6,7 @@ using AutoMapper;
 using BL.Services.Mediators;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Device;
+using DAL.Abstract.Entities.Exchange;
 using DAL.Abstract.Entities.Transport;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -26,11 +27,6 @@ namespace WebServer.Controllers
     {
         #region fields
 
-        private readonly ISerialPortOptionRepository _spOptionRep;
-        private readonly ITcpIpOptionRepository _tcpIpOptionRep;
-        private readonly IHttpOptionRepository _httpOptionRep;
-        private readonly IExchangeOptionRepository _exchangeOptionRep;
-        private readonly IDeviceOptionRepository _deviceOptionRep;
         private readonly MediatorForOptionsRepository _mediatorForOptionsRep;
         private readonly IMapper _mapper;
 
@@ -41,19 +37,8 @@ namespace WebServer.Controllers
 
         #region ctor
 
-        public DevicesOptionController(ISerialPortOptionRepository spOptionRep,
-            ITcpIpOptionRepository tcpIpOptionRep,
-            IHttpOptionRepository httpOptionRep,
-            IExchangeOptionRepository exchangeOptionRep,
-            IDeviceOptionRepository deviceOptionRep,
-            MediatorForOptionsRepository mediatorForOptionsRep,
-            IMapper mapper)
+        public DevicesOptionController(MediatorForOptionsRepository mediatorForOptionsRep, IMapper mapper)
         {
-            _spOptionRep = spOptionRep;
-            _tcpIpOptionRep = tcpIpOptionRep;
-            _httpOptionRep = httpOptionRep;
-            _exchangeOptionRep = exchangeOptionRep;
-            _deviceOptionRep = deviceOptionRep;
             _mediatorForOptionsRep = mediatorForOptionsRep;
             _mapper = mapper;
         }
@@ -70,30 +55,19 @@ namespace WebServer.Controllers
         {
             try
             {
-                //TODO: Прямую работу с репозиториями заменить на MediatorForOptionsRepository
+                var deviceOptions = _mediatorForOptionsRep.GetDeviceOptions().ToList();
+                var exchangeOptions= _mediatorForOptionsRep.GetExchangeOptions().ToList();
+                var transportOption = _mediatorForOptionsRep.GetTransportOptions();
 
-                var deviceOptions = _deviceOptionRep.List().ToList();
-                var exchangeOptions= _exchangeOptionRep.List().ToList();
-                var serialOptions= _spOptionRep.List().ToList();
-                var tcpIpOptions= _tcpIpOptionRep.List().ToList();
-                var httpOptions= _httpOptionRep.List().ToList();
-      
                 var deviceOptionsDto= _mapper.Map<List<DeviceOptionDto>>(deviceOptions);
                 var exchangeOptionsDto= _mapper.Map<List<ExchangeOptionDto>>(exchangeOptions);
-                var serialOptionsDto= _mapper.Map<List<SerialOptionDto>>(serialOptions);
-                var tcpIpOptionsDto= _mapper.Map<List<TcpIpOptionDto>>(tcpIpOptions);
-                var httpOptionsDto= _mapper.Map<List<HttpOptionDto>>(httpOptions);
-       
+                var transportOptionDto = _mapper.Map<TransportOptionsDto>(transportOption);
+
                 var deviceOptionDto = new AgregatorOptionDto
                 {
                     DeviceOptions = deviceOptionsDto,
                     ExchangeOptions = exchangeOptionsDto,
-                    TransportOptions = new TransportOptionsDto
-                    {
-                        SerialOptions = serialOptionsDto,
-                        TcpIpOptions = tcpIpOptionsDto,
-                        HttpOptions = httpOptionsDto
-                    }
+                    TransportOptions = transportOptionDto
                 };
 
                 //throw new Exception("fdfdf");
@@ -124,15 +98,20 @@ namespace WebServer.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-
             try
             {
-                var deviceOptionDto = data.DeviceOptions.FirstOrDefault();
+                var deviceOptionDto = data.DeviceOptions?.FirstOrDefault();
+                var exchangeOptionDto = data.ExchangeOptions?.FirstOrDefault();
+                var transportOptionDto = data.TransportOptions;
+
                 var deviceOption = _mapper.Map<DeviceOption>(deviceOptionDto);
+                var exchangeOption = _mapper.Map<ExchangeOption>(exchangeOptionDto);
+                var transportOption = _mapper.Map<TransportOption>(transportOptionDto);
 
+                _mediatorForOptionsRep.AddDeviceOption(deviceOption, exchangeOption, transportOption);
 
-               // var spOptionDto = data.TransportOptionsDto.SerialOptions.FirstOrDefault();
-               // var spOption = _mapper.Map<SerialOption>(spOptionDto);
+                // var spOptionDto = data.TransportOptionsDto.SerialOptions.FirstOrDefault();
+                // var spOption = _mapper.Map<SerialOption>(spOptionDto);
 
                 //1. Добавить транспорт, его может не быть 
                 //2. Добавить обмен, его может не быть
