@@ -34,6 +34,13 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public ExchangeOption GetSingle(Expression<Func<ExchangeOption, bool>> predicate)
+        {
+            var findItem = ExchangeOptions.FirstOrDefault(predicate.Compile());
+            return findItem;
+        }
+
+
         public IEnumerable<ExchangeOption> List()
         {
             return ExchangeOptions;

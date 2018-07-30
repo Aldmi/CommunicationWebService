@@ -34,6 +34,12 @@ namespace DAL.InMemory.Repository
             return findItem;
         }
 
+        public HttpOption GetSingle(Expression<Func<HttpOption, bool>> predicate)
+        {
+            var findItem = HttpOptions.FirstOrDefault(predicate.Compile());
+            return findItem;
+        }
+
 
         public IEnumerable<HttpOption> List()
         {

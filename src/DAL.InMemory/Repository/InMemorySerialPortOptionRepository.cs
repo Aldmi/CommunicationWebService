@@ -10,7 +10,7 @@ namespace DAL.InMemory.Repository
     public class InMemorySerialPortOptionRepository : ISerialPortOptionRepository
     {
         private readonly string _connectionString;
-        private List<SerialOption> Serials { get;  } = new List<SerialOption>();
+        private List<SerialOption> SerialOptions { get;  } = new List<SerialOption>();
 
   
 
@@ -31,27 +31,33 @@ namespace DAL.InMemory.Repository
 
         public SerialOption GetById(int id)
         {
-            var findItem = Serials.FirstOrDefault(t => t.Id == id);
+            var findItem = SerialOptions.FirstOrDefault(t => t.Id == id);
+            return findItem;
+        }
+
+        public SerialOption GetSingle(Expression<Func<SerialOption, bool>> predicate)
+        {
+            var findItem = SerialOptions.FirstOrDefault(predicate.Compile());
             return findItem;
         }
 
 
         public IEnumerable<SerialOption> List()
         {
-            return Serials;
+            return SerialOptions;
         }
 
 
         public IEnumerable<SerialOption> List(Expression<Func<SerialOption, bool>> predicate)
         {
-            return Serials.Where(predicate.Compile());
+            return SerialOptions.Where(predicate.Compile());
         }
 
 
         public void Add(SerialOption entity)
         {
             entity.Id = CalcMaxId() + 1;
-            Serials.Add(entity);
+            SerialOptions.Add(entity);
         }
 
 
@@ -62,19 +68,19 @@ namespace DAL.InMemory.Repository
             {
                 entity.Id = ++maxId;
             }
-            Serials.AddRange(entitys);
+            SerialOptions.AddRange(entitys);
         }
 
 
         public void Delete(SerialOption entity)
         {
-            Serials.Remove(entity);
+            SerialOptions.Remove(entity);
         }
 
 
         public void Delete(Expression<Func<SerialOption, bool>> predicate)
         {
-            Serials.RemoveAll(predicate.Compile().Invoke);
+            SerialOptions.RemoveAll(predicate.Compile().Invoke);
         }
 
 
@@ -83,21 +89,21 @@ namespace DAL.InMemory.Repository
             var findItem = GetById(entity.Id);
             if (findItem != null)
             {
-                var index = Serials.IndexOf(findItem);
-                Serials[index] = entity;
+                var index = SerialOptions.IndexOf(findItem);
+                SerialOptions[index] = entity;
             }
         }
 
 
         public bool IsExist(Expression<Func<SerialOption, bool>> predicate)
         {
-            return Serials.FirstOrDefault(predicate.Compile()) != null;
+            return SerialOptions.FirstOrDefault(predicate.Compile()) != null;
         }
 
 
         private int CalcMaxId()
         {
-            var maxId = Serials.Any() ? Serials.Max(d => d.Id) : 0;
+            var maxId = SerialOptions.Any() ? SerialOptions.Max(d => d.Id) : 0;
             return maxId;
         }
 

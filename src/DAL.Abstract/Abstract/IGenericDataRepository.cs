@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using DAL.Abstract.Entities.Device;
 
 namespace DAL.Abstract.Abstract
 {
     public interface IGenericDataRepository<T>
     {
         T GetById(int id);
+        T GetSingle(Expression<Func<T, bool>> predicate);
         IEnumerable<T> List();
         IEnumerable<T> List(Expression<Func<T, bool>> predicate);
         void Add(T entity);

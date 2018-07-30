@@ -53,18 +53,46 @@ namespace BL.Services.Mediators
 
         #region Methode
 
+        /// <summary>
+        /// Вернуть все опции устройств из репозитория.
+        /// </summary>
         public IEnumerable<DeviceOption> GetDeviceOptions()
         {
             return _deviceOptionRep.List();
         }
 
 
+        /// <summary>
+        /// Вернуть опции одного устройства по имени, из репозитория.
+        /// </summary>
+        public DeviceOption GetDeviceOptionByName(string deviceName)
+        {
+            var deviceOption = _deviceOptionRep.GetSingle(option => option.Name == deviceName);
+            return deviceOption;
+        }
+
+
+        /// <summary>
+        /// Вернуть все опции обменов из репозитория.
+        /// </summary>
         public IEnumerable<ExchangeOption> GetExchangeOptions()
         {
             return _exchangeOptionRep.List();
         }
 
 
+        /// <summary>
+        /// Вернуть опции одного обмена из репозитория.
+        /// </summary>
+        public ExchangeOption GetExchangeByKey(string exchangeKey)
+        {
+            return _exchangeOptionRep.GetSingle(option => option.Key == exchangeKey);
+        }
+
+
+        /// <summary>
+        /// Вернуть опции всех транспоротов из репозиториев.
+        /// </summary>
         public TransportOption GetTransportOptions()
         {
             return new TransportOption
@@ -76,6 +104,45 @@ namespace BL.Services.Mediators
         }
 
 
+        /// <summary>
+        /// Вернуть опции для спсика транспортов, по списку ключей из репозитория.
+        /// </summary>
+        public TransportOption GetTransportByKeys(IEnumerable<KeyTransport> keyTransports)
+        {
+            var serialOptions = new List<SerialOption>();
+            var tcpIpOptions = new List<TcpIpOption>();
+            var httpOptions = new List<HttpOption>();
+
+            foreach (var keyTransport in keyTransports)
+            {
+                switch (keyTransport.TransportType)
+                {
+                    case TransportType.SerialPort:
+                        serialOptions.Add(_serialPortOptionRep.GetSingle(option=> option.Port == keyTransport.Key));
+                        break;
+                    case TransportType.TcpIp:
+                        tcpIpOptions.Add(_tcpIpOptionRep.GetSingle(option=> option.Name == keyTransport.Key));
+                        break;
+                    case TransportType.Http:
+                        httpOptions.Add(_httpOptionRep.GetSingle(option=> option.Name == keyTransport.Key));
+                        break;
+                }
+            }
+            return new TransportOption
+            {
+                SerialOptions = serialOptions,
+                TcpIpOptions = tcpIpOptions,
+                HttpOptions = httpOptions
+            };
+        }
+
+
+        /// <summary>
+        /// Добавить опции для устройства в репозиторий.
+        /// Если exchangeOptions и transportOption не указанны, то добавляетя устройство с существующими обменами
+        /// Если transportOption не указанн, то добавляетя устройство вместе со списом обменов, на уже существйющем транспорте.
+        /// Если указзанны все аргументы, то добавляется устройство со спсиком новых обменом и каждый обмен использует новый транспорт.
+        /// </summary>
         public bool AddDeviceOption(DeviceOption deviceOption, IEnumerable<ExchangeOption> exchangeOptions = null, TransportOption transportOption = null)
         {
             if (deviceOption == null && exchangeOptions == null && transportOption == null)
@@ -180,6 +247,9 @@ namespace BL.Services.Mediators
         }
 
 
+        /// <summary>
+        /// Проверка наличия транспорта по ключу
+        /// </summary>
         private bool IsExistTransport(KeyTransport keyTransport)
         {
             switch (keyTransport.TransportType)

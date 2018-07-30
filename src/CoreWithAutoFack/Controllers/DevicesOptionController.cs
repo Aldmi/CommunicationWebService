@@ -63,7 +63,7 @@ namespace WebServer.Controllers
                 var exchangeOptionsDto= _mapper.Map<List<ExchangeOptionDto>>(exchangeOptions);
                 var transportOptionDto = _mapper.Map<TransportOptionsDto>(transportOption);
 
-                var deviceOptionDto = new AgregatorOptionDto
+                var agregatorOptionDto = new AgregatorOptionDto
                 {
                     DeviceOptions = deviceOptionsDto,
                     ExchangeOptions = exchangeOptionsDto,
@@ -72,8 +72,8 @@ namespace WebServer.Controllers
 
                 //throw new Exception("fdfdf");
 
-                await Task.Delay(100);//DEBUG
-                return deviceOptionDto;
+                await Task.Delay(0);//DEBUG
+                return agregatorOptionDto;
             }
             catch (Exception e)
             {
@@ -91,27 +91,29 @@ namespace WebServer.Controllers
         {
             try
             {
-                //TODO: возвращает Device option со всеми обменами и транспортом
+                var deviceOption= _mediatorForOptionsRep.GetDeviceOptionByName(deviceName);
+                if (deviceOption == null)
+                    return null; //TODO: вернуть ошибку, что Device не найденн по имени
 
-                var deviceOptions = _mediatorForOptionsRep.GetDeviceOptions().ToList();
-                var exchangeOptions = _mediatorForOptionsRep.GetExchangeOptions().ToList();
-                var transportOption = _mediatorForOptionsRep.GetTransportOptions();
+                var exchangesOptions= deviceOption.ExchangeKeys.Select(exchangeKey=> _mediatorForOptionsRep.GetExchangeByKey(exchangeKey)).ToList();
+                var transportOption= _mediatorForOptionsRep.GetTransportByKeys(exchangesOptions.Select(option=> option.KeyTransport));
 
-                var deviceOptionsDto = _mapper.Map<List<DeviceOptionDto>>(deviceOptions);
-                var exchangeOptionsDto = _mapper.Map<List<ExchangeOptionDto>>(exchangeOptions);
+  
+
+
+                var deviceOptionDto = _mapper.Map<DeviceOptionDto>(deviceOption);
+                var exchangeOptionsDto = _mapper.Map<List<ExchangeOptionDto>>(exchangesOptions);
                 var transportOptionDto = _mapper.Map<TransportOptionsDto>(transportOption);
 
-                var deviceOptionDto = new AgregatorOptionDto
+                var agregatorOptionDto = new AgregatorOptionDto
                 {
-                    DeviceOptions = deviceOptionsDto,
+                    DeviceOptions = new List<DeviceOptionDto>{deviceOptionDto},
                     ExchangeOptions = exchangeOptionsDto,
                     TransportOptions = transportOptionDto
                 };
 
-                //throw new Exception("fdfdf");
-
-                await Task.Delay(100);//DEBUG
-                return deviceOptionDto;
+                await Task.CompletedTask; //Debug
+                return agregatorOptionDto;
             }
             catch (Exception e)
             {

@@ -35,6 +35,14 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public DeviceOption GetSingle(Expression<Func<DeviceOption, bool>> predicate)
+        {
+            var findItem = DeviceOptions.FirstOrDefault(predicate.Compile());
+            return findItem;
+        }
+
+
+
         public IEnumerable<DeviceOption> List()
         {
             return DeviceOptions;
