@@ -22,6 +22,8 @@ namespace WebServer.Controllers
     /// <summary>
     /// REST api доступа к опциям системы (Devices, Exchanges, Transports)
     /// </summary>
+ 
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class DevicesOptionController : Controller
     {
@@ -48,10 +50,11 @@ namespace WebServer.Controllers
 
 
 
+        #region ApiMethode
 
         // GET api/devicesoption
         [HttpGet]
-        public async Task<AgregatorOptionDto> Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
@@ -70,16 +73,16 @@ namespace WebServer.Controllers
                     TransportOptions = transportOptionDto
                 };
 
-                //throw new Exception("fdfdf");
+
 
                 await Task.Delay(0);//DEBUG
-                return agregatorOptionDto;
+                return new JsonResult(agregatorOptionDto);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(ex);
                 //LOG
-                return null;     //TODO: Как пересылать ошибки на GET запрос
+                throw;
             }
         }
 
@@ -87,19 +90,16 @@ namespace WebServer.Controllers
 
         // GET api/devicesoption/deviceName
         [HttpGet("{deviceName}")]
-        public async Task<AgregatorOptionDto> Get(string deviceName)
+        public async Task<IActionResult> Get([FromRoute]string deviceName)
         {
             try
             {
                 var deviceOption= _mediatorForOptionsRep.GetDeviceOptionByName(deviceName);
                 if (deviceOption == null)
-                    return null; //TODO: вернуть ошибку, что Device не найденн по имени
+                    return NotFound(deviceName);
 
                 var exchangesOptions= deviceOption.ExchangeKeys.Select(exchangeKey=> _mediatorForOptionsRep.GetExchangeByKey(exchangeKey)).ToList();
                 var transportOption= _mediatorForOptionsRep.GetTransportByKeys(exchangesOptions.Select(option=> option.KeyTransport));
-
-  
-
 
                 var deviceOptionDto = _mapper.Map<DeviceOptionDto>(deviceOption);
                 var exchangeOptionsDto = _mapper.Map<List<ExchangeOptionDto>>(exchangesOptions);
@@ -113,13 +113,13 @@ namespace WebServer.Controllers
                 };
 
                 await Task.CompletedTask; //Debug
-                return agregatorOptionDto;
+                return new JsonResult(agregatorOptionDto);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(ex);
                 //LOG
-                return null;     //TODO: Как пересылать ошибки на GET запрос
+                throw;
             }
         }
 
@@ -147,16 +147,27 @@ namespace WebServer.Controllers
                 var exchangeOption = _mapper.Map<IEnumerable<ExchangeOption>>(exchangeOptionDto);
                 var transportOption = _mapper.Map<TransportOption>(transportOptionDto);
                 _mediatorForOptionsRep.AddDeviceOption(deviceOption, exchangeOption, transportOption);
+                return Ok(data);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(ex);
                 //LOG
-                ModelState.AddModelError("AgregatorOptionDto", e.Message);
-                return BadRequest(ModelState);
+                throw;
             }
+        }
 
+
+
+        // DELETE api/values/5
+        [HttpDelete("{deviceName}")]
+        public async Task<IActionResult> Delete([FromRoute]string deviceName)
+        {
+
+            await Task.Delay(0);//DEBUG
             return Ok();
         }
+
+        #endregion
     }
 }

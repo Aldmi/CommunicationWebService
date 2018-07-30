@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using Autofac;
 using AutoMapper;
-using BL.Services.Storage;
+using BL.Services.Storages;
 using Exchange.Base;
 using Microsoft.AspNetCore.Mvc;
 using Transport.SerialPort.Abstract;
@@ -15,6 +15,7 @@ namespace WebServer.Controllers
     /// <summary>
     /// Все singleton сервисы передаваемые через DI, в контроллеры, должны быть ПОТОКОБЕЗОПАСНЫЕ.
     /// </summary>
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {

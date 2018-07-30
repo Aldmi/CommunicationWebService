@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Shared.Enums;
 
-namespace BL.Services.Storage
+namespace BL.Services.Storages
 {
     public class StorageServiceBase<TKey, TValue> where TKey : IEquatable<TKey>
                                               where TValue : class, IDisposable

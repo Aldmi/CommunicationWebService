@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using BL.Services.Storage;
+using BL.Services.Storages;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Device;
 using DAL.Abstract.Entities.Exchange;

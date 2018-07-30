@@ -118,13 +118,13 @@ namespace BL.Services.Mediators
                 switch (keyTransport.TransportType)
                 {
                     case TransportType.SerialPort:
-                        serialOptions.Add(_serialPortOptionRep.GetSingle(option=> option.Port == keyTransport.Key));
+                        serialOptions.Add(_serialPortOptionRep.GetSingle(option => option.Port == keyTransport.Key));
                         break;
                     case TransportType.TcpIp:
-                        tcpIpOptions.Add(_tcpIpOptionRep.GetSingle(option=> option.Name == keyTransport.Key));
+                        tcpIpOptions.Add(_tcpIpOptionRep.GetSingle(option => option.Name == keyTransport.Key));
                         break;
                     case TransportType.Http:
-                        httpOptions.Add(_httpOptionRep.GetSingle(option=> option.Name == keyTransport.Key));
+                        httpOptions.Add(_httpOptionRep.GetSingle(option => option.Name == keyTransport.Key));
                         break;
                 }
             }
@@ -157,7 +157,7 @@ namespace BL.Services.Mediators
             {
                 AddDeviceOptionWithNewExchangeOptions(deviceOption, exchangeOptions);
             }
-            else 
+            else
             if (deviceOption != null && exchangeOptions != null)
             {
                 AddDeviceOptionWithNewExchangeOptionsAndNewTransportOptions(deviceOption, exchangeOptions, transportOption);
@@ -173,12 +173,18 @@ namespace BL.Services.Mediators
         /// </summary>
         private void AddDeviceOptionWithExiststExchangeOptions(DeviceOption deviceOption)
         {
+            //ПРОВЕРКА ОТСУТСВИЯ УСТРОЙСТВА по имени
+            if (IsExistDevice(deviceOption.Name))
+            {
+                throw new Exception($"Устройство с таким именем уже существует:  {deviceOption.Name}");
+            }
+
             var exceptionStr = new StringBuilder();
             foreach (var exchangeKey in deviceOption.ExchangeKeys)
             {
                 if (!_exchangeOptionRep.IsExist(exchangeOption => exchangeOption.Key == exchangeKey))
                 {
-                    exceptionStr.AppendFormat("{0}, ",exchangeKey);
+                    exceptionStr.AppendFormat("{0}, ", exchangeKey);
                 }
             }
 
@@ -198,14 +204,19 @@ namespace BL.Services.Mediators
         /// </summary>
         private void AddDeviceOptionWithNewExchangeOptions(DeviceOption deviceOption, IEnumerable<ExchangeOption> exchangeOptions)
         {
-            var exceptionStr = new StringBuilder();
+            //ПРОВЕРКА ОТСУТСВИЯ УСТРОЙСТВА по имени
+            if (IsExistDevice(deviceOption.Name))
+            {
+                throw new Exception($"Устройство с таким именем уже существует:  {deviceOption.Name}");
+            }
 
+            var exceptionStr = new StringBuilder();
             //ПРОВЕРКА СООТВЕТСТВИЯ exchangeKeys, УКАЗАННОЙ В deviceOption, КЛЮЧАМ ИЗ exchangeOptions
-            var exchangeExternalKeys = exchangeOptions.Select(exchangeOption=> exchangeOption.Key).ToList();
-            var diff= exchangeExternalKeys.Except(deviceOption.ExchangeKeys).ToList();
+            var exchangeExternalKeys = exchangeOptions.Select(exchangeOption => exchangeOption.Key).ToList();
+            var diff = exchangeExternalKeys.Except(deviceOption.ExchangeKeys).ToList();
             if (diff.Count > 0)
             {
-                throw new Exception("Найденно несоответсвие ключей указанных для Device, ключам в exchangeOptions");
+                throw new Exception("Найденно несоответсвие ключей указанных для Device, ключам указанным в exchangeOptions");
             }
 
             //ПРОВЕРКА НАЛИЧИЯ УЖЕ СОЗДАНННОГО ТРАНСПОРТА ДЛЯ КАЖДОГО ОБМЕНА
@@ -243,7 +254,81 @@ namespace BL.Services.Mediators
         /// </summary>
         private void AddDeviceOptionWithNewExchangeOptionsAndNewTransportOptions(DeviceOption deviceOption, IEnumerable<ExchangeOption> exchangeOptions, TransportOption transportOption)
         {
+            //ПРОВЕРКА ОТСУТСВИЯ УСТРОЙСТВА по имени
+            if (IsExistDevice(deviceOption.Name))
+            {
+                throw new Exception($"Устройство с таким именем уже существует:  {deviceOption.Name}");
+            }
 
+            var exceptionStr = new StringBuilder();
+            //ПРОВЕРКА СООТВЕТСТВИЯ exchangeKeys, УКАЗАННОЙ В deviceOption, КЛЮЧАМ ИЗ exchangeOptions
+            var exchangeExternalKeys = exchangeOptions.Select(exchangeOption => exchangeOption.Key).ToList();
+            var diff = exchangeExternalKeys.Except(deviceOption.ExchangeKeys).ToList();
+            if (diff.Count > 0)
+            {
+                throw new Exception("Найденно несоответсвие ключей указанных для Device, ключам указанным в exchangeOptions");
+            }
+
+            //ПРОВЕРКА СООТВЕТСТВИЯ ключей exchangeOptions, указанному транспорту transportOption
+            var keysByExchange = exchangeOptions.Select(option => option.KeyTransport);
+            var keysBySp = transportOption.SerialOptions.Select(option => new KeyTransport(option.Port, TransportType.SerialPort));
+            var keysByTcpIp = transportOption.TcpIpOptions.Select(option => new KeyTransport(option.Name, TransportType.TcpIp));
+            var keysByHttp = transportOption.HttpOptions.Select(option => new KeyTransport(option.Name, TransportType.Http));
+            var keysAllTransport = new List<KeyTransport>();
+            keysAllTransport.AddRange(keysBySp);
+            keysAllTransport.AddRange(keysByTcpIp);
+            keysAllTransport.AddRange(keysByHttp);
+            var diffKeys = keysByExchange.Except(keysAllTransport).ToList();
+            if (diffKeys.Count > 0)
+            {
+                foreach (var diffKey in diffKeys)
+                {
+                    exceptionStr.AppendFormat("{0}, ", diffKey);
+                }
+                throw new Exception($"Найденно несоответсвие ключей указанных для Обмненов, ключам указанным для транспорта {exceptionStr}");
+            }
+
+            //ПРОВЕРКА ОТСУТСВИЯ ДОБАВЛЯЕМОГО ТРАНСПОРТА ДЛЯ КАЖДОГО ОБМЕНА (по ключу KeyTransport). Добавялем только уникальный обмен.
+            foreach (var exchangeOption in exchangeOptions)
+            {
+                if (IsExistTransport(exchangeOption.KeyTransport))
+                {
+                    exceptionStr.AppendFormat("{0}, ", exchangeOption.KeyTransport);
+                }
+            }
+            if (!string.IsNullOrEmpty(exceptionStr.ToString()))
+            {
+                throw new Exception($"Для ExchangeOption УЖЕ СУЩЕСТВУЕТ ТАКОЙ ТРАНСПОРТ:  {exceptionStr}");
+            }
+
+            //ДОБАВИТЬ ДЕВАЙС, ОБМЕНЫ, ТРАНСПОРТ
+            _deviceOptionRep.Add(deviceOption);
+            _exchangeOptionRep.AddRange(exchangeOptions);
+            if (transportOption.SerialOptions != null)
+                _serialPortOptionRep.AddRange(transportOption.SerialOptions);
+            if (transportOption.TcpIpOptions != null)
+                _tcpIpOptionRep.AddRange(transportOption.TcpIpOptions);
+            if (transportOption.HttpOptions != null)
+                _httpOptionRep.AddRange(transportOption.HttpOptions);
+        }
+
+
+        /// <summary>
+        /// Проверка наличия транспорта по ключу
+        /// </summary>
+        private bool IsExistDevice(string deviceName)
+        {
+            return _deviceOptionRep.IsExist(dev => dev.Name == deviceName);
+
+        }
+
+
+        /// <summary>
+        /// Проверка наличия транспорта по ключу
+        /// </summary>
+        private bool IsExistExchange(string keyExchange)
+        {
+            return _exchangeOptionRep.IsExist(exc => exc.Key == keyExchange);
         }
 
 
@@ -255,13 +340,13 @@ namespace BL.Services.Mediators
             switch (keyTransport.TransportType)
             {
                 case TransportType.SerialPort:
-                    return _serialPortOptionRep.IsExist(sp=> sp.Port == keyTransport.Key);
+                    return _serialPortOptionRep.IsExist(sp => sp.Port == keyTransport.Key);
 
                 case TransportType.TcpIp:
-                    return _tcpIpOptionRep.IsExist(tcpip=> tcpip.Name == keyTransport.Key);
+                    return _tcpIpOptionRep.IsExist(tcpip => tcpip.Name == keyTransport.Key);
 
                 case TransportType.Http:
-                    return _httpOptionRep.IsExist(http=> http.Name == keyTransport.Key);
+                    return _httpOptionRep.IsExist(http => http.Name == keyTransport.Key);
             }
 
             return false;

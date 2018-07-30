@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using Autofac;
 using AutoMapper;
-using BL.Services.Storage;
+using BL.Services.Storages;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
 using Exchange.MasterSerialPort;

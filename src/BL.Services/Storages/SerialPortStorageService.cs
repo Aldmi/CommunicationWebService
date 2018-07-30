@@ -1,7 +1,7 @@
 ﻿using Shared.Types;
 using Transport.SerialPort.Abstract;
 
-namespace BL.Services.Storage
+namespace BL.Services.Storages
 {
     /// <summary>
     /// Сервис содержит словарь портов и словарь бекграунда для них. Ключ словаря - TransportType

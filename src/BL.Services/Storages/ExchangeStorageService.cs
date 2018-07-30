@@ -1,7 +1,6 @@
 ﻿using Exchange.Base;
-using Shared.Types;
 
-namespace BL.Services.Storage
+namespace BL.Services.Storages
 {
     public class ExchangeStorageService : StorageServiceBase<string, IExchange>
     {

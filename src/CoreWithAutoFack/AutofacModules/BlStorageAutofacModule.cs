@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using BL.Services.Mediators;
-using BL.Services.Storage;
+using BL.Services.Storages;
 
 namespace WebServer.AutofacModules
 {
