@@ -35,6 +35,12 @@ namespace DAL.InMemory.Repository
             return findItem;
         }
 
+        public TcpIpOption GetSingle(Expression<Func<TcpIpOption, bool>> predicate)
+        {
+            var findItem = TcpIpOptions.FirstOrDefault(predicate.Compile());
+            return findItem;
+        }
+
 
         public IEnumerable<TcpIpOption> List()
         {

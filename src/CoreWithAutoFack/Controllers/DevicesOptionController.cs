@@ -85,6 +85,44 @@ namespace WebServer.Controllers
 
 
 
+        // GET api/devicesoption/deviceName
+        [HttpGet("{deviceName}")]
+        public async Task<AgregatorOptionDto> Get(string deviceName)
+        {
+            try
+            {
+                //TODO: возвращает Device option со всеми обменами и транспортом
+
+                var deviceOptions = _mediatorForOptionsRep.GetDeviceOptions().ToList();
+                var exchangeOptions = _mediatorForOptionsRep.GetExchangeOptions().ToList();
+                var transportOption = _mediatorForOptionsRep.GetTransportOptions();
+
+                var deviceOptionsDto = _mapper.Map<List<DeviceOptionDto>>(deviceOptions);
+                var exchangeOptionsDto = _mapper.Map<List<ExchangeOptionDto>>(exchangeOptions);
+                var transportOptionDto = _mapper.Map<TransportOptionsDto>(transportOption);
+
+                var deviceOptionDto = new AgregatorOptionDto
+                {
+                    DeviceOptions = deviceOptionsDto,
+                    ExchangeOptions = exchangeOptionsDto,
+                    TransportOptions = transportOptionDto
+                };
+
+                //throw new Exception("fdfdf");
+
+                await Task.Delay(100);//DEBUG
+                return deviceOptionDto;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                //LOG
+                return null;     //TODO: Как пересылать ошибки на GET запрос
+            }
+        }
+
+
+
         // POST api/devicesoption
         [HttpPost]
         public IActionResult Post([FromBody]AgregatorOptionDto data)
