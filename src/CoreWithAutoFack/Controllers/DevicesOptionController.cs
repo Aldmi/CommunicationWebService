@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BL.Services.Mediators;
+using BL.Services.Mediators.Exceptions;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Device;
 using DAL.Abstract.Entities.Exchange;
@@ -73,8 +74,6 @@ namespace WebServer.Controllers
                     TransportOptions = transportOptionDto
                 };
 
-
-
                 await Task.Delay(0);//DEBUG
                 return new JsonResult(agregatorOptionDto);
             }
@@ -83,13 +82,13 @@ namespace WebServer.Controllers
                 Console.WriteLine(ex);
                 //LOG
                 throw;
-            }
+            }    
         }
 
 
 
         // GET api/devicesoption/deviceName
-        [HttpGet("{deviceName}")]
+        [HttpGet("{deviceName}", Name= "Get")]
         public async Task<IActionResult> Get([FromRoute]string deviceName)
         {
             try
@@ -101,11 +100,11 @@ namespace WebServer.Controllers
                 var exchangesOptions= deviceOption.ExchangeKeys.Select(exchangeKey=> _mediatorForOptionsRep.GetExchangeByKey(exchangeKey)).ToList();
                 var transportOption= _mediatorForOptionsRep.GetTransportByKeys(exchangesOptions.Select(option=> option.KeyTransport));
 
-                var deviceOptionDto = _mapper.Map<DeviceOptionDto>(deviceOption);
-                var exchangeOptionsDto = _mapper.Map<List<ExchangeOptionDto>>(exchangesOptions);
-                var transportOptionDto = _mapper.Map<TransportOptionsDto>(transportOption);
+                var deviceOptionDto= _mapper.Map<DeviceOptionDto>(deviceOption);
+                var exchangeOptionsDto= _mapper.Map<List<ExchangeOptionDto>>(exchangesOptions);
+                var transportOptionDto= _mapper.Map<TransportOptionsDto>(transportOption);
 
-                var agregatorOptionDto = new AgregatorOptionDto
+                var agregatorOptionDto= new AgregatorOptionDto
                 {
                     DeviceOptions = new List<DeviceOptionDto>{deviceOptionDto},
                     ExchangeOptions = exchangeOptionsDto,
@@ -120,7 +119,7 @@ namespace WebServer.Controllers
                 Console.WriteLine(ex);
                 //LOG
                 throw;
-            }
+            }    
         }
 
 
@@ -147,14 +146,21 @@ namespace WebServer.Controllers
                 var exchangeOption = _mapper.Map<IEnumerable<ExchangeOption>>(exchangeOptionDto);
                 var transportOption = _mapper.Map<TransportOption>(transportOptionDto);
                 _mediatorForOptionsRep.AddDeviceOption(deviceOption, exchangeOption, transportOption);
-                return Ok(data);
+                return CreatedAtAction("Get", new {deviceName= deviceOptionDto.Name}, data); //возвращает в ответе данные запроса. в Header пишет значение Location→ http://localhost:44138/api/DevicesOption/{deviceName}
+            }
+            catch (OptionHandlerException ex)
+            {
+                Console.WriteLine(ex);
+                //LOG
+                ModelState.AddModelError("PostException", ex.Message);
+                return BadRequest(ModelState);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 //LOG
                 throw;
-            }
+            }        
         }
 
 
@@ -163,9 +169,22 @@ namespace WebServer.Controllers
         [HttpDelete("{deviceName}")]
         public async Task<IActionResult> Delete([FromRoute]string deviceName)
         {
+            var deviceOption= _mediatorForOptionsRep.GetDeviceOptionByName(deviceName);
+            if (deviceOption == null)
+                return NotFound(deviceName);
 
-            await Task.Delay(0);//DEBUG
-            return Ok();
+            try
+            {
+                _mediatorForOptionsRep.RemoveDeviceOption(deviceOption);
+                await Task.Delay(0);//DEBUG
+                return Ok(deviceOption);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                //LOG
+                throw;
+            }  
         }
 
         #endregion

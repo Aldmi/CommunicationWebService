@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BL.Services.Mediators.Exceptions;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Device;
 using DAL.Abstract.Entities.Exchange;
@@ -168,6 +169,34 @@ namespace BL.Services.Mediators
 
 
         /// <summary>
+        /// Удалим устройство.
+        /// Если ключ обмена уникален, то удалим обмен, если в удаляемом обмене уникальный транспорт, то удалим транспорт.
+        /// </summary>
+        public bool RemoveDeviceOption(DeviceOption deviceOption)
+        {  
+            //ПРОВЕРКА УНИКАЛЬНОСТИ ОБМЕНОВ УДАЛЯЕМОГО УСТРОЙСТВА (ЕСЛИ УНИКАЛЬНО ТО УДАЛЯЕМ И ОБМЕН, ЕСЛИ ОБМЕН ИСПОЛЬУЕТ УНИКАЛЬНЫЙ ТРАНСПОРТ, ТО УДАЛЯЕМ И ТРАНСПОРТ)
+            var exchangeKeys= _deviceOptionRep.List().SelectMany(option=> option.ExchangeKeys).ToList(); //уникальные ключи обменов со всех устройств.
+            foreach (var exchangeKey in deviceOption.ExchangeKeys)
+            {
+                if (exchangeKeys.Count(key=> key == exchangeKey) == 1)                                                              //найден обмен используемый только этим устройством
+                {
+                   var singleExchOption= _exchangeOptionRep.GetSingle(exc=> exc.Key == exchangeKey);             
+                   if (_exchangeOptionRep.List().Count(option => option.KeyTransport.Equals(singleExchOption.KeyTransport)) == 1)  //найденн транспорт используемый только этим (удаленным) обменом
+                   {
+                        RemoveTransport(singleExchOption.KeyTransport);                                                            //Удалить транспорт
+                   }
+                    _exchangeOptionRep.Delete(singleExchOption);                                                                    //Удалить обмен
+                }
+            }
+
+            //УДАЛИМ УСТРОЙСТВО
+            _deviceOptionRep.Delete(deviceOption);
+            return true;
+        }
+
+
+
+        /// <summary>
         /// Добавить девайс, который использует уже существующие обмены.
         /// Если хотябы 1 обмен из списка не найденн, то выкидываем Exception.
         /// </summary>
@@ -176,7 +205,7 @@ namespace BL.Services.Mediators
             //ПРОВЕРКА ОТСУТСВИЯ УСТРОЙСТВА по имени
             if (IsExistDevice(deviceOption.Name))
             {
-                throw new Exception($"Устройство с таким именем уже существует:  {deviceOption.Name}");
+                throw new OptionHandlerException($"Устройство с таким именем уже существует:  {deviceOption.Name}");
             }
 
             var exceptionStr = new StringBuilder();
@@ -190,7 +219,7 @@ namespace BL.Services.Mediators
 
             if (!string.IsNullOrEmpty(exceptionStr.ToString()))
             {
-                throw new Exception($"Не найденны exchangeKeys:  {exceptionStr}");
+                throw new OptionHandlerException($"Не найденны exchangeKeys:  {exceptionStr}");
             }
 
             _deviceOptionRep.Add(deviceOption);
@@ -207,7 +236,7 @@ namespace BL.Services.Mediators
             //ПРОВЕРКА ОТСУТСВИЯ УСТРОЙСТВА по имени
             if (IsExistDevice(deviceOption.Name))
             {
-                throw new Exception($"Устройство с таким именем уже существует:  {deviceOption.Name}");
+                throw new OptionHandlerException($"Устройство с таким именем уже существует:  {deviceOption.Name}");
             }
 
             var exceptionStr = new StringBuilder();
@@ -216,7 +245,7 @@ namespace BL.Services.Mediators
             var diff = exchangeExternalKeys.Except(deviceOption.ExchangeKeys).ToList();
             if (diff.Count > 0)
             {
-                throw new Exception("Найденно несоответсвие ключей указанных для Device, ключам указанным в exchangeOptions");
+                throw new OptionHandlerException("Найденно несоответсвие ключей указанных для Device, ключам указанным в exchangeOptions");
             }
 
             //ПРОВЕРКА НАЛИЧИЯ УЖЕ СОЗДАНННОГО ТРАНСПОРТА ДЛЯ КАЖДОГО ОБМЕНА
@@ -229,7 +258,7 @@ namespace BL.Services.Mediators
             }
             if (!string.IsNullOrEmpty(exceptionStr.ToString()))
             {
-                throw new Exception($"Для ExchangeOption не найденн транспорт по ключу:  {exceptionStr}");
+                throw new OptionHandlerException($"Для ExchangeOption не найденн транспорт по ключу:  {exceptionStr}");
             }
 
             //ДОБАВИМ ТОЛЬКО НОВЫЕ ОБМЕНЫ К РЕПОЗИТОРИЮ ОБМЕНОВ
@@ -257,7 +286,7 @@ namespace BL.Services.Mediators
             //ПРОВЕРКА ОТСУТСВИЯ УСТРОЙСТВА по имени
             if (IsExistDevice(deviceOption.Name))
             {
-                throw new Exception($"Устройство с таким именем уже существует:  {deviceOption.Name}");
+                throw new OptionHandlerException($"Устройство с таким именем уже существует:  {deviceOption.Name}");
             }
 
             var exceptionStr = new StringBuilder();
@@ -266,7 +295,7 @@ namespace BL.Services.Mediators
             var diff = exchangeExternalKeys.Except(deviceOption.ExchangeKeys).ToList();
             if (diff.Count > 0)
             {
-                throw new Exception("Найденно несоответсвие ключей указанных для Device, ключам указанным в exchangeOptions");
+                throw new OptionHandlerException("Найденно несоответсвие ключей указанных для Device, ключам указанным в exchangeOptions");
             }
 
             //ПРОВЕРКА СООТВЕТСТВИЯ ключей exchangeOptions, указанному транспорту transportOption
@@ -285,7 +314,7 @@ namespace BL.Services.Mediators
                 {
                     exceptionStr.AppendFormat("{0}, ", diffKey);
                 }
-                throw new Exception($"Найденно несоответсвие ключей указанных для Обмненов, ключам указанным для транспорта {exceptionStr}");
+                throw new OptionHandlerException($"Найденно несоответсвие ключей указанных для Обмненов, ключам указанным для транспорта {exceptionStr}");
             }
 
             //ПРОВЕРКА ОТСУТСВИЯ ДОБАВЛЯЕМОГО ТРАНСПОРТА ДЛЯ КАЖДОГО ОБМЕНА (по ключу KeyTransport). Добавялем только уникальный обмен.
@@ -298,7 +327,7 @@ namespace BL.Services.Mediators
             }
             if (!string.IsNullOrEmpty(exceptionStr.ToString()))
             {
-                throw new Exception($"Для ExchangeOption УЖЕ СУЩЕСТВУЕТ ТАКОЙ ТРАНСПОРТ:  {exceptionStr}");
+                throw new OptionHandlerException($"Для ExchangeOption УЖЕ СУЩЕСТВУЕТ ТАКОЙ ТРАНСПОРТ:  {exceptionStr}");
             }
 
             //ДОБАВИТЬ ДЕВАЙС, ОБМЕНЫ, ТРАНСПОРТ
@@ -319,7 +348,6 @@ namespace BL.Services.Mediators
         private bool IsExistDevice(string deviceName)
         {
             return _deviceOptionRep.IsExist(dev => dev.Name == deviceName);
-
         }
 
 
@@ -350,6 +378,25 @@ namespace BL.Services.Mediators
             }
 
             return false;
+        }
+
+
+        private void RemoveTransport(KeyTransport keyTransport)
+        {
+            switch (keyTransport.TransportType)
+            {
+                case TransportType.SerialPort:
+                     _serialPortOptionRep.Delete(sp=> sp.Port == keyTransport.Key);
+                    break;
+
+                case TransportType.TcpIp:
+                     _tcpIpOptionRep.Delete(tcpip => tcpip.Name == keyTransport.Key);
+                    break;
+
+                case TransportType.Http:
+                     _httpOptionRep.Delete(http => http.Name == keyTransport.Key);
+                    break;
+            }
         }
 
         #endregion
