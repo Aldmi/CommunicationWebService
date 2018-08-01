@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Device;
 
@@ -34,6 +35,13 @@ namespace DAL.InMemory.Repository
             return findItem;
         }
 
+    
+        public async Task<DeviceOption> GetByIdAsync(int id)
+        {
+            await Task.CompletedTask;
+            return GetById(id);
+        }
+
 
         public DeviceOption GetSingle(Expression<Func<DeviceOption, bool>> predicate)
         {
@@ -41,6 +49,12 @@ namespace DAL.InMemory.Repository
             return findItem;
         }
 
+
+        public async Task<DeviceOption> GetSingleAsync(Expression<Func<DeviceOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return GetSingle(predicate);
+        }
 
 
         public IEnumerable<DeviceOption> List()
@@ -55,10 +69,30 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public async Task<IEnumerable<DeviceOption>> ListAsync()
+        {
+            await Task.CompletedTask;
+            return List();
+        }
+
+
+        public async Task<IEnumerable<DeviceOption>> ListAsync(Expression<Func<DeviceOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return List(predicate);
+        }
+
+
         public void Add(DeviceOption entity)
         {
             entity.Id = CalcMaxId() + 1;
             DeviceOptions.Add(entity);
+        }
+
+        public async Task AddAsync(DeviceOption entity)
+        {
+            await Task.CompletedTask;
+            Add(entity);
         }
 
 
@@ -70,6 +104,13 @@ namespace DAL.InMemory.Repository
                 entity.Id = ++maxId;
             }
             DeviceOptions.AddRange(entitys);
+        }
+
+
+        public async Task AddRangeAsync(IEnumerable<DeviceOption> entitys)
+        {
+            await Task.CompletedTask;
+            AddRange(entitys);
         }
 
 
@@ -85,6 +126,20 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public async Task DeleteAsync(DeviceOption entity)
+        {
+            await Task.CompletedTask;
+            Delete(entity);
+        }
+
+
+        public async Task DeleteAsync(Expression<Func<DeviceOption, bool>> predicate)
+        {    
+            await Task.CompletedTask;
+            Delete(predicate);
+        }
+
+
         public void Edit(DeviceOption entity)
         {
             var findItem = GetById(entity.Id);
@@ -96,9 +151,23 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public async Task EditAsync(DeviceOption entity)
+        {
+            await Task.CompletedTask;
+            Edit(entity);
+        }
+
+
         public bool IsExist(Expression<Func<DeviceOption, bool>> predicate)
         {
             return DeviceOptions.FirstOrDefault(predicate.Compile()) != null;
+        }
+
+
+        public async Task<bool> IsExistAsync(Expression<Func<DeviceOption, bool>> predicate)
+        {   
+            await Task.CompletedTask;
+            return IsExist(predicate);
         }
 
 

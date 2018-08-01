@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Transport;
 
@@ -34,10 +35,24 @@ namespace DAL.InMemory.Repository
             return findItem;
         }
 
+
+        public async Task<HttpOption> GetByIdAsync(int id)
+        {
+            await Task.CompletedTask;
+            return GetById(id);
+        }
+
+
         public HttpOption GetSingle(Expression<Func<HttpOption, bool>> predicate)
         {
             var findItem = HttpOptions.FirstOrDefault(predicate.Compile());
             return findItem;
+        }
+
+        public async Task<HttpOption> GetSingleAsync(Expression<Func<HttpOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return GetSingle(predicate);
         }
 
 
@@ -53,10 +68,31 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public async Task<IEnumerable<HttpOption>> ListAsync()
+        {
+           await Task.CompletedTask;
+           return List();
+        }
+
+
+        public async Task<IEnumerable<HttpOption>> ListAsync(Expression<Func<HttpOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return List(predicate);
+        }
+
+
         public void Add(HttpOption entity)
         {
             entity.Id = CalcMaxId() + 1;
             HttpOptions.Add(entity);
+        }
+
+
+        public async Task AddAsync(HttpOption entity)
+        {
+            await Task.CompletedTask;
+            Add(entity);
         }
 
 
@@ -71,14 +107,36 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public async Task AddRangeAsync(IEnumerable<HttpOption> entitys)
+        {
+            await Task.CompletedTask;;
+            AddRange(entitys);
+        }
+
+
         public void Delete(HttpOption entity)
         {
             HttpOptions.Remove(entity);
         }
 
+
         public void Delete(Expression<Func<HttpOption, bool>> predicate)
         {
             HttpOptions.RemoveAll(predicate.Compile().Invoke);
+        }
+
+
+        public async Task DeleteAsync(HttpOption entity)
+        {
+            await Task.CompletedTask;
+            Delete(entity);
+        }
+
+
+        public async Task DeleteAsync(Expression<Func<HttpOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            Delete(predicate);
         }
 
 
@@ -93,9 +151,23 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public async Task EditAsync(HttpOption entity)
+        {
+            await Task.CompletedTask;
+            Edit(entity);
+        }
+
+
         public bool IsExist(Expression<Func<HttpOption, bool>> predicate)
         {
             return HttpOptions.FirstOrDefault(predicate.Compile()) != null;
+        }
+
+
+        public async Task<bool> IsExistAsync(Expression<Func<HttpOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return IsExist(predicate);
         }
 
 

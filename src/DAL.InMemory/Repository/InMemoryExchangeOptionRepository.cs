@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Exchange;
 
@@ -34,10 +35,24 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public async Task<ExchangeOption> GetByIdAsync(int id)
+        {
+            await Task.CompletedTask;
+            return GetById(id);
+        }
+
+
         public ExchangeOption GetSingle(Expression<Func<ExchangeOption, bool>> predicate)
         {
             var findItem = ExchangeOptions.FirstOrDefault(predicate.Compile());
             return findItem;
+        }
+
+
+        public async Task<ExchangeOption> GetSingleAsync(Expression<Func<ExchangeOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return GetSingle(predicate);
         }
 
 
@@ -53,10 +68,31 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public async Task<IEnumerable<ExchangeOption>> ListAsync()
+        {
+            await Task.CompletedTask;
+            return List();
+        }
+
+
+        public async Task<IEnumerable<ExchangeOption>> ListAsync(Expression<Func<ExchangeOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return List(predicate);
+        }
+
+
         public void Add(ExchangeOption entity)
         {
             entity.Id = CalcMaxId() + 1;
             ExchangeOptions.Add(entity);
+        }
+
+
+        public async Task AddAsync(ExchangeOption entity)
+        {
+            await Task.CompletedTask;
+            Add(entity);
         }
 
 
@@ -68,6 +104,13 @@ namespace DAL.InMemory.Repository
                 entity.Id = ++maxId;
             }
             ExchangeOptions.AddRange(entitys);
+        }
+
+
+        public async Task AddRangeAsync(IEnumerable<ExchangeOption> entitys)
+        {
+            await Task.CompletedTask;
+            AddRange(entitys);
         }
 
 
@@ -83,6 +126,20 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public async Task DeleteAsync(ExchangeOption entity)
+        {
+            await Task.CompletedTask;
+            Delete(entity);
+        }
+
+
+        public async Task DeleteAsync(Expression<Func<ExchangeOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            Delete(predicate);
+        }
+
+
         public void Edit(ExchangeOption entity)
         {
             var findItem = GetById(entity.Id);
@@ -93,10 +150,23 @@ namespace DAL.InMemory.Repository
             }
         }
 
+        public async Task EditAsync(ExchangeOption entity)
+        {
+            await Task.CompletedTask;
+            Edit(entity);
+        }
+
 
         public bool IsExist(Expression<Func<ExchangeOption, bool>> predicate)
         {
             return ExchangeOptions.FirstOrDefault(predicate.Compile()) != null;
+        }
+
+
+        public async Task<bool> IsExistAsync(Expression<Func<ExchangeOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return IsExist(predicate);
         }
 
 

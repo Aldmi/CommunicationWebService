@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Transport;
 
@@ -35,10 +36,25 @@ namespace DAL.InMemory.Repository
             return findItem;
         }
 
+
+        public async Task<SerialOption> GetByIdAsync(int id)
+        {
+            await Task.CompletedTask;
+            return GetById(id);
+        }
+
+
         public SerialOption GetSingle(Expression<Func<SerialOption, bool>> predicate)
         {
             var findItem = SerialOptions.FirstOrDefault(predicate.Compile());
             return findItem;
+        }
+
+
+        public async Task<SerialOption> GetSingleAsync(Expression<Func<SerialOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return GetSingle(predicate);
         }
 
 
@@ -54,10 +70,31 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public async Task<IEnumerable<SerialOption>> ListAsync()
+        {
+            await Task.CompletedTask;
+            return List();
+        }
+
+
+        public async Task<IEnumerable<SerialOption>> ListAsync(Expression<Func<SerialOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return List(predicate);
+        }
+
+
         public void Add(SerialOption entity)
         {
             entity.Id = CalcMaxId() + 1;
             SerialOptions.Add(entity);
+        }
+
+
+        public async Task AddAsync(SerialOption entity)
+        {
+            await Task.CompletedTask;
+            Add(entity);
         }
 
 
@@ -69,6 +106,13 @@ namespace DAL.InMemory.Repository
                 entity.Id = ++maxId;
             }
             SerialOptions.AddRange(entitys);
+        }
+
+
+        public async Task AddRangeAsync(IEnumerable<SerialOption> entitys)
+        {
+            await Task.CompletedTask;
+            AddRange(entitys);
         }
 
 
@@ -84,6 +128,19 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public async Task DeleteAsync(SerialOption entity)
+        {
+            await Task.CompletedTask;
+            Delete(entity);
+        }
+
+        public async Task DeleteAsync(Expression<Func<SerialOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            Delete(predicate);
+        }
+
+
         public void Edit(SerialOption entity)
         {
             var findItem = GetById(entity.Id);
@@ -95,9 +152,23 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public async Task EditAsync(SerialOption entity)
+        {
+            await Task.CompletedTask;
+            Edit(entity);
+        }
+
+
         public bool IsExist(Expression<Func<SerialOption, bool>> predicate)
         {
             return SerialOptions.FirstOrDefault(predicate.Compile()) != null;
+        }
+
+
+        public async Task<bool> IsExistAsync(Expression<Func<SerialOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return IsExist(predicate);
         }
 
 
@@ -106,7 +177,6 @@ namespace DAL.InMemory.Repository
             var maxId = SerialOptions.Any() ? SerialOptions.Max(d => d.Id) : 0;
             return maxId;
         }
-
 
         #endregion
     }

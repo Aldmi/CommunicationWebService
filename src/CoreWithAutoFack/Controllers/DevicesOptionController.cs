@@ -59,9 +59,9 @@ namespace WebServer.Controllers
         {
             try
             {
-                var deviceOptions = _mediatorForOptionsRep.GetDeviceOptions().ToList();
-                var exchangeOptions= _mediatorForOptionsRep.GetExchangeOptions().ToList();
-                var transportOption = _mediatorForOptionsRep.GetTransportOptions();
+                var deviceOptions = await _mediatorForOptionsRep.GetDeviceOptionsAsync();
+                var exchangeOptions= await _mediatorForOptionsRep.GetExchangeOptionsAsync();
+                var transportOption = await _mediatorForOptionsRep.GetTransportOptionsAsync();
 
                 var deviceOptionsDto= _mapper.Map<List<DeviceOptionDto>>(deviceOptions);
                 var exchangeOptionsDto= _mapper.Map<List<ExchangeOptionDto>>(exchangeOptions);
@@ -93,13 +93,12 @@ namespace WebServer.Controllers
         {
             try
             {
-                var deviceOption= _mediatorForOptionsRep.GetDeviceOptionByName(deviceName);
+                var deviceOption= await _mediatorForOptionsRep.GetDeviceOptionByNameAsync(deviceName);
                 if (deviceOption == null)
                     return NotFound(deviceName);
 
-                var exchangesOptions= deviceOption.ExchangeKeys.Select(exchangeKey=> _mediatorForOptionsRep.GetExchangeByKey(exchangeKey)).ToList();
-                var transportOption= _mediatorForOptionsRep.GetTransportByKeys(exchangesOptions.Select(option=> option.KeyTransport));
-
+                var exchangesOptions= deviceOption.ExchangeKeys.Select(exchangeKey=> _mediatorForOptionsRep.GetExchangeByKeyAsync(exchangeKey).GetAwaiter().GetResult()).ToList();
+                var transportOption= await _mediatorForOptionsRep.GetTransportByKeysAsync(exchangesOptions.Select(option=> option.KeyTransport).Distinct());
                 var deviceOptionDto= _mapper.Map<DeviceOptionDto>(deviceOption);
                 var exchangeOptionsDto= _mapper.Map<List<ExchangeOptionDto>>(exchangesOptions);
                 var transportOptionDto= _mapper.Map<TransportOptionsDto>(transportOption);
@@ -126,7 +125,7 @@ namespace WebServer.Controllers
 
         // POST api/devicesoption
         [HttpPost]
-        public IActionResult Post([FromBody]AgregatorOptionDto data)
+        public async Task<IActionResult> Post([FromBody]AgregatorOptionDto data)
         {         
             if (data == null)
             {
@@ -145,7 +144,8 @@ namespace WebServer.Controllers
                 var deviceOption = _mapper.Map<DeviceOption>(deviceOptionDto);
                 var exchangeOption = _mapper.Map<IEnumerable<ExchangeOption>>(exchangeOptionDto);
                 var transportOption = _mapper.Map<TransportOption>(transportOptionDto);
-                _mediatorForOptionsRep.AddDeviceOption(deviceOption, exchangeOption, transportOption);
+                _mediatorForOptionsRep.AddDeviceOptionAsync(deviceOption, exchangeOption, transportOption);
+                await Task.CompletedTask; //Debug
                 return CreatedAtAction("Get", new {deviceName= deviceOptionDto.Name}, data); //возвращает в ответе данные запроса. в Header пишет значение Location→ http://localhost:44138/api/DevicesOption/{deviceName}
             }
             catch (OptionHandlerException ex)
@@ -169,13 +169,13 @@ namespace WebServer.Controllers
         [HttpDelete("{deviceName}")]
         public async Task<IActionResult> Delete([FromRoute]string deviceName)
         {
-            var deviceOption= _mediatorForOptionsRep.GetDeviceOptionByName(deviceName);
+            var deviceOption= await _mediatorForOptionsRep.GetDeviceOptionByNameAsync(deviceName);
             if (deviceOption == null)
                 return NotFound(deviceName);
 
             try
             {
-                _mediatorForOptionsRep.RemoveDeviceOption(deviceOption);
+                await _mediatorForOptionsRep.RemoveDeviceOptionAsync(deviceOption);
                 await Task.Delay(0);//DEBUG
                 return Ok(deviceOption);
             }

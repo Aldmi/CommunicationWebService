@@ -30,7 +30,7 @@ namespace WebServer.AutofacModules
                 {
                     new NamedParameter("connectionString", _connectionString),
                 })
-                .SingleInstance();
+                .SingleInstance();//.InstancePerLifetimeScope();
 
             builder.RegisterType<InMemoryTcpIpOptionRepository>().As<ITcpIpOptionRepository>()
                 .WithParameters(new List<Parameter>

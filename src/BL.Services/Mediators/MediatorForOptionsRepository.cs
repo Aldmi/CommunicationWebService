@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using BL.Services.Mediators.Exceptions;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Device;
@@ -57,18 +58,18 @@ namespace BL.Services.Mediators
         /// <summary>
         /// Вернуть все опции устройств из репозитория.
         /// </summary>
-        public IEnumerable<DeviceOption> GetDeviceOptions()
+        public async Task<IEnumerable<DeviceOption>> GetDeviceOptionsAsync()
         {
-            return _deviceOptionRep.List();
+            return await _deviceOptionRep.ListAsync();
         }
 
 
         /// <summary>
         /// Вернуть опции одного устройства по имени, из репозитория.
         /// </summary>
-        public DeviceOption GetDeviceOptionByName(string deviceName)
+        public async Task<DeviceOption> GetDeviceOptionByNameAsync(string deviceName)
         {
-            var deviceOption = _deviceOptionRep.GetSingle(option => option.Name == deviceName);
+            var deviceOption = await _deviceOptionRep.GetSingleAsync(option => option.Name == deviceName);
             return deviceOption;
         }
 
@@ -76,39 +77,39 @@ namespace BL.Services.Mediators
         /// <summary>
         /// Вернуть все опции обменов из репозитория.
         /// </summary>
-        public IEnumerable<ExchangeOption> GetExchangeOptions()
+        public async Task<IEnumerable<ExchangeOption>> GetExchangeOptionsAsync()
         {
-            return _exchangeOptionRep.List();
+            return await _exchangeOptionRep.ListAsync();
         }
 
 
         /// <summary>
         /// Вернуть опции одного обмена из репозитория.
         /// </summary>
-        public ExchangeOption GetExchangeByKey(string exchangeKey)
+        public async Task<ExchangeOption> GetExchangeByKeyAsync(string exchangeKey)
         {
-            return _exchangeOptionRep.GetSingle(option => option.Key == exchangeKey);
+            return await _exchangeOptionRep.GetSingleAsync(option => option.Key == exchangeKey);
         }
 
 
         /// <summary>
         /// Вернуть опции всех транспоротов из репозиториев.
         /// </summary>
-        public TransportOption GetTransportOptions()
+        public async Task<TransportOption> GetTransportOptionsAsync()
         {
             return new TransportOption
             {
-                SerialOptions = _serialPortOptionRep.List(),
-                TcpIpOptions = _tcpIpOptionRep.List(),
-                HttpOptions = _httpOptionRep.List()
+                SerialOptions = await _serialPortOptionRep.ListAsync(),
+                TcpIpOptions = await _tcpIpOptionRep.ListAsync(),
+                HttpOptions = await _httpOptionRep.ListAsync()
             };
         }
 
 
         /// <summary>
-        /// Вернуть опции для спсика транспортов, по списку ключей из репозитория.
+        /// Вернуть опции для списка транспортов, по списку ключей из репозитория.
         /// </summary>
-        public TransportOption GetTransportByKeys(IEnumerable<KeyTransport> keyTransports)
+        public async Task<TransportOption> GetTransportByKeysAsync(IEnumerable<KeyTransport> keyTransports)
         {
             var serialOptions = new List<SerialOption>();
             var tcpIpOptions = new List<TcpIpOption>();
@@ -119,13 +120,13 @@ namespace BL.Services.Mediators
                 switch (keyTransport.TransportType)
                 {
                     case TransportType.SerialPort:
-                        serialOptions.Add(_serialPortOptionRep.GetSingle(option => option.Port == keyTransport.Key));
+                        serialOptions.Add(await _serialPortOptionRep.GetSingleAsync(option => option.Port == keyTransport.Key));
                         break;
                     case TransportType.TcpIp:
-                        tcpIpOptions.Add(_tcpIpOptionRep.GetSingle(option => option.Name == keyTransport.Key));
+                        tcpIpOptions.Add(await _tcpIpOptionRep.GetSingleAsync(option => option.Name == keyTransport.Key));
                         break;
                     case TransportType.Http:
-                        httpOptions.Add(_httpOptionRep.GetSingle(option => option.Name == keyTransport.Key));
+                        httpOptions.Add(await _httpOptionRep.GetSingleAsync(option => option.Name == keyTransport.Key));
                         break;
                 }
             }
@@ -144,24 +145,24 @@ namespace BL.Services.Mediators
         /// Если transportOption не указанн, то добавляетя устройство вместе со списом обменов, на уже существйющем транспорте.
         /// Если указзанны все аргументы, то добавляется устройство со спсиком новых обменом и каждый обмен использует новый транспорт.
         /// </summary>
-        public bool AddDeviceOption(DeviceOption deviceOption, IEnumerable<ExchangeOption> exchangeOptions = null, TransportOption transportOption = null)
+        public async Task<bool> AddDeviceOptionAsync(DeviceOption deviceOption, IEnumerable<ExchangeOption> exchangeOptions = null, TransportOption transportOption = null)
         {
             if (deviceOption == null && exchangeOptions == null && transportOption == null)
                 return false;
 
             if (deviceOption != null && exchangeOptions == null && transportOption == null)
             {
-                AddDeviceOptionWithExiststExchangeOptions(deviceOption);
+               await AddDeviceOptionWithExiststExchangeOptionsAsync(deviceOption);
             }
             else
             if (deviceOption != null && exchangeOptions != null && transportOption == null)
             {
-                AddDeviceOptionWithNewExchangeOptions(deviceOption, exchangeOptions);
+               await AddDeviceOptionWithNewExchangeOptionsAsync(deviceOption, exchangeOptions);
             }
             else
             if (deviceOption != null && exchangeOptions != null)
             {
-                AddDeviceOptionWithNewExchangeOptionsAndNewTransportOptions(deviceOption, exchangeOptions, transportOption);
+               await AddDeviceOptionWithNewExchangeOptionsAndNewTransportOptionsAsync(deviceOption, exchangeOptions, transportOption);
             }
 
             return true;
@@ -172,25 +173,25 @@ namespace BL.Services.Mediators
         /// Удалим устройство.
         /// Если ключ обмена уникален, то удалим обмен, если в удаляемом обмене уникальный транспорт, то удалим транспорт.
         /// </summary>
-        public bool RemoveDeviceOption(DeviceOption deviceOption)
+        public async Task<bool> RemoveDeviceOptionAsync(DeviceOption deviceOption)
         {  
             //ПРОВЕРКА УНИКАЛЬНОСТИ ОБМЕНОВ УДАЛЯЕМОГО УСТРОЙСТВА (ЕСЛИ УНИКАЛЬНО ТО УДАЛЯЕМ И ОБМЕН, ЕСЛИ ОБМЕН ИСПОЛЬУЕТ УНИКАЛЬНЫЙ ТРАНСПОРТ, ТО УДАЛЯЕМ И ТРАНСПОРТ)
-            var exchangeKeys= _deviceOptionRep.List().SelectMany(option=> option.ExchangeKeys).ToList(); //уникальные ключи обменов со всех устройств.
+            var exchangeKeys= (await _deviceOptionRep.ListAsync()).SelectMany(option=> option.ExchangeKeys).ToList(); //уникальные ключи обменов со всех устройств.
             foreach (var exchangeKey in deviceOption.ExchangeKeys)
-            {
-                if (exchangeKeys.Count(key=> key == exchangeKey) == 1)                                                              //найден обмен используемый только этим устройством
+            {             
+                if (exchangeKeys.Count(key=> key == exchangeKey) == 1)                                                                          //найден обмен используемый только этим устройством
                 {
-                   var singleExchOption= _exchangeOptionRep.GetSingle(exc=> exc.Key == exchangeKey);             
-                   if (_exchangeOptionRep.List().Count(option => option.KeyTransport.Equals(singleExchOption.KeyTransport)) == 1)  //найденн транспорт используемый только этим (удаленным) обменом
+                   var singleExchOption= await _exchangeOptionRep.GetSingleAsync(exc=> exc.Key == exchangeKey);             
+                   if ((await _exchangeOptionRep.ListAsync()).Count(option => option.KeyTransport.Equals(singleExchOption.KeyTransport)) == 1)  //найденн транспорт используемый только этим (удаленным) обменом
                    {
-                        RemoveTransport(singleExchOption.KeyTransport);                                                            //Удалить транспорт
+                       await RemoveTransportAsync(singleExchOption.KeyTransport);                                                                    //Удалить транспорт
                    }
-                    _exchangeOptionRep.Delete(singleExchOption);                                                                    //Удалить обмен
+                   await _exchangeOptionRep.DeleteAsync(singleExchOption);                                                                      //Удалить обмен
                 }
             }
 
             //УДАЛИМ УСТРОЙСТВО
-            _deviceOptionRep.Delete(deviceOption);
+            await _deviceOptionRep.DeleteAsync(deviceOption);
             return true;
         }
 
@@ -200,10 +201,10 @@ namespace BL.Services.Mediators
         /// Добавить девайс, который использует уже существующие обмены.
         /// Если хотябы 1 обмен из списка не найденн, то выкидываем Exception.
         /// </summary>
-        private void AddDeviceOptionWithExiststExchangeOptions(DeviceOption deviceOption)
+        private async Task AddDeviceOptionWithExiststExchangeOptionsAsync(DeviceOption deviceOption)
         {
             //ПРОВЕРКА ОТСУТСВИЯ УСТРОЙСТВА по имени
-            if (IsExistDevice(deviceOption.Name))
+            if (await IsExistDeviceAsync(deviceOption.Name))
             {
                 throw new OptionHandlerException($"Устройство с таким именем уже существует:  {deviceOption.Name}");
             }
@@ -211,7 +212,7 @@ namespace BL.Services.Mediators
             var exceptionStr = new StringBuilder();
             foreach (var exchangeKey in deviceOption.ExchangeKeys)
             {
-                if (!_exchangeOptionRep.IsExist(exchangeOption => exchangeOption.Key == exchangeKey))
+                if (! await _exchangeOptionRep.IsExistAsync(exchangeOption => exchangeOption.Key == exchangeKey))
                 {
                     exceptionStr.AppendFormat("{0}, ", exchangeKey);
                 }
@@ -222,7 +223,7 @@ namespace BL.Services.Mediators
                 throw new OptionHandlerException($"Не найденны exchangeKeys:  {exceptionStr}");
             }
 
-            _deviceOptionRep.Add(deviceOption);
+            await _deviceOptionRep.AddAsync(deviceOption);
         }
 
 
@@ -231,17 +232,17 @@ namespace BL.Services.Mediators
         /// Если хотябы для 1 обмена из списка "exchangeOption", не найденн транспорт, то выкидываем Exception.
         /// Если обмен не существует, добавим его, если существует, то игнорируем добавление.
         /// </summary>
-        private void AddDeviceOptionWithNewExchangeOptions(DeviceOption deviceOption, IEnumerable<ExchangeOption> exchangeOptions)
+        private async Task AddDeviceOptionWithNewExchangeOptionsAsync(DeviceOption deviceOption, IEnumerable<ExchangeOption> exchangeOptions)
         {
             //ПРОВЕРКА ОТСУТСВИЯ УСТРОЙСТВА по имени
-            if (IsExistDevice(deviceOption.Name))
+            if (await IsExistDeviceAsync(deviceOption.Name))
             {
                 throw new OptionHandlerException($"Устройство с таким именем уже существует:  {deviceOption.Name}");
             }
 
             var exceptionStr = new StringBuilder();
             //ПРОВЕРКА СООТВЕТСТВИЯ exchangeKeys, УКАЗАННОЙ В deviceOption, КЛЮЧАМ ИЗ exchangeOptions
-            var exchangeExternalKeys = exchangeOptions.Select(exchangeOption => exchangeOption.Key).ToList();
+            var exchangeExternalKeys = exchangeOptions.Select(exchangeOption=> exchangeOption.Key).ToList();
             var diff = exchangeExternalKeys.Except(deviceOption.ExchangeKeys).ToList();
             if (diff.Count > 0)
             {
@@ -251,7 +252,7 @@ namespace BL.Services.Mediators
             //ПРОВЕРКА НАЛИЧИЯ УЖЕ СОЗДАНННОГО ТРАНСПОРТА ДЛЯ КАЖДОГО ОБМЕНА
             foreach (var exchangeOption in exchangeOptions)
             {
-                if (!IsExistTransport(exchangeOption.KeyTransport))
+                if (! await IsExistTransportAsync(exchangeOption.KeyTransport))
                 {
                     exceptionStr.AppendFormat("{0}, ", exchangeOption.KeyTransport);
                 }
@@ -264,14 +265,14 @@ namespace BL.Services.Mediators
             //ДОБАВИМ ТОЛЬКО НОВЫЕ ОБМЕНЫ К РЕПОЗИТОРИЮ ОБМЕНОВ
             foreach (var exchangeOption in exchangeOptions)
             {
-                if (!_exchangeOptionRep.IsExist(exchOpt => exchOpt.Key == exchangeOption.Key))
+                if (! await _exchangeOptionRep.IsExistAsync(exchOpt => exchOpt.Key == exchangeOption.Key))
                 {
-                    _exchangeOptionRep.Add(exchangeOption);
+                    await _exchangeOptionRep.AddAsync(exchangeOption);
                 }
             }
 
             //ДОБАВИТЬ ДЕВАЙС
-            _deviceOptionRep.Add(deviceOption);
+            await _deviceOptionRep.AddAsync(deviceOption);
         }
 
 
@@ -281,10 +282,10 @@ namespace BL.Services.Mediators
         /// Если для нового обменна не существует транспорт, то создадим транспорт.
         /// Если хотябы 1 транспорт в "transportOption" уже существует, то выкидываем Exception.
         /// </summary>
-        private void AddDeviceOptionWithNewExchangeOptionsAndNewTransportOptions(DeviceOption deviceOption, IEnumerable<ExchangeOption> exchangeOptions, TransportOption transportOption)
+        private async Task AddDeviceOptionWithNewExchangeOptionsAndNewTransportOptionsAsync(DeviceOption deviceOption, IEnumerable<ExchangeOption> exchangeOptions, TransportOption transportOption)
         {
             //ПРОВЕРКА ОТСУТСВИЯ УСТРОЙСТВА по имени
-            if (IsExistDevice(deviceOption.Name))
+            if (await IsExistDeviceAsync(deviceOption.Name))
             {
                 throw new OptionHandlerException($"Устройство с таким именем уже существует:  {deviceOption.Name}");
             }
@@ -320,7 +321,7 @@ namespace BL.Services.Mediators
             //ПРОВЕРКА ОТСУТСВИЯ ДОБАВЛЯЕМОГО ТРАНСПОРТА ДЛЯ КАЖДОГО ОБМЕНА (по ключу KeyTransport). Добавялем только уникальный обмен.
             foreach (var exchangeOption in exchangeOptions)
             {
-                if (IsExistTransport(exchangeOption.KeyTransport))
+                if (await IsExistTransportAsync(exchangeOption.KeyTransport))
                 {
                     exceptionStr.AppendFormat("{0}, ", exchangeOption.KeyTransport);
                 }
@@ -331,70 +332,70 @@ namespace BL.Services.Mediators
             }
 
             //ДОБАВИТЬ ДЕВАЙС, ОБМЕНЫ, ТРАНСПОРТ
-            _deviceOptionRep.Add(deviceOption);
-            _exchangeOptionRep.AddRange(exchangeOptions);
+           await _deviceOptionRep.AddAsync(deviceOption);
+           await _exchangeOptionRep.AddRangeAsync(exchangeOptions);
             if (transportOption.SerialOptions != null)
-                _serialPortOptionRep.AddRange(transportOption.SerialOptions);
+                await _serialPortOptionRep.AddRangeAsync(transportOption.SerialOptions);
             if (transportOption.TcpIpOptions != null)
-                _tcpIpOptionRep.AddRange(transportOption.TcpIpOptions);
+                await _tcpIpOptionRep.AddRangeAsync(transportOption.TcpIpOptions);
             if (transportOption.HttpOptions != null)
-                _httpOptionRep.AddRange(transportOption.HttpOptions);
+                await _httpOptionRep.AddRangeAsync(transportOption.HttpOptions);
         }
 
 
         /// <summary>
         /// Проверка наличия транспорта по ключу
         /// </summary>
-        private bool IsExistDevice(string deviceName)
+        private async Task<bool> IsExistDeviceAsync(string deviceName)
         {
-            return _deviceOptionRep.IsExist(dev => dev.Name == deviceName);
+            return await _deviceOptionRep.IsExistAsync(dev => dev.Name == deviceName);
         }
 
 
         /// <summary>
         /// Проверка наличия транспорта по ключу
         /// </summary>
-        private bool IsExistExchange(string keyExchange)
+        private async Task<bool> IsExistExRRchangeAsync(string keyExchange)
         {
-            return _exchangeOptionRep.IsExist(exc => exc.Key == keyExchange);
+            return await _exchangeOptionRep.IsExistAsync(exc => exc.Key == keyExchange);
         }
 
 
         /// <summary>
         /// Проверка наличия транспорта по ключу
         /// </summary>
-        private bool IsExistTransport(KeyTransport keyTransport)
+        private async Task<bool> IsExistTransportAsync(KeyTransport keyTransport)
         {
             switch (keyTransport.TransportType)
             {
                 case TransportType.SerialPort:
-                    return _serialPortOptionRep.IsExist(sp => sp.Port == keyTransport.Key);
+                    return await _serialPortOptionRep.IsExistAsync(sp => sp.Port == keyTransport.Key);
 
                 case TransportType.TcpIp:
-                    return _tcpIpOptionRep.IsExist(tcpip => tcpip.Name == keyTransport.Key);
+                    return await _tcpIpOptionRep.IsExistAsync(tcpip => tcpip.Name == keyTransport.Key);
 
                 case TransportType.Http:
-                    return _httpOptionRep.IsExist(http => http.Name == keyTransport.Key);
+                    return await _httpOptionRep.IsExistAsync(http => http.Name == keyTransport.Key);
             }
 
             return false;
         }
 
 
-        private void RemoveTransport(KeyTransport keyTransport)
+        private async Task RemoveTransportAsync(KeyTransport keyTransport)
         {
             switch (keyTransport.TransportType)
             {
                 case TransportType.SerialPort:
-                     _serialPortOptionRep.Delete(sp=> sp.Port == keyTransport.Key);
+                    await _serialPortOptionRep.DeleteAsync(sp=> sp.Port == keyTransport.Key);
                     break;
 
                 case TransportType.TcpIp:
-                     _tcpIpOptionRep.Delete(tcpip => tcpip.Name == keyTransport.Key);
+                    await _tcpIpOptionRep.DeleteAsync(tcpip => tcpip.Name == keyTransport.Key);
                     break;
 
                 case TransportType.Http:
-                     _httpOptionRep.Delete(http => http.Name == keyTransport.Key);
+                    await _httpOptionRep.DeleteAsync(http => http.Name == keyTransport.Key);
                     break;
             }
         }
