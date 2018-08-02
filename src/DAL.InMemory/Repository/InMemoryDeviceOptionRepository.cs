@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
-using DAL.Abstract.Entities.Device;
+using DAL.Abstract.Entities.Options.Device;
 
 namespace DAL.InMemory.Repository
 {

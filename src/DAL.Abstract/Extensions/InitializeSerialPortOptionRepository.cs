@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using DAL.Abstract.Concrete;
-using DAL.Abstract.Entities.Transport;
+using DAL.Abstract.Entities.Options.Transport;
 
 namespace DAL.Abstract.Extensions
 {

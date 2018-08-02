@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DAL.Abstract.Entities.Device;
+using DAL.Abstract.Entities.Options.Device;
 using Exchange.Base;
 using Exchange.Base.Model;
 using Infrastructure.EventBus.Abstract;

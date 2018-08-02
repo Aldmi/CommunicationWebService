@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DAL.Abstract.Entities.Transport
+namespace DAL.Abstract.Entities.Options.Transport
 {
     public class HttpOption : EntityBase
     {

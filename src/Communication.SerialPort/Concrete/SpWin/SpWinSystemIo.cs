@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
-using DAL.Abstract.Entities.Transport;
+using DAL.Abstract.Entities.Options.Transport;
 using Shared.Enums;
 using Shared.Helpers;
 using Shared.Types;

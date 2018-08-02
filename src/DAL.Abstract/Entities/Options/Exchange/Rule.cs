@@ -1,4 +1,4 @@
-﻿namespace DAL.Abstract.Entities.Exchange
+﻿namespace DAL.Abstract.Entities.Options.Exchange
 {
     public class Rule : EntityBase
     {

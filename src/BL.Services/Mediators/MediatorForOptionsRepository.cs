@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using BL.Services.Mediators.Exceptions;
 using DAL.Abstract.Concrete;
-using DAL.Abstract.Entities.Device;
-using DAL.Abstract.Entities.Exchange;
-using DAL.Abstract.Entities.Transport;
+using DAL.Abstract.Entities.Options;
+using DAL.Abstract.Entities.Options.Device;
+using DAL.Abstract.Entities.Options.Exchange;
+using DAL.Abstract.Entities.Options.Transport;
 using Shared.Enums;
 using Shared.Types;
 
@@ -99,9 +100,9 @@ namespace BL.Services.Mediators
         {
             return new TransportOption
             {
-                SerialOptions = await _serialPortOptionRep.ListAsync(),
-                TcpIpOptions = await _tcpIpOptionRep.ListAsync(),
-                HttpOptions = await _httpOptionRep.ListAsync()
+                SerialOptions = (await _serialPortOptionRep.ListAsync()).ToList(),
+                TcpIpOptions = (await _tcpIpOptionRep.ListAsync()).ToList(),
+                HttpOptions = (await _httpOptionRep.ListAsync()).ToList()
             };
         }
 
@@ -173,8 +174,21 @@ namespace BL.Services.Mediators
         /// Удалим устройство.
         /// Если ключ обмена уникален, то удалим обмен, если в удаляемом обмене уникальный транспорт, то удалим транспорт.
         /// </summary>
-        public async Task<bool> RemoveDeviceOptionAsync(DeviceOption deviceOption)
+        /// <returns>Возвращает все удаленные объекты (Device + Exchanges + Transport)</returns>
+        public async Task<OptionAgregator> RemoveDeviceOptionAsync(DeviceOption deviceOption)
         {  
+            var deletedOptions= new OptionAgregator
+            {
+                ExchangeOptions = new List<ExchangeOption>(),
+                DeviceOptions = new List<DeviceOption>(),
+                TransportOptions = new TransportOption
+                {
+                    TcpIpOptions = new List<TcpIpOption>(),
+                    SerialOptions = new List<SerialOption>(),
+                    HttpOptions = new List<HttpOption>()
+                }
+            };
+
             //ПРОВЕРКА УНИКАЛЬНОСТИ ОБМЕНОВ УДАЛЯЕМОГО УСТРОЙСТВА (ЕСЛИ УНИКАЛЬНО ТО УДАЛЯЕМ И ОБМЕН, ЕСЛИ ОБМЕН ИСПОЛЬУЕТ УНИКАЛЬНЫЙ ТРАНСПОРТ, ТО УДАЛЯЕМ И ТРАНСПОРТ)
             var exchangeKeys= (await _deviceOptionRep.ListAsync()).SelectMany(option=> option.ExchangeKeys).ToList(); //уникальные ключи обменов со всех устройств.
             foreach (var exchangeKey in deviceOption.ExchangeKeys)
@@ -184,15 +198,17 @@ namespace BL.Services.Mediators
                    var singleExchOption= await _exchangeOptionRep.GetSingleAsync(exc=> exc.Key == exchangeKey);             
                    if ((await _exchangeOptionRep.ListAsync()).Count(option => option.KeyTransport.Equals(singleExchOption.KeyTransport)) == 1)  //найденн транспорт используемый только этим (удаленным) обменом
                    {
-                       await RemoveTransportAsync(singleExchOption.KeyTransport);                                                                    //Удалить транспорт
+                       await RemoveTransportAsync(singleExchOption.KeyTransport, deletedOptions.TransportOptions);                                                               //Удалить транспорт
                    }
-                   await _exchangeOptionRep.DeleteAsync(singleExchOption);                                                                      //Удалить обмен
+                    deletedOptions.ExchangeOptions.Add(singleExchOption);
+                    await _exchangeOptionRep.DeleteAsync(singleExchOption);                                                                      //Удалить обмен
                 }
             }
 
             //УДАЛИМ УСТРОЙСТВО
+            deletedOptions.DeviceOptions.Add(deviceOption);
             await _deviceOptionRep.DeleteAsync(deviceOption);
-            return true;
+            return deletedOptions;
         }
 
 
@@ -382,20 +398,27 @@ namespace BL.Services.Mediators
         }
 
 
-        private async Task RemoveTransportAsync(KeyTransport keyTransport)
+        /// <summary>
+        /// Ищет транспорт по ключу в нужном репозитории и Удаляет его.
+        /// Удаленный транспорт помещается в deletedTransport.
+        /// </summary>
+        private async Task RemoveTransportAsync(KeyTransport keyTransport, TransportOption deletedTransport)
         {
             switch (keyTransport.TransportType)
             {
                 case TransportType.SerialPort:
+                    deletedTransport.SerialOptions.Add(await _serialPortOptionRep.GetSingleAsync(sp=> sp.Port == keyTransport.Key));
                     await _serialPortOptionRep.DeleteAsync(sp=> sp.Port == keyTransport.Key);
                     break;
 
                 case TransportType.TcpIp:
-                    await _tcpIpOptionRep.DeleteAsync(tcpip => tcpip.Name == keyTransport.Key);
+                    deletedTransport.TcpIpOptions.Add(await _tcpIpOptionRep.GetSingleAsync(tcpip => tcpip.Name == keyTransport.Key));
+                    await _tcpIpOptionRep.DeleteAsync(tcpip=> tcpip.Name == keyTransport.Key);
                     break;
 
                 case TransportType.Http:
-                    await _httpOptionRep.DeleteAsync(http => http.Name == keyTransport.Key);
+                    deletedTransport.HttpOptions.Add(await _httpOptionRep.GetSingleAsync(http => http.Name == keyTransport.Key));
+                    await _httpOptionRep.DeleteAsync(http=> http.Name == keyTransport.Key);
                     break;
             }
         }

@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using Shared.Types;
+﻿using Shared.Types;
 
-namespace DAL.Abstract.Entities.Exchange
+namespace DAL.Abstract.Entities.Options.Exchange
 {
     public class ExchangeOption : EntityBase
     {

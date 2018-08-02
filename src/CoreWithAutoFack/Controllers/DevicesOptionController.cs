@@ -6,9 +6,9 @@ using AutoMapper;
 using BL.Services.Mediators;
 using BL.Services.Mediators.Exceptions;
 using DAL.Abstract.Concrete;
-using DAL.Abstract.Entities.Device;
-using DAL.Abstract.Entities.Exchange;
-using DAL.Abstract.Entities.Transport;
+using DAL.Abstract.Entities.Options.Device;
+using DAL.Abstract.Entities.Options.Exchange;
+using DAL.Abstract.Entities.Options.Transport;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Shared.Enums;
@@ -67,14 +67,12 @@ namespace WebServer.Controllers
                 var exchangeOptionsDto= _mapper.Map<List<ExchangeOptionDto>>(exchangeOptions);
                 var transportOptionDto = _mapper.Map<TransportOptionsDto>(transportOption);
 
-                var agregatorOptionDto = new AgregatorOptionDto
+                var agregatorOptionDto = new OptionAgregatorDto
                 {
                     DeviceOptions = deviceOptionsDto,
                     ExchangeOptions = exchangeOptionsDto,
                     TransportOptions = transportOptionDto
                 };
-
-                await Task.Delay(0);//DEBUG
                 return new JsonResult(agregatorOptionDto);
             }
             catch (Exception ex)
@@ -103,7 +101,7 @@ namespace WebServer.Controllers
                 var exchangeOptionsDto= _mapper.Map<List<ExchangeOptionDto>>(exchangesOptions);
                 var transportOptionDto= _mapper.Map<TransportOptionsDto>(transportOption);
 
-                var agregatorOptionDto= new AgregatorOptionDto
+                var agregatorOptionDto= new OptionAgregatorDto
                 {
                     DeviceOptions = new List<DeviceOptionDto>{deviceOptionDto},
                     ExchangeOptions = exchangeOptionsDto,
@@ -125,7 +123,7 @@ namespace WebServer.Controllers
 
         // POST api/devicesoption
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]AgregatorOptionDto data)
+        public async Task<IActionResult> Post([FromBody]OptionAgregatorDto data)
         {         
             if (data == null)
             {
@@ -144,8 +142,7 @@ namespace WebServer.Controllers
                 var deviceOption = _mapper.Map<DeviceOption>(deviceOptionDto);
                 var exchangeOption = _mapper.Map<IEnumerable<ExchangeOption>>(exchangeOptionDto);
                 var transportOption = _mapper.Map<TransportOption>(transportOptionDto);
-                _mediatorForOptionsRep.AddDeviceOptionAsync(deviceOption, exchangeOption, transportOption);
-                await Task.CompletedTask; //Debug
+                await _mediatorForOptionsRep.AddDeviceOptionAsync(deviceOption, exchangeOption, transportOption);
                 return CreatedAtAction("Get", new {deviceName= deviceOptionDto.Name}, data); //возвращает в ответе данные запроса. в Header пишет значение Location→ http://localhost:44138/api/DevicesOption/{deviceName}
             }
             catch (OptionHandlerException ex)
@@ -175,9 +172,8 @@ namespace WebServer.Controllers
 
             try
             {
-                await _mediatorForOptionsRep.RemoveDeviceOptionAsync(deviceOption);
-                await Task.Delay(0);//DEBUG
-                return Ok(deviceOption);
+                var deletedOption= await _mediatorForOptionsRep.RemoveDeviceOptionAsync(deviceOption);
+                return Ok(deletedOption);
             }
             catch (Exception ex)
             {

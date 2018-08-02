@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Shared.Types;
 
-namespace DAL.Abstract.Entities.Device
+namespace DAL.Abstract.Entities.Options.Device
 {
     public class DeviceOption : EntityBase
     {

@@ -2,8 +2,8 @@
 using System.Linq;
 using BL.Services.Storages;
 using DAL.Abstract.Concrete;
-using DAL.Abstract.Entities.Device;
-using DAL.Abstract.Entities.Exchange;
+using DAL.Abstract.Entities.Options.Device;
+using DAL.Abstract.Entities.Options.Exchange;
 using Exchange.MasterSerialPort;
 using Infrastructure.EventBus.Abstract;
 using Shared.Enums;

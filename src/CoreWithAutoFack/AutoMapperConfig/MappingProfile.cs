@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using DAL.Abstract.Entities.Device;
-using DAL.Abstract.Entities.Exchange;
-using DAL.Abstract.Entities.Transport;
+using DAL.Abstract.Entities.Options.Device;
+using DAL.Abstract.Entities.Options.Exchange;
+using DAL.Abstract.Entities.Options.Transport;
 using WebServer.DTO.JSON.OptionsDto.DeviceOption;
 using WebServer.DTO.JSON.OptionsDto.ExchangeOption;
 using WebServer.DTO.JSON.OptionsDto.TransportOption;

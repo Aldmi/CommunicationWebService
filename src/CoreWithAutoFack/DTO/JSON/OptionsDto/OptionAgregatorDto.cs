@@ -7,31 +7,10 @@ using WebServer.DTO.JSON.OptionsDto.TransportOption;
 
 namespace WebServer.DTO.JSON.OptionsDto
 {
-    public class AgregatorOptionDto
+    public class OptionAgregatorDto
     {
         public List<DeviceOptionDto> DeviceOptions { get; set; }   
         public List<ExchangeOptionDto> ExchangeOptions { get; set; }   
         public TransportOptionsDto TransportOptions { get; set; }   
     }
-
-
-
-
-    //DEBUG-----------------
-
-    public class TestDto
-    {
-        public string Name { get; set; }
-        public bool IsActive { get; set; }
-        public InnerType InnerType { get; set; }
-        public KeyTransport KeyTransport { get; set; }
-    }
-
-    public class InnerType
-    {
-        public int Id { get; set; }
-    }
-
-    
-    //DEBUG-----------------
 }

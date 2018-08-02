@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using DAL.Abstract.Entities.Exchange;
+using DAL.Abstract.Entities.Options.Exchange;
 using Transport.SerialPort.Abstract;
 using Worker.Background.Abstarct;
 

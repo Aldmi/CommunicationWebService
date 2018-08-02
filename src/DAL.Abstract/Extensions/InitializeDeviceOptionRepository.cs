@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using DAL.Abstract.Concrete;
-using DAL.Abstract.Entities.Device;
+using DAL.Abstract.Entities.Options.Device;
 using Shared.Enums;
 using Shared.Types;
 

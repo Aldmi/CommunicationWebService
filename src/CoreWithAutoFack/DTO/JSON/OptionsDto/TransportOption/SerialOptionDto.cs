@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using DAL.Abstract.Entities.Transport;
+using DAL.Abstract.Entities.Options.Transport;
 
 namespace WebServer.DTO.JSON.OptionsDto.TransportOption
 {

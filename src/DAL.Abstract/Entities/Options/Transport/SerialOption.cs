@@ -1,4 +1,4 @@
-﻿namespace DAL.Abstract.Entities.Transport
+﻿namespace DAL.Abstract.Entities.Options.Transport
 {
     public enum StopBits
     {

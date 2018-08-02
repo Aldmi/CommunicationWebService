@@ -1,7 +1,7 @@
 ﻿using DAL.Abstract.Abstract;
-using DAL.Abstract.Entities.Device;
-using DAL.Abstract.Entities.Exchange;
-using DAL.Abstract.Entities.Transport;
+using DAL.Abstract.Entities.Options.Device;
+using DAL.Abstract.Entities.Options.Exchange;
+using DAL.Abstract.Entities.Options.Transport;
 
 namespace DAL.Abstract.Concrete
 {

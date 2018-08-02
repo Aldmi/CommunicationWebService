@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
-using DAL.Abstract.Entities.Exchange;
+using DAL.Abstract.Entities.Options.Exchange;
 using Exchange.Base;
 using Exchange.Base.Model;
 using Shared.Types;
