@@ -68,6 +68,43 @@
         "runtime": {
           "lib/netstandard1.3/System.Runtime.InteropServices.WindowsRuntime.dll": {}
         }
+      },
+      "DAL.Abstract/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DAL.Abstract.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DAL.Abstract.dll": {}
+        }
+      },
+      "Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Shared.dll": {}
+        }
+      },
+      "Transport.Base/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Shared": "1.0.0",
+          "System.Reactive": "4.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Transport.Base.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Transport.Base.dll": {}
+        }
       }
     }
   },
@@ -393,32 +430,50 @@
         "ref/xamarinwatchos10/_._",
         "runtimes/aot/lib/netcore50/System.Runtime.InteropServices.WindowsRuntime.dll"
       ]
+    },
+    "DAL.Abstract/1.0.0": {
+      "type": "project",
+      "path": "../DAL.Abstract/DAL.Abstract.csproj",
+      "msbuildProject": "../DAL.Abstract/DAL.Abstract.csproj"
+    },
+    "Shared/1.0.0": {
+      "type": "project",
+      "path": "../Shared/Shared.csproj",
+      "msbuildProject": "../Shared/Shared.csproj"
+    },
+    "Transport.Base/1.0.0": {
+      "type": "project",
+      "path": "../Transport.Base/Transport.Base.csproj",
+      "msbuildProject": "../Transport.Base/Transport.Base.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
+      "DAL.Abstract >= 1.0.0",
       "NETStandard.Library >= 2.0.3",
-      "System.Reactive >= 4.0.0"
+      "Shared >= 1.0.0",
+      "System.Reactive >= 4.0.0",
+      "Transport.Base >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Aldmi\\.nuget\\packages\\": {},
+    "C:\\Users\\admin\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj",
+      "projectUniqueName": "C:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj",
       "projectName": "Transport.TcpIp",
-      "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj",
-      "packagesPath": "C:\\Users\\Aldmi\\.nuget\\packages\\",
-      "outputPath": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\obj\\",
+      "projectPath": "C:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Aldmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -426,12 +481,21 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://packages.nuget.org/": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj"
+            },
+            "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
+            },
+            "C:\\Git\\CommunicationWebService\\src\\Transport.Base\\Transport.Base.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Transport.Base\\Transport.Base.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

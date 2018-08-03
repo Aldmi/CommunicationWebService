@@ -7,7 +7,7 @@ using Shared.Enums;
 namespace BL.Services.Storages
 {
     public class StorageServiceBase<TKey, TValue> where TKey : IEquatable<TKey>
-                                              where TValue : class, IDisposable
+                                                  where TValue : class, IDisposable
     {
         #region prop
 
@@ -59,6 +59,5 @@ namespace BL.Services.Storages
         }
 
         #endregion
-
     }
 }

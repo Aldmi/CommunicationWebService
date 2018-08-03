@@ -32,7 +32,7 @@ namespace Transport.SerialPort.Concrete.SpWin
 
         #region prop
 
-        public SerialOption SerialOption { get; }
+        public SerialOption Option { get; }
         public KeyTransport KeyTransport { get; }
 
         private bool _isOpen;
@@ -43,7 +43,7 @@ namespace Transport.SerialPort.Concrete.SpWin
             {
                 if (value == _isOpen) return;
                 _isOpen = value;
-                IsOpenChangeRx.OnNext(new IsOpenChangeRxModel { IsOpen = _isOpen, TransportName = SerialOption.Port });
+                IsOpenChangeRx.OnNext(new IsOpenChangeRxModel { IsOpen = _isOpen, TransportName = Option.Port });
             }
         }
 
@@ -55,7 +55,7 @@ namespace Transport.SerialPort.Concrete.SpWin
             {
                 if (value == _statusString) return;
                 _statusString = value;
-                StatusStringChangeRx.OnNext(new StatusStringChangeRxModel { Status = _statusString, TransportName = SerialOption.Port });
+                StatusStringChangeRx.OnNext(new StatusStringChangeRxModel { Status = _statusString, TransportName = Option.Port });
             }
         }
 
@@ -68,7 +68,7 @@ namespace Transport.SerialPort.Concrete.SpWin
             {
                 if (value == _statusDataExchange) return;
                 _statusDataExchange = value;
-                StatusDataExchangeChangeRx.OnNext(new StatusDataExchangeChangeRxModel { StatusDataExchange = _statusDataExchange, TransportName = SerialOption.Port });
+                StatusDataExchangeChangeRx.OnNext(new StatusDataExchangeChangeRxModel { StatusDataExchange = _statusDataExchange, TransportName = Option.Port });
             }
         }
 
@@ -83,7 +83,7 @@ namespace Transport.SerialPort.Concrete.SpWin
 
         public SpWinSystemIo(SerialOption option, KeyTransport keyTransport)
         {
-            SerialOption = option;
+            Option = option;
             KeyTransport = keyTransport;
             _port = new System.IO.Ports.SerialPort(option.Port)
             {
@@ -329,7 +329,6 @@ namespace Transport.SerialPort.Concrete.SpWin
 
 
 
-
         #region Disposable
 
         public void Dispose()
@@ -346,7 +345,5 @@ namespace Transport.SerialPort.Concrete.SpWin
         }
 
         #endregion
-
-
     }
 }

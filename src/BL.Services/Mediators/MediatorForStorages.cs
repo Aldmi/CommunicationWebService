@@ -21,24 +21,32 @@ namespace BL.Services.Mediators
     {
         #region fields
 
-        private readonly SerialPortStorageService _serialPortStorageService;
-        private readonly BackgroundStorageService _backgroundStorageService;
-        private readonly ExchangeStorageService _exchangeStorageService;
         private readonly DeviceStorageService _deviceStorageService;
+        private readonly ExchangeStorageService _exchangeStorageService;
+        private readonly BackgroundStorageService _backgroundStorageService;
+        private readonly SerialPortStorageService _serialPortStorageService;
+        private readonly TcpIpStorageService _tcpIpStorageService;
+        private readonly HttpStorageService _httpStorageService;
         private readonly IEventBus _eventBus;
 
         #endregion
 
 
+
+
         #region ctor
 
-        public MediatorForStorages(SerialPortStorageService serialPortStorageService,
-            BackgroundStorageService backgroundStorageService,
+        public MediatorForStorages(DeviceStorageService deviceStorageService,
             ExchangeStorageService exchangeStorageService,
-            DeviceStorageService deviceStorageService,
+            BackgroundStorageService backgroundStorageService,
+            SerialPortStorageService serialPortStorageService,
+            TcpIpStorageService tcpIpStorageService,
+            HttpStorageService httpStorageService,
             IEventBus eventBus)
         {
             _serialPortStorageService = serialPortStorageService;
+            _tcpIpStorageService = tcpIpStorageService;
+            _httpStorageService = httpStorageService;
             _backgroundStorageService = backgroundStorageService;
             _exchangeStorageService = exchangeStorageService;
             _deviceStorageService = deviceStorageService;
@@ -48,41 +56,9 @@ namespace BL.Services.Mediators
         #endregion
 
 
+
+
         #region Methode
-
-        public void InitializeByRepositoryOption(ISerialPortOptionRepository serialPortOptionRepository,
-            IExchangeOptionRepository exchangeOptionRepository,
-            IDeviceOptionRepository deviceOptionRepository)
-        {
-            //ADD SERIAL PORTS--------------------------------------------------------------------
-            foreach (var spOption in serialPortOptionRepository.List())
-            {
-                var keyTransport = new KeyTransport(spOption.Port, TransportType.SerialPort);
-                var sp = new SpWinSystemIo(spOption, keyTransport);
-                var bg = new HostingBackgroundTransport(keyTransport);
-                _serialPortStorageService.AddNew(keyTransport, sp);
-                _backgroundStorageService.AddNew(keyTransport, bg);
-            }
-
-            //ADD EXCHANGES------------------------------------------------------------------------
-            foreach (var exchOption in exchangeOptionRepository.List())
-            {
-                var keyTransport = exchOption.KeyTransport;
-                var sp = _serialPortStorageService.Get(keyTransport);
-                var bg = _backgroundStorageService.Get(keyTransport);
-                if (sp == null || bg == null) continue;
-                var key = exchOption.Key;
-                var exch = new ByRulesExchangeSerialPort(sp, bg, exchOption);
-                _exchangeStorageService.AddNew(key, exch);
-            }
-
-            //ADD DEVICES--------------------------------------------------------------------------
-            foreach (var deviceOption in deviceOptionRepository.List())
-            {
-                AddDevice(deviceOption);
-            }
-        }
-
 
         /// <summary>
         /// Добавить устройство, которое использует существующий список Exchanges.

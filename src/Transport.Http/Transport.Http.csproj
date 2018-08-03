@@ -5,16 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Option\**" />
-    <EmbeddedResource Remove="Option\**" />
-    <None Remove="Option\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Reactive" Version="4.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DAL.Abstract\DAL.Abstract.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
     <ProjectReference Include="..\Transport.Base\Transport.Base.csproj" />

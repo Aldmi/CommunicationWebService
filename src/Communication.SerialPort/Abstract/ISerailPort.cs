@@ -14,7 +14,7 @@ namespace Transport.SerialPort.Abstract
 {
     public interface ISerailPort : ISupportKeyTransport, IDisposable
     {
-        SerialOption SerialOption { get; }                                                     //НАСТРОЙКИ ПОРТА
+        SerialOption Option { get; }                                                           //НАСТРОЙКИ ПОРТА
 
         bool IsOpen { get; }                                                                   // ФЛАГ ОТКРЫТИЯ ПОРТА
         string StatusString { get; }                                                           // СТАТУС ПОРТА

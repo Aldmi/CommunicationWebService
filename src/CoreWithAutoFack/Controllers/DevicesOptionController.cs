@@ -5,14 +5,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BL.Services.Mediators;
 using BL.Services.Mediators.Exceptions;
-using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Options.Device;
 using DAL.Abstract.Entities.Options.Exchange;
 using DAL.Abstract.Entities.Options.Transport;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Shared.Enums;
-using Shared.Types;
 using WebServer.DTO.JSON.OptionsDto;
 using WebServer.DTO.JSON.OptionsDto.DeviceOption;
 using WebServer.DTO.JSON.OptionsDto.ExchangeOption;
@@ -30,7 +26,7 @@ namespace WebServer.Controllers
     {
         #region fields
 
-        private readonly MediatorForOptionsRepository _mediatorForOptionsRep;
+        private readonly MediatorForOptions _mediatorForOptionsRep;
         private readonly IMapper _mapper;
 
         #endregion
@@ -40,7 +36,7 @@ namespace WebServer.Controllers
 
         #region ctor
 
-        public DevicesOptionController(MediatorForOptionsRepository mediatorForOptionsRep, IMapper mapper)
+        public DevicesOptionController(MediatorForOptions mediatorForOptionsRep, IMapper mapper)
         {
             _mediatorForOptionsRep = mediatorForOptionsRep;
             _mapper = mapper;

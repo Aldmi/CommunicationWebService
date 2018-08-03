@@ -8,7 +8,7 @@ namespace WebServer.AutofacModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<MediatorForStorages>().InstancePerDependency();
-            builder.RegisterType<MediatorForOptionsRepository>().InstancePerDependency();
+            builder.RegisterType<MediatorForOptions>().InstancePerDependency();
         }
     }
 }

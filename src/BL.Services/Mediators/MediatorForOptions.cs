@@ -19,7 +19,7 @@ namespace BL.Services.Mediators
     /// DeviceOption + ExchangeOption + TransportOption.
     /// 
     /// </summary>
-    public class MediatorForOptionsRepository
+    public class MediatorForOptions
     {
         #region fields
 
@@ -36,7 +36,7 @@ namespace BL.Services.Mediators
 
         #region ctor
 
-        public MediatorForOptionsRepository(IDeviceOptionRepository deviceOptionRep,
+        public MediatorForOptions(IDeviceOptionRepository deviceOptionRep,
             IExchangeOptionRepository exchangeOptionRep,
             ISerialPortOptionRepository serialPortOptionRep,
             ITcpIpOptionRepository tcpIpOptionRep,

@@ -52,6 +52,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL.InMemory", "DAL.InMemor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Device.Base", "Device.Base\Device.Base.csproj", "{8681D4FD-4CE5-4565-B883-3EAD50CB6435}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport.Http", "Transport.Http\Transport.Http.csproj", "{DED5FF7E-C22F-4CC3-B2D3-B931EF8EDA78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +112,10 @@ Global
 		{8681D4FD-4CE5-4565-B883-3EAD50CB6435}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8681D4FD-4CE5-4565-B883-3EAD50CB6435}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8681D4FD-4CE5-4565-B883-3EAD50CB6435}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DED5FF7E-C22F-4CC3-B2D3-B931EF8EDA78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DED5FF7E-C22F-4CC3-B2D3-B931EF8EDA78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DED5FF7E-C22F-4CC3-B2D3-B931EF8EDA78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DED5FF7E-C22F-4CC3-B2D3-B931EF8EDA78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -126,6 +132,7 @@ Global
 		{D797233F-1AAB-41D8-9059-C87E7881E57D} = {66F404CA-BB07-448B-8F31-EF82AD0D0D30}
 		{ABF4134A-CECB-47FF-A7AB-EB67B696FA3A} = {66F404CA-BB07-448B-8F31-EF82AD0D0D30}
 		{8681D4FD-4CE5-4565-B883-3EAD50CB6435} = {4B0D52D6-ED79-463F-B251-689A128DBF27}
+		{DED5FF7E-C22F-4CC3-B2D3-B931EF8EDA78} = {4D9420A4-768D-491A-B8B6-5890A8F0E473}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {626950A5-7C4E-424F-AC79-2AB323CA01E7}
