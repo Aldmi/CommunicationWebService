@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BL.Services.Mediators.Exceptions;
 using BL.Services.Storages;
 using DAL.Abstract.Concrete;
+using DAL.Abstract.Entities.Options;
 using DAL.Abstract.Entities.Options.Device;
 using DAL.Abstract.Entities.Options.Exchange;
 using Exchange.MasterSerialPort;
@@ -61,32 +63,41 @@ namespace BL.Services.Mediators
         #region Methode
 
         /// <summary>
-        /// Добавить устройство, которое использует существующий список Exchanges.
+        /// Создать устройство на базе optionAgregator.
         /// </summary>
-        public void AddDevice(DeviceOption deviceOption)
+        public void BuildAndAddDevice(OptionAgregator optionAgregator)
         {
-            var excanges = _exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
-            var device = new Device.Base.Device(deviceOption, excanges, _eventBus);
-            _deviceStorageService.AddNew(deviceOption.Id, device);
+            var device = optionAgregator.DeviceOptions.First();
+            if (_deviceStorageService.IsExist(device.Name))
+            {
+                throw new StorageHandlerException($"Устройство с таким именем уже существует:  {device.Name}");
+            }
+
+
+
+
+            //var excanges = _exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
+            //var device = new Device.Base.Device(deviceOption, excanges, _eventBus);
+            //_deviceStorageService.AddNew(deviceOption.Id, device);
         }
 
 
         /// <summary>
         /// Добавить устройство, и создать для него список Exchanges, которые используют существующий транспорт
         /// </summary>
-        public void AddDevice(DeviceOption deviceOption, IEnumerable<ExchangeOption> exchangeOptions)
-        {
-            foreach (var exchOption in exchangeOptions)
-            {
-                var keyTransport = exchOption.KeyTransport;
-                var sp = _serialPortStorageService.Get(keyTransport);
-                var bg = _backgroundStorageService.Get(keyTransport);
-                if (sp == null || bg == null) continue;
-                var key = exchOption.Key;
-                var exch = new ByRulesExchangeSerialPort(sp, bg, exchOption);
-                _exchangeStorageService.AddNew(key, exch);
-            }
-        }
+        //public void AddDevice(DeviceOption deviceOption, IEnumerable<ExchangeOption> exchangeOptions)
+        //{
+        //    foreach (var exchOption in exchangeOptions)
+        //    {
+        //        var keyTransport = exchOption.KeyTransport;
+        //        var sp = _serialPortStorageService.Get(keyTransport);
+        //        var bg = _backgroundStorageService.Get(keyTransport);
+        //        if (sp == null || bg == null) continue;
+        //        var key = exchOption.Key;
+        //        var exch = new ByRulesExchangeSerialPort(sp, bg, exchOption);
+        //        _exchangeStorageService.AddNew(key, exch);
+        //    }
+        //}
 
 
         //public void AddDevice(DeviceOption deviceOption,

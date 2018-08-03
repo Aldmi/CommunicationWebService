@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BL.Services.Mediators;
 using BL.Services.Mediators.Exceptions;
+using DAL.Abstract.Entities.Options;
 using DAL.Abstract.Entities.Options.Device;
 using DAL.Abstract.Entities.Options.Exchange;
 using DAL.Abstract.Entities.Options.Transport;
@@ -27,6 +28,7 @@ namespace WebServer.Controllers
         #region fields
 
         private readonly MediatorForOptions _mediatorForOptionsRep;
+        private readonly MediatorForStorages _mediatorForStorages;
         private readonly IMapper _mapper;
 
         #endregion
@@ -36,11 +38,19 @@ namespace WebServer.Controllers
 
         #region ctor
 
-        public DevicesOptionController(MediatorForOptions mediatorForOptionsRep, IMapper mapper)
+        public DevicesOptionController(MediatorForOptions mediatorForOptionsRep, MediatorForStorages mediatorForStorages, IMapper mapper)
         {
             _mediatorForOptionsRep = mediatorForOptionsRep;
+            _mediatorForStorages = mediatorForStorages;
             _mapper = mapper;
         }
+
+
+        //public DevicesOptionController(MediatorForOptions mediatorForOptionsRep, IMapper mapper)
+        //{
+        //    _mediatorForOptionsRep = mediatorForOptionsRep;
+        //    _mapper = mapper;
+        //}
 
         #endregion
 
@@ -177,6 +187,37 @@ namespace WebServer.Controllers
                 //LOG
                 throw;
             }  
+        }
+
+
+        // POST api/devicesoption/BuildDevice/deviceName
+        [Route("~/BuildDevice/{deviceName}")]
+        [HttpPost("{deviceName}", Name = "BuildDevice")]
+        public async Task<IActionResult> BuildDevice([FromRoute] string deviceName)             //TODO: доделать Route "api/devicesoption/BuildDevice/deviceName"
+        {
+            try
+            {
+                if (!await _mediatorForOptionsRep.IsExistDeviceAsync(deviceName))
+                {
+                    return NotFound(deviceName);
+                }
+
+               var optionAgregator= await _mediatorForOptionsRep.GetOptionAgregatorForDeviceAsync(deviceName);
+                _mediatorForStorages.BuildAndAddDevice(optionAgregator);
+                return Ok();
+            }
+            catch (StorageHandlerException ex)
+            {
+                Console.WriteLine(ex);
+                //LOG
+                ModelState.AddModelError("BuildAndAddDeviceException", ex.Message);
+                return BadRequest(ModelState);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         #endregion

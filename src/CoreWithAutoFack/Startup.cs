@@ -187,7 +187,7 @@ namespace WebServer
                 {
                     var excanges= exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
                     var device= new Device.Base.Device(deviceOption, excanges, eventBus);
-                    deviceStorageService.AddNew(deviceOption.Id, device);
+                    deviceStorageService.AddNew(deviceOption.Name, device);
                 }
             }
             catch (Exception e)

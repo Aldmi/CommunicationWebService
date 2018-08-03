@@ -6,3 +6,19 @@ E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.Base\obj\Debug\net
 E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.AssemblyInfo.cs
 E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.dll
 E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.pdb
+C:\Git\CommunicationWebService\src\Exchange.Base\bin\Debug\netstandard2.0\Exchange.Base.deps.json
+C:\Git\CommunicationWebService\src\Exchange.Base\bin\Debug\netstandard2.0\Exchange.Base.dll
+C:\Git\CommunicationWebService\src\Exchange.Base\bin\Debug\netstandard2.0\Exchange.Base.pdb
+C:\Git\CommunicationWebService\src\Exchange.Base\bin\Debug\netstandard2.0\Shared.dll
+C:\Git\CommunicationWebService\src\Exchange.Base\bin\Debug\netstandard2.0\Transport.Base.dll
+C:\Git\CommunicationWebService\src\Exchange.Base\bin\Debug\netstandard2.0\Worker.Background.dll
+C:\Git\CommunicationWebService\src\Exchange.Base\bin\Debug\netstandard2.0\Shared.pdb
+C:\Git\CommunicationWebService\src\Exchange.Base\bin\Debug\netstandard2.0\Transport.Base.pdb
+C:\Git\CommunicationWebService\src\Exchange.Base\bin\Debug\netstandard2.0\Worker.Background.pdb
+C:\Git\CommunicationWebService\src\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.csprojAssemblyReference.cache
+C:\Git\CommunicationWebService\src\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.csproj.CoreCompileInputs.cache
+C:\Git\CommunicationWebService\src\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.AssemblyInfoInputs.cache
+C:\Git\CommunicationWebService\src\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.AssemblyInfo.cs
+C:\Git\CommunicationWebService\src\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.csproj.CopyComplete
+C:\Git\CommunicationWebService\src\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.dll
+C:\Git\CommunicationWebService\src\Exchange.Base\obj\Debug\netstandard2.0\Exchange.Base.pdb

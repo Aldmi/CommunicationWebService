@@ -2,7 +2,7 @@
 namespace BL.Services.Storages
 {
 
-    public class DeviceStorageService : StorageServiceBase<int, Device.Base.Device>
+    public class DeviceStorageService : StorageServiceBase<string, Device.Base.Device>
     {
         
     }

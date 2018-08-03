@@ -212,6 +212,24 @@ namespace BL.Services.Mediators
         }
 
 
+        /// <summary>
+        /// Найти Device и все его зависимости в репоизиториях.
+        /// Вернуть найденное под OptionAgregator.
+        /// </summary>
+        public async Task<OptionAgregator> GetOptionAgregatorForDeviceAsync(string deviceName)
+        {
+            var optionAgregator = new OptionAgregator 
+            {
+                DeviceOptions = new List<DeviceOption>
+                {
+
+                },
+            };
+
+            return optionAgregator;
+        }
+
+
 
         /// <summary>
         /// Добавить девайс, который использует уже существующие обмены.
@@ -360,9 +378,9 @@ namespace BL.Services.Mediators
 
 
         /// <summary>
-        /// Проверка наличия транспорта по ключу
+        /// Проверка наличия устройтсва по имени
         /// </summary>
-        private async Task<bool> IsExistDeviceAsync(string deviceName)
+        public async Task<bool> IsExistDeviceAsync(string deviceName)
         {
             return await _deviceOptionRep.IsExistAsync(dev => dev.Name == deviceName);
         }
@@ -371,7 +389,7 @@ namespace BL.Services.Mediators
         /// <summary>
         /// Проверка наличия транспорта по ключу
         /// </summary>
-        private async Task<bool> IsExistExRRchangeAsync(string keyExchange)
+        public async Task<bool> IsExistExRRchangeAsync(string keyExchange)
         {
             return await _exchangeOptionRep.IsExistAsync(exc => exc.Key == keyExchange);
         }
@@ -380,7 +398,7 @@ namespace BL.Services.Mediators
         /// <summary>
         /// Проверка наличия транспорта по ключу
         /// </summary>
-        private async Task<bool> IsExistTransportAsync(KeyTransport keyTransport)
+        public async Task<bool> IsExistTransportAsync(KeyTransport keyTransport)
         {
             switch (keyTransport.TransportType)
             {

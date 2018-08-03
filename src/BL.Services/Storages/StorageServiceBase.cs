@@ -58,6 +58,12 @@ namespace BL.Services.Storages
             return Storage.Where(item => keys.FirstOrDefault(key => key.Equals(item.Key)) != null).Select(pair => pair.Value);
         }
 
+
+        public bool IsExist(TKey key)
+        {
+           return Storage.ContainsKey(key);
+        }
+
         #endregion
     }
 }

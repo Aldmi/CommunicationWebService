@@ -12,6 +12,9 @@ namespace WebServer.AutofacModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<SerialPortStorageService>().SingleInstance(); 
+            builder.RegisterType<TcpIpStorageService>().SingleInstance(); 
+            builder.RegisterType<HttpStorageService>().SingleInstance(); 
+
             builder.RegisterType<BackgroundStorageService>().SingleInstance();
             builder.RegisterType<ExchangeStorageService>().SingleInstance();
             builder.RegisterType<DeviceStorageService>().SingleInstance();   
