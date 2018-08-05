@@ -92,29 +92,17 @@ namespace WebServer.Controllers
 
 
         // GET api/devicesoption/deviceName
-        [HttpGet("{deviceName}", Name= "Get")]
+        [HttpGet("{deviceName}", Name= "GetDevice")]
         public async Task<IActionResult> Get([FromRoute]string deviceName)
         {
             try
             {
-                var deviceOption= await _mediatorForOptionsRep.GetDeviceOptionByNameAsync(deviceName);
-                if (deviceOption == null)
-                    return NotFound(deviceName);
-
-                var exchangesOptions= deviceOption.ExchangeKeys.Select(exchangeKey=> _mediatorForOptionsRep.GetExchangeByKeyAsync(exchangeKey).GetAwaiter().GetResult()).ToList();
-                var transportOption= await _mediatorForOptionsRep.GetTransportByKeysAsync(exchangesOptions.Select(option=> option.KeyTransport).Distinct());
-                var deviceOptionDto= _mapper.Map<DeviceOptionDto>(deviceOption);
-                var exchangeOptionsDto= _mapper.Map<List<ExchangeOptionDto>>(exchangesOptions);
-                var transportOptionDto= _mapper.Map<TransportOptionsDto>(transportOption);
-
-                var agregatorOptionDto= new OptionAgregatorDto
+                if (!await _mediatorForOptionsRep.IsExistDeviceAsync(deviceName))
                 {
-                    DeviceOptions = new List<DeviceOptionDto>{deviceOptionDto},
-                    ExchangeOptions = exchangeOptionsDto,
-                    TransportOptions = transportOptionDto
-                };
-
-                await Task.CompletedTask; //Debug
+                    return NotFound(deviceName);
+                }
+                var optionAgregator=  await _mediatorForOptionsRep.GetOptionAgregatorForDeviceAsync(deviceName);
+                var agregatorOptionDto = _mapper.Map<OptionAgregatorDto>(optionAgregator);
                 return new JsonResult(agregatorOptionDto);
             }
             catch (Exception ex)
@@ -190,10 +178,10 @@ namespace WebServer.Controllers
         }
 
 
+
         // POST api/devicesoption/BuildDevice/deviceName
-        [Route("~/BuildDevice/{deviceName}")]
-        [HttpPost("{deviceName}", Name = "BuildDevice")]
-        public async Task<IActionResult> BuildDevice([FromRoute] string deviceName)             //TODO: доделать Route "api/devicesoption/BuildDevice/deviceName"
+        [HttpPost("BuildDevice/{deviceName}")]
+        public async Task<IActionResult> BuildDevice([FromRoute] string deviceName)
         {
             try
             {
@@ -203,8 +191,8 @@ namespace WebServer.Controllers
                 }
 
                var optionAgregator= await _mediatorForOptionsRep.GetOptionAgregatorForDeviceAsync(deviceName);
-                _mediatorForStorages.BuildAndAddDevice(optionAgregator);
-                return Ok();
+               _mediatorForStorages.BuildAndAddDevice(optionAgregator);
+               return Ok();
             }
             catch (StorageHandlerException ex)
             {

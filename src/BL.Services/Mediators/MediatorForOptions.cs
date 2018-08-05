@@ -218,14 +218,18 @@ namespace BL.Services.Mediators
         /// </summary>
         public async Task<OptionAgregator> GetOptionAgregatorForDeviceAsync(string deviceName)
         {
+            var deviceOption = await GetDeviceOptionByNameAsync(deviceName);
+            if (deviceOption == null)
+                throw new OptionHandlerException($"Устройство с таким именем Не найденно:  {deviceName}");
+
+            var exchangesOptions= deviceOption.ExchangeKeys.Select(exchangeKey => GetExchangeByKeyAsync(exchangeKey).GetAwaiter().GetResult()).ToList();
+            var transportOption= await GetTransportByKeysAsync(exchangesOptions.Select(option => option.KeyTransport).Distinct());
             var optionAgregator = new OptionAgregator 
             {
-                DeviceOptions = new List<DeviceOption>
-                {
-
-                },
+                DeviceOptions = new List<DeviceOption>{deviceOption},
+                ExchangeOptions = exchangesOptions,
+                TransportOptions = transportOption
             };
-
             return optionAgregator;
         }
 
