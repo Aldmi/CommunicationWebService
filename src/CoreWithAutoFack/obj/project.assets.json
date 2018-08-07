@@ -4862,9 +4862,11 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Device.Base": "1.0.0",
+          "DeviceForExchange": "1.0.0",
           "Exchange.Base": "1.0.0",
+          "Exchange.Http": "1.0.0",
           "Exchange.MasterSerialPort": "1.0.0",
+          "Exchange.TcpIp": "1.0.0",
           "Infrastructure.EventBus": "1.0.0",
           "Shared": "1.0.0",
           "Transport.Base": "1.0.0",
@@ -4907,7 +4909,7 @@
           "bin/placeholder/DAL.InMemory.dll": {}
         }
       },
-      "Device.Base/1.0.0": {
+      "DeviceForExchange/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -4917,10 +4919,10 @@
           "Transport.Base": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/Device.Base.dll": {}
+          "bin/placeholder/DeviceForExchange.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Device.Base.dll": {}
+          "bin/placeholder/DeviceForExchange.dll": {}
         }
       },
       "Exchange.Base/1.0.0": {
@@ -4938,6 +4940,22 @@
           "bin/placeholder/Exchange.Base.dll": {}
         }
       },
+      "Exchange.Http/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Exchange.Base": "1.0.0",
+          "Shared": "1.0.0",
+          "Transport.Http": "1.0.0",
+          "Worker.Background": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Exchange.Http.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Exchange.Http.dll": {}
+        }
+      },
       "Exchange.MasterSerialPort/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -4953,6 +4971,22 @@
         },
         "runtime": {
           "bin/placeholder/Exchange.MasterSerialPort.dll": {}
+        }
+      },
+      "Exchange.TcpIp/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Exchange.Base": "1.0.0",
+          "Shared": "1.0.0",
+          "Transport.TcpIp": "1.0.0",
+          "Worker.Background": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Exchange.TcpIp.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Exchange.TcpIp.dll": {}
         }
       },
       "Infrastructure.EventBus/1.0.0": {
@@ -13204,20 +13238,30 @@
       "path": "../DAL.InMemory/DAL.InMemory.csproj",
       "msbuildProject": "../DAL.InMemory/DAL.InMemory.csproj"
     },
-    "Device.Base/1.0.0": {
+    "DeviceForExchange/1.0.0": {
       "type": "project",
-      "path": "../Device.Base/Device.Base.csproj",
-      "msbuildProject": "../Device.Base/Device.Base.csproj"
+      "path": "../Device.Base/DeviceForExchange.csproj",
+      "msbuildProject": "../Device.Base/DeviceForExchange.csproj"
     },
     "Exchange.Base/1.0.0": {
       "type": "project",
       "path": "../Exchange.Base/Exchange.Base.csproj",
       "msbuildProject": "../Exchange.Base/Exchange.Base.csproj"
     },
+    "Exchange.Http/1.0.0": {
+      "type": "project",
+      "path": "../Exchange.Http/Exchange.Http.csproj",
+      "msbuildProject": "../Exchange.Http/Exchange.Http.csproj"
+    },
     "Exchange.MasterSerialPort/1.0.0": {
       "type": "project",
       "path": "../Exchange.MasterSerialPort/Exchange.MasterSerialPort.csproj",
       "msbuildProject": "../Exchange.MasterSerialPort/Exchange.MasterSerialPort.csproj"
+    },
+    "Exchange.TcpIp/1.0.0": {
+      "type": "project",
+      "path": "../Exchange.TcpIp/Exchange.TcpIp.csproj",
+      "msbuildProject": "../Exchange.TcpIp/Exchange.TcpIp.csproj"
     },
     "Infrastructure.EventBus/1.0.0": {
       "type": "project",
@@ -13263,7 +13307,7 @@
       "BL.Services >= 1.0.0",
       "DAL.Abstract >= 1.0.0",
       "DAL.InMemory >= 1.0.0",
-      "Device.Base >= 1.0.0",
+      "DeviceForExchange >= 1.0.0",
       "Exchange.Base >= 1.0.0",
       "Exchange.MasterSerialPort >= 1.0.0",
       "Infrastructure.EventBus >= 1.0.0",
@@ -13277,23 +13321,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Aldmi\\.nuget\\packages\\": {},
+    "C:\\Users\\admin\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\WebServer.csproj",
+      "projectUniqueName": "C:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\WebServer.csproj",
       "projectName": "WebServer",
-      "projectPath": "D:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\WebServer.csproj",
-      "packagesPath": "C:\\Users\\Aldmi\\.nuget\\packages\\",
-      "outputPath": "D:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\obj\\",
+      "projectPath": "C:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\WebServer.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Aldmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13301,44 +13345,43 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://packages.nuget.org/": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "D:\\Git\\CommunicationWebService\\src\\BL.Services\\BL.Services.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\BL.Services\\BL.Services.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\BL.Services\\BL.Services.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\BL.Services\\BL.Services.csproj"
             },
-            "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj"
             },
-            "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj"
             },
-            "D:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj"
             },
-            "D:\\Git\\CommunicationWebService\\src\\DAL.InMemory\\DAL.InMemory.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\DAL.InMemory\\DAL.InMemory.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\DAL.InMemory\\DAL.InMemory.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\DAL.InMemory\\DAL.InMemory.csproj"
             },
-            "D:\\Git\\CommunicationWebService\\src\\Device.Base\\Device.Base.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Device.Base\\Device.Base.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\Device.Base\\DeviceForExchange.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Device.Base\\DeviceForExchange.csproj"
             },
-            "D:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj"
             },
-            "D:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj"
             },
-            "D:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj"
             },
-            "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
             },
-            "D:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj"
             }
           }
         }

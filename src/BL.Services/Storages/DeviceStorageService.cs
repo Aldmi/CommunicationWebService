@@ -1,8 +1,9 @@
 ﻿
+using DeviceForExchange;
+
 namespace BL.Services.Storages
 {
-
-    public class DeviceStorageService : StorageServiceBase<string, Device.Base.Device>
+    public class DeviceStorageService : StorageServiceBase<string, Device>
     {
         
     }

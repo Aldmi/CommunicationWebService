@@ -18,7 +18,7 @@ namespace Transport.Http.Concrete
 
         #region ctor
 
-        public HttpTransport(KeyTransport keyTransport, HttpOption option)
+        public HttpTransport(HttpOption option, KeyTransport keyTransport)
         {
             KeyTransport = keyTransport;
             Option = option;

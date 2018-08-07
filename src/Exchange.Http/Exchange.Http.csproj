@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Exchange.Base\Exchange.Base.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
+    <ProjectReference Include="..\Transport.Http\Transport.Http.csproj" />
+    <ProjectReference Include="..\Worker.Background\Worker.Background.csproj" />
+  </ItemGroup>
+
+</Project>

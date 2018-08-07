@@ -17,6 +17,7 @@ namespace DAL.Abstract.Extensions
                     Id = 1,
                     Description = "Табло1",
                     Name = "Vidor1",
+                    AutoBuild = false,
                     ExchangeKeys = new List<string>
                     {
                         "SP_COM1_Vidor1",

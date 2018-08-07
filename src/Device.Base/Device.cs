@@ -7,7 +7,7 @@ using Exchange.Base.Model;
 using Infrastructure.EventBus.Abstract;
 using Transport.Base.RxModel;
 
-namespace Device.Base
+namespace DeviceForExchange
 {
     /// <summary>
     /// Устройство.
@@ -18,7 +18,7 @@ namespace Device.Base
         #region field
 
         private readonly IEventBus _eventBus;
-        private List<IDisposable> _disposeExchangesEventHandlers = new List<IDisposable>();
+        private readonly List<IDisposable> _disposeExchangesEventHandlers = new List<IDisposable>();
 
         #endregion
 

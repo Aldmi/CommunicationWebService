@@ -77,6 +77,7 @@ namespace WebServer
             //var httpDev = optionsDevicesWithSp.Value;
 
             ConfigurationBackgroundProcess(app, scope);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -160,35 +161,35 @@ namespace WebServer
                     deviceOptionRepository.Initialize();
                 }
 
-                //ADD SERIAL PORTS--------------------------------------------------------------------
-                foreach (var spOption in serialPortOptionRepository.List())
-                {
-                    var keyTransport = new KeyTransport(spOption.Port, TransportType.SerialPort);
-                    var sp = new SpWinSystemIo(spOption, keyTransport);
-                    var bg = new HostingBackgroundTransport(keyTransport);
-                    serialPortStorageService.AddNew(keyTransport, sp);
-                    backgroundStorageService.AddNew(keyTransport, bg);
-                }
+                ////ADD SERIAL PORTS--------------------------------------------------------------------
+                //foreach (var spOption in serialPortOptionRepository.List())
+                //{
+                //    var keyTransport = new KeyTransport(spOption.Port, TransportType.SerialPort);
+                //    var sp = new SpWinSystemIo(spOption, keyTransport);
+                //    var bg = new HostingBackgroundTransport(keyTransport);
+                //    serialPortStorageService.AddNew(keyTransport, sp);
+                //    backgroundStorageService.AddNew(keyTransport, bg);
+                //}
 
-                //ADD EXCHANGES------------------------------------------------------------------------
-                foreach (var exchOption in exchangeOptionRepository.List())
-                {
-                    var keyTransport= exchOption.KeyTransport;
-                    var sp= serialPortStorageService.Get(keyTransport);
-                    var bg= backgroundStorageService.Get(keyTransport);
-                    if (sp == null || bg == null) continue;
-                    var key= exchOption.Key;
-                    var exch = new ByRulesExchangeSerialPort(sp, bg, exchOption);
-                    exchangeStorageService.AddNew(key, exch);
-                }
+                ////ADD EXCHANGES------------------------------------------------------------------------
+                //foreach (var exchOption in exchangeOptionRepository.List())
+                //{
+                //    var keyTransport= exchOption.KeyTransport;
+                //    var sp= serialPortStorageService.Get(keyTransport);
+                //    var bg= backgroundStorageService.Get(keyTransport);
+                //    if (sp == null || bg == null) continue;
+                //    var key= exchOption.Key;
+                //    var exch = new ByRulesExchangeSerialPort(sp, bg, exchOption);
+                //    exchangeStorageService.AddNew(key, exch);
+                //}
 
-                //ADD DEVICES--------------------------------------------------------------------------
-                foreach (var deviceOption in deviceOptionRepository.List())
-                {
-                    var excanges= exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
-                    var device= new Device.Base.Device(deviceOption, excanges, eventBus);
-                    deviceStorageService.AddNew(deviceOption.Name, device);
-                }
+                ////ADD DEVICES--------------------------------------------------------------------------
+                //foreach (var deviceOption in deviceOptionRepository.List())
+                //{
+                //    var excanges= exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
+                //    var device= new Device.Base.Device(deviceOption, excanges, eventBus);
+                //    deviceStorageService.AddNew(deviceOption.Name, device);
+                //}
             }
             catch (Exception e)
             {
