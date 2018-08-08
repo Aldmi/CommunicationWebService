@@ -41,7 +41,6 @@ namespace Worker.Background.Concrete.HostingBackground
 
 
 
-
         #region Methode
 
         public virtual Task StartAsync(CancellationToken cancellationToken)
@@ -88,6 +87,7 @@ namespace Worker.Background.Concrete.HostingBackground
         public abstract void AddOneTimeAction(Func<CancellationToken, Task> action);
 
         #endregion
+
 
 
         #region Disposable

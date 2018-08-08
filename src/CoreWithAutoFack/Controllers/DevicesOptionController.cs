@@ -20,7 +20,7 @@ namespace WebServer.Controllers
     /// <summary>
     /// REST api доступа к опциям системы (Devices, Exchanges, Transports)
     /// </summary>
- 
+
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class DevicesOptionController : Controller
@@ -66,11 +66,11 @@ namespace WebServer.Controllers
             try
             {
                 var deviceOptions = await _mediatorForOptionsRep.GetDeviceOptionsAsync();
-                var exchangeOptions= await _mediatorForOptionsRep.GetExchangeOptionsAsync();
+                var exchangeOptions = await _mediatorForOptionsRep.GetExchangeOptionsAsync();
                 var transportOption = await _mediatorForOptionsRep.GetTransportOptionsAsync();
 
-                var deviceOptionsDto= _mapper.Map<List<DeviceOptionDto>>(deviceOptions);
-                var exchangeOptionsDto= _mapper.Map<List<ExchangeOptionDto>>(exchangeOptions);
+                var deviceOptionsDto = _mapper.Map<List<DeviceOptionDto>>(deviceOptions);
+                var exchangeOptionsDto = _mapper.Map<List<ExchangeOptionDto>>(exchangeOptions);
                 var transportOptionDto = _mapper.Map<TransportOptionsDto>(transportOption);
 
                 var agregatorOptionDto = new OptionAgregatorDto
@@ -86,13 +86,13 @@ namespace WebServer.Controllers
                 Console.WriteLine(ex);
                 //LOG
                 throw;
-            }    
+            }
         }
 
 
 
         // GET api/devicesoption/deviceName
-        [HttpGet("{deviceName}", Name= "GetDevice")]
+        [HttpGet("{deviceName}", Name = "GetDevice")]
         public async Task<IActionResult> Get([FromRoute]string deviceName)
         {
             try
@@ -101,7 +101,7 @@ namespace WebServer.Controllers
                 {
                     return NotFound(deviceName);
                 }
-                var optionAgregator=  await _mediatorForOptionsRep.GetOptionAgregatorForDeviceAsync(deviceName);
+                var optionAgregator = await _mediatorForOptionsRep.GetOptionAgregatorForDeviceAsync(deviceName);
                 var agregatorOptionDto = _mapper.Map<OptionAgregatorDto>(optionAgregator);
                 return new JsonResult(agregatorOptionDto);
             }
@@ -110,7 +110,7 @@ namespace WebServer.Controllers
                 Console.WriteLine(ex);
                 //LOG
                 throw;
-            }    
+            }
         }
 
 
@@ -118,7 +118,7 @@ namespace WebServer.Controllers
         // POST api/devicesoption
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]OptionAgregatorDto data)
-        {         
+        {
             if (data == null)
             {
                 ModelState.AddModelError("AgregatorOptionDto", "POST body is null");
@@ -137,7 +137,7 @@ namespace WebServer.Controllers
                 var exchangeOption = _mapper.Map<IEnumerable<ExchangeOption>>(exchangeOptionDto);
                 var transportOption = _mapper.Map<TransportOption>(transportOptionDto);
                 await _mediatorForOptionsRep.AddDeviceOptionAsync(deviceOption, exchangeOption, transportOption);
-                return CreatedAtAction("Get", new {deviceName= deviceOptionDto.Name}, data); //возвращает в ответе данные запроса. в Header пишет значение Location→ http://localhost:44138/api/DevicesOption/{deviceName}
+                return CreatedAtAction("Get", new { deviceName = deviceOptionDto.Name }, data); //возвращает в ответе данные запроса. в Header пишет значение Location→ http://localhost:44138/api/DevicesOption/{deviceName}
             }
             catch (OptionHandlerException ex)
             {
@@ -151,7 +151,7 @@ namespace WebServer.Controllers
                 Console.WriteLine(ex);
                 //LOG
                 throw;
-            }        
+            }
         }
 
 
@@ -160,13 +160,13 @@ namespace WebServer.Controllers
         [HttpDelete("{deviceName}")]
         public async Task<IActionResult> Delete([FromRoute]string deviceName)
         {
-            var deviceOption= await _mediatorForOptionsRep.GetDeviceOptionByNameAsync(deviceName);
+            var deviceOption = await _mediatorForOptionsRep.GetDeviceOptionByNameAsync(deviceName);
             if (deviceOption == null)
                 return NotFound(deviceName);
 
             try
             {
-                var deletedOption= await _mediatorForOptionsRep.RemoveDeviceOptionAsync(deviceOption);
+                var deletedOption = await _mediatorForOptionsRep.RemoveDeviceOptionAsync(deviceOption);
                 return Ok(deletedOption);
             }
             catch (Exception ex)
@@ -174,7 +174,7 @@ namespace WebServer.Controllers
                 Console.WriteLine(ex);
                 //LOG
                 throw;
-            }  
+            }
         }
 
 
@@ -190,9 +190,9 @@ namespace WebServer.Controllers
                     return NotFound(deviceName);
                 }
 
-               var optionAgregator= await _mediatorForOptionsRep.GetOptionAgregatorForDeviceAsync(deviceName);
-               _mediatorForStorages.BuildAndAddDevice(optionAgregator);
-               return Ok();
+                var optionAgregator = await _mediatorForOptionsRep.GetOptionAgregatorForDeviceAsync(deviceName);
+                var newDevice = _mediatorForStorages.BuildAndAddDevice(optionAgregator);
+                return Ok(newDevice);
             }
             catch (StorageHandlerException ex)
             {

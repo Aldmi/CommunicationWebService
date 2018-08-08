@@ -144,7 +144,7 @@ namespace BL.Services.Mediators
         /// Добавить опции для устройства в репозиторий.
         /// Если exchangeOptions и transportOption не указанны, то добавляетя устройство с существующими обменами
         /// Если transportOption не указанн, то добавляетя устройство вместе со списом обменов, на уже существйющем транспорте.
-        /// Если указзанны все аргументы, то добавляется устройство со спсиком новых обменом и каждый обмен использует новый транспорт.
+        /// Если указанны все аргументы, то добавляется устройство со спсиком новых обменом и каждый обмен использует новый транспорт.
         /// </summary>
         public async Task<bool> AddDeviceOptionAsync(DeviceOption deviceOption, IEnumerable<ExchangeOption> exchangeOptions = null, TransportOption transportOption = null)
         {
