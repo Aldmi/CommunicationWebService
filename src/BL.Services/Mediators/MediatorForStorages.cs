@@ -222,7 +222,10 @@ namespace BL.Services.Mediators
                 throw new OptionHandlerException($"ОБмнена с таким ключем Не найденно: {exchnageKey}");
 
            var bg= _backgroundStorageService.Get(exchange.KeyTransport);
-           await bg.StartAsync(CancellationToken.None);
+           if(bg.IsStarted)
+               throw new OptionHandlerException($"Бекгроунд уже запущен: {bg.KeyTransport}");
+
+            await bg.StartAsync(CancellationToken.None);
         }
 
 
@@ -238,6 +241,9 @@ namespace BL.Services.Mediators
                 throw new OptionHandlerException($"ОБмнена с таким ключем Не найденно: {exchnageKey}");
 
             var bg= _backgroundStorageService.Get(exchange.KeyTransport);
+            if (!bg.IsStarted)
+                throw new OptionHandlerException($"Бекгроунд и так остановленн: {bg.KeyTransport}");
+
             await bg.StopAsync(CancellationToken.None);
         }
         #endregion

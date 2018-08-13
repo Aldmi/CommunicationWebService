@@ -26,8 +26,6 @@ namespace Exchange.MasterSerialPort
         #endregion
 
 
-
-
         #region prop
 
         public bool IsOpen => _serailPort.IsOpen;
@@ -36,14 +34,15 @@ namespace Exchange.MasterSerialPort
 
         public UniversalInputType LastSendData { get; }
 
-        public IEnumerable<string> GetRuleNames => new List<string>(); //TODO: сейчас в ExchangeMasterSpOption только 1 ExchangeRule, должно быть список.
-     
-        protected ConcurrentQueue<UniversalInputType> InDataQueue { get; set; } = new ConcurrentQueue<UniversalInputType>();
+        public IEnumerable<string> GetRuleNames =>new List<string>(); //TODO: сейчас в ExchangeMasterSpOption только 1 ExchangeRule, должно быть список.
+
+        public bool IsStartedCycleExchange { get; set; }
+
+        protected ConcurrentQueue<UniversalInputType> InDataQueue { get; set; } =new ConcurrentQueue<UniversalInputType>();
+
         protected UniversalInputType Data4CycleFunc { get; set; }
 
         #endregion
-
-
 
 
         #region ctor
@@ -58,14 +57,13 @@ namespace Exchange.MasterSerialPort
         #endregion
 
 
-
-
         #region Methode
 
         /// <summary>
         /// Циклическое 
         /// </summary>
         private CancellationTokenSource _cycleReOpenedCts;
+
         public async Task CycleReOpened()
         {
             if (_serailPort != null)
@@ -78,8 +76,8 @@ namespace Exchange.MasterSerialPort
                     {
                         StartCycleExchange();
                     }
-                }, _cycleReOpenedCts.Token);       
-            }   
+                }, _cycleReOpenedCts.Token);
+            }
         }
 
 
@@ -89,7 +87,7 @@ namespace Exchange.MasterSerialPort
             {
                 _serailPort.CycleReOpenedCancelation();
                 _cycleReOpenedCts?.Cancel();
-            }    
+            }
         }
 
 
@@ -99,6 +97,7 @@ namespace Exchange.MasterSerialPort
         public void StartCycleExchange()
         {
             _background.AddCycleAction(CycleTimeExchangeActionAsync);
+            IsStartedCycleExchange = true;
         }
 
 
@@ -108,14 +107,15 @@ namespace Exchange.MasterSerialPort
         public void StopCycleExchange()
         {
             _background.RemoveCycleFunc(CycleTimeExchangeActionAsync);
+            IsStartedCycleExchange = false;
         }
 
 
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <param name="commandName"></param>
-          /// <param name="data4Command"></param>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commandName"></param>
+        /// <param name="data4Command"></param>
         public void SendCommand(string commandName, UniversalInputType data4Command = null)
         {
             throw new NotImplementedException();
@@ -147,14 +147,12 @@ namespace Exchange.MasterSerialPort
         #endregion
 
 
-
         #region AbstractMember
 
         protected abstract Task OneTimeExchangeActionAsync(CancellationToken ct);
         protected abstract Task CycleTimeExchangeActionAsync(CancellationToken ct);
 
         #endregion
-
 
 
         #region RxEvent
@@ -164,21 +162,23 @@ namespace Exchange.MasterSerialPort
         public ISubject<IExchange> LastSendDataChangeRx { get; }
 
         public ISubject<IsOpenChangeRxModel> IsOpenChangeTransportRx => _serailPort.IsOpenChangeRx;
-        public ISubject<StatusDataExchangeChangeRxModel> StatusDataExchangeChangeTransportRx => _serailPort.StatusDataExchangeChangeRx;
+
+        public ISubject<StatusDataExchangeChangeRxModel> StatusDataExchangeChangeTransportRx =>
+            _serailPort.StatusDataExchangeChangeRx;
+
         public ISubject<StatusStringChangeRxModel> StatusStringChangeTransportRx => _serailPort.StatusStringChangeRx;
 
         #endregion
-
 
 
         #region Disposable
 
         public void Dispose()
         {
-            //TODO: Послед порт, уничтожать нельзя,
+            //Послед порт, уничтожать нельзя,
             _background.Dispose();
         }
-        
+
         #endregion
     }
 }

@@ -18,6 +18,7 @@ namespace Exchange.Base
         bool IsConnect { get; }                                                   //Устройсвто на связи по открытому соединению (определяется по правильным ответам от ус-ва)
         UniversalInputType LastSendData { get; }                                  //Последние отосланные данные
         IEnumerable<string> GetRuleNames { get; }                                 //Отдать название установленных правил обмена
+        bool IsStartedCycleExchange { get; set; }                                 //Флаг  цикл. обмена
         #endregion
 
 

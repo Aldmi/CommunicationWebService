@@ -50,6 +50,8 @@ namespace Exchange.Http
         public bool IsConnect { get; }
         public UniversalInputType LastSendData { get; }
         public IEnumerable<string> GetRuleNames { get; }
+        public bool IsStartedCycleExchange { get; set; }
+
         public Task CycleReOpened()
         {
             throw new System.NotImplementedException();

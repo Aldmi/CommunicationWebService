@@ -54,9 +54,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceForExchange", "Device
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transport.Http", "Transport.Http\Transport.Http.csproj", "{DED5FF7E-C22F-4CC3-B2D3-B931EF8EDA78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.TcpIp", "Exchange.TcpIp\Exchange.TcpIp.csproj", "{EC310B63-B98A-415C-95A4-D72017023C59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exchange.TcpIp", "Exchange.TcpIp\Exchange.TcpIp.csproj", "{EC310B63-B98A-415C-95A4-D72017023C59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.Http", "Exchange.Http\Exchange.Http.csproj", "{E93A1316-B144-4706-BEED-BA4AD1B54158}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exchange.Http", "Exchange.Http\Exchange.Http.csproj", "{E93A1316-B144-4706-BEED-BA4AD1B54158}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
