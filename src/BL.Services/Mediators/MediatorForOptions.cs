@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BL.Services.Mediators.Exceptions;
+using BL.Services.Exceptions;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Options;
 using DAL.Abstract.Entities.Options.Device;

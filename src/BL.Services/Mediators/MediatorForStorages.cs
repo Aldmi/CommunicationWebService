@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using BL.Services.Mediators.Exceptions;
+using BL.Services.Exceptions;
 using BL.Services.Storages;
 using DAL.Abstract.Entities.Options;
 using DeviceForExchange;
@@ -193,6 +193,9 @@ namespace BL.Services.Mediators
             if (exchange == null)
                 throw new OptionHandlerException($"ОБмнена с таким ключем Не найденно: {exchnageKey}");
 
+            if (exchange.IsStartedCycleExchange)
+                throw new OptionHandlerException($"Цикл. обмен уже запущенн: {exchnageKey}");
+
             exchange.StartCycleExchange();
         }
 
@@ -206,6 +209,9 @@ namespace BL.Services.Mediators
             var exchange = _exchangeStorageService.Get(exchnageKey);
             if (exchange == null)
                 throw new OptionHandlerException($"Обмнена с таким ключем Не найденно: {exchnageKey}");
+
+            if (!exchange.IsStartedCycleExchange)
+                throw new OptionHandlerException($"Цикл. обмен уже остановленн: {exchnageKey}");
 
             exchange.StopCycleExchange();
         }

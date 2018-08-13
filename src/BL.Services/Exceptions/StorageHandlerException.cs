@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace BL.Services.Mediators.Exceptions
+namespace BL.Services.Exceptions
 {
     public class StorageHandlerException : Exception
     {

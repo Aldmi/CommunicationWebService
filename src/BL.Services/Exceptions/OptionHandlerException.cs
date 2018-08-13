@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace BL.Services.Mediators.Exceptions
+namespace BL.Services.Exceptions
 {
-    public class OptionHandlerException : Exception
+    public class OptionHandlerException : ActionHandlerException
     {
         public OptionHandlerException(){ }
         public OptionHandlerException(string message) : base(message) { }
