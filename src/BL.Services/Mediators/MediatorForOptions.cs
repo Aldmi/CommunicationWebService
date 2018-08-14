@@ -190,7 +190,7 @@ namespace BL.Services.Mediators
             };
 
             //ПРОВЕРКА УНИКАЛЬНОСТИ ОБМЕНОВ УДАЛЯЕМОГО УСТРОЙСТВА (ЕСЛИ УНИКАЛЬНО ТО УДАЛЯЕМ И ОБМЕН, ЕСЛИ ОБМЕН ИСПОЛЬУЕТ УНИКАЛЬНЫЙ ТРАНСПОРТ, ТО УДАЛЯЕМ И ТРАНСПОРТ)
-            var exchangeKeys= (await _deviceOptionRep.ListAsync()).SelectMany(option=> option.ExchangeKeys).ToList(); //уникальные ключи обменов со всех устройств.
+            var exchangeKeys= (await _deviceOptionRep.ListAsync()).SelectMany(option=> option.ExchangeKeys).ToList(); //ключи обменов со всех устройств.
             foreach (var exchangeKey in deviceOption.ExchangeKeys)
             {             
                 if (exchangeKeys.Count(key=> key == exchangeKey) == 1)                                                                          //найден обмен используемый только этим устройством

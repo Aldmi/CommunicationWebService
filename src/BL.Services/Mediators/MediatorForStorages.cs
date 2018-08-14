@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -89,7 +90,7 @@ namespace BL.Services.Mediators
                 var sp = _serialPortStorageService.Get(keyTransport);
                 if (sp == null)
                 {
-                    sp = new SpWinSystemIo(spOption, keyTransport);        
+                    sp = new SpWinSystemIo(spOption, keyTransport);
                     _serialPortStorageService.AddNew(keyTransport, sp);
                     var bg = new HostingBackgroundTransport(keyTransport);
                     _backgroundStorageService.AddNew(keyTransport, bg);
@@ -100,7 +101,7 @@ namespace BL.Services.Mediators
                 var keyTransport = new KeyTransport(tcpIpOption.Name, TransportType.TcpIp);
                 var tcpIp = _tcpIpStorageService.Get(keyTransport);
                 if (tcpIp == null)
-                {           
+                {
                     tcpIp = new TcpIpTransport(tcpIpOption, keyTransport);
                     _tcpIpStorageService.AddNew(keyTransport, tcpIp);
                     var bg = new HostingBackgroundTransport(keyTransport);
@@ -121,39 +122,39 @@ namespace BL.Services.Mediators
             }
 
             //ДОБАВИТЬ НОВЫЕ ОБМЕНЫ---------------------------------------------------------------------------
-            foreach (var exchOption in  optionAgregator.ExchangeOptions)
+            foreach (var exchOption in optionAgregator.ExchangeOptions)
             {
-                var exch= _exchangeStorageService.Get(exchOption.Key);
+                var exch = _exchangeStorageService.Get(exchOption.Key);
                 if (exch != null)
                     continue;
 
-                var keyTransport= exchOption.KeyTransport;
-                var bg= _backgroundStorageService.Get(keyTransport);
+                var keyTransport = exchOption.KeyTransport;
+                var bg = _backgroundStorageService.Get(keyTransport);
                 switch (keyTransport.TransportType)
                 {
                     case TransportType.SerialPort:
-                        var sp= _serialPortStorageService.Get(keyTransport);                     
-                        exch= new ByRulesExchangeSerialPort(sp, bg, exchOption);
+                        var sp = _serialPortStorageService.Get(keyTransport);
+                        exch = new ByRulesExchangeSerialPort(sp, bg, exchOption);
                         _exchangeStorageService.AddNew(exchOption.Key, exch);
                         break;
 
                     case TransportType.TcpIp:
-                        var tcpIp= _tcpIpStorageService.Get(keyTransport);
-                        exch= new BaseExchangeTcpIp(tcpIp, bg, exchOption);
+                        var tcpIp = _tcpIpStorageService.Get(keyTransport);
+                        exch = new BaseExchangeTcpIp(tcpIp, bg, exchOption);
                         _exchangeStorageService.AddNew(exchOption.Key, exch);
                         break;
 
                     case TransportType.Http:
-                        var http= _httpStorageService.Get(keyTransport);
-                        exch= new BaseExchangeHttp(http, bg, exchOption);
+                        var http = _httpStorageService.Get(keyTransport);
+                        exch = new BaseExchangeHttp(http, bg, exchOption);
                         _exchangeStorageService.AddNew(exchOption.Key, exch);
                         break;
                 }
             }
 
             //ДОБАВИТЬ УСТРОЙСТВО--------------------------------------------------------------------------
-            var excanges= _exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
-            var device= new Device(deviceOption, excanges, _eventBus);
+            var excanges = _exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
+            var device = new Device(deviceOption, excanges, _eventBus);
             _deviceStorageService.AddNew(device.Option.Name, device);
 
             return device;
@@ -168,90 +169,82 @@ namespace BL.Services.Mediators
         /// <returns>Верунть ус-во</returns>
         public Device GetDevice(string deviceName)
         {
-            var device= _deviceStorageService.Get(deviceName);
+            var device = _deviceStorageService.Get(deviceName);
             return device;
         }
 
 
         /// <summary>
-        /// Удалить устройство, если список Exchanges не пуст, то удалить все неиспользуемые Exchanges.
+        /// Удалить устройство,
+        /// Если использовались уникальные обмены, то удалить и их. 
+        /// Если удаленный (уникальный) обмен использовал уникальный транспорт, то отсановить обмен и удалить транспорт.
         /// </summary>
-        public DictionaryCrudResult RemoveDevice(string deviceName)
+        public async Task<Device> RemoveDevice(string deviceName)
         {
-           var result= _deviceStorageService.Remove(deviceName);
-           return result;
+            var device = GetDevice(deviceName);
+            if (device == null)
+                throw new StorageHandlerException($"Устройство с таким именем НЕ существует: {deviceName}");
+
+            var exchangeKeys = _deviceStorageService.Values.SelectMany(dev => dev.Option.ExchangeKeys).ToList();
+            var keyTransports = _exchangeStorageService.Values.Select(exc => exc.KeyTransport).ToList();
+            foreach (var exchKey in device.Option.ExchangeKeys)
+            {
+                if (exchangeKeys.Count(key => key == exchKey) == 1)
+                {
+                    var removingExch = _exchangeStorageService.Get(exchKey);
+                    if (removingExch.IsStartedCycleExchange)
+                    {
+                        removingExch.StopCycleExchange();
+                    }
+                    if (keyTransports.Count(tr => tr == removingExch.KeyTransport) == 1)
+                    {
+                        await RemoveAndStopTransport(removingExch.KeyTransport);
+                    }
+                    _exchangeStorageService.Remove(exchKey);
+                    removingExch.Dispose();
+                }
+            }
+
+            //УДАЛИМ УСТРОЙСТВО
+            _deviceStorageService.Remove(deviceName);
+            device.Dispose(); //???
+            return device;
         }
 
 
         /// <summary>
-        /// Установить функции циклического обмена на бекгроунд
+        /// Ищет транспорт по ключу в нужном хранилище и Удаляет его.
         /// </summary>
-        /// <param name="exchnageKey"></param>
-        public void StartCycleExchange(string exchnageKey)
+        private async Task RemoveAndStopTransport(KeyTransport keyTransport)
         {
-            var exchange = _exchangeStorageService.Get(exchnageKey);
-            if (exchange == null)
-                throw new OptionHandlerException($"ОБмнена с таким ключем Не найденно: {exchnageKey}");
+            var bg = _backgroundStorageService.Get(keyTransport);
+            if (bg.IsStarted)
+            {
+                await bg.StopAsync(CancellationToken.None);
+            }
 
-            if (exchange.IsStartedCycleExchange)
-                throw new OptionHandlerException($"Цикл. обмен уже запущенн: {exchnageKey}");
+            switch (keyTransport.TransportType)
+            {
+                case TransportType.SerialPort:
+                    var sp = _serialPortStorageService.Get(keyTransport);
+                    _serialPortStorageService.Remove(keyTransport);
+                    sp.Dispose();
+                    break;
 
-            exchange.StartCycleExchange();
+                case TransportType.TcpIp:
+                    var tcpIp = _tcpIpStorageService.Get(keyTransport);
+                    _tcpIpStorageService.Remove(keyTransport);
+                    tcpIp.Dispose();
+                    break;
+
+                case TransportType.Http:
+                    var http = _httpStorageService.Get(keyTransport);
+                    _httpStorageService.Remove(keyTransport);
+                    http.Dispose();
+                    break;
+            }
         }
 
-
-        /// <summary>
-        /// Снять функции циклического обмена с бекгроунда
-        /// </summary>
-        /// <param name="exchnageKey"></param>
-        public void StopCycleExchange(string exchnageKey)
-        {
-            var exchange = _exchangeStorageService.Get(exchnageKey);
-            if (exchange == null)
-                throw new OptionHandlerException($"Обмнена с таким ключем Не найденно: {exchnageKey}");
-
-            if (!exchange.IsStartedCycleExchange)
-                throw new OptionHandlerException($"Цикл. обмен уже остановленн: {exchnageKey}");
-
-            exchange.StopCycleExchange();
-        }
-
-
-        /// <summary>
-        /// Запустить Бекграунд обмена 
-        /// </summary>
-        /// <param name="exchnageKey"></param>
-        public async Task StartBackground(string exchnageKey)
-        {
-            var exchange = _exchangeStorageService.Get(exchnageKey);
-            if (exchange == null)
-                throw new OptionHandlerException($"ОБмнена с таким ключем Не найденно: {exchnageKey}");
-
-           var bg= _backgroundStorageService.Get(exchange.KeyTransport);
-           if(bg.IsStarted)
-               throw new OptionHandlerException($"Бекгроунд уже запущен: {bg.KeyTransport}");
-
-            await bg.StartAsync(CancellationToken.None);
-        }
-
-
-
-        /// <summary>
-        /// Остановить Бекграунд обмена 
-        /// </summary>
-        /// <param name="exchnageKey"></param>
-        public async Task StopBackground(string exchnageKey)
-        {
-            var exchange = _exchangeStorageService.Get(exchnageKey);
-            if (exchange == null)
-                throw new OptionHandlerException($"ОБмнена с таким ключем Не найденно: {exchnageKey}");
-
-            var bg= _backgroundStorageService.Get(exchange.KeyTransport);
-            if (!bg.IsStarted)
-                throw new OptionHandlerException($"Бекгроунд и так остановленн: {bg.KeyTransport}");
-
-            await bg.StopAsync(CancellationToken.None);
-        }
         #endregion
     }
 }
