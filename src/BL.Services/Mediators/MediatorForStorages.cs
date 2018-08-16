@@ -69,6 +69,24 @@ namespace BL.Services.Mediators
         #region Methode
 
         /// <summary>
+        /// Вернуть устройство по  имени устройства.
+        /// </summary>
+        /// <param name="deviceName">Имя ус-ва, он же ключ к хранилищу</param>
+        /// <returns>Верунть ус-во</returns>
+        public Device GetDevice(string deviceName)
+        {
+            var device = _deviceStorageService.Get(deviceName);
+            return device;
+        }
+
+
+        public IEnumerable<Device> GetDevices()
+        {
+            return _deviceStorageService.Values;
+        }
+
+
+        /// <summary>
         /// Создать устройство на базе optionAgregator.
         /// Созданное ус-во добавляется в StorageDevice. 
         /// Если для создания ус-ва нужно создать ОБМЕН и/или ТРАНСПОРТ, то созданные объекты тоже добавляются в StorageExchange или StorageTransport
@@ -163,18 +181,6 @@ namespace BL.Services.Mediators
 
 
         /// <summary>
-        /// Вернуть устройство по  имени устройства.
-        /// </summary>
-        /// <param name="deviceName">Имя ус-ва, он же ключ к хранилищу</param>
-        /// <returns>Верунть ус-во</returns>
-        public Device GetDevice(string deviceName)
-        {
-            var device = _deviceStorageService.Get(deviceName);
-            return device;
-        }
-
-
-        /// <summary>
         /// Удалить устройство,
         /// Если использовались уникальные обмены, то удалить и их. 
         /// Если удаленный (уникальный) обмен использовал уникальный транспорт, то отсановить обмен и удалить транспорт.
@@ -220,7 +226,9 @@ namespace BL.Services.Mediators
             var bg = _backgroundStorageService.Get(keyTransport);
             if (bg.IsStarted)
             {
+                _backgroundStorageService.Remove(keyTransport);
                 await bg.StopAsync(CancellationToken.None);
+                bg.Dispose();
             }
 
             switch (keyTransport.TransportType)

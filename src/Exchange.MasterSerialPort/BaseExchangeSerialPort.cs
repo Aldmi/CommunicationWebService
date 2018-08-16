@@ -175,8 +175,7 @@ namespace Exchange.MasterSerialPort
 
         public void Dispose()
         {
-            //Послед порт, уничтожать нельзя,
-            _background.Dispose();
+            
         }
 
         #endregion

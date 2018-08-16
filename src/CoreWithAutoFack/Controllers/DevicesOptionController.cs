@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BL.Services.Exceptions;
 using BL.Services.Mediators;
-using DAL.Abstract.Entities.Options;
 using DAL.Abstract.Entities.Options.Device;
 using DAL.Abstract.Entities.Options.Exchange;
 using DAL.Abstract.Entities.Options.Transport;
@@ -19,8 +18,8 @@ namespace WebServer.Controllers
 {
     /// <summary>
     /// REST api доступа к опциям системы (Devices, Exchanges, Transports)
+    /// На базе опций можно сбилдить Device и сохранить его в Storage
     /// </summary>
-
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class DevicesOptionController : Controller
