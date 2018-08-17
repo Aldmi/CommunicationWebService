@@ -21,7 +21,7 @@ namespace Worker.Background.Concrete.HostingBackground
 
         #region ctor
 
-        public HostingBackgroundTransport(KeyTransport keyTransport) : base(keyTransport)
+        public HostingBackgroundTransport(KeyTransport keyTransport, bool autoStart) : base(keyTransport, autoStart)
         {
         }
 

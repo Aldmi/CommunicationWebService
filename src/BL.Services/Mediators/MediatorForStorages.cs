@@ -87,6 +87,17 @@ namespace BL.Services.Mediators
 
 
         /// <summary>
+        /// Получить список устройств, использующих этот обмен по ключу
+        /// </summary>
+        /// <param name="exchnageKey"></param>
+        /// <returns></returns>
+        public IEnumerable<Device> GetDevicesUsingExchange(string exchnageKey)
+        {
+            return _deviceStorageService.Values.Where(dev=>dev.Option.ExchangeKeys.Contains(exchnageKey));
+        }
+
+
+        /// <summary>
         /// Создать устройство на базе optionAgregator.
         /// Созданное ус-во добавляется в StorageDevice. 
         /// Если для создания ус-ва нужно создать ОБМЕН и/или ТРАНСПОРТ, то созданные объекты тоже добавляются в StorageExchange или StorageTransport
@@ -110,7 +121,7 @@ namespace BL.Services.Mediators
                 {
                     sp = new SpWinSystemIo(spOption, keyTransport);
                     _serialPortStorageService.AddNew(keyTransport, sp);
-                    var bg = new HostingBackgroundTransport(keyTransport);
+                    var bg = new HostingBackgroundTransport(keyTransport, spOption.AutoStart);
                     _backgroundStorageService.AddNew(keyTransport, bg);
                 }
             }
@@ -122,7 +133,7 @@ namespace BL.Services.Mediators
                 {
                     tcpIp = new TcpIpTransport(tcpIpOption, keyTransport);
                     _tcpIpStorageService.AddNew(keyTransport, tcpIp);
-                    var bg = new HostingBackgroundTransport(keyTransport);
+                    var bg = new HostingBackgroundTransport(keyTransport, tcpIpOption.AutoStart);
                     _backgroundStorageService.AddNew(keyTransport, bg);
                 }
             }
@@ -134,7 +145,7 @@ namespace BL.Services.Mediators
                 {
                     http = new HttpTransport(httpOption, keyTransport);
                     _httpStorageService.AddNew(keyTransport, http);
-                    var bg = new HostingBackgroundTransport(keyTransport);
+                    var bg = new HostingBackgroundTransport(keyTransport, httpOption.AutoStart);
                     _backgroundStorageService.AddNew(keyTransport, bg);
                 }
             }

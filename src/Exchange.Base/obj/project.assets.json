@@ -69,6 +69,19 @@
           "lib/netstandard1.3/System.Runtime.InteropServices.WindowsRuntime.dll": {}
         }
       },
+      "DAL.Abstract/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DAL.Abstract.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DAL.Abstract.dll": {}
+        }
+      },
       "Shared/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -432,6 +445,11 @@
         "system.runtime.interopservices.windowsruntime.nuspec"
       ]
     },
+    "DAL.Abstract/1.0.0": {
+      "type": "project",
+      "path": "../DAL.Abstract/DAL.Abstract.csproj",
+      "msbuildProject": "../DAL.Abstract/DAL.Abstract.csproj"
+    },
     "Shared/1.0.0": {
       "type": "project",
       "path": "../Shared/Shared.csproj",
@@ -450,6 +468,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
+      "DAL.Abstract >= 1.0.0",
       "NETStandard.Library >= 2.0.3",
       "Shared >= 1.0.0",
       "Transport.Base >= 1.0.0",
@@ -486,6 +505,9 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
+            "C:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj"
+            },
             "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
               "projectPath": "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
             },

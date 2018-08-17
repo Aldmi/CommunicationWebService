@@ -203,6 +203,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "DAL.Abstract": "1.0.0",
           "Shared": "1.0.0",
           "Transport.Base": "1.0.0",
           "Worker.Background": "1.0.0"

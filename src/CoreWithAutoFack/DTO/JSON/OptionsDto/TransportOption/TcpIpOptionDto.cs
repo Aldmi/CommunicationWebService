@@ -6,6 +6,8 @@ namespace WebServer.DTO.JSON.OptionsDto.TransportOption
     {
         public int Id { get; set; }
 
+        public bool AutoStart { get; set; }
+
         [Required(ErrorMessage = "Имя TCP/IP  не может быть NULL")]
         public string Name { get; set; }
 

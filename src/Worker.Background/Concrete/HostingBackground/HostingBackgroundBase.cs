@@ -18,6 +18,7 @@ namespace Worker.Background.Concrete.HostingBackground
         #region prop
 
         public KeyTransport KeyTransport { get; }
+        public bool AutoStart { get; }
 
         /// <summary>
         /// Бекгроунд запущен, если задача продолжает выполняться. 
@@ -30,11 +31,13 @@ namespace Worker.Background.Concrete.HostingBackground
         #endregion
 
 
+
         #region ctor
 
-        protected HostingBackgroundBase(KeyTransport key)
+        protected HostingBackgroundBase(KeyTransport key, bool autoStart)
         {
             KeyTransport = key;
+            AutoStart = autoStart;
         }
 
         #endregion

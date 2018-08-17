@@ -2,7 +2,7 @@
 
 namespace DAL.Abstract.Entities.Options.Transport
 {
-    public class HttpOption : EntityBase
+    public class HttpOption : BackgroundOption
     {
         public string Name { get; set; }
         public string Address { get; set; }

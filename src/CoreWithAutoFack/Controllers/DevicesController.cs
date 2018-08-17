@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using BL.Services.Actions;
+using BL.Services.Exceptions;
 using BL.Services.Mediators;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,6 +42,19 @@ namespace WebServer.Controllers
 
         #region Methode
 
+        // GET api/Devices/GetDevicesUsingExchange/exchnageKey
+        [HttpGet("{exchnageKey}")]
+        public async Task<IActionResult> GetDevicesUsingExchange([FromRoute] string exchnageKey)
+        {
+            var devicesUsingExchange=  _mediatorForStorages.GetDevicesUsingExchange(exchnageKey);
+            await Task.CompletedTask;
+            return new JsonResult(devicesUsingExchange);
+        }
+
+
+        //TODO: добавить GetDevicesUsingBackground
+
+
         [HttpDelete("{deviceName}")]
         public async Task<IActionResult> RemoveDevice([FromRoute] string deviceName)
         {
@@ -64,7 +78,66 @@ namespace WebServer.Controllers
         }
 
 
-        //TODO: Добавить Start/Stop exchnage
+
+
+        /// <summary>
+        /// Запустить обмен по ключу
+        /// </summary>
+        /// <param name="exchnageKey">Список устройств которые используют данный обмен</param>
+        /// <returns></returns>
+        [HttpPut("StartCycleExchange/{exchnageKey}")]
+        public IActionResult StartCycleExchange([FromRoute] string exchnageKey)
+        {
+            try
+            {
+                 _deviceActionService.StartCycleExchange(exchnageKey);
+                var devicesUsingExchange=  _mediatorForStorages.GetDevicesUsingExchange(exchnageKey);
+                return Ok(devicesUsingExchange);
+            }
+            catch (ActionHandlerException ex)
+            {
+                Console.WriteLine(ex);
+                //LOG
+                ModelState.AddModelError("StartCycleExchangeException", ex.Message);
+                return BadRequest(ModelState);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                //LOG
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// Остановить обмен по ключу
+        /// </summary>
+        /// <param name="exchnageKey">Список устройств которые используют данный обмен</param>
+        /// <returns></returns>
+        [HttpPut("StopCycleExchange/{exchnageKey}")]
+        public IActionResult StopCycleExchange([FromRoute] string exchnageKey)
+        {
+            try
+            {
+                _deviceActionService.StopCycleExchange(exchnageKey);
+                var devicesUsingExchange=  _mediatorForStorages.GetDevicesUsingExchange(exchnageKey);
+                return Ok(devicesUsingExchange);
+            }
+            catch (ActionHandlerException ex)
+            {
+                Console.WriteLine(ex);
+                //LOG
+                ModelState.AddModelError("StartCycleExchangeException", ex.Message);
+                return BadRequest(ModelState);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                //LOG
+                throw;
+            }
+        }
 
         #endregion
     }

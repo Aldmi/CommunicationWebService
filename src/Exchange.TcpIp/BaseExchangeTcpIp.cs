@@ -17,7 +17,7 @@ namespace Exchange.TcpIp
 
         private readonly ITcpIp _tcpIp;
         private readonly IBackground _background;
-        private readonly ExchangeOption _exchangeOption;
+        protected readonly ExchangeOption ExchangeOption;
 
         #endregion
 
@@ -30,7 +30,7 @@ namespace Exchange.TcpIp
         {
             _tcpIp = tcpIp;
             _background = background;
-            _exchangeOption = exchangeOption;
+            ExchangeOption = exchangeOption;
         }
 
         #endregion
@@ -38,13 +38,9 @@ namespace Exchange.TcpIp
 
 
 
-
-        public KeyTransport KeyTransport { get; }
-        public void Dispose()
-        {
-            throw new System.NotImplementedException();
-        }
-
+        public string KeyExchange => ExchangeOption.Key;
+        public bool AutoStart => ExchangeOption.AutoStartCycleFunc;
+        public KeyTransport KeyTransport => ExchangeOption.KeyTransport;
         public bool IsOpen { get; }
         public bool IsConnect { get; }
         public UniversalInputType LastSendData { get; }
@@ -92,5 +88,12 @@ namespace Exchange.TcpIp
         public ISubject<IsOpenChangeRxModel> IsOpenChangeTransportRx { get; }
         public ISubject<StatusDataExchangeChangeRxModel> StatusDataExchangeChangeTransportRx { get; }
         public ISubject<StatusStringChangeRxModel> StatusStringChangeTransportRx { get; }
+
+
+
+        public void Dispose()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

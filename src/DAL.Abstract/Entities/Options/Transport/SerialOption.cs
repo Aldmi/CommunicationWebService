@@ -45,7 +45,7 @@
         Space = 4
     }
 
-    public class SerialOption : EntityBase
+    public class SerialOption : BackgroundOption
     {
         public string Port { get; set; }
         public int BaudRate { get; set; }

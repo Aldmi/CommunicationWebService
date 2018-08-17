@@ -26,23 +26,22 @@ namespace Exchange.MasterSerialPort
         #endregion
 
 
+
         #region prop
 
+        public string KeyExchange => ExchangeOption.Key;
+        public bool AutoStart => ExchangeOption.AutoStartCycleFunc;
+        public KeyTransport KeyTransport => ExchangeOption.KeyTransport;
         public bool IsOpen => _serailPort.IsOpen;
         public bool IsConnect { get; }
-        public KeyTransport KeyTransport => _background.KeyTransport;
-
         public UniversalInputType LastSendData { get; }
-
-        public IEnumerable<string> GetRuleNames =>new List<string>(); //TODO: сейчас в ExchangeMasterSpOption только 1 ExchangeRule, должно быть список.
-
+        public IEnumerable<string> GetRuleNames => new List<string>(); //TODO: сейчас в ExchangeMasterSpOption только 1 ExchangeRule, должно быть список.
         public bool IsStartedCycleExchange { get; set; }
-
         protected ConcurrentQueue<UniversalInputType> InDataQueue { get; set; } =new ConcurrentQueue<UniversalInputType>();
-
         protected UniversalInputType Data4CycleFunc { get; set; }
 
         #endregion
+
 
 
         #region ctor
@@ -55,6 +54,7 @@ namespace Exchange.MasterSerialPort
         }
 
         #endregion
+
 
 
         #region Methode
@@ -175,7 +175,6 @@ namespace Exchange.MasterSerialPort
 
         public void Dispose()
         {
-            
         }
 
         #endregion

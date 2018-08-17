@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace BL.Services.Exceptions
 {
-    public class OptionHandlerException : ActionHandlerException
+    public class OptionHandlerException : Exception
     {
         public OptionHandlerException(){ }
         public OptionHandlerException(string message) : base(message) { }

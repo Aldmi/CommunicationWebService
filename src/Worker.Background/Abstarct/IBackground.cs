@@ -7,6 +7,12 @@ namespace Worker.Background.Abstarct
 {
     public interface IBackground : ISupportKeyTransport, IDisposable
     {
+        /// <summary>ъ
+        /// Запуск Бегкроунда обмена.
+        /// Флаг учитывается, только при старте сервиса.
+        /// </summary>
+        bool AutoStart { get; }
+
         bool IsStarted { get; }
 
         Task StartAsync(CancellationToken cancellationToken);

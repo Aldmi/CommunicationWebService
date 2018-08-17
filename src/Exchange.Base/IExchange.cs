@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reactive.Subjects;
+using System.Reflection;
 using System.Threading.Tasks;
+using DAL.Abstract.Entities.Options.Exchange;
 using Exchange.Base.Model;
 using Shared.Types;
 using Transport.Base.RxModel;
@@ -13,12 +15,19 @@ namespace Exchange.Base
     /// </summary>
     public interface IExchange : ISupportKeyTransport, IDisposable
     {
+        #region ByOption
+        string KeyExchange { get; } 
+        IEnumerable<string> GetRuleNames { get; }                                 //Отдать название установленных правил обмена
+        bool AutoStart { get; }
+        #endregion
+
+
         #region StateExchange
+
         bool IsOpen { get; }                                                      //Соединение открыто
         bool IsConnect { get; }                                                   //Устройсвто на связи по открытому соединению (определяется по правильным ответам от ус-ва)
-        UniversalInputType LastSendData { get; }                                  //Последние отосланные данные
-        IEnumerable<string> GetRuleNames { get; }                                 //Отдать название установленных правил обмена
-        bool IsStartedCycleExchange { get; set; }                                 //Флаг  цикл. обмена
+        UniversalInputType LastSendData { get; }                                  //Последние отосланные данные 
+        bool IsStartedCycleExchange { get; set; }                                 //Флаг цикл. обмена
         #endregion
 
 
