@@ -61,6 +61,7 @@ namespace WebServer
             builder.RegisterModule(new RepositoryAutofacModule(connectionString));
 
             builder.RegisterModule(new BlStorageAutofacModule());
+            builder.RegisterModule(new BlActionsAutofacModule());
             builder.RegisterModule(new MediatorsAutofacModule());
             builder.RegisterModule(new EventBusAutofacModule());
             builder.RegisterModule(new ControllerAutofacModule());

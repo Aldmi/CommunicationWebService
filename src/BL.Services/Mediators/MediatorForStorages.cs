@@ -7,6 +7,7 @@ using BL.Services.Exceptions;
 using BL.Services.Storages;
 using DAL.Abstract.Entities.Options;
 using DeviceForExchange;
+using Exchange.Base;
 using Exchange.Http;
 using Exchange.MasterSerialPort;
 using Exchange.TcpIp;
@@ -16,6 +17,7 @@ using Shared.Types;
 using Transport.Http.Concrete;
 using Transport.SerialPort.Concrete.SpWin;
 using Transport.TcpIp.Concrete;
+using Worker.Background.Abstarct;
 using Worker.Background.Concrete.HostingBackground;
 
 
@@ -94,6 +96,18 @@ namespace BL.Services.Mediators
         public IEnumerable<Device> GetDevicesUsingExchange(string exchnageKey)
         {
             return _deviceStorageService.Values.Where(dev=>dev.Option.ExchangeKeys.Contains(exchnageKey));
+        }
+
+
+        public IExchange GetExchange(string exchnageKey)
+        {
+            return _exchangeStorageService.Get(exchnageKey);
+        }
+
+
+        public IBackground GetBackground(KeyTransport keyTransport)
+        {
+            return _backgroundStorageService.Get(keyTransport);
         }
 
 
@@ -265,5 +279,8 @@ namespace BL.Services.Mediators
         }
 
         #endregion
+
+
+
     }
 }

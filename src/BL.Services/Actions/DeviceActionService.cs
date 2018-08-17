@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BL.Services.Exceptions;
+using BL.Services.Mediators;
 using BL.Services.Storages;
 using Shared.Types;
 
@@ -20,9 +21,7 @@ namespace BL.Services.Actions
     {
         #region fields
 
-        private readonly DeviceStorageService _deviceStorageService;
-        private readonly ExchangeStorageService _exchangeStorageService;
-        private readonly BackgroundStorageService _backgroundStorageService;
+        private readonly MediatorForStorages _mediatorForStorages;
 
         #endregion
 
@@ -31,13 +30,9 @@ namespace BL.Services.Actions
 
         #region ctor
 
-        public DeviceActionService(DeviceStorageService deviceStorageService,
-            ExchangeStorageService exchangeStorageService,
-            BackgroundStorageService backgroundStorageService)
+        public DeviceActionService(MediatorForStorages mediatorForStorages)
         {
-            _deviceStorageService = deviceStorageService;
-            _exchangeStorageService = exchangeStorageService;
-            _backgroundStorageService = backgroundStorageService;
+            _mediatorForStorages = mediatorForStorages;
         }
 
         #endregion
@@ -53,7 +48,8 @@ namespace BL.Services.Actions
         /// <param name="exchnageKey"></param>
         public void StartCycleExchange(string exchnageKey)
         {
-            var exchange = _exchangeStorageService.Get(exchnageKey);
+            
+            var exchange = _mediatorForStorages.GetExchange(exchnageKey);
             if (exchange == null)
                 throw new ActionHandlerException($"Обмен с таким ключем Не найден: {exchnageKey}");
 
@@ -70,7 +66,7 @@ namespace BL.Services.Actions
         /// <param name="exchnageKey"></param>
         public void StopCycleExchange(string exchnageKey)
         {
-            var exchange = _exchangeStorageService.Get(exchnageKey);
+            var exchange = _mediatorForStorages.GetExchange(exchnageKey);
             if (exchange == null)
                 throw new ActionHandlerException($"Обмен с таким ключем Не найден: {exchnageKey}");
 
@@ -114,7 +110,8 @@ namespace BL.Services.Actions
         /// <param name="keyTransport"></param>
         public async Task StartBackground(KeyTransport keyTransport)
         {
-            var bg = _backgroundStorageService.Get(keyTransport);
+            
+            var bg = _mediatorForStorages.GetBackground(keyTransport);
             if (bg.IsStarted)
                 throw new ActionHandlerException($"Бекграунд уже запущен: {bg.KeyTransport}");
 
@@ -128,7 +125,7 @@ namespace BL.Services.Actions
         /// <param name="keyTransport"></param>
         public async Task StopBackground(KeyTransport keyTransport)
         {
-            var bg = _backgroundStorageService.Get(keyTransport);
+            var bg = _mediatorForStorages.GetBackground(keyTransport);
             if (!bg.IsStarted)
                 throw new ActionHandlerException($"Бекграунд и так остановлен: {bg.KeyTransport}");
 
@@ -169,7 +166,7 @@ namespace BL.Services.Actions
         /// <returns></returns>
         public async Task SendData(string exchnageKey)//TODO: Добавить данные
         {
-            var exch = _exchangeStorageService.Get(exchnageKey);
+            var exch = _mediatorForStorages.GetExchange(exchnageKey);
             if(exch == null)
                 throw new ActionHandlerException($"Обмен с таким ключем Не найден: {exchnageKey}");
 

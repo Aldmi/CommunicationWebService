@@ -44,13 +44,6 @@ namespace WebServer.Controllers
             _mapper = mapper;
         }
 
-
-        //public DevicesOptionController(MediatorForOptions mediatorForOptionsRep, IMapper mapper)
-        //{
-        //    _mediatorForOptionsRep = mediatorForOptionsRep;
-        //    _mapper = mapper;
-        //}
-
         #endregion
 
 
