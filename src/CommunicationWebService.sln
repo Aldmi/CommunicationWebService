@@ -58,6 +58,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exchange.TcpIp", "Exchange.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exchange.Http", "Exchange.Http\Exchange.Http.csproj", "{E93A1316-B144-4706-BEED-BA4AD1B54158}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.EFCore", "DAL.EFCore\DAL.EFCore.csproj", "{92867AF2-C44A-44F3-AD66-814F361B5549}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -128,6 +130,10 @@ Global
 		{E93A1316-B144-4706-BEED-BA4AD1B54158}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E93A1316-B144-4706-BEED-BA4AD1B54158}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E93A1316-B144-4706-BEED-BA4AD1B54158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92867AF2-C44A-44F3-AD66-814F361B5549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92867AF2-C44A-44F3-AD66-814F361B5549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92867AF2-C44A-44F3-AD66-814F361B5549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92867AF2-C44A-44F3-AD66-814F361B5549}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -147,6 +153,7 @@ Global
 		{DED5FF7E-C22F-4CC3-B2D3-B931EF8EDA78} = {4D9420A4-768D-491A-B8B6-5890A8F0E473}
 		{EC310B63-B98A-415C-95A4-D72017023C59} = {7C287048-0F56-49D9-9DFA-DBC09E7F1B54}
 		{E93A1316-B144-4706-BEED-BA4AD1B54158} = {7C287048-0F56-49D9-9DFA-DBC09E7F1B54}
+		{92867AF2-C44A-44F3-AD66-814F361B5549} = {66F404CA-BB07-448B-8F31-EF82AD0D0D30}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {626950A5-7C4E-424F-AC79-2AB323CA01E7}
