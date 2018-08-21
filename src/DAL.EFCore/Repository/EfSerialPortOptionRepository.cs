@@ -91,7 +91,7 @@ namespace DAL.EFCore.Repository
         public void Add(SerialOption entity)
         {
             //map 2 EfSpOption
-            _context.EfSerialPortOptions.Add(entity);
+            //_context.EfSerialPortOptions.Add(entity);
         }
 
 

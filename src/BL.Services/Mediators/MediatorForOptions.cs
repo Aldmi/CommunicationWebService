@@ -279,12 +279,25 @@ namespace BL.Services.Mediators
             }
 
             var exceptionStr = new StringBuilder();
-            //ПРОВЕРКА СООТВЕТСТВИЯ exchangeKeys, УКАЗАННОЙ В deviceOption, КЛЮЧАМ ИЗ exchangeOptions
             var exchangeExternalKeys = exchangeOptions.Select(exchangeOption=> exchangeOption.Key).ToList();
+
+            //ПРОВЕРКА СООТВЕТСТВИЯ exchangeKeys, УКАЗАННОЙ В deviceOption, КЛЮЧАМ ИЗ exchangeOptions
             var diff = exchangeExternalKeys.Except(deviceOption.ExchangeKeys).ToList();
             if (diff.Count > 0)
             {
                 throw new OptionHandlerException("Найденно несоответсвие ключей указанных для Device, ключам указанным в exchangeOptions");
+            }
+
+            //ПРОВЕРКА НАЛИЧИЯ ОБМЕНОВ УКАЗАННЫХ ДЛЯ УС-ВА В СПИСКЕ НОВЫХ ОБМЕНОВ ИЛИ В СПИСКЕ СУЩЕСТВУЮЩИХ ОБМЕНОВ
+            foreach (var exchKey in deviceOption.ExchangeKeys)
+            {
+               if(exchangeExternalKeys.Contains(exchKey) || _exchangeOptionRep.IsExist(e=> e.Key == exchKey))
+                   continue;
+                exceptionStr.AppendFormat("{0}, ", exchKey);
+            }
+            if (!string.IsNullOrEmpty(exceptionStr.ToString()))
+            {
+                throw new OptionHandlerException($"ExchangeKeys указанные для устройства не найденны в списке существующих и добавляемых обменов:  {exceptionStr}");
             }
 
             //ПРОВЕРКА НАЛИЧИЯ УЖЕ СОЗДАНННОГО ТРАНСПОРТА ДЛЯ КАЖДОГО ОБМЕНА
@@ -329,12 +342,25 @@ namespace BL.Services.Mediators
             }
 
             var exceptionStr = new StringBuilder();
-            //ПРОВЕРКА СООТВЕТСТВИЯ exchangeKeys, УКАЗАННОЙ В deviceOption, КЛЮЧАМ ИЗ exchangeOptions
             var exchangeExternalKeys = exchangeOptions.Select(exchangeOption => exchangeOption.Key).ToList();
+
+            //ПРОВЕРКА СООТВЕТСТВИЯ exchangeKeys, УКАЗАННОЙ В deviceOption, КЛЮЧАМ ИЗ exchangeOptions
             var diff = exchangeExternalKeys.Except(deviceOption.ExchangeKeys).ToList();
             if (diff.Count > 0)
             {
                 throw new OptionHandlerException("Найденно несоответсвие ключей указанных для Device, ключам указанным в exchangeOptions");
+            }
+
+            //ПРОВЕРКА НАЛИЧИЯ ОБМЕНОВ УКАЗАННЫХ ДЛЯ УС-ВА В СПИСКЕ НОВЫХ ОБМЕНОВ ИЛИ В СПИСКЕ СУЩЕСТВУЮЩИХ ОБМЕНОВ
+            foreach (var exchKey in deviceOption.ExchangeKeys)
+            {
+                if(exchangeExternalKeys.Contains(exchKey) || _exchangeOptionRep.IsExist(e=> e.Key == exchKey))
+                    continue;
+                exceptionStr.AppendFormat("{0}, ", exchKey);
+            }
+            if (!string.IsNullOrEmpty(exceptionStr.ToString()))
+            {
+                throw new OptionHandlerException($"ExchangeKeys указанные для устройства не найденны в списке существующих и добавляемых обменов:  {exceptionStr}");
             }
 
             //ПРОВЕРКА СООТВЕТСТВИЯ ключей exchangeOptions, указанному транспорту transportOption

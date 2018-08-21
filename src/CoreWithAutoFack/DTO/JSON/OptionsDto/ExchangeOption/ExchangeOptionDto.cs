@@ -9,6 +9,8 @@ namespace WebServer.DTO.JSON.OptionsDto.ExchangeOption
         [Required(ErrorMessage = "Key для Exchange не может быть NULL")]
         public string Key { get; set; }
 
+        public bool AutoStartCycleFunc { get; set; }
+
         [Required(ErrorMessage = "KeyTransport для Exchange не может быть NULL")]
         public KeyTransportDto KeyTransport { get; set; }
 
