@@ -47,7 +47,7 @@ namespace DAL.EFCore.Repository
         public SerialOption GetSingle(Expression<Func<SerialOption, bool>> predicate)
         {
             var efPredicate = predicate.Compile() as Func<EfSerialPortOptionRepository, bool>;
-            var efSpOption = _context.EfSerialPortOptions.SingleOrDefault(efPredicate);
+            //var efSpOption = _context.EfSerialPortOptions.SingleOrDefault(efPredicate);
             //map 2 spOption
             return null;
         }

@@ -45,7 +45,7 @@
         Space = 4
     }
 
-    public class SerialOption
+    public class EfSerialOption : IEntity
     {
         public string Port { get; set; }
         public int BaudRate { get; set; }
@@ -56,5 +56,6 @@
         public bool RtsEnable { get; set; }
 
         public bool AutoStart { get; set; }      //Авто старт бекграунда для данного транспорта
+        public int Id { get; set; }
     }
 }

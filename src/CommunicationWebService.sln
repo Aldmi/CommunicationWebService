@@ -58,7 +58,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exchange.TcpIp", "Exchange.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exchange.Http", "Exchange.Http\Exchange.Http.csproj", "{E93A1316-B144-4706-BEED-BA4AD1B54158}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.EFCore", "DAL.EFCore\DAL.EFCore.csproj", "{92867AF2-C44A-44F3-AD66-814F361B5549}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL.EFCore", "DAL.EFCore\DAL.EFCore.csproj", "{92867AF2-C44A-44F3-AD66-814F361B5549}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

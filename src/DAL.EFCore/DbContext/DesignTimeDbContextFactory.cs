@@ -12,7 +12,7 @@ namespace DAL.EFCore.DbContext
         public Context CreateDbContext(string[] args)
         {
             var config = JsonConfigLib.GetConfiguration();
-            var connectionString = config.GetConnectionString("MainDbConnection");
+            var connectionString = config.GetConnectionString("OptionDbConnection");
             return new Context(connectionString);
         }
     }

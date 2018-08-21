@@ -1,4 +1,5 @@
-﻿using DAL.EFCore.Repository;
+﻿using DAL.EFCore.Entities;
+using DAL.EFCore.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.EFCore.DbContext
@@ -10,7 +11,7 @@ namespace DAL.EFCore.DbContext
 
         #region Reps
 
-        public DbSet<EfSerialPortOptionRepository> EfSerialPortOptions { get; set; }
+        public DbSet<EfSerialOption> EfSerialPortOptions { get; set; }
 
         #endregion
 

@@ -57,7 +57,7 @@ namespace WebServer
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            var connectionString = "Test connection String";
+            var connectionString = AppConfiguration.GetConnectionString("OptionDbConnection");
             builder.RegisterModule(new RepositoryAutofacModule(connectionString));
 
             builder.RegisterModule(new BlStorageAutofacModule());
