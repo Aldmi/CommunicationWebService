@@ -35,8 +35,6 @@ namespace DAL.EFCore.DbContext
         {
             //Context сам получает строку подключения при миграции и работе.
             //(Рабоатет для миграции и работы!!!!!!!)
-
-
             // var config = JsonConfigLib.GetConfiguration();
             //var connectionString = config.GetConnectionString("MainDbConnection");
             //optionsBuilder.UseSqlServer(connectionString);
@@ -55,7 +53,5 @@ namespace DAL.EFCore.DbContext
         }
 
         #endregion
-
-
     }
 }

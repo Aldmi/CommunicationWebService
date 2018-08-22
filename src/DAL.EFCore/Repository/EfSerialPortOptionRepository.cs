@@ -6,20 +6,22 @@ using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Options.Transport;
 using DAL.EFCore.DbContext;
+using DAL.EFCore.Entities;
+using DAL.EFCore.Mappers;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.EFCore.Repository
 {
-    public class EfSerialPortOptionRepository : ISerialPortOptionRepository, IDisposable
+    public class EfSerialPortOptionRepository : EfBaseRepository, ISerialPortOptionRepository, IDisposable
     {
         private readonly Context _context;
 
 
         #region ctor
 
-        public EfSerialPortOptionRepository(string connStr)
+        public EfSerialPortOptionRepository(string connectionString)
         {
-            _context = new Context(connStr);
+            _context = new Context(connectionString);
         }
 
         #endregion
@@ -103,13 +105,27 @@ namespace DAL.EFCore.Repository
 
         public void AddRange(IEnumerable<SerialOption> entitys)
         {
-            throw new NotImplementedException();
+            var efSpOptions=  AutoMapperConfig.Mapper.Map<IEnumerable<EfSerialOption>>(entitys);
+            _context.AddRange(efSpOptions);
+            _context.SaveChanges();
         }
 
 
-        public Task AddRangeAsync(IEnumerable<SerialOption> entitys)
+        public async Task AddRangeAsync(IEnumerable<SerialOption> entitys)
         {
-            throw new NotImplementedException();
+            var efSpOptions=  AutoMapperConfig.Mapper.Map<IEnumerable<EfSerialOption>>(entitys);
+            await _context.AddRangeAsync(efSpOptions);
+            try
+            {
+                //await Task.Delay(1000); //DEBUG
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+          
         }
 
         public void Delete(SerialOption entity)

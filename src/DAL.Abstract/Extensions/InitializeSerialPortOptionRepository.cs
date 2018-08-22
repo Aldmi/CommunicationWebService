@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Options.Transport;
 
@@ -6,8 +7,15 @@ namespace DAL.Abstract.Extensions
 {
     public static class InitializeSerialPortOptionRepository
     {
-        public static void Initialize(this ISerialPortOptionRepository rep)
+        public static async Task InitializeAsync(this ISerialPortOptionRepository rep)
         {
+            //Если есть хотя бы 1 элемент то выйти
+
+            if (rep.GetSingle(option => true) != null) //TODO: 
+            {
+                return;
+            }
+
             var serials = new List<SerialOption>
             {
                 new SerialOption
@@ -30,7 +38,7 @@ namespace DAL.Abstract.Extensions
                 }
             };
 
-            rep.AddRange(serials);
+           await rep.AddRangeAsync(serials);
         }
     }
 }

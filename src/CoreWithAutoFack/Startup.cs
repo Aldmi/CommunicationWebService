@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Autofac;
 using AutoMapper;
 using BL.Services.Storages;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
-using Exchange.MasterSerialPort;
 using Infrastructure.EventBus.Abstract;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using Shared.Enums;
-using Shared.Types;
-using Transport.SerialPort.Concrete.SpWin;
 using WebServer.AutofacModules;
-using Worker.Background.Concrete.HostingBackground;
 
 namespace WebServer
 {
@@ -69,7 +64,7 @@ namespace WebServer
 
 
 
-        public void Configure(IApplicationBuilder app,
+        public async void Configure(IApplicationBuilder app,
             IHostingEnvironment env,
             ILifetimeScope scope,
             IConfiguration config)
@@ -77,7 +72,11 @@ namespace WebServer
             //var spPorts = optionsSettingModel.Value;
             //var httpDev = optionsDevicesWithSp.Value;
 
-            ConfigurationBackgroundProcess(app, scope);
+            //ConfigurationBackgroundProcessAsync(app, scope).GetAwaiter().GetResult();
+            await ConfigurationBackgroundProcessAsync(app, scope);
+
+            //var serialPortOptionRepository = scope.Resolve<ISerialPortOptionRepository>(); //TODO: задать вопрос на StackOwerflow
+            //await serialPortOptionRepository.InitializeAsync();
 
             if (env.IsDevelopment())
             {
@@ -88,18 +87,18 @@ namespace WebServer
         }
 
 
-        private void ConfigurationBackgroundProcess(IApplicationBuilder app, ILifetimeScope scope)
+        private async Task ConfigurationBackgroundProcessAsync(IApplicationBuilder app, ILifetimeScope scope)
         {
             var lifetimeApp = app.ApplicationServices.GetService<IApplicationLifetime>();
-            ApplicationStarted(lifetimeApp, scope);
+            await ApplicationStarted(lifetimeApp, scope);
             ApplicationStopping(lifetimeApp, scope);
             ApplicationStopped(lifetimeApp, scope);
         }
 
 
-        private void ApplicationStarted(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
+        private async Task ApplicationStarted(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
         {
-            Initialize(scope);
+            await InitializeAsync(scope);
 
             var backgroundServices = scope.Resolve<BackgroundStorageService>();
             foreach (var back in backgroundServices.Values)
@@ -140,26 +139,26 @@ namespace WebServer
         /// <summary>
         /// Инициализация системы.
         /// </summary>
-        private void Initialize(IComponentContext scope)
+        private async Task InitializeAsync(ILifetimeScope scope)
         {
             var env = scope.Resolve<IHostingEnvironment>();
             var serialPortOptionRepository = scope.Resolve<ISerialPortOptionRepository>();
             var exchangeOptionRepository = scope.Resolve<IExchangeOptionRepository>();
             var deviceOptionRepository = scope.Resolve<IDeviceOptionRepository>();
-            var serialPortStorageService = scope.Resolve<SerialPortStorageService>();
-            var backgroundStorageService = scope.Resolve<BackgroundStorageService>();
-            var exchangeStorageService = scope.Resolve<ExchangeStorageService>();
-            var deviceStorageService = scope.Resolve<DeviceStorageService>();
-            var eventBus = scope.Resolve<IEventBus>();
+            //var serialPortStorageService = scope.Resolve<SerialPortStorageService>();
+            //var backgroundStorageService = scope.Resolve<BackgroundStorageService>();
+            //var exchangeStorageService = scope.Resolve<ExchangeStorageService>();
+            //var deviceStorageService = scope.Resolve<DeviceStorageService>();
+            //var eventBus = scope.Resolve<IEventBus>();
 
             try
             {
                 if (env.IsDevelopment()) //TODO: добавить переменную окружения OS (win/linux)
                 {
                     //ИНИЦИАЛИЦИЯ РЕПОЗИТОРИЕВ--------------------------------------------------------
-                    serialPortOptionRepository.Initialize();
-                    exchangeOptionRepository.Initialize();
-                    deviceOptionRepository.Initialize();
+                    await serialPortOptionRepository.InitializeAsync();
+                    await exchangeOptionRepository.InitializeAsync();
+                    await deviceOptionRepository.InitializeAsync();
                 }
 
                 ////ADD SERIAL PORTS--------------------------------------------------------------------
@@ -196,8 +195,11 @@ namespace WebServer
             {
                 //LOG
                 Console.WriteLine(e);
-                throw;
-            }   
+                //throw;
+            }
+
+            var hh = scope;//DEBUG
+
         }
     }
 }

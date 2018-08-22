@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Options.Exchange;
 using Shared.Enums;
@@ -8,7 +9,7 @@ namespace DAL.Abstract.Extensions
 {
     public static class InitializeExchangeOptionRepository
     {
-        public static void Initialize(this IExchangeOptionRepository rep)
+        public static async Task InitializeAsync(this IExchangeOptionRepository rep)
         {
             var exchanges = new List<ExchangeOption>
             {
@@ -53,7 +54,7 @@ namespace DAL.Abstract.Extensions
                 }
             };
 
-            rep.AddRange(exchanges);
+           await rep.AddRangeAsync(exchanges);
         }
     }
 }

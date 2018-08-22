@@ -55,7 +55,7 @@
         public bool DtrEnable { get; set; }
         public bool RtsEnable { get; set; }
 
-        public bool AutoStart { get; set; }      //Авто старт бекграунда для данного транспорта
+        public bool AutoStart { get; set; }  
         public int Id { get; set; }
     }
 }

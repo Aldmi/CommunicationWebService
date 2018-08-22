@@ -2,6 +2,7 @@
 using Autofac;
 using Autofac.Core;
 using DAL.Abstract.Concrete;
+using DAL.EFCore.Repository;
 using DAL.InMemory.Repository;
 
 namespace WebServer.AutofacModules
@@ -25,12 +26,19 @@ namespace WebServer.AutofacModules
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<InMemorySerialPortOptionRepository>().As<ISerialPortOptionRepository>()
+            //builder.RegisterType<InMemorySerialPortOptionRepository>().As<ISerialPortOptionRepository>()
+            //    .WithParameters(new List<Parameter>
+            //    {
+            //        new NamedParameter("connectionString", _connectionString),
+            //    })
+            //    .SingleInstance();//.InstancePerLifetimeScope();
+
+            builder.RegisterType<EfSerialPortOptionRepository>().As<ISerialPortOptionRepository>()
                 .WithParameters(new List<Parameter>
                 {
                     new NamedParameter("connectionString", _connectionString),
                 })
-                .SingleInstance();//.InstancePerLifetimeScope();
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<InMemoryTcpIpOptionRepository>().As<ITcpIpOptionRepository>()
                 .WithParameters(new List<Parameter>

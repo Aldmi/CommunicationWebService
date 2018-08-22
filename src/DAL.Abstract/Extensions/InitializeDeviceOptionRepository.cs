@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Options.Device;
 using Shared.Enums;
@@ -8,7 +9,7 @@ namespace DAL.Abstract.Extensions
 {
     public static class InitializeDeviceOptionRepository
     {
-        public static void Initialize(this IDeviceOptionRepository rep)
+        public static async Task InitializeAsync(this IDeviceOptionRepository rep)
         {
             var devices = new List<DeviceOption>
             {
@@ -25,7 +26,7 @@ namespace DAL.Abstract.Extensions
                     }
                 }
             };
-            rep.AddRange(devices);
+            await rep.AddRangeAsync(devices);
         }
     }
 }
