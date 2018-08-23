@@ -11,10 +11,10 @@ namespace DAL.Abstract.Extensions
         {
             //Если есть хотя бы 1 элемент то выйти
 
-            if (rep.GetSingle(option => true) != null) //TODO: 
-            {
-                return;
-            }
+            //if (rep.GetSingle(option => true) != null) //TODO: 
+            //{
+            //    return;
+            //}
 
             var serials = new List<SerialOption>
             {

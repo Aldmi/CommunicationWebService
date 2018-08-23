@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AutoMapper.Extensions.ExpressionMapping;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Options.Transport;
 using DAL.EFCore.DbContext;
@@ -33,25 +34,33 @@ namespace DAL.EFCore.Repository
         public SerialOption GetById(int id)
         {
            var efSpOption= _context.EfSerialPortOptions.Find(id);
-            //map 2 spOption
-            return null;
+           var spOptions = AutoMapperConfig.Mapper.Map<SerialOption>(efSpOption);
+           return spOptions;
         }
 
 
         public async Task<SerialOption> GetByIdAsync(int id)
         {
             var efSpOption = await _context.EfSerialPortOptions.FindAsync(id);
-            //map 2 spOption
-            return null;
+            var spOptions = AutoMapperConfig.Mapper.Map<SerialOption>(efSpOption);
+            return spOptions;
         }
 
 
         public SerialOption GetSingle(Expression<Func<SerialOption, bool>> predicate)
         {
-            var efPredicate = predicate.Compile() as Func<EfSerialPortOptionRepository, bool>;
-            //var efSpOption = _context.EfSerialPortOptions.SingleOrDefault(efPredicate);
-            //map 2 spOption
-            return null;
+            try
+            {
+                var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<EfSerialOption, bool>>>(predicate);
+                var efSpOption = _context.EfSerialPortOptions.SingleOrDefault(efPredicate);
+                var spOption= AutoMapperConfig.Mapper.Map<SerialOption>(efSpOption);
+                return spOption;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
 
@@ -115,17 +124,7 @@ namespace DAL.EFCore.Repository
         {
             var efSpOptions=  AutoMapperConfig.Mapper.Map<IEnumerable<EfSerialOption>>(entitys);
             await _context.AddRangeAsync(efSpOptions);
-            try
-            {
-                //await Task.Delay(1000); //DEBUG
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-          
+            await _context.SaveChangesAsync();
         }
 
         public void Delete(SerialOption entity)
@@ -160,6 +159,8 @@ namespace DAL.EFCore.Repository
 
         public bool IsExist(Expression<Func<SerialOption, bool>> predicate)
         {
+            _context.EfSerialPortOptions.AnyAsync(); //TODO: добавить AnyAsync в репозиторий 
+
             throw new NotImplementedException();
         }
 

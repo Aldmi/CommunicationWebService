@@ -64,7 +64,7 @@ namespace WebServer
 
 
 
-        public async void Configure(IApplicationBuilder app,
+        public void Configure(IApplicationBuilder app,
             IHostingEnvironment env,
             ILifetimeScope scope,
             IConfiguration config)
@@ -72,11 +72,8 @@ namespace WebServer
             //var spPorts = optionsSettingModel.Value;
             //var httpDev = optionsDevicesWithSp.Value;
 
-            //ConfigurationBackgroundProcessAsync(app, scope).GetAwaiter().GetResult();
-            await ConfigurationBackgroundProcessAsync(app, scope);
-
-            //var serialPortOptionRepository = scope.Resolve<ISerialPortOptionRepository>(); //TODO: задать вопрос на StackOwerflow
-            //await serialPortOptionRepository.InitializeAsync();
+            ConfigurationBackgroundProcessAsync(app, scope);
+            InitializeAsync(scope).Wait();
 
             if (env.IsDevelopment())
             {
@@ -87,19 +84,17 @@ namespace WebServer
         }
 
 
-        private async Task ConfigurationBackgroundProcessAsync(IApplicationBuilder app, ILifetimeScope scope)
+        private void ConfigurationBackgroundProcessAsync(IApplicationBuilder app, ILifetimeScope scope)
         {
             var lifetimeApp = app.ApplicationServices.GetService<IApplicationLifetime>();
-            await ApplicationStarted(lifetimeApp, scope);
+            ApplicationStarted(lifetimeApp, scope);
             ApplicationStopping(lifetimeApp, scope);
             ApplicationStopped(lifetimeApp, scope);
         }
 
 
-        private async Task ApplicationStarted(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
+        private void ApplicationStarted(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
         {
-            await InitializeAsync(scope);
-
             var backgroundServices = scope.Resolve<BackgroundStorageService>();
             foreach (var back in backgroundServices.Values)
             {
@@ -156,9 +151,14 @@ namespace WebServer
                 if (env.IsDevelopment()) //TODO: добавить переменную окружения OS (win/linux)
                 {
                     //ИНИЦИАЛИЦИЯ РЕПОЗИТОРИЕВ--------------------------------------------------------
-                    await serialPortOptionRepository.InitializeAsync();
+                    //await serialPortOptionRepository.InitializeAsync();
                     await exchangeOptionRepository.InitializeAsync();
                     await deviceOptionRepository.InitializeAsync();
+
+                    //DEBUG------------------------------------------
+                    var singleElem= serialPortOptionRepository.GetSingle(spOption => spOption.Port == "COM1");//spOption => spOption.Port == "COM1"
+                    //DEBUG------------------------------------------
+
                 }
 
                 ////ADD SERIAL PORTS--------------------------------------------------------------------
