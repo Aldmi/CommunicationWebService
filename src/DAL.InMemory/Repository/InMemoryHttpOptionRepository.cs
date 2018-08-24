@@ -82,6 +82,19 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public int Count(Expression<Func<HttpOption, bool>> predicate)
+        {
+            return HttpOptions.Count(predicate.Compile());
+        }
+
+
+        public async Task<int> CountAsync(Expression<Func<HttpOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return HttpOptions.Count(predicate.Compile());
+        }
+
+
         public void Add(HttpOption entity)
         {
             entity.Id = CalcMaxId() + 1;

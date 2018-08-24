@@ -84,6 +84,19 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public int Count(Expression<Func<SerialOption, bool>> predicate)
+        {
+            return SerialOptions.Count(predicate.Compile());
+        }
+
+
+        public async Task<int> CountAsync(Expression<Func<SerialOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return SerialOptions.Count(predicate.Compile());
+        }
+
+
         public void Add(SerialOption entity)
         {
             entity.Id = CalcMaxId() + 1;

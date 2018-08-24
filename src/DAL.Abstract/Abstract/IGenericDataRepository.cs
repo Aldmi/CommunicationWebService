@@ -18,6 +18,9 @@ namespace DAL.Abstract.Abstract
         Task<IEnumerable<T>> ListAsync();
         Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> predicate);
 
+        int Count(Expression<Func<T, bool>> predicate);
+        Task<int> CountAsync(Expression<Func<T, bool>> predicate);
+
         void Add(T entity);
         Task AddAsync(T entity);
 

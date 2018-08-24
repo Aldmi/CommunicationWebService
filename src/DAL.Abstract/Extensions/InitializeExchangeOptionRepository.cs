@@ -11,6 +11,12 @@ namespace DAL.Abstract.Extensions
     {
         public static async Task InitializeAsync(this IExchangeOptionRepository rep)
         {
+            //Если есть хотя бы 1 элемент то НЕ иннициализировать
+            if (await rep.CountAsync(option=> true) > 0) 
+            {
+                return;
+            }
+
             var exchanges = new List<ExchangeOption>
             {
                 new ExchangeOption

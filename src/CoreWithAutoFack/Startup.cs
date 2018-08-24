@@ -151,7 +151,7 @@ namespace WebServer
                 if (env.IsDevelopment()) //TODO: добавить переменную окружения OS (win/linux)
                 {
                     //ИНИЦИАЛИЦИЯ РЕПОЗИТОРИЕВ--------------------------------------------------------
-                    //await serialPortOptionRepository.InitializeAsync();
+                    await serialPortOptionRepository.InitializeAsync();
                     await exchangeOptionRepository.InitializeAsync();
                     await deviceOptionRepository.InitializeAsync();
 

@@ -9,12 +9,11 @@ namespace DAL.Abstract.Extensions
     {
         public static async Task InitializeAsync(this ISerialPortOptionRepository rep)
         {
-            //Если есть хотя бы 1 элемент то выйти
-
-            //if (rep.GetSingle(option => true) != null) //TODO: 
-            //{
-            //    return;
-            //}
+            //Если есть хотя бы 1 элемент то НЕ иннициализировать
+            if (await rep.CountAsync(option=> true) > 0) 
+            {
+                return;
+            }
 
             var serials = new List<SerialOption>
             {

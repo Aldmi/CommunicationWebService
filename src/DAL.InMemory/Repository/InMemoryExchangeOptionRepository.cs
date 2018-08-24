@@ -82,6 +82,19 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public int Count(Expression<Func<ExchangeOption, bool>> predicate)
+        {
+            return ExchangeOptions.Count(predicate.Compile());
+        }
+
+
+        public async Task<int> CountAsync(Expression<Func<ExchangeOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return ExchangeOptions.Count(predicate.Compile());
+        }
+
+
         public void Add(ExchangeOption entity)
         {
             entity.Id = CalcMaxId() + 1;

@@ -11,6 +11,12 @@ namespace DAL.Abstract.Extensions
     {
         public static async Task InitializeAsync(this IDeviceOptionRepository rep)
         {
+            //Если есть хотя бы 1 элемент то НЕ иннициализировать
+            if (await rep.CountAsync(option=> true) > 0) 
+            {
+                return;
+            }
+
             var devices = new List<DeviceOption>
             {
                 new DeviceOption

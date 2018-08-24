@@ -1,4 +1,6 @@
-﻿namespace DAL.EFCore.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DAL.EFCore.Entities
 {
     public enum StopBits
     {
@@ -47,7 +49,12 @@
 
     public class EfSerialOption : IEntity
     {
+        public int Id { get; set; }
+
+        [Required]
+        [MaxLength(10)]
         public string Port { get; set; }
+
         public int BaudRate { get; set; }
         public int DataBits { get; set; }
         public StopBits StopBits { get; set; }
@@ -56,6 +63,5 @@
         public bool RtsEnable { get; set; }
 
         public bool AutoStart { get; set; }  
-        public int Id { get; set; }
     }
 }

@@ -83,6 +83,19 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public int Count(Expression<Func<DeviceOption, bool>> predicate)
+        {
+            return DeviceOptions.Count(predicate.Compile());
+        }
+
+
+        public async Task<int> CountAsync(Expression<Func<DeviceOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return DeviceOptions.Count(predicate.Compile());
+        }
+
+
         public void Add(DeviceOption entity)
         {
             entity.Id = CalcMaxId() + 1;

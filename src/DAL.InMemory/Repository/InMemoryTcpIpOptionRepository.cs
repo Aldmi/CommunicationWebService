@@ -84,6 +84,19 @@ namespace DAL.InMemory.Repository
         }
 
 
+        public int Count(Expression<Func<TcpIpOption, bool>> predicate)
+        {
+            return TcpIpOptions.Count(predicate.Compile());
+        }
+
+
+        public async Task<int> CountAsync(Expression<Func<TcpIpOption, bool>> predicate)
+        {
+            await Task.CompletedTask;
+            return TcpIpOptions.Count(predicate.Compile());
+        }
+
+
         public void Add(TcpIpOption entity)
         {
             entity.Id = CalcMaxId() + 1;
