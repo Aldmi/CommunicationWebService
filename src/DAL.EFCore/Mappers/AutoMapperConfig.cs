@@ -2,6 +2,7 @@
 using AutoMapper;
 using DAL.Abstract.Entities.Options.Transport;
 using DAL.EFCore.Entities;
+using DAL.EFCore.Entities.Transport;
 
 namespace DAL.EFCore.Mappers
 {

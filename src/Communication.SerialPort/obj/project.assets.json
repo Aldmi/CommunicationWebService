@@ -1069,23 +1069,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\admin\\.nuget\\packages\\": {},
+    "C:\\Users\\Aldmi\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj",
+      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj",
       "projectName": "Transport.SerialPort",
-      "projectPath": "C:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj",
-      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\obj\\",
+      "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj",
+      "packagesPath": "C:\\Users\\Aldmi\\.nuget\\packages\\",
+      "outputPath": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Aldmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1093,19 +1093,20 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://packages.nuget.org/": {}
       },
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Transport.Base\\Transport.Base.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Transport.Base\\Transport.Base.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Transport.Base\\Transport.Base.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Transport.Base\\Transport.Base.csproj"
             }
           }
         }

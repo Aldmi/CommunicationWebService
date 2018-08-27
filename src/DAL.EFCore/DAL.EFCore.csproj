@@ -20,8 +20,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DbContext\EntitiConfiguration\" />
-  </ItemGroup>
-
 </Project>

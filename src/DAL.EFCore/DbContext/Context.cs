@@ -1,4 +1,7 @@
-﻿using DAL.EFCore.Entities;
+﻿using DAL.EFCore.DbContext.EntitiConfiguration;
+using DAL.EFCore.Entities;
+using DAL.EFCore.Entities.Device;
+using DAL.EFCore.Entities.Transport;
 using DAL.EFCore.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +15,7 @@ namespace DAL.EFCore.DbContext
         #region Reps
 
         public DbSet<EfSerialOption> EfSerialPortOptions { get; set; }
+        public DbSet<EfDeviceOption> EfDeviceOptions { get; set; }
 
         #endregion
 
@@ -23,6 +27,7 @@ namespace DAL.EFCore.DbContext
         {
             _connStr = connStr;
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;//Отключение Tracking для всего контекста
+            Database.EnsureCreated(); //Если БД нет, то создать.
         }
 
         #endregion
@@ -47,9 +52,8 @@ namespace DAL.EFCore.DbContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration(new EfRouteConfiguration());
-
-            base.OnModelCreating(modelBuilder);
+           modelBuilder.ApplyConfiguration(new EfDeviceOptionConfig());
+           base.OnModelCreating(modelBuilder);
         }
 
         #endregion

@@ -18,7 +18,31 @@ namespace DAL.EFCore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DAL.EFCore.Entities.EfSerialOption", b =>
+            modelBuilder.Entity("DAL.EFCore.Entities.Device.EfDeviceOption", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("AutoBuild");
+
+                    b.Property<bool>("AutoStart");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<string>("ExchangeKeysCollection");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EfDeviceOptions");
+                });
+
+            modelBuilder.Entity("DAL.EFCore.Entities.Transport.EfSerialOption", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,7 +58,9 @@ namespace DAL.EFCore.Migrations
 
                     b.Property<int>("Parity");
 
-                    b.Property<string>("Port");
+                    b.Property<string>("Port")
+                        .IsRequired()
+                        .HasMaxLength(10);
 
                     b.Property<bool>("RtsEnable");
 
