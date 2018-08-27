@@ -61,7 +61,7 @@ namespace WebServer.AutofacModules
                 })
                 .SingleInstance();
 
-            builder.RegisterType<InMemoryDeviceOptionRepository>().As<IDeviceOptionRepository>()
+            builder.RegisterType<EfDeviceOptionRepository>().As<IDeviceOptionRepository>()
                 .WithParameters(new List<Parameter>
                 {
                     new NamedParameter("connectionString", _connectionString),

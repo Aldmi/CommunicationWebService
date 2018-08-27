@@ -49,6 +49,7 @@ namespace DAL.EFCore.Entities.Transport
 
     public class EfSerialOption : IEntity
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]

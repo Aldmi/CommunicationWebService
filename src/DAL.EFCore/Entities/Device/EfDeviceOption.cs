@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.EFCore.Entities.Device
 {
     public class EfDeviceOption
     {
+        [Key]
         public int Id { get; set; }
+
+        public int DeviceId { get; set; }                
 
         [Required]
         [MaxLength(256)]

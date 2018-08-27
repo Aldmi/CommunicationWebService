@@ -7,7 +7,6 @@ using AutoMapper.Extensions.ExpressionMapping;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Options.Transport;
 using DAL.EFCore.DbContext;
-using DAL.EFCore.Entities;
 using DAL.EFCore.Entities.Transport;
 using DAL.EFCore.Mappers;
 using Microsoft.EntityFrameworkCore;

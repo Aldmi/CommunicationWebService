@@ -1,8 +1,7 @@
 ﻿using DAL.EFCore.DbContext.EntitiConfiguration;
-using DAL.EFCore.Entities;
 using DAL.EFCore.Entities.Device;
+using DAL.EFCore.Entities.Exchange;
 using DAL.EFCore.Entities.Transport;
-using DAL.EFCore.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.EFCore.DbContext
@@ -16,6 +15,7 @@ namespace DAL.EFCore.DbContext
 
         public DbSet<EfSerialOption> EfSerialPortOptions { get; set; }
         public DbSet<EfDeviceOption> EfDeviceOptions { get; set; }
+        public DbSet<EfExchangeOption> EfExchangeOptions { get; set; }
 
         #endregion
 
@@ -53,6 +53,7 @@ namespace DAL.EFCore.DbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            modelBuilder.ApplyConfiguration(new EfDeviceOptionConfig());
+           modelBuilder.ApplyConfiguration(new EfExchangeOptionConfig());
            base.OnModelCreating(modelBuilder);
         }
 
