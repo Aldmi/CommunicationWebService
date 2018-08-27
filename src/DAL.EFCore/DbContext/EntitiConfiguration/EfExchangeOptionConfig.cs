@@ -7,12 +7,10 @@ namespace DAL.EFCore.DbContext.EntitiConfiguration
     public class EfExchangeOptionConfig : IEntityTypeConfiguration<EfExchangeOption>
     {
         public void Configure(EntityTypeBuilder<EfExchangeOption> builder)
-        {
-            //KeyTransport.
-            //Связь 1к1 с объединением таблиц (KeyTransport входит в табл. EfExchangeOptions) 
-            builder.HasOne(e => e.KeyTransport)
-                   .WithOne(e => e.EfExchangeOption)
-                   .HasForeignKey<EfKeyTransport>(e => e.EfExchangeOptionId);
+        {           
+            builder.Property<string>("KeyTransportMetaData")
+                .HasField("_keyTransportMetaData")
+                .IsRequired();
 
             //EfProvider.
             //Связь 1к1.

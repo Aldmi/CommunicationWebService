@@ -1,6 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
 using Shared.Enums;
+using Shared.Types;
 
 namespace DAL.EFCore.Entities.Exchange
 {
@@ -15,29 +19,19 @@ namespace DAL.EFCore.Entities.Exchange
         [Required]
         public string Key { get; set; }
 
-        [Required]
-        public EfKeyTransport KeyTransport { get; set; }
-
         //public EfExchangeRule EfExchangeRule { get; set; } //Или Rule или Provider
 
         public EfProvider Provider { get; set; }
 
         public bool AutoStartCycleFunc { get; set; }
-    }
 
 
-    public class EfKeyTransport
-    {
-        [Key]
-        public int Id { get; set; } 
-
-        #region FK
-        public int EfExchangeOptionId { get; set; }
-        public EfExchangeOption EfExchangeOption { get; set; }
-        #endregion
-
-
-        public string Key { get; set; }
-        public TransportType TransportType { get; set; }
+        private string _keyTransportMetaData;
+        [NotMapped]
+        public KeyTransport KeyTransport
+        {
+            get => string.IsNullOrEmpty(_keyTransportMetaData) ? null : JsonConvert.DeserializeObject<KeyTransport>(_keyTransportMetaData);
+            set => _keyTransportMetaData = (value == null) ? null : JsonConvert.SerializeObject(value);
+        }
     }
 }

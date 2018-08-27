@@ -14,25 +14,5 @@ namespace DAL.Abstract.Entities.Options.Exchange
         /// Флаг учитывается, только при старте сервис.
         /// </summary>
         public bool AutoStartCycleFunc { get; set; }
-
-
-        //public string MetaDataJsonForDb
-        //{
-        //    get
-        //    {
-        //        return MetaData == null || !MetaData.Any()
-        //            ? null
-        //            : JsonConvert.SerializeObject(MetaData);
-        //    }
-
-        //    set
-        //    {
-        //        if (string.IsNullOrWhiteSpace(value))
-        //            MetaData.Clear();
-        //        else
-        //            MetaData = JsonConvert.DeserializeObject<Dictionary<string, string>>(value);
-        //    }
-        //}
-
     }
 }

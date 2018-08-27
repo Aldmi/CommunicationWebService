@@ -26,7 +26,6 @@ namespace DAL.EFCore.Mappers
                     cfg.CreateMap<ExchangeOption, EfExchangeOption>()
                     .ForMember(dest => dest.ExchangeId, opt => opt.MapFrom(src => src.Id))
                     .ForMember(dest => dest.Id, opt => opt.MapFrom(src => 0))
-                    .ForMember(dest => dest.KeyTransport, opt => opt.MapFrom(src => new EfKeyTransport{Key = src.KeyTransport.Key, TransportType = src.KeyTransport.TransportType}))
                     .ReverseMap();
 
                     cfg.CreateMap<Provider, EfProvider>()
