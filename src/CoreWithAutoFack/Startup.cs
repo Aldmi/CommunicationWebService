@@ -151,9 +151,17 @@ namespace WebServer
                 if (env.IsDevelopment()) //TODO: добавить переменную окружения OS (win/linux)
                 {
                     //ИНИЦИАЛИЦИЯ РЕПОЗИТОРИЕВ--------------------------------------------------------
-                    await serialPortOptionRepository.InitializeAsync();
-                    await exchangeOptionRepository.InitializeAsync();
-                    await deviceOptionRepository.InitializeAsync();
+                    try
+                    {
+                        await serialPortOptionRepository.InitializeAsync();
+                        await exchangeOptionRepository.InitializeAsync();
+                        await deviceOptionRepository.InitializeAsync();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
 
                     //DEBUG------------------------------------------
                     var singleElem= serialPortOptionRepository.GetSingle(spOption => spOption.Port == "COM1");//spOption => spOption.Port == "COM1"

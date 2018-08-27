@@ -54,19 +54,19 @@ namespace WebServer.AutofacModules
                 })
                 .SingleInstance();
 
-            builder.RegisterType<InMemoryExchangeOptionRepository>().As<IExchangeOptionRepository>()
+            builder.RegisterType<EfExchangeOptionRepository>().As<IExchangeOptionRepository>()
                 .WithParameters(new List<Parameter>
                 {
                     new NamedParameter("connectionString", _connectionString),
                 })
-                .SingleInstance();
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<EfDeviceOptionRepository>().As<IDeviceOptionRepository>()
                 .WithParameters(new List<Parameter>
                 {
                     new NamedParameter("connectionString", _connectionString),
                 })
-                .SingleInstance();
+                .InstancePerLifetimeScope();
         }
     }
 }

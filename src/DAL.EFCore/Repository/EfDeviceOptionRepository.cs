@@ -2,163 +2,155 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using AutoMapper.Extensions.ExpressionMapping;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Options.Device;
-using DAL.EFCore.DbContext;
 using DAL.EFCore.Entities.Device;
-using DAL.EFCore.Entities.Transport;
-using DAL.EFCore.Mappers;
-using Microsoft.EntityFrameworkCore;
 
 namespace DAL.EFCore.Repository
 {
-    public class EfDeviceOptionRepository : EfBaseRepository, IDeviceOptionRepository
+    public class EfDeviceOptionRepository : EfBaseRepository<EfDeviceOption, DeviceOption>, IDeviceOptionRepository
     {
-
-        #region field
-
-        private readonly Context _context;
-        private readonly DbSet<EfDeviceOption> _dbSet;
-
-        #endregion
-
-
-
-
         #region ctor
 
-        public EfDeviceOptionRepository(string connectionString)
+        public EfDeviceOptionRepository(string connectionString) : base(connectionString)
         {
-            _context = new Context(connectionString);
-            _dbSet = _context.Set<EfDeviceOption>();
         }
 
         #endregion
-
 
 
 
         #region CRUD
 
-        public DeviceOption GetById(int id)
+        public new DeviceOption GetById(int id)
         {
-            throw new NotImplementedException();
+            return base.GetById(id);
         }
 
 
-        public Task<DeviceOption> GetByIdAsync(int id)
+        public new async Task<DeviceOption> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await base.GetByIdAsync(id);
         }
 
 
-        public DeviceOption GetSingle(Expression<Func<DeviceOption, bool>> predicate)
+        public new DeviceOption GetSingle(Expression<Func<DeviceOption, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return base.GetSingle(predicate);
         }
 
 
-        public Task<DeviceOption> GetSingleAsync(Expression<Func<DeviceOption, bool>> predicate)
+        public new async Task<DeviceOption> GetSingleAsync(Expression<Func<DeviceOption, bool>> predicate)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<DeviceOption> List()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<DeviceOption> List(Expression<Func<DeviceOption, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<DeviceOption>> ListAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<DeviceOption>> ListAsync(Expression<Func<DeviceOption, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Count(Expression<Func<DeviceOption, bool>> predicate)
-        {
-            throw new NotImplementedException();
+            return await base.GetSingleAsync(predicate);
         }
 
 
-        public async Task<int> CountAsync(Expression<Func<DeviceOption, bool>> predicate)
+        public new IEnumerable<DeviceOption> List()
         {
-            var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<EfDeviceOption, bool>>>(predicate);
-            return await _dbSet.CountAsync(efPredicate);
+            return base.List();
         }
 
 
-        public void Add(DeviceOption entity)
+        public new IEnumerable<DeviceOption> List(Expression<Func<DeviceOption, bool>> predicate)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task AddAsync(DeviceOption entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddRange(IEnumerable<DeviceOption> entitys)
-        {
-            throw new NotImplementedException();
+            return base.List(predicate);
         }
 
 
-        public async Task AddRangeAsync(IEnumerable<DeviceOption> entitys)
+        public new async Task<IEnumerable<DeviceOption>> ListAsync()
         {
-            var efDeviceOptions = AutoMapperConfig.Mapper.Map<IEnumerable<EfDeviceOption>>(entitys);
-            await _dbSet.AddRangeAsync(efDeviceOptions);
-            await _context.SaveChangesAsync();
+            return await base.ListAsync();
         }
 
 
-        public void Delete(DeviceOption entity)
+        public new async Task<IEnumerable<DeviceOption>> ListAsync(Expression<Func<DeviceOption, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await base.ListAsync(predicate);
         }
 
-        public void Delete(Expression<Func<DeviceOption, bool>> predicate)
+
+        public new int Count(Expression<Func<DeviceOption, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return base.Count(predicate);
         }
 
-        public Task DeleteAsync(DeviceOption entity)
+
+        public new async Task<int> CountAsync(Expression<Func<DeviceOption, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await base.CountAsync(predicate);
         }
 
-        public Task DeleteAsync(Expression<Func<DeviceOption, bool>> predicate)
+
+        public new void Add(DeviceOption entity)
         {
-            throw new NotImplementedException();
+            base.Add(entity);
         }
 
-        public void Edit(DeviceOption entity)
+
+        public new async Task AddAsync(DeviceOption entity)
         {
-            throw new NotImplementedException();
+            await base.AddAsync(entity);
         }
 
-        public Task EditAsync(DeviceOption entity)
+
+        public new void AddRange(IEnumerable<DeviceOption> entitys)
         {
-            throw new NotImplementedException();
+            base.AddRange(entitys);
         }
 
-        public bool IsExist(Expression<Func<DeviceOption, bool>> predicate)
+
+        public new async Task AddRangeAsync(IEnumerable<DeviceOption> entitys)
         {
-            throw new NotImplementedException();
+            await base.AddRangeAsync(entitys);
         }
 
-        public Task<bool> IsExistAsync(Expression<Func<DeviceOption, bool>> predicate)
+
+        public new void Delete(DeviceOption entity)
         {
-            throw new NotImplementedException();
+            base.Delete(entity);
+        }
+
+
+        public new void Delete(Expression<Func<DeviceOption, bool>> predicate)
+        {
+            base.Delete(predicate);
+        }
+
+
+        public new async Task DeleteAsync(DeviceOption entity)
+        {
+            await base.DeleteAsync(entity);
+        }
+
+
+        public new async Task DeleteAsync(Expression<Func<DeviceOption, bool>> predicate)
+        {
+            await base.DeleteAsync(predicate);
+        }
+
+
+        public new void Edit(DeviceOption entity)
+        {
+            base.Edit(entity);
+        }
+
+
+        public new async Task EditAsync(DeviceOption entity)
+        {
+            await base.EditAsync(entity);
+        }
+
+
+        public new bool IsExist(Expression<Func<DeviceOption, bool>> predicate)
+        {
+            return base.IsExist(predicate);
+        }
+
+
+        public new async Task<bool> IsExistAsync(Expression<Func<DeviceOption, bool>> predicate)
+        {
+            return await base.IsExistAsync(predicate);
         }
 
         #endregion

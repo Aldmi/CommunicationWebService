@@ -2,7 +2,7 @@
 
 namespace DAL.EFCore.Entities.Exchange
 {
-    public class EfTable
+    public class EfTable : IEntity
     {
         [Key]
         public int Id { get; set; }

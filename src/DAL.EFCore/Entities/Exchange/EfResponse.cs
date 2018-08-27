@@ -2,7 +2,7 @@
 
 namespace DAL.EFCore.Entities.Exchange
 {
-    public class EfResponse
+    public class EfResponse : IEntity
     {
         [Key]
         public int Id { get; set; }

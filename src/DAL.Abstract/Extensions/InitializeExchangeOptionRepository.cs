@@ -21,12 +21,12 @@ namespace DAL.Abstract.Extensions
             {
                 new ExchangeOption
                 {
-                    Key = "SP_COM1_Vidor1",
                     Id = 1,
+                    Key = "SP_COM1_Vidor1",
                     KeyTransport = new KeyTransport("COM1", TransportType.SerialPort),
                     Provider = new Provider
                     {
-                        Id = 1,
+                        Id = 12,
                         Address = "10",
                         Name = "VidorBase",
                         TimeRespone = 500
@@ -34,12 +34,12 @@ namespace DAL.Abstract.Extensions
                 },
                 new ExchangeOption
                 {
-                    Key = "SP_COM2_Vidor2",
                     Id = 2,
+                    Key = "SP_COM2_Vidor2",
                     KeyTransport = new KeyTransport("COM2", TransportType.SerialPort),
                     Provider = new Provider
                     {
-                        Id = 1,
+                        Id = 5,
                         Address = "12",
                         Name = "Table",
                         TimeRespone = 500
@@ -47,12 +47,12 @@ namespace DAL.Abstract.Extensions
                 },
                 new ExchangeOption
                 {
+                    Id = 3,
                     Key = "HTTP_google.com_Table1",
-                    Id = 2,
                     KeyTransport = new KeyTransport("http:\\google.com", TransportType.Http),
                     Provider = new Provider
                     {
-                        Id = 1,
+                        Id = 6,
                         Address = "http:\\google.com",
                         Name = "VidorBase",
                         TimeRespone = 500

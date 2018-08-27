@@ -13,9 +13,9 @@ namespace DAL.EFCore.DbContext
 
         #region Reps
 
-        public DbSet<EfSerialOption> EfSerialPortOptions { get; set; }
-        public DbSet<EfDeviceOption> EfDeviceOptions { get; set; }
-        public DbSet<EfExchangeOption> EfExchangeOptions { get; set; }
+        public DbSet<EfSerialOption> SerialPortOptions { get; set; }
+        public DbSet<EfDeviceOption> DeviceOptions { get; set; }
+        public DbSet<EfExchangeOption> ExchangeOptions { get; set; }
 
         #endregion
 

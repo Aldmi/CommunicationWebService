@@ -4,228 +4,159 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper.Extensions.ExpressionMapping;
+using DAL.Abstract.Abstract;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Options.Transport;
-using DAL.EFCore.DbContext;
 using DAL.EFCore.Entities.Transport;
 using DAL.EFCore.Mappers;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.EFCore.Repository
 {
-    public class EfSerialPortOptionRepository : EfBaseRepository, ISerialPortOptionRepository, IDisposable
+    public class EfSerialPortOptionRepository : EfBaseRepository<EfSerialOption, SerialOption>, ISerialPortOptionRepository
     {
-        #region field
-
-        private readonly Context _context;
-        private readonly DbSet<EfSerialOption> _dbSet;
-
-        #endregion
-
-
-
-
         #region ctor
 
-        public EfSerialPortOptionRepository(string connectionString)
+        public EfSerialPortOptionRepository(string connectionString) : base(connectionString)
         {
-            _context = new Context(connectionString);
-            _dbSet= _context.Set<EfSerialOption>();
         }
 
         #endregion
-
 
 
 
 
         #region CRUD
 
-        public SerialOption GetById(int id)
+        public new SerialOption GetById(int id)
         {
-           var efSpOption= _dbSet.Find(id);
-           var spOptions = AutoMapperConfig.Mapper.Map<SerialOption>(efSpOption);
-           return spOptions;
+            return base.GetById(id);
         }
 
 
-        public async Task<SerialOption> GetByIdAsync(int id)
+        public new async Task<SerialOption> GetByIdAsync(int id)
         {
-            var efSpOption = await _dbSet.FindAsync(id);
-            var spOptions = AutoMapperConfig.Mapper.Map<SerialOption>(efSpOption);
-            return spOptions;
+            return await base.GetByIdAsync(id);
         }
 
 
-        public SerialOption GetSingle(Expression<Func<SerialOption, bool>> predicate)
-        {         
-            var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<EfSerialOption, bool>>>(predicate);
-            var efSpOption = _dbSet.SingleOrDefault(efPredicate);
-            var spOption= AutoMapperConfig.Mapper.Map<SerialOption>(efSpOption);
-            return spOption;
+        public new SerialOption GetSingle(Expression<Func<SerialOption, bool>> predicate)
+        {
+            return base.GetSingle(predicate);
         }
 
 
-        public async Task<SerialOption> GetSingleAsync(Expression<Func<SerialOption, bool>> predicate)
+        public new async Task<SerialOption> GetSingleAsync(Expression<Func<SerialOption, bool>> predicate)
         {
-            var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<EfSerialOption, bool>>>(predicate);
-            var efSpOption = await _dbSet.SingleOrDefaultAsync(efPredicate);
-            var spOption= AutoMapperConfig.Mapper.Map<SerialOption>(efSpOption);
-            return spOption;
+            return await base.GetSingleAsync(predicate);
         }
 
 
-        public IEnumerable<SerialOption> List()
+        public new IEnumerable<SerialOption> List()
         {
-           var efSpOptions= _dbSet.ToList();
-           var spOptions= AutoMapperConfig.Mapper.Map<IEnumerable<SerialOption>>(efSpOptions);
-           return spOptions;
+            return base.List();
         }
 
 
-        public  IEnumerable<SerialOption> List(Expression<Func<SerialOption, bool>> predicate)
+        public new IEnumerable<SerialOption> List(Expression<Func<SerialOption, bool>> predicate)
         {
-            var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<EfSerialOption, bool>>>(predicate);
-            var efSpOptions= _dbSet.Where(efPredicate).ToList();
-            var spOptions= AutoMapperConfig.Mapper.Map<IEnumerable<SerialOption>>(efSpOptions);
-            return spOptions;
+            return base.List(predicate);
         }
 
 
-        public async Task<IEnumerable<SerialOption>> ListAsync()
+        public new async Task<IEnumerable<SerialOption>> ListAsync()
         {
-            var efSpOptions= await _dbSet.ToListAsync();
-            var spOptions= AutoMapperConfig.Mapper.Map<IEnumerable<SerialOption>>(efSpOptions);
-            return spOptions;
+            return await base.ListAsync();
         }
 
 
-        public async Task<IEnumerable<SerialOption>> ListAsync(Expression<Func<SerialOption, bool>> predicate)
+        public new async Task<IEnumerable<SerialOption>> ListAsync(Expression<Func<SerialOption, bool>> predicate)
         {
-            var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<EfSerialOption, bool>>>(predicate);
-            var efSpOptions= await _dbSet.Where(efPredicate).ToListAsync();
-            var spOptions= AutoMapperConfig.Mapper.Map<IEnumerable<SerialOption>>(efSpOptions);
-            return spOptions;
+            return await base.ListAsync(predicate);
         }
 
 
-        public int Count(Expression<Func<SerialOption, bool>> predicate)
+        public new int Count(Expression<Func<SerialOption, bool>> predicate)
         {
-            var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<EfSerialOption, bool>>>(predicate);
-            return _dbSet.Count(efPredicate);
+            return  base.Count(predicate);
         }
 
 
-        public async Task<int> CountAsync(Expression<Func<SerialOption, bool>> predicate)
+        public new async Task<int> CountAsync(Expression<Func<SerialOption, bool>> predicate)
         {
-            var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<EfSerialOption, bool>>>(predicate);
-            return await _dbSet.CountAsync(efPredicate);
+            return await base.CountAsync(predicate);
         }
 
 
-        public void Add(SerialOption entity)
+        public new void Add(SerialOption entity)
         {
-            var efSpOptions= AutoMapperConfig.Mapper.Map<EfSerialOption>(entity);
-            _dbSet.Add(efSpOptions);
-            _context.SaveChanges();
+            base.Add(entity);
         }
 
 
-        public async Task AddAsync(SerialOption entity)
+        public new async Task AddAsync(SerialOption entity)
         {
-            var efSpOptions= AutoMapperConfig.Mapper.Map<EfSerialOption>(entity);
-            await _dbSet.AddAsync(efSpOptions);
-            await _context.SaveChangesAsync();
+            await base.AddAsync(entity);
         }
 
 
-        public void AddRange(IEnumerable<SerialOption> entitys)
+        public new void AddRange(IEnumerable<SerialOption> entitys)
         {
-            var efSpOptions=  AutoMapperConfig.Mapper.Map<IEnumerable<EfSerialOption>>(entitys);
-            _dbSet.AddRange(efSpOptions);
-            _context.SaveChanges();
+            base.AddRange(entitys);
         }
 
 
-        public async Task AddRangeAsync(IEnumerable<SerialOption> entitys)
+        public new async Task AddRangeAsync(IEnumerable<SerialOption> entitys)
         {
-            var efSpOptions=  AutoMapperConfig.Mapper.Map<IEnumerable<EfSerialOption>>(entitys);
-            await _dbSet.AddRangeAsync(efSpOptions);
-            await _context.SaveChangesAsync();
+           await base.AddRangeAsync(entitys);
         }
 
 
-        public void Delete(SerialOption entity)
+        public new void Delete(SerialOption entity)
         {
-            var efSpOptions= AutoMapperConfig.Mapper.Map<EfSerialOption>(entity);
-            _dbSet.Remove(efSpOptions);
-            _context.SaveChanges();
+            base.Delete(entity);
         }
 
 
-        public void Delete(Expression<Func<SerialOption, bool>> predicate)
+        public new void Delete(Expression<Func<SerialOption, bool>> predicate)
         {
-            var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<EfSerialOption, bool>>>(predicate);
-            var efSpOptions= _dbSet.Where(efPredicate).ToList();
-            _dbSet.RemoveRange(efSpOptions);
-            _context.SaveChanges();
+            base.Delete(predicate);
         }
 
 
-        public async Task DeleteAsync(SerialOption entity)
+        public new async Task DeleteAsync(SerialOption entity)
         {
-           var efSpOptions= AutoMapperConfig.Mapper.Map<EfSerialOption>(entity);
-           _dbSet.Remove(efSpOptions);
-           await _context.SaveChangesAsync();
+           await base.DeleteAsync(entity);
         }
 
 
-        public async Task DeleteAsync(Expression<Func<SerialOption, bool>> predicate)
+        public new async Task DeleteAsync(Expression<Func<SerialOption, bool>> predicate)
         {
-            var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<EfSerialOption, bool>>>(predicate);
-            var efSpOptions= await _dbSet.Where(efPredicate).ToListAsync();
-            _dbSet.RemoveRange(efSpOptions);
-            await _context.SaveChangesAsync();
+           await base.DeleteAsync(predicate);
         }
 
 
-        public void Edit(SerialOption entity)
+        public new void Edit(SerialOption entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChanges();
+            base.Edit(entity);
         }
 
 
-        public async Task EditAsync(SerialOption entity)
+        public new async Task EditAsync(SerialOption entity)
         {
-           _context.Entry(entity).State = EntityState.Modified;
-           await _context.SaveChangesAsync();
+           await base.EditAsync(entity);
         }
 
 
-        public bool IsExist(Expression<Func<SerialOption, bool>> predicate)
+        public new bool IsExist(Expression<Func<SerialOption, bool>> predicate)
         {
-            var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<EfSerialOption, bool>>>(predicate);
-            return _dbSet.Any(efPredicate); 
+            return base.IsExist(predicate);
         }
 
 
-        public async Task<bool> IsExistAsync(Expression<Func<SerialOption, bool>> predicate)
+        public new async Task<bool> IsExistAsync(Expression<Func<SerialOption, bool>> predicate)
         {
-            var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<EfSerialOption, bool>>>(predicate);
-            return await _dbSet.AnyAsync(efPredicate); 
-        }
-
-        #endregion
-
-
-
-
-        #region Disposable
-
-        public void Dispose()
-        {
-            _context?.Dispose();
+            return await base.IsExistAsync(predicate);
         }
 
         #endregion

@@ -3,13 +3,14 @@
 
 namespace DAL.EFCore.Entities.Exchange
 {
-    /// <summary>
-    /// Конкретный провайдер обмена, захардкоженный (уазать имя)
-    /// </summary>
-    public class EfProvider
+
+    public class EfProvider : IEntity
     {
         [Key]
         public int Id { get; set; }
+
+        [Range(1, 1000)]
+        public int ProviderId { get; set; }
 
         [Required]
         public string Name { get; set; }

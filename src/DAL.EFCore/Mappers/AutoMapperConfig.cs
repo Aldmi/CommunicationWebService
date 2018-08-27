@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using DAL.Abstract.Entities.Options.Device;
+using DAL.Abstract.Entities.Options.Exchange;
 using DAL.Abstract.Entities.Options.Transport;
 using DAL.EFCore.Entities.Device;
+using DAL.EFCore.Entities.Exchange;
 using DAL.EFCore.Entities.Transport;
 
 namespace DAL.EFCore.Mappers
@@ -18,6 +20,17 @@ namespace DAL.EFCore.Mappers
 
                     cfg.CreateMap<DeviceOption, EfDeviceOption>()
                         .ForMember(dest => dest.DeviceId, opt => opt.MapFrom(src => src.Id))
+                        .ForMember(dest => dest.Id, opt => opt.MapFrom(src => 0))
+                        .ReverseMap();
+
+                    cfg.CreateMap<ExchangeOption, EfExchangeOption>()
+                    .ForMember(dest => dest.ExchangeId, opt => opt.MapFrom(src => src.Id))
+                    .ForMember(dest => dest.Id, opt => opt.MapFrom(src => 0))
+                    .ForMember(dest => dest.KeyTransport, opt => opt.MapFrom(src => new EfKeyTransport{Key = src.KeyTransport.Key, TransportType = src.KeyTransport.TransportType}))
+                    .ReverseMap();
+
+                    cfg.CreateMap<Provider, EfProvider>()
+                        .ForMember(dest => dest.ProviderId, opt => opt.MapFrom(src => src.Id))
                         .ForMember(dest => dest.Id, opt => opt.MapFrom(src => 0))
                         .ReverseMap();
                 });

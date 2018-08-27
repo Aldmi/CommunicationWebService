@@ -3,11 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.EFCore.Entities.Device
 {
-    public class EfDeviceOption
+    public class EfDeviceOption : IEntity
     {
         [Key]
         public int Id { get; set; }
 
+        [Range(1, 1000)]
         public int DeviceId { get; set; }                
 
         [Required]

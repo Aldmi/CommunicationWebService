@@ -2,7 +2,7 @@
 
 namespace DAL.EFCore.Entities.Exchange
 {
-    public class EfRule
+    public class EfRule : IEntity
     {
         [Key]
         public int Id { get; set; }

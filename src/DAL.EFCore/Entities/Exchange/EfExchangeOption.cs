@@ -4,10 +4,13 @@ using Shared.Enums;
 
 namespace DAL.EFCore.Entities.Exchange
 {
-    public class EfExchangeOption
+    public class EfExchangeOption : IEntity
     {
         [Key]
         public int Id { get; set; }
+
+        [Range(1, 1000)]
+        public int ExchangeId { get; set; }
 
         [Required]
         public string Key { get; set; }
@@ -16,7 +19,8 @@ namespace DAL.EFCore.Entities.Exchange
         public EfKeyTransport KeyTransport { get; set; }
 
         //public EfExchangeRule EfExchangeRule { get; set; } //Или Rule или Provider
-        public EfProvider EfProvider { get; set; }
+
+        public EfProvider Provider { get; set; }
 
         public bool AutoStartCycleFunc { get; set; }
     }
