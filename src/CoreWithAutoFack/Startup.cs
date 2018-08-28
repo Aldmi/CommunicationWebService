@@ -163,7 +163,7 @@ namespace WebServer
                     }
 
                     //DEBUG------------------------------------------
-                    var singleElem= serialPortOptionRepository.GetSingle(option => option.Port == "COM1");//spOption => spOption.Port == "COM1"
+                    var singleElem= serialPortOptionRepository.GetSingle(option => option.Port == "COM1");
                     var httpElem = httpOptionRepository.GetSingle(option => option.Name == "Http table 1");
                     var tcpIpElem = tcpIpOptionRepository.GetSingle(option => option.Name == "RemoteTcpIpTable 2");
                     var exchangeElem = exchangeOptionRepository.GetSingle(option => option.Key == "SP_COM1_Vidor1");

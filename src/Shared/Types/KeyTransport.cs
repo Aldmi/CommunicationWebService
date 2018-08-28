@@ -8,8 +8,8 @@ namespace Shared.Types
     {
         #region prop
 
-        public string Key { get; set; }
-        public TransportType TransportType { get; set; }
+        public string Key { get; }
+        public TransportType TransportType { get; }
 
         #endregion
 
@@ -17,12 +17,6 @@ namespace Shared.Types
 
 
         #region prop
-
-        //для десериализации
-        public KeyTransport()
-        {
-            
-        }
 
         public KeyTransport(string key, TransportType transportType )
         {

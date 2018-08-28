@@ -26,10 +26,21 @@ namespace DAL.EFCore.Entities.Exchange
 
         private string _keyTransportMetaData;
         [NotMapped]
-        public KeyTransport KeyTransport
+        public EfKeyTransport KeyTransport
         {
-            get => string.IsNullOrEmpty(_keyTransportMetaData) ? null : JsonConvert.DeserializeObject<KeyTransport>(_keyTransportMetaData);
+            get => string.IsNullOrEmpty(_keyTransportMetaData) ? null : JsonConvert.DeserializeObject<EfKeyTransport>(_keyTransportMetaData);
             set => _keyTransportMetaData = (value == null) ? null : JsonConvert.SerializeObject(value);
         }
     }
+
+    public class EfKeyTransport
+    {
+        #region prop
+
+        public string Key { get; set; }
+        public TransportType TransportType { get; set; }
+
+        #endregion
+    }
+
 }
