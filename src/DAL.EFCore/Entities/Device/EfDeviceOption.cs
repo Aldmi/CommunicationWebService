@@ -6,10 +6,8 @@ namespace DAL.EFCore.Entities.Device
     public class EfDeviceOption : IEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
-
-        [Range(1, 1000)]
-        public int DeviceId { get; set; }                
 
         [Required]
         [MaxLength(256)]
@@ -21,12 +19,12 @@ namespace DAL.EFCore.Entities.Device
         public bool AutoStart { get; set; }                         //Автоматичекий запук Deivice в работу (после AutoBuild), при запуске сервиса.
 
 
-        private string _exchangeKeys;
+        private string _exchangeKeysMetaData;
         [NotMapped]
         public string[] ExchangeKeys
         {
-            get => _exchangeKeys.Split(';');
-            set => _exchangeKeys = string.Join($"{';'}", value);
+            get => _exchangeKeysMetaData.Split(';');
+            set => _exchangeKeysMetaData = string.Join($"{';'}", value);
         }
     }
 }

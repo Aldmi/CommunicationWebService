@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace DAL.EFCore.Entities.Exchange
@@ -7,6 +8,7 @@ namespace DAL.EFCore.Entities.Exchange
     public class EfProvider : IEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [Range(1, 1000)]

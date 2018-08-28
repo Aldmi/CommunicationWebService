@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.EFCore.Entities.Transport
 {
@@ -50,6 +51,7 @@ namespace DAL.EFCore.Entities.Transport
     public class EfSerialOption : IEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [Required]

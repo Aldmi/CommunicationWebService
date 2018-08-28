@@ -19,6 +19,7 @@ namespace DAL.Abstract.Extensions
             {
                 new SerialOption
                 {
+                    Id = 1,
                     Port = "COM1",
                     BaudRate = 9600,
                     DataBits = 8,
@@ -28,6 +29,7 @@ namespace DAL.Abstract.Extensions
                 },
                 new SerialOption
                 {
+                    Id = 2,
                     Port = "COM2",
                     BaudRate = 9600,
                     DataBits = 8,

@@ -104,16 +104,18 @@ namespace DAL.EFCore.Repository
 
         public new async Task AddRangeAsync(IEnumerable<ExchangeOption> entitys)
         {
-            try
-            {
-                var efOptions1 = AutoMapperConfig.Mapper.Map<IEnumerable<EfExchangeOption>>(entitys);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        
+            //DEBUG-----------------------------------------------
+            //try
+            //{
+            //    var efOptions1 = AutoMapperConfig.Mapper.Map<IEnumerable<EfExchangeOption>>(entitys);
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e);
+            //    throw;
+            //}
+            //DEBUG-----------------------------------------------
+
             await base.AddRangeAsync(entitys);
         }
 

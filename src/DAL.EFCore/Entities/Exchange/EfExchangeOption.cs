@@ -11,10 +11,8 @@ namespace DAL.EFCore.Entities.Exchange
     public class EfExchangeOption : IEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
-
-        [Range(1, 1000)]
-        public int ExchangeId { get; set; }
 
         [Required]
         public string Key { get; set; }

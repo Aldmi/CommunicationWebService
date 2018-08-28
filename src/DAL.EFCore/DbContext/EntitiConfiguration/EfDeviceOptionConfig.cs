@@ -8,9 +8,9 @@ namespace DAL.EFCore.DbContext.EntitiConfiguration
     {
         public void Configure(EntityTypeBuilder<EfDeviceOption> builder)
         {
-            //связать приватно поле _exchangeKeys с типом ExchangeKeysCollection в БД (типа string)
+            //связать приватно поле _exchangeKeysMetaData с типом ExchangeKeysCollection в БД (типа string).  Для сериализации объекта в JSON.
             builder.Property<string>("ExchangeKeysCollection")
-                   .HasField("_exchangeKeys");
+                   .HasField("_exchangeKeysMetaData");
         }
     }
 }

@@ -138,13 +138,10 @@ namespace WebServer
         {
             var env = scope.Resolve<IHostingEnvironment>();
             var serialPortOptionRepository = scope.Resolve<ISerialPortOptionRepository>();
+            var tcpIpOptionRepository = scope.Resolve<ITcpIpOptionRepository>();
+            var httpOptionRepository = scope.Resolve<IHttpOptionRepository>();
             var exchangeOptionRepository = scope.Resolve<IExchangeOptionRepository>();
             var deviceOptionRepository = scope.Resolve<IDeviceOptionRepository>();
-            //var serialPortStorageService = scope.Resolve<SerialPortStorageService>();
-            //var backgroundStorageService = scope.Resolve<BackgroundStorageService>();
-            //var exchangeStorageService = scope.Resolve<ExchangeStorageService>();
-            //var deviceStorageService = scope.Resolve<DeviceStorageService>();
-            //var eventBus = scope.Resolve<IEventBus>();
 
             try
             {
@@ -154,6 +151,8 @@ namespace WebServer
                     try
                     {
                         await serialPortOptionRepository.InitializeAsync();
+                        await tcpIpOptionRepository.InitializeAsync();
+                        await httpOptionRepository.InitializeAsync();
                         await exchangeOptionRepository.InitializeAsync();
                         await deviceOptionRepository.InitializeAsync();
                     }
@@ -164,40 +163,14 @@ namespace WebServer
                     }
 
                     //DEBUG------------------------------------------
-                    var singleElem= serialPortOptionRepository.GetSingle(spOption => spOption.Port == "COM1");//spOption => spOption.Port == "COM1"
+                    var singleElem= serialPortOptionRepository.GetSingle(option => option.Port == "COM1");//spOption => spOption.Port == "COM1"
+                    var httpElem = httpOptionRepository.GetSingle(option => option.Name == "Http table 1");
+                    var tcpIpElem = tcpIpOptionRepository.GetSingle(option => option.Name == "RemoteTcpIpTable 2");
+                    var exchangeElem = exchangeOptionRepository.GetSingle(option => option.Key == "SP_COM1_Vidor1");
+
+                    //TODO: проверить остальные CRUD операции
                     //DEBUG------------------------------------------
-
                 }
-
-                ////ADD SERIAL PORTS--------------------------------------------------------------------
-                //foreach (var spOption in serialPortOptionRepository.List())
-                //{
-                //    var keyTransport = new KeyTransport(spOption.Port, TransportType.SerialPort);
-                //    var sp = new SpWinSystemIo(spOption, keyTransport);
-                //    var bg = new HostingBackgroundTransport(keyTransport);
-                //    serialPortStorageService.AddNew(keyTransport, sp);
-                //    backgroundStorageService.AddNew(keyTransport, bg);
-                //}
-
-                ////ADD EXCHANGES------------------------------------------------------------------------
-                //foreach (var exchOption in exchangeOptionRepository.List())
-                //{
-                //    var keyTransport= exchOption.KeyTransport;
-                //    var sp= serialPortStorageService.Get(keyTransport);
-                //    var bg= backgroundStorageService.Get(keyTransport);
-                //    if (sp == null || bg == null) continue;
-                //    var key= exchOption.Key;
-                //    var exch = new ByRulesExchangeSerialPort(sp, bg, exchOption);
-                //    exchangeStorageService.AddNew(key, exch);
-                //}
-
-                ////ADD DEVICES--------------------------------------------------------------------------
-                //foreach (var deviceOption in deviceOptionRepository.List())
-                //{
-                //    var excanges= exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
-                //    var device= new Device.Base.Device(deviceOption, excanges, eventBus);
-                //    deviceStorageService.AddNew(deviceOption.Name, device);
-                //}
             }
             catch (Exception e)
             {
@@ -205,9 +178,6 @@ namespace WebServer
                 Console.WriteLine(e);
                 //throw;
             }
-
-            var hh = scope;//DEBUG
-
         }
     }
 }

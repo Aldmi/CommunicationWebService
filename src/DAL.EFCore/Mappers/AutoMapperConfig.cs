@@ -17,21 +17,13 @@ namespace DAL.EFCore.Mappers
             var config = new MapperConfiguration(cfg =>
                 {
                     cfg.CreateMap<SerialOption, EfSerialOption>().ReverseMap();
+                    cfg.CreateMap<TcpIpOption, EfTcpIpOption>().ReverseMap();
+                    cfg.CreateMap<HttpOption, EfHttpOption>().ReverseMap();
 
-                    cfg.CreateMap<DeviceOption, EfDeviceOption>()
-                        .ForMember(dest => dest.DeviceId, opt => opt.MapFrom(src => src.Id))
-                        .ForMember(dest => dest.Id, opt => opt.MapFrom(src => 0))
-                        .ReverseMap();
+                    cfg.CreateMap<DeviceOption, EfDeviceOption>().ReverseMap();
+                    cfg.CreateMap<ExchangeOption, EfExchangeOption>().ReverseMap();
 
-                    cfg.CreateMap<ExchangeOption, EfExchangeOption>()
-                    .ForMember(dest => dest.ExchangeId, opt => opt.MapFrom(src => src.Id))
-                    .ForMember(dest => dest.Id, opt => opt.MapFrom(src => 0))
-                    .ReverseMap();
-
-                    cfg.CreateMap<Provider, EfProvider>()
-                        .ForMember(dest => dest.ProviderId, opt => opt.MapFrom(src => src.Id))
-                        .ForMember(dest => dest.Id, opt => opt.MapFrom(src => 0))
-                        .ReverseMap();
+                    cfg.CreateMap<Provider, EfProvider>().ReverseMap();
                 });
             Mapper = config.CreateMapper();
         }

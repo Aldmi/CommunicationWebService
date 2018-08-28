@@ -3,7 +3,6 @@ using Autofac;
 using Autofac.Core;
 using DAL.Abstract.Concrete;
 using DAL.EFCore.Repository;
-using DAL.InMemory.Repository;
 
 namespace WebServer.AutofacModules
 {
@@ -26,13 +25,6 @@ namespace WebServer.AutofacModules
 
         protected override void Load(ContainerBuilder builder)
         {
-            //builder.RegisterType<InMemorySerialPortOptionRepository>().As<ISerialPortOptionRepository>()
-            //    .WithParameters(new List<Parameter>
-            //    {
-            //        new NamedParameter("connectionString", _connectionString),
-            //    })
-            //    .SingleInstance();//.InstancePerLifetimeScope();
-
             builder.RegisterType<EfSerialPortOptionRepository>().As<ISerialPortOptionRepository>()
                 .WithParameters(new List<Parameter>
                 {
@@ -40,19 +32,19 @@ namespace WebServer.AutofacModules
                 })
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<InMemoryTcpIpOptionRepository>().As<ITcpIpOptionRepository>()
+            builder.RegisterType<EfTcpIpOptionRepository>().As<ITcpIpOptionRepository>()
                 .WithParameters(new List<Parameter>
                 {
                     new NamedParameter("connectionString", _connectionString),
                 })
-                .SingleInstance();
+                .InstancePerLifetimeScope();
 
-            builder.RegisterType<InMemoryHttpOptionRepository>().As<IHttpOptionRepository>()
+            builder.RegisterType<EfHttpOptionRepository>().As<IHttpOptionRepository>()
                 .WithParameters(new List<Parameter>
                 {
                     new NamedParameter("connectionString", _connectionString),
                 })
-                .SingleInstance();
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<EfExchangeOptionRepository>().As<IExchangeOptionRepository>()
                 .WithParameters(new List<Parameter>

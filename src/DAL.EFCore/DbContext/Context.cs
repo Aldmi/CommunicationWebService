@@ -14,6 +14,8 @@ namespace DAL.EFCore.DbContext
         #region Reps
 
         public DbSet<EfSerialOption> SerialPortOptions { get; set; }
+        public DbSet<EfTcpIpOption> TcpIpOptions { get; set; }
+        public DbSet<EfHttpOption> HttpOptions { get; set; }
         public DbSet<EfDeviceOption> DeviceOptions { get; set; }
         public DbSet<EfExchangeOption> ExchangeOptions { get; set; }
 
@@ -54,6 +56,7 @@ namespace DAL.EFCore.DbContext
         {
            modelBuilder.ApplyConfiguration(new EfDeviceOptionConfig());
            modelBuilder.ApplyConfiguration(new EfExchangeOptionConfig());
+           modelBuilder.ApplyConfiguration(new EfHttpOptionConfig());
            base.OnModelCreating(modelBuilder);
         }
 

@@ -7,7 +7,8 @@ namespace DAL.EFCore.DbContext.EntitiConfiguration
     public class EfExchangeOptionConfig : IEntityTypeConfiguration<EfExchangeOption>
     {
         public void Configure(EntityTypeBuilder<EfExchangeOption> builder)
-        {           
+        {
+            //связать приватно поле _keyTransportMetaData с типом KeyTransportMetaData в БД (типа string).  Для сериализации объекта в JSON.
             builder.Property<string>("KeyTransportMetaData")
                 .HasField("_keyTransportMetaData")
                 .IsRequired();
