@@ -8,8 +8,8 @@ using DAL.Abstract.Entities.Options.Exchange;
 using Exchange.Base;
 using Exchange.Base.Model;
 using Shared.Types;
+using Transport.Base.Abstract;
 using Transport.Base.RxModel;
-using Transport.SerialPort.Abstract;
 using Worker.Background.Abstarct;
 
 
@@ -19,7 +19,7 @@ namespace Exchange.MasterSerialPort
     {
         #region field
 
-        private readonly ISerailPort _serailPort;
+        private readonly ITransport _serailPort;
         private readonly IBackground _background;
         protected readonly ExchangeOption ExchangeOption;
 
@@ -46,7 +46,7 @@ namespace Exchange.MasterSerialPort
 
         #region ctor
 
-        protected BaseExchangeSerialPort(ISerailPort serailPort, IBackground background, ExchangeOption exchangeOption)
+        protected BaseExchangeSerialPort(ITransport serailPort, IBackground background, ExchangeOption exchangeOption)
         {
             _serailPort = serailPort;
             _background = background;
@@ -54,6 +54,7 @@ namespace Exchange.MasterSerialPort
         }
 
         #endregion
+
 
 
 

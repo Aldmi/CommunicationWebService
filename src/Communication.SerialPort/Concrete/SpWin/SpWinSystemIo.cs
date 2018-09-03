@@ -207,7 +207,6 @@ namespace Transport.SerialPort.Concrete.SpWin
                 byte[] writeBuffer = dataProvider.GetDataByte();
                 if (writeBuffer != null && writeBuffer.Any())
                 {
-
                     StatusDataExchange = StatusDataExchange.Process;
                     var readBuff = await RequestAndRespawnInstantlyAsync(writeBuffer, dataProvider.CountSetDataByte, timeRespoune, ct);
                     dataProvider.SetDataByte(readBuff);

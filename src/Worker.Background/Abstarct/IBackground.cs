@@ -7,7 +7,7 @@ namespace Worker.Background.Abstarct
 {
     public interface IBackground : ISupportKeyTransport, IDisposable
     {
-        /// <summary>ъ
+        /// <summary>
         /// Запуск Бегкроунда обмена.
         /// Флаг учитывается, только при старте сервиса.
         /// </summary>
