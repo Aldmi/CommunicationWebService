@@ -60,6 +60,7 @@ namespace WebServer
             builder.RegisterModule(new BlActionsAutofacModule());
             builder.RegisterModule(new MediatorsAutofacModule());
             builder.RegisterModule(new EventBusAutofacModule());
+            builder.RegisterModule(new ExchangeDataProviderAutofacModule());
             builder.RegisterModule(new ControllerAutofacModule());
         }
 

@@ -36,6 +36,7 @@ namespace BL.Services.Mediators
         private readonly BackgroundStorageService _backgroundStorageService;
         private readonly TransportStorageService _transportStorageService;
         private readonly IEventBus _eventBus;
+        private readonly Func<IEnumerable<IExchangeDataProvider<TIn, TransportResponse>>> _dataProviderCollectionFactory;
 
         #endregion
 
@@ -48,13 +49,15 @@ namespace BL.Services.Mediators
             ExchangeStorageService<TIn> exchangeStorageService,
             BackgroundStorageService backgroundStorageService,
             TransportStorageService transportStorageService,
-            IEventBus eventBus)
+            IEventBus eventBus,
+            Func<IEnumerable<IExchangeDataProvider<TIn, TransportResponse>>> dataProviderCollectionFactory)
         {
             _transportStorageService = transportStorageService;
             _backgroundStorageService = backgroundStorageService;
             _exchangeStorageService = exchangeStorageService;
             _deviceStorageService = deviceStorageService;
             _eventBus = eventBus;
+            _dataProviderCollectionFactory = dataProviderCollectionFactory;
         }
 
         #endregion
@@ -168,8 +171,8 @@ namespace BL.Services.Mediators
                 var keyTransport = exchOption.KeyTransport;
                 var bg = _backgroundStorageService.Get(keyTransport);
                 var transport = _transportStorageService.Get(keyTransport);
-                //TODO: достовать провайдера из DI контейнера. Фабрику провайдеров передать как зависимость.
-                if (!(new VidorBinaryDataProvider() is IExchangeDataProvider<TIn, TransportResponse> dataProvider))
+                var dataProvider =_dataProviderCollectionFactory()?.FirstOrDefault(p=>p.ProviderName == "VidorBinaryDataProvider");
+                if (dataProvider == null)
                 {
                     throw new StorageHandlerException($"Провайдер данных не найденн в системе: {exchOption.Provider.Name}");
                 }

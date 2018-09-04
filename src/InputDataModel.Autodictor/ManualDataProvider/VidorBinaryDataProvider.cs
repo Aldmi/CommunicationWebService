@@ -9,6 +9,17 @@ namespace InputDataModel.Autodictor.ManualDataProvider
     public class VidorBinaryDataProvider : IExchangeDataProvider<UniversalInputType, TransportResponse>
     {
 
+        public VidorBinaryDataProvider(string sss)
+        {
+            
+        }
+
+
+        public VidorBinaryDataProvider()
+        {
+            ProviderName = "VidorBinaryDataProvider";
+        }
+
         public byte[] GetDataByte()
         {
             throw new System.NotImplementedException();
