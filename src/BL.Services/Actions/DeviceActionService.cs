@@ -17,11 +17,11 @@ namespace BL.Services.Actions
     /// * Послать вручную данные на обмен ус-ва.
     /// 
     /// </summary>
-    public class DeviceActionService
+    public class DeviceActionService<TIn>
     {
         #region fields
 
-        private readonly MediatorForStorages _mediatorForStorages;
+        private readonly MediatorForStorages<TIn> _mediatorForStorages;
 
         #endregion
 
@@ -30,7 +30,7 @@ namespace BL.Services.Actions
 
         #region ctor
 
-        public DeviceActionService(MediatorForStorages mediatorForStorages)
+        public DeviceActionService(MediatorForStorages<TIn> mediatorForStorages)
         {
             _mediatorForStorages = mediatorForStorages;
         }

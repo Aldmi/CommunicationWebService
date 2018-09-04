@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using BL.Services.Actions;
+using InputDataModel.Autodictor.InputData;
 
 namespace WebServer.AutofacModules
 {
@@ -7,7 +8,7 @@ namespace WebServer.AutofacModules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<DeviceActionService>().InstancePerDependency();    
+            builder.RegisterType<DeviceActionService<UniversalInputType>>().InstancePerDependency();    
         }
     }
 }

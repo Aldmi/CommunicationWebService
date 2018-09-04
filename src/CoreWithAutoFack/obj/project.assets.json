@@ -4817,6 +4817,7 @@
           "DeviceForExchange": "1.0.0",
           "Exchange.Base": "1.0.0",
           "Infrastructure.EventBus": "1.0.0",
+          "InputDataModel.Autodictor": "1.0.0",
           "Shared": "1.0.0",
           "Transport.Base": "1.0.0",
           "Transport.Http": "1.0.0",
@@ -4937,6 +4938,20 @@
         },
         "runtime": {
           "bin/placeholder/Infrastructure.EventBus.dll": {}
+        }
+      },
+      "InputDataModel.Autodictor/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Exchange.Base": "1.0.0",
+          "Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/InputDataModel.Autodictor.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/InputDataModel.Autodictor.dll": {}
         }
       },
       "Shared/1.0.0": {
@@ -13163,6 +13178,11 @@
       "path": "../Infrastructure/Infrastructure.EventBus.csproj",
       "msbuildProject": "../Infrastructure/Infrastructure.EventBus.csproj"
     },
+    "InputDataModel.Autodictor/1.0.0": {
+      "type": "project",
+      "path": "../InputDataModel.Autodictor/InputDataModel.Autodictor.csproj",
+      "msbuildProject": "../InputDataModel.Autodictor/InputDataModel.Autodictor.csproj"
+    },
     "Shared/1.0.0": {
       "type": "project",
       "path": "../Shared/Shared.csproj",
@@ -13206,6 +13226,7 @@
       "DeviceForExchange >= 1.0.0",
       "Exchange.Base >= 1.0.0",
       "Infrastructure.EventBus >= 1.0.0",
+      "InputDataModel.Autodictor >= 1.0.0",
       "Microsoft.AspNetCore.All >= 2.0.8",
       "Microsoft.NETCore.App >= 2.0.0",
       "Shared >= 1.0.0",
@@ -13272,6 +13293,9 @@
             },
             "D:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj": {
               "projectPath": "D:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj"
+            },
+            "D:\\Git\\CommunicationWebService\\src\\InputDataModel.Autodictor\\InputDataModel.Autodictor.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\InputDataModel.Autodictor\\InputDataModel.Autodictor.csproj"
             },
             "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
               "projectPath": "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"

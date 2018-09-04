@@ -2,7 +2,7 @@
 
 namespace BL.Services.Storages
 {
-    public class ExchangeStorageService : StorageServiceBase<string, IExchange>
+    public class ExchangeStorageService<TIn> : StorageServiceBase<string, IExchange<TIn>>
     {
 
     }

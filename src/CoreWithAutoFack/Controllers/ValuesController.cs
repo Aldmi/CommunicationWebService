@@ -5,6 +5,7 @@ using Autofac;
 using AutoMapper;
 using BL.Services.Storages;
 using Exchange.Base;
+using InputDataModel.Autodictor.InputData;
 using Microsoft.AspNetCore.Mvc;
 using Transport.SerialPort.Abstract;
 using WebServer.AutoMapperConfig;
@@ -21,7 +22,7 @@ namespace WebServer.Controllers
     {
         private readonly TransportStorageService _spSrStorageService;
         private readonly IMapper _mapper;
-        private readonly IEnumerable<IExchange> _excBehaviors;
+        private readonly IEnumerable<IExchange<UniversalInputType>> _excBehaviors;
         private readonly IEnumerable<IBackground> _backgroundServices;
         private readonly ILifetimeScope _scope;
         private readonly ISerailPort _spService;

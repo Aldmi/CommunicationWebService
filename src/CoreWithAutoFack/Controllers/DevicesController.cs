@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using BL.Services.Actions;
 using BL.Services.Exceptions;
 using BL.Services.Mediators;
+using InputDataModel.Autodictor.InputData;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebServer.Controllers
@@ -19,8 +20,8 @@ namespace WebServer.Controllers
     {
         #region fields
 
-        private readonly MediatorForStorages _mediatorForStorages;
-        private readonly DeviceActionService _deviceActionService;
+        private readonly MediatorForStorages<UniversalInputType> _mediatorForStorages;
+        private readonly DeviceActionService<UniversalInputType> _deviceActionService;
 
         #endregion
 
@@ -29,7 +30,7 @@ namespace WebServer.Controllers
 
         #region ctor
 
-        public DevicesController(MediatorForStorages mediatorForStorages, DeviceActionService deviceActionService)
+        public DevicesController(MediatorForStorages<UniversalInputType> mediatorForStorages, DeviceActionService<UniversalInputType> deviceActionService)
         {
             _mediatorForStorages = mediatorForStorages;
             _deviceActionService = deviceActionService;
@@ -46,7 +47,7 @@ namespace WebServer.Controllers
         [HttpGet("{exchnageKey}")]
         public async Task<IActionResult> GetDevicesUsingExchange([FromRoute] string exchnageKey)
         {
-            var devicesUsingExchange=  _mediatorForStorages.GetDevicesUsingExchange(exchnageKey);
+            var devicesUsingExchange= _mediatorForStorages.GetDevicesUsingExchange(exchnageKey);
             await Task.CompletedTask;
             return new JsonResult(devicesUsingExchange);
         }

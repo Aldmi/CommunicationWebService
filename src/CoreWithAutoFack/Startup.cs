@@ -7,6 +7,7 @@ using BL.Services.Storages;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
 using Infrastructure.EventBus.Abstract;
+using InputDataModel.Autodictor.InputData;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -101,7 +102,7 @@ namespace WebServer
                 lifetimeApp.ApplicationStarted.Register(() => back.StartAsync(CancellationToken.None));
             }
 
-            var exchangeServices = scope.Resolve<ExchangeStorageService>();
+            var exchangeServices = scope.Resolve<ExchangeStorageService<UniversalInputType>>();
             foreach (var exchange in exchangeServices.Values)
             {
                 lifetimeApp.ApplicationStarted.Register(async () => await exchange.CycleReOpened());
@@ -117,7 +118,7 @@ namespace WebServer
                 lifetimeApp.ApplicationStopping.Register(() => back.StopAsync(CancellationToken.None));
             }
 
-            var exchangeServices = scope.Resolve<ExchangeStorageService>();
+            var exchangeServices = scope.Resolve<ExchangeStorageService<UniversalInputType>>();
             foreach (var exchange in exchangeServices.Values)
             {
                 lifetimeApp.ApplicationStopping.Register(() => exchange.CycleReOpenedCancelation());

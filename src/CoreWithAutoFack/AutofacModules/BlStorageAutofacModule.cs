@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using BL.Services.Mediators;
 using BL.Services.Storages;
+using InputDataModel.Autodictor.InputData;
 
 namespace WebServer.AutofacModules
 {
@@ -13,8 +14,8 @@ namespace WebServer.AutofacModules
         {
             builder.RegisterType<TransportStorageService>().SingleInstance(); 
             builder.RegisterType<BackgroundStorageService>().SingleInstance();
-            builder.RegisterType<ExchangeStorageService>().SingleInstance();
-            builder.RegisterType<DeviceStorageService>().SingleInstance();   
+            builder.RegisterType<ExchangeStorageService<UniversalInputType>>().SingleInstance();
+            builder.RegisterType<DeviceStorageService<UniversalInputType>>().SingleInstance();   
         }
     }
 }

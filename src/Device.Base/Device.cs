@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using DAL.Abstract.Entities.Options.Device;
 using Exchange.Base;
-using Exchange.Base.Model;
 using Infrastructure.EventBus.Abstract;
 using Transport.Base.RxModel;
 
@@ -13,7 +12,7 @@ namespace DeviceForExchange
     /// Устройство.
     /// Содержит список обменов.
     /// </summary>
-    public class Device : IDisposable
+    public class Device<TIn> : IDisposable
     {
         #region field
 
@@ -27,7 +26,7 @@ namespace DeviceForExchange
         #region prop
 
         public DeviceOption Option { get;  }
-        public List<IExchange> Exchanges { get; }
+        public List<IExchange<TIn>> Exchanges { get; }
 
         #endregion
 
@@ -36,7 +35,7 @@ namespace DeviceForExchange
 
         #region ctor
 
-        public Device(DeviceOption option, IEnumerable<IExchange> exchanges, IEventBus eventBus)
+        public Device(DeviceOption option, IEnumerable<IExchange<TIn>> exchanges, IEventBus eventBus)
         {
             Option = option;
             Exchanges = exchanges.ToList();
@@ -68,9 +67,10 @@ namespace DeviceForExchange
 
 
 
-        void SendCommand(string commandName, UniversalInputType data4Command = null)
+        void SendCommand(string commandName, TIn data4Command)
         {
-
+            var firtstEch=Exchanges.FirstOrDefault();
+            firtstEch.SendCommand(commandName, data4Command); //DEBUG
         }
 
         #endregion
@@ -80,14 +80,14 @@ namespace DeviceForExchange
 
         #region RxEventHandler 
 
-        private void ConnectChangeRxEventHandler(IExchange exchange)
+        private void ConnectChangeRxEventHandler(IExchange<TIn> exchange)
         {
             var connect = exchange.IsConnect;
             
         }
 
 
-        private void LastSendDataChangeRxEventHandler(IExchange exchange)
+        private void LastSendDataChangeRxEventHandler(IExchange<TIn> exchange)
         {
             var lastSendData = exchange.LastSendData;
         }

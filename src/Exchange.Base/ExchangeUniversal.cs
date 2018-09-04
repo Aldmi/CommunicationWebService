@@ -5,25 +5,23 @@ using System.IO;
 using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
-using DataProvider.Base.Abstract;
 using DAL.Abstract.Entities.Options.Exchange;
-using Exchange.Base.Model;
+using Exchange.Base.DataProviderAbstract;
 using Shared.Types;
 using Transport.Base.Abstract;
-using Transport.Base.Model;
 using Transport.Base.RxModel;
 using Worker.Background.Abstarct;
 
 
 namespace Exchange.Base
 {
-    public class ExchangeUniversal : IExchange
+    public class ExchangeUniversal<TIn> : IExchange<TIn>
     {
         #region field
         protected readonly ExchangeOption ExchangeOption;
         private readonly ITransport _transport;
         private readonly IBackground _background;
-        private readonly IExchangeDataProvider<UniversalInputType, TransportResponse> _dataProvider;
+        private readonly IExchangeDataProvider<TIn, TransportResponse> _dataProvider;
         #endregion
 
 
@@ -36,11 +34,11 @@ namespace Exchange.Base
         public KeyTransport KeyTransport => ExchangeOption.KeyTransport;
         public bool IsOpen => _transport.IsOpen;
         public bool IsConnect { get; }
-        public UniversalInputType LastSendData { get; private set; }
+        public TIn LastSendData { get; private set; }
         public IEnumerable<string> GetRuleNames => new List<string>(); //TODO: сейчас в ExchangeMasterSpOption только 1 ExchangeRule, должно быть список.
         public bool IsStartedCycleExchange { get; set; }
-        protected ConcurrentQueue<UniversalInputType> InDataQueue { get; set; } = new ConcurrentQueue<UniversalInputType>(); //Очередь данных для SendOneTimeData().
-        protected UniversalInputType Data4CycleFunc { get; set; }                                                           //Данные для Цикл. функции.
+        protected ConcurrentQueue<TIn> InDataQueue { get; set; } = new ConcurrentQueue<TIn>(); //Очередь данных для SendOneTimeData().
+        protected TIn Data4CycleFunc { get; set; }                                                           //Данные для Цикл. функции.
 
         #endregion
 
@@ -48,7 +46,7 @@ namespace Exchange.Base
 
         #region ctor
 
-        public ExchangeUniversal(ExchangeOption exchangeOption, ITransport transport, IBackground background, IExchangeDataProvider<UniversalInputType, TransportResponse> dataProvider)
+        public ExchangeUniversal(ExchangeOption exchangeOption, ITransport transport, IBackground background, IExchangeDataProvider<TIn, TransportResponse> dataProvider)
         {
             ExchangeOption = exchangeOption;
 
@@ -63,13 +61,19 @@ namespace Exchange.Base
 
         #region RxEvent
 
-        public ISubject<IExchange> IsDataExchangeSuccessChangeRx { get; } //TODO: Добавить событие обмена
-        public ISubject<IExchange> IsConnectChangeRx { get; }
-        public ISubject<IExchange> LastSendDataChangeRx { get; }
+        public ISubject<IExchange<TIn>> IsDataExchangeSuccessChangeRx { get; } //TODO: Добавить событие обмена
+        public ISubject<IExchange<TIn>> IsConnectChangeRx { get; }
+        public ISubject<IExchange<TIn>> LastSendDataChangeRx { get; }
 
         public ISubject<IsOpenChangeRxModel> IsOpenChangeTransportRx => _transport.IsOpenChangeRx;
         public ISubject<StatusDataExchangeChangeRxModel> StatusDataExchangeChangeTransportRx => _transport.StatusDataExchangeChangeRx;
         public ISubject<StatusStringChangeRxModel> StatusStringChangeTransportRx => _transport.StatusStringChangeRx;
+
+        ISubject<IExchange<TIn>> IExchange<TIn>.IsDataExchangeSuccessChangeRx => throw new NotImplementedException();
+
+        ISubject<IExchange<TIn>> IExchange<TIn>.IsConnectChangeRx => throw new NotImplementedException();
+
+        ISubject<IExchange<TIn>> IExchange<TIn>.LastSendDataChangeRx => throw new NotImplementedException();
 
         #endregion
 
@@ -144,7 +148,7 @@ namespace Exchange.Base
         /// </summary>
         /// <param name="commandName"></param>
         /// <param name="data4Command"></param>
-        public void SendCommand(string commandName, UniversalInputType data4Command = null)
+        public void SendCommand(string commandName, TIn data4Command)
         {
             throw new System.NotImplementedException();
         }
@@ -154,7 +158,7 @@ namespace Exchange.Base
         /// Отправить данные для однократно выставляемой функции.
         /// Функция выставляется на БГ.
         /// </summary>
-        public void SendOneTimeData(UniversalInputType inData)
+        public void SendOneTimeData(TIn inData)
         {
             if (inData != null)
             {
@@ -167,7 +171,7 @@ namespace Exchange.Base
         /// <summary>
         /// Выставить данные для цикл. функции.
         /// </summary>
-        public void SendCycleTimeData(UniversalInputType inData)
+        public void SendCycleTimeData(TIn inData)
         {
             if (inData != null)
             {
@@ -176,6 +180,7 @@ namespace Exchange.Base
         }
 
         #endregion
+
 
 
         #region Actions

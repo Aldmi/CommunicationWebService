@@ -5,16 +5,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using BL.Services.Exceptions;
 using BL.Services.Storages;
-using DataProvider.Base.Abstract;
 using DAL.Abstract.Entities.Options;
 using DeviceForExchange;
 using Exchange.Base;
-using Exchange.Base.Model;
+using Exchange.Base.DataProviderAbstract;
 using Infrastructure.EventBus.Abstract;
+using InputDataModel.Autodictor.ManualDataProvider;
 using Shared.Enums;
 using Shared.Types;
 using Transport.Base.Abstract;
-using Transport.Base.Model;
 using Transport.Http.Concrete;
 using Transport.SerialPort.Concrete.SpWin;
 using Transport.TcpIp.Concrete;
@@ -28,12 +27,12 @@ namespace BL.Services.Mediators
     /// Сервис объединяет работу со всеми Storage,
     /// и предоставляет интерфейс для Добавления/Удаления элементов в Storage
     /// </summary>
-    public class MediatorForStorages
+    public class MediatorForStorages<TIn>
     {
         #region fields
 
-        private readonly DeviceStorageService _deviceStorageService;
-        private readonly ExchangeStorageService _exchangeStorageService;
+        private readonly DeviceStorageService<TIn> _deviceStorageService;
+        private readonly ExchangeStorageService<TIn> _exchangeStorageService;
         private readonly BackgroundStorageService _backgroundStorageService;
         private readonly TransportStorageService _transportStorageService;
         private readonly IEventBus _eventBus;
@@ -45,8 +44,8 @@ namespace BL.Services.Mediators
 
         #region ctor
 
-        public MediatorForStorages(DeviceStorageService deviceStorageService,
-            ExchangeStorageService exchangeStorageService,
+        public MediatorForStorages(DeviceStorageService<TIn> deviceStorageService,
+            ExchangeStorageService<TIn> exchangeStorageService,
             BackgroundStorageService backgroundStorageService,
             TransportStorageService transportStorageService,
             IEventBus eventBus)
@@ -70,14 +69,14 @@ namespace BL.Services.Mediators
         /// </summary>
         /// <param name="deviceName">Имя ус-ва, он же ключ к хранилищу</param>
         /// <returns>Верунть ус-во</returns>
-        public Device GetDevice(string deviceName)
+        public Device<TIn> GetDevice(string deviceName)
         {
             var device = _deviceStorageService.Get(deviceName);
             return device;
         }
 
 
-        public IEnumerable<Device> GetDevices()
+        public IEnumerable<Device<TIn>> GetDevices()
         {
             return _deviceStorageService.Values;
         }
@@ -88,13 +87,13 @@ namespace BL.Services.Mediators
         /// </summary>
         /// <param name="exchnageKey"></param>
         /// <returns></returns>
-        public IEnumerable<Device> GetDevicesUsingExchange(string exchnageKey)
+        public IEnumerable<Device<TIn>> GetDevicesUsingExchange(string exchnageKey)
         {
             return _deviceStorageService.Values.Where(dev=>dev.Option.ExchangeKeys.Contains(exchnageKey));
         }
 
 
-        public IExchange GetExchange(string exchnageKey)
+        public IExchange<TIn> GetExchange(string exchnageKey)
         {
             return _exchangeStorageService.Get(exchnageKey);
         }
@@ -113,7 +112,7 @@ namespace BL.Services.Mediators
         /// </summary>
         /// <param name="optionAgregator">Цепочка настроек одного устройства. Настройкам этим полностью доверяем (не валидируем).</param>
         /// <returns> Новое созданное ус-во, добавленное в хранилище</returns>
-        public Device BuildAndAddDevice(OptionAgregator optionAgregator)
+        public Device<TIn> BuildAndAddDevice(OptionAgregator optionAgregator)
         {
             var deviceOption = optionAgregator.DeviceOptions.First();
             if (_deviceStorageService.IsExist(deviceOption.Name))
@@ -169,14 +168,18 @@ namespace BL.Services.Mediators
                 var keyTransport = exchOption.KeyTransport;
                 var bg = _backgroundStorageService.Get(keyTransport);
                 var transport = _transportStorageService.Get(keyTransport);
-                IExchangeDataProvider<UniversalInputType, TransportResponse> dataProvider = null;
-                exch = new ExchangeUniversal(exchOption, transport, bg, dataProvider);
+                //TODO: достовать провайдера из DI контейнера. Фабрику провайдеров передать как зависимость.
+                if (!(new VidorBinaryDataProvider() is IExchangeDataProvider<TIn, TransportResponse> dataProvider))
+                {
+                    throw new StorageHandlerException($"Провайдер данных не найденн в системе: {exchOption.Provider.Name}");
+                }
+                exch = new ExchangeUniversal<TIn>(exchOption, transport, bg, dataProvider);
                 _exchangeStorageService.AddNew(exchOption.Key, exch);
             }
 
             //ДОБАВИТЬ УСТРОЙСТВО--------------------------------------------------------------------------
             var excanges = _exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
-            var device = new Device(deviceOption, excanges, _eventBus);
+            var device = new Device<TIn>(deviceOption, excanges, _eventBus);
             _deviceStorageService.AddNew(device.Option.Name, device);
 
             return device;
@@ -189,7 +192,7 @@ namespace BL.Services.Mediators
         /// Если использовались уникальные обмены, то удалить и их. 
         /// Если удаленный (уникальный) обмен использовал уникальный транспорт, то отсановить обмен и удалить транспорт.
         /// </summary>
-        public async Task<Device> RemoveDevice(string deviceName)
+        public async Task<Device<TIn>> RemoveDevice(string deviceName)
         {
             var device = GetDevice(deviceName);
             if (device == null)
@@ -240,8 +243,6 @@ namespace BL.Services.Mediators
         }
 
         #endregion
-
-
-
     }
+
 }
