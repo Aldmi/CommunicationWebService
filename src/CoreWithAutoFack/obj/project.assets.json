@@ -15,18 +15,17 @@
           "lib/netstandard1.1/Autofac.dll": {}
         }
       },
-      "Autofac.Extensions.DependencyInjection/4.2.2": {
+      "Autofac.Extensions.DependencyInjection/4.3.0": {
         "type": "package",
         "dependencies": {
           "Autofac": "4.2.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0",
-          "NETStandard.Library": "1.6.1"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0"
         },
         "compile": {
-          "lib/netstandard1.1/Autofac.Extensions.DependencyInjection.dll": {}
+          "lib/netstandard2.0/Autofac.Extensions.DependencyInjection.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.1/Autofac.Extensions.DependencyInjection.dll": {}
+          "lib/netstandard2.0/Autofac.Extensions.DependencyInjection.dll": {}
         }
       },
       "AutoMapper/7.0.1": {
@@ -1732,11 +1731,11 @@
           "lib/netstandard1.3/Microsoft.DotNet.PlatformAbstractions.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore/2.1.1": {
+      "Microsoft.EntityFrameworkCore/2.1.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "2.1.1",
-          "Microsoft.EntityFrameworkCore.Analyzers": "2.1.1",
+          "Microsoft.EntityFrameworkCore.Abstractions": "2.1.2",
+          "Microsoft.EntityFrameworkCore.Analyzers": "2.1.2",
           "Microsoft.Extensions.Caching.Memory": "2.1.1",
           "Microsoft.Extensions.DependencyInjection": "2.1.1",
           "Microsoft.Extensions.Logging": "2.1.1",
@@ -1753,7 +1752,7 @@
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/2.1.1": {
+      "Microsoft.EntityFrameworkCore.Abstractions/2.1.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {}
@@ -1762,14 +1761,14 @@
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Analyzers/2.1.1": {
+      "Microsoft.EntityFrameworkCore.Analyzers/2.1.2": {
         "type": "package"
       },
-      "Microsoft.EntityFrameworkCore.Design/2.1.1": {
+      "Microsoft.EntityFrameworkCore.Design/2.1.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.5.0",
-          "Microsoft.EntityFrameworkCore.Relational": "2.1.1"
+          "Microsoft.EntityFrameworkCore.Relational": "2.1.2"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.dll": {}
@@ -1793,10 +1792,10 @@
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.InMemory.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Relational/2.1.1": {
+      "Microsoft.EntityFrameworkCore.Relational/2.1.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "2.1.1"
+          "Microsoft.EntityFrameworkCore": "2.1.2"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Relational.dll": {}
@@ -1825,10 +1824,10 @@
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Sqlite.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.SqlServer/2.1.1": {
+      "Microsoft.EntityFrameworkCore.SqlServer/2.1.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "2.1.1",
+          "Microsoft.EntityFrameworkCore.Relational": "2.1.2",
           "System.Data.SqlClient": "4.5.1"
         },
         "compile": {
@@ -3894,10 +3893,11 @@
           "lib/netstandard1.3/System.Private.DataContractSerialization.dll": {}
         }
       },
-      "System.Reactive/4.0.0": {
+      "System.Reactive/4.1.0": {
         "type": "package",
         "dependencies": {
-          "System.Runtime.InteropServices.WindowsRuntime": "4.3.0"
+          "System.Runtime.InteropServices.WindowsRuntime": "4.3.0",
+          "System.Threading.Tasks.Extensions": "4.5.1"
         },
         "compile": {
           "lib/netstandard2.0/System.Reactive.dll": {}
@@ -4581,13 +4581,16 @@
           "ref/netstandard1.3/System.Threading.Tasks.dll": {}
         }
       },
-      "System.Threading.Tasks.Extensions/4.4.0": {
+      "System.Threading.Tasks.Extensions/4.5.1": {
         "type": "package",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.5.0"
+        },
         "compile": {
-          "ref/netcoreapp2.0/_._": {}
+          "ref/netstandard2.0/System.Threading.Tasks.Extensions.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp2.0/_._": {}
+          "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll": {}
         }
       },
       "System.Threading.Tasks.Parallel/4.3.0": {
@@ -4813,9 +4816,6 @@
         "dependencies": {
           "DeviceForExchange": "1.0.0",
           "Exchange.Base": "1.0.0",
-          "Exchange.Http": "1.0.0",
-          "Exchange.MasterSerialPort": "1.0.0",
-          "Exchange.TcpIp": "1.0.0",
           "Infrastructure.EventBus": "1.0.0",
           "Shared": "1.0.0",
           "Transport.Base": "1.0.0",
@@ -4851,8 +4851,8 @@
           "AutoMapper": "7.0.1",
           "AutoMapper.Extensions.ExpressionMapping": "1.0.2",
           "DAL.Abstract": "1.0.0",
-          "Microsoft.EntityFrameworkCore.Design": "2.1.1",
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.1.1",
+          "Microsoft.EntityFrameworkCore.Design": "2.1.2",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.1.2",
           "Newtonsoft.Json": "11.0.2",
           "Shared": "1.0.0"
         },
@@ -4877,6 +4877,20 @@
           "bin/placeholder/DAL.InMemory.dll": {}
         }
       },
+      "DataProvider.Base/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Shared": "1.0.0",
+          "Transport.Base": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DataProvider.Base.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DataProvider.Base.dll": {}
+        }
+      },
       "DeviceForExchange/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -4898,7 +4912,9 @@
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "DAL.Abstract": "1.0.0",
+          "DataProvider.Base": "1.0.0",
           "Shared": "1.0.0",
+          "System.Reactive": "4.1.0",
           "Transport.Base": "1.0.0",
           "Worker.Background": "1.0.0"
         },
@@ -4909,61 +4925,12 @@
           "bin/placeholder/Exchange.Base.dll": {}
         }
       },
-      "Exchange.Http/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "Exchange.Base": "1.0.0",
-          "Shared": "1.0.0",
-          "Transport.Http": "1.0.0",
-          "Worker.Background": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Exchange.Http.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Exchange.Http.dll": {}
-        }
-      },
-      "Exchange.MasterSerialPort/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "Exchange.Base": "1.0.0",
-          "Shared": "1.0.0",
-          "System.Reactive": "4.0.0",
-          "Transport.SerialPort": "1.0.0",
-          "Worker.Background": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Exchange.MasterSerialPort.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Exchange.MasterSerialPort.dll": {}
-        }
-      },
-      "Exchange.TcpIp/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "Exchange.Base": "1.0.0",
-          "Shared": "1.0.0",
-          "Transport.TcpIp": "1.0.0",
-          "Worker.Background": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Exchange.TcpIp.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Exchange.TcpIp.dll": {}
-        }
-      },
       "Infrastructure.EventBus/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "MemBus": "4.0.1",
-          "System.Reactive": "4.0.0"
+          "System.Reactive": "4.1.0"
         },
         "compile": {
           "bin/placeholder/Infrastructure.EventBus.dll": {}
@@ -4992,7 +4959,7 @@
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Shared": "1.0.0",
-          "System.Reactive": "4.0.0"
+          "System.Reactive": "4.1.0"
         },
         "compile": {
           "bin/placeholder/Transport.Base.dll": {}
@@ -5023,7 +4990,7 @@
           "DAL.Abstract": "1.0.0",
           "Shared": "1.0.0",
           "System.IO.Ports": "4.5.0",
-          "System.Reactive": "4.0.0",
+          "System.Reactive": "4.1.0",
           "Transport.Base": "1.0.0"
         },
         "compile": {
@@ -5039,7 +5006,7 @@
         "dependencies": {
           "DAL.Abstract": "1.0.0",
           "Shared": "1.0.0",
-          "System.Reactive": "4.0.0",
+          "System.Reactive": "4.1.0",
           "Transport.Base": "1.0.0"
         },
         "compile": {
@@ -5054,7 +5021,7 @@
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Shared": "1.0.0",
-          "System.Reactive": "4.0.0"
+          "System.Reactive": "4.1.0"
         },
         "compile": {
           "bin/placeholder/Worker.Background.dll": {}
@@ -5079,15 +5046,20 @@
         "lib/netstandard1.1/Autofac.xml"
       ]
     },
-    "Autofac.Extensions.DependencyInjection/4.2.2": {
-      "sha512": "nkspkD4qRKCvM1WG6bFLAuEwvbajEhEe7U3Q6XISCBEG6ZamOy52JACXnx3VumZksjPTylavkUZRzBBY7T2R+w==",
+    "Autofac.Extensions.DependencyInjection/4.3.0": {
+      "sha512": "q32oTGBjPMpxJfq85AfzEFOLmUqa4DHUjqdN1HVRcUt0ObFDMoAhnit7ieBtyCu4vMhJ7DaNnfGHRSkUp1YMyQ==",
       "type": "package",
-      "path": "autofac.extensions.dependencyinjection/4.2.2",
+      "path": "autofac.extensions.dependencyinjection/4.3.0",
       "files": [
-        "autofac.extensions.dependencyinjection.4.2.2.nupkg.sha512",
+        ".signature.p7s",
+        "autofac.extensions.dependencyinjection.4.3.0.nupkg.sha512",
         "autofac.extensions.dependencyinjection.nuspec",
         "lib/netstandard1.1/Autofac.Extensions.DependencyInjection.dll",
-        "lib/netstandard1.1/Autofac.Extensions.DependencyInjection.xml"
+        "lib/netstandard1.1/Autofac.Extensions.DependencyInjection.pdb",
+        "lib/netstandard1.1/Autofac.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.0/Autofac.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.0/Autofac.Extensions.DependencyInjection.pdb",
+        "lib/netstandard2.0/Autofac.Extensions.DependencyInjection.xml"
       ]
     },
     "AutoMapper/7.0.1": {
@@ -6552,45 +6524,45 @@
         "microsoft.dotnet.platformabstractions.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore/2.1.1": {
-      "sha512": "R0zD5lDEA0Aari3+stBhAP5dredWIHcu4+tKfumG7Q6r34Psl5a3fC4hXOBD4W8Mc+aRaee3xehLQC0M0EHEdA==",
+    "Microsoft.EntityFrameworkCore/2.1.2": {
+      "sha512": "GxWAl2THJjOGxyLAib7b84Qnd9RzSTiVKLADWWXB7y8bz6WY71r75kBQxdlT7cMR4hjH/Z72xYaDUWD+RSn8aQ==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore/2.1.1",
+      "path": "microsoft.entityframeworkcore/2.1.2",
       "files": [
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.dll",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.xml",
-        "microsoft.entityframeworkcore.2.1.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.2.1.2.nupkg.sha512",
         "microsoft.entityframeworkcore.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Abstractions/2.1.1": {
-      "sha512": "eAkWeRhvwMLbAmS73HUESlE/sRmGYdKr1nzZ/IOmyRFz37e8BGEGwwbazKhi2OjjzdIWJxmMdB4nGQUP2mco7A==",
+    "Microsoft.EntityFrameworkCore.Abstractions/2.1.2": {
+      "sha512": "/uNdUYb9eP5ZaMUx6Ql8kzHUOKKaIxjDPFmtgD0rBPp3Kx8QPes1MOmCWlcHDY/bitjt4fQL6m45Btc4IiwYzA==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.abstractions/2.1.1",
+      "path": "microsoft.entityframeworkcore.abstractions/2.1.2",
       "files": [
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Abstractions.dll",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Abstractions.xml",
-        "microsoft.entityframeworkcore.abstractions.2.1.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.abstractions.2.1.2.nupkg.sha512",
         "microsoft.entityframeworkcore.abstractions.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Analyzers/2.1.1": {
-      "sha512": "Cvyj3q8j0vhhEBbxRXXTZZhrO0RW/hRJQ6VzfGcfvMh+Zhkr8Jl4CP8gA5GXOgg+0dxYYC+GfT27EqjbxM3Qbg==",
+    "Microsoft.EntityFrameworkCore.Analyzers/2.1.2": {
+      "sha512": "E69ng8rH5o+hwxkdVBkgnn/I+F1OiIy5I0cRtlEVYj35LxtEswQ0DD5lnCne3mw6JqURfUtOXQj8804stYTWuA==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.analyzers/2.1.1",
+      "path": "microsoft.entityframeworkcore.analyzers/2.1.2",
       "files": [
         ".signature.p7s",
         "analyzers/dotnet/cs/Microsoft.EntityFrameworkCore.Analyzers.dll",
-        "microsoft.entityframeworkcore.analyzers.2.1.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.analyzers.2.1.2.nupkg.sha512",
         "microsoft.entityframeworkcore.analyzers.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Design/2.1.1": {
-      "sha512": "/kmRSJHgtcng6eNsy7ab3Ac2ofqqoQAZTiTPMKlLaD6WaEG0t5KJuj71/jAMo9LGgaeKGMI0m5wmG+LsIAlaSA==",
+    "Microsoft.EntityFrameworkCore.Design/2.1.2": {
+      "sha512": "ioo474OkMqM0F7yh4pox8k3rH1NsS3U/0pOjRGv/o/RAvGjyvBF/lCG6JUPaDLj6JVnzPAw7KZ3ISfPTUBPuGw==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.design/2.1.1",
+      "path": "microsoft.entityframeworkcore.design/2.1.2",
       "files": [
         ".signature.p7s",
         "build/net461/Microsoft.EntityFrameworkCore.Design.props",
@@ -6599,7 +6571,7 @@
         "lib/net461/Microsoft.EntityFrameworkCore.Design.xml",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.dll",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.xml",
-        "microsoft.entityframeworkcore.design.2.1.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.design.2.1.2.nupkg.sha512",
         "microsoft.entityframeworkcore.design.nuspec"
       ]
     },
@@ -6615,15 +6587,15 @@
         "microsoft.entityframeworkcore.inmemory.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Relational/2.1.1": {
-      "sha512": "GdS22wCLqf+W+NvWzuz/0oXmulD0mlxa65Z/RO65YiAJRDhLZ/4/QYeDEIvh8HF9Fw4kB/UnrQ756uv0+IDDKQ==",
+    "Microsoft.EntityFrameworkCore.Relational/2.1.2": {
+      "sha512": "7g0gmst6wNin6+ykkrLvx6pn1yRah+6wfts+sFPv9IG/ex1Q5o1jsjIeXte/5fjo9ufpmx9+4fKMO+YC74ssEA==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.relational/2.1.1",
+      "path": "microsoft.entityframeworkcore.relational/2.1.2",
       "files": [
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Relational.dll",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Relational.xml",
-        "microsoft.entityframeworkcore.relational.2.1.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.relational.2.1.2.nupkg.sha512",
         "microsoft.entityframeworkcore.relational.nuspec"
       ]
     },
@@ -6649,15 +6621,15 @@
         "microsoft.entityframeworkcore.sqlite.core.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.SqlServer/2.1.1": {
-      "sha512": "+owJ/RcmFOrRseb+9PEjqhoOcE7l+DeTe0Jwte0tqhYoiPxZpC6jtGhUhpftPSBkC662siPR7kNm2TfxpPVilQ==",
+    "Microsoft.EntityFrameworkCore.SqlServer/2.1.2": {
+      "sha512": "ztryNz3AT0QGZPVSOY8UD5OCj1KpYFgJTt13UbvyhsxY2ewe8af9z+vAu1zs8OIrd+BMpncLUfVvrNJS+5azRg==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.sqlserver/2.1.1",
+      "path": "microsoft.entityframeworkcore.sqlserver/2.1.2",
       "files": [
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.SqlServer.dll",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.SqlServer.xml",
-        "microsoft.entityframeworkcore.sqlserver.2.1.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.sqlserver.2.1.2.nupkg.sha512",
         "microsoft.entityframeworkcore.sqlserver.nuspec"
       ]
     },
@@ -7171,7 +7143,7 @@
       ]
     },
     "Microsoft.Extensions.PlatformAbstractions/1.1.0": {
-      "sha512": "H6ZsQzxYw/6k2DfEQRXdC+vQ6obd6Uba3uGJrnJ2vG4PRXjQZ7seB13JdCfE72abp8E6Fk3gGgDzfJiLZi5ZpQ==",
+      "sha512": "UMlN++q5qqzQ2HH+uOrKxN5fmBXMQDhrYkSaPJxhmyzfJaFPirrVr1raim/Ocq1psAZoB9+7JSAf0GDAX35wUg==",
       "type": "package",
       "path": "microsoft.extensions.platformabstractions/1.1.0",
       "files": [
@@ -10592,14 +10564,12 @@
         "system.private.datacontractserialization.nuspec"
       ]
     },
-    "System.Reactive/4.0.0": {
-      "sha512": "vv4/fY+iZbMa1fK2mnf5abqbhDUdW0NS5ryMU7sBqZqFWL65DpWHm3GWRYLa5v9WJQRruw1dI99GQWPu4L6sSg==",
+    "System.Reactive/4.1.0": {
+      "sha512": "HK7h2XA9PM5Znh9dBYM1wi7J7ZpnyJqKhol4xvoij9b0uifeY8iIrN8SU0bWftmVdUPR6D8kB6XH3uJBx/Clug==",
       "type": "package",
-      "path": "system.reactive/4.0.0",
+      "path": "system.reactive/4.1.0",
       "files": [
         ".signature.p7s",
-        "System.Reactive.4.0.0.nupkg.sha512",
-        "System.Reactive.nuspec",
         "lib/net46/System.Reactive.dll",
         "lib/net46/System.Reactive.xml",
         "lib/netstandard2.0/System.Reactive.dll",
@@ -10609,7 +10579,9 @@
         "lib/uap10.0.16299/System.Reactive.xml",
         "lib/uap10.0/System.Reactive.dll",
         "lib/uap10.0/System.Reactive.pri",
-        "lib/uap10.0/System.Reactive.xml"
+        "lib/uap10.0/System.Reactive.xml",
+        "system.reactive.4.1.0.nupkg.sha512",
+        "system.reactive.nuspec"
       ]
     },
     "System.Reflection/4.3.0": {
@@ -12546,22 +12518,39 @@
         "system.threading.tasks.nuspec"
       ]
     },
-    "System.Threading.Tasks.Extensions/4.4.0": {
-      "sha512": "SPKfFGbpQsK5Srz2Kq3URgvC90yoOyBE8H1quDA2+MAJ2HAzFmV3biOgPv2Ck3mPAvdKngo3QHi2BNwUQDRVvA==",
+    "System.Threading.Tasks.Extensions/4.5.1": {
+      "sha512": "rckdhLJtzQ3EI+0BGuq7dUVtCSnerqAoAmL3S6oMRZ4VMZTL3Rq9DS8IDW57c6PYVebA4O0NbSA1BDvyE18UMA==",
       "type": "package",
-      "path": "system.threading.tasks.extensions/4.4.0",
+      "path": "system.threading.tasks.extensions/4.5.1",
       "files": [
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "lib/netcoreapp2.0/_._",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/netcoreapp2.1/_._",
         "lib/netstandard1.0/System.Threading.Tasks.Extensions.dll",
         "lib/netstandard1.0/System.Threading.Tasks.Extensions.xml",
         "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll",
         "lib/netstandard2.0/System.Threading.Tasks.Extensions.xml",
         "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.dll",
         "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.xml",
-        "ref/netcoreapp2.0/_._",
-        "system.threading.tasks.extensions.4.4.0.nupkg.sha512",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/netcoreapp2.1/_._",
+        "ref/netstandard1.0/System.Threading.Tasks.Extensions.dll",
+        "ref/netstandard1.0/System.Threading.Tasks.Extensions.xml",
+        "ref/netstandard2.0/System.Threading.Tasks.Extensions.dll",
+        "ref/netstandard2.0/System.Threading.Tasks.Extensions.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.threading.tasks.extensions.4.5.1.nupkg.sha512",
         "system.threading.tasks.extensions.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -13154,6 +13143,11 @@
       "path": "../DAL.InMemory/DAL.InMemory.csproj",
       "msbuildProject": "../DAL.InMemory/DAL.InMemory.csproj"
     },
+    "DataProvider.Base/1.0.0": {
+      "type": "project",
+      "path": "../DataProvider.Base/DataProvider.Base.csproj",
+      "msbuildProject": "../DataProvider.Base/DataProvider.Base.csproj"
+    },
     "DeviceForExchange/1.0.0": {
       "type": "project",
       "path": "../Device.Base/DeviceForExchange.csproj",
@@ -13163,21 +13157,6 @@
       "type": "project",
       "path": "../Exchange.Base/Exchange.Base.csproj",
       "msbuildProject": "../Exchange.Base/Exchange.Base.csproj"
-    },
-    "Exchange.Http/1.0.0": {
-      "type": "project",
-      "path": "../Exchange.Http/Exchange.Http.csproj",
-      "msbuildProject": "../Exchange.Http/Exchange.Http.csproj"
-    },
-    "Exchange.MasterSerialPort/1.0.0": {
-      "type": "project",
-      "path": "../Exchange.MasterSerialPort/Exchange.MasterSerialPort.csproj",
-      "msbuildProject": "../Exchange.MasterSerialPort/Exchange.MasterSerialPort.csproj"
-    },
-    "Exchange.TcpIp/1.0.0": {
-      "type": "project",
-      "path": "../Exchange.TcpIp/Exchange.TcpIp.csproj",
-      "msbuildProject": "../Exchange.TcpIp/Exchange.TcpIp.csproj"
     },
     "Infrastructure.EventBus/1.0.0": {
       "type": "project",
@@ -13219,42 +13198,41 @@
     ".NETCoreApp,Version=v2.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 5.0.1",
       "Autofac >= 4.8.1",
-      "Autofac.Extensions.DependencyInjection >= 4.2.2",
+      "Autofac.Extensions.DependencyInjection >= 4.3.0",
       "BL.Services >= 1.0.0",
       "DAL.Abstract >= 1.0.0",
       "DAL.EFCore >= 1.0.0",
       "DAL.InMemory >= 1.0.0",
       "DeviceForExchange >= 1.0.0",
       "Exchange.Base >= 1.0.0",
-      "Exchange.MasterSerialPort >= 1.0.0",
       "Infrastructure.EventBus >= 1.0.0",
       "Microsoft.AspNetCore.All >= 2.0.8",
       "Microsoft.NETCore.App >= 2.0.0",
       "Shared >= 1.0.0",
-      "System.Reactive >= 4.0.0",
+      "System.Reactive >= 4.1.0",
       "Transport.SerialPort >= 1.0.0",
       "Transport.TcpIp >= 1.0.0",
       "Worker.Background >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\admin\\.nuget\\packages\\": {},
+    "C:\\Users\\Aldmi\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\WebServer.csproj",
+      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\WebServer.csproj",
       "projectName": "WebServer",
-      "projectPath": "C:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\WebServer.csproj",
-      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\obj\\",
+      "projectPath": "D:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\WebServer.csproj",
+      "packagesPath": "C:\\Users\\Aldmi\\.nuget\\packages\\",
+      "outputPath": "D:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Aldmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13262,46 +13240,44 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://packages.nuget.org/": {}
       },
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Git\\CommunicationWebService\\src\\BL.Services\\BL.Services.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\BL.Services\\BL.Services.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\BL.Services\\BL.Services.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\BL.Services\\BL.Services.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\DAL.EFCore\\DAL.EFCore.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\DAL.EFCore\\DAL.EFCore.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\DAL.EFCore\\DAL.EFCore.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\DAL.EFCore\\DAL.EFCore.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\DAL.InMemory\\DAL.InMemory.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\DAL.InMemory\\DAL.InMemory.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\DAL.InMemory\\DAL.InMemory.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\DAL.InMemory\\DAL.InMemory.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Device.Base\\DeviceForExchange.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Device.Base\\DeviceForExchange.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Device.Base\\DeviceForExchange.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Device.Base\\DeviceForExchange.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Exchange.MasterSerialPort\\Exchange.MasterSerialPort.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
-            },
-            "C:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj"
             }
           }
         }
@@ -13325,7 +13301,7 @@
           },
           "Autofac.Extensions.DependencyInjection": {
             "target": "Package",
-            "version": "[4.2.2, )"
+            "version": "[4.3.0, )"
           },
           "Microsoft.AspNetCore.All": {
             "target": "Package",
@@ -13338,7 +13314,7 @@
           },
           "System.Reactive": {
             "target": "Package",
-            "version": "[4.0.0, )"
+            "version": "[4.1.0, )"
           }
         },
         "imports": [

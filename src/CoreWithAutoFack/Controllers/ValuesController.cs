@@ -19,7 +19,7 @@ namespace WebServer.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        private readonly SerialPortStorageService _spSrStorageService;
+        private readonly TransportStorageService _spSrStorageService;
         private readonly IMapper _mapper;
         private readonly IEnumerable<IExchange> _excBehaviors;
         private readonly IEnumerable<IBackground> _backgroundServices;
@@ -28,7 +28,7 @@ namespace WebServer.Controllers
 
 
 
-        public ValuesController(SerialPortStorageService spSrStorageService, IMapper mapper)
+        public ValuesController(TransportStorageService spSrStorageService, IMapper mapper)
         {
             _spSrStorageService = spSrStorageService;
             _mapper = mapper;

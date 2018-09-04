@@ -9,9 +9,6 @@
     <ProjectReference Include="..\Communication.TcpIp\Transport.TcpIp.csproj" />
     <ProjectReference Include="..\Device.Base\DeviceForExchange.csproj" />
     <ProjectReference Include="..\Exchange.Base\Exchange.Base.csproj" />
-    <ProjectReference Include="..\Exchange.Http\Exchange.Http.csproj" />
-    <ProjectReference Include="..\Exchange.MasterSerialPort\Exchange.MasterSerialPort.csproj" />
-    <ProjectReference Include="..\Exchange.TcpIp\Exchange.TcpIp.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.EventBus.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
     <ProjectReference Include="..\Transport.Base\Transport.Base.csproj" />

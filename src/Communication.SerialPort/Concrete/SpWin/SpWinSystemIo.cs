@@ -8,7 +8,7 @@ using DAL.Abstract.Entities.Options.Transport;
 using Shared.Enums;
 using Shared.Helpers;
 using Shared.Types;
-using Transport.Base.DataProviderAbstract;
+using Transport.Base.DataProvidert;
 using Transport.Base.RxModel;
 using Transport.SerialPort.Abstract;
 using Parity = System.IO.Ports.Parity;
@@ -193,7 +193,7 @@ namespace Transport.SerialPort.Concrete.SpWin
         /// Функция обмена по порту. Запрос-ожидание-ответ.
         /// Возвращает true если результат обмена успешен.
         /// </summary>
-        public async Task<StatusDataExchange> DataExchangeAsync(int timeRespoune, IExchangeDataProviderBase dataProvider, CancellationToken ct)
+        public async Task<StatusDataExchange> DataExchangeAsync(int timeRespoune, ITransportDataProvider dataProvider, CancellationToken ct)
         {
             if (!IsOpen)
                 return StatusDataExchange.None;

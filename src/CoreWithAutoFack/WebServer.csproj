@@ -10,10 +10,10 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.8.1" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
-    <PackageReference Include="System.Reactive" Version="4.0.0" />
+    <PackageReference Include="System.Reactive" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +29,6 @@
     <ProjectReference Include="..\DAL.InMemory\DAL.InMemory.csproj" />
     <ProjectReference Include="..\Device.Base\DeviceForExchange.csproj" />
     <ProjectReference Include="..\Exchange.Base\Exchange.Base.csproj" />
-    <ProjectReference Include="..\Exchange.MasterSerialPort\Exchange.MasterSerialPort.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.EventBus.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
     <ProjectReference Include="..\Worker.Background\Worker.Background.csproj" />

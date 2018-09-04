@@ -5,15 +5,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using BL.Services.Exceptions;
 using BL.Services.Storages;
+using DataProvider.Base.Abstract;
 using DAL.Abstract.Entities.Options;
 using DeviceForExchange;
 using Exchange.Base;
-using Exchange.Http;
-using Exchange.MasterSerialPort;
-using Exchange.TcpIp;
+using Exchange.Base.Model;
 using Infrastructure.EventBus.Abstract;
 using Shared.Enums;
 using Shared.Types;
+using Transport.Base.Abstract;
+using Transport.Base.Model;
 using Transport.Http.Concrete;
 using Transport.SerialPort.Concrete.SpWin;
 using Transport.TcpIp.Concrete;
@@ -34,9 +35,7 @@ namespace BL.Services.Mediators
         private readonly DeviceStorageService _deviceStorageService;
         private readonly ExchangeStorageService _exchangeStorageService;
         private readonly BackgroundStorageService _backgroundStorageService;
-        private readonly SerialPortStorageService _serialPortStorageService;
-        private readonly TcpIpStorageService _tcpIpStorageService;
-        private readonly HttpStorageService _httpStorageService;
+        private readonly TransportStorageService _transportStorageService;
         private readonly IEventBus _eventBus;
 
         #endregion
@@ -49,14 +48,10 @@ namespace BL.Services.Mediators
         public MediatorForStorages(DeviceStorageService deviceStorageService,
             ExchangeStorageService exchangeStorageService,
             BackgroundStorageService backgroundStorageService,
-            SerialPortStorageService serialPortStorageService,
-            TcpIpStorageService tcpIpStorageService,
-            HttpStorageService httpStorageService,
+            TransportStorageService transportStorageService,
             IEventBus eventBus)
         {
-            _serialPortStorageService = serialPortStorageService;
-            _tcpIpStorageService = tcpIpStorageService;
-            _httpStorageService = httpStorageService;
+            _transportStorageService = transportStorageService;
             _backgroundStorageService = backgroundStorageService;
             _exchangeStorageService = exchangeStorageService;
             _deviceStorageService = deviceStorageService;
@@ -130,11 +125,11 @@ namespace BL.Services.Mediators
             foreach (var spOption in optionAgregator.TransportOptions.SerialOptions)
             {
                 var keyTransport = new KeyTransport(spOption.Port, TransportType.SerialPort);
-                var sp = _serialPortStorageService.Get(keyTransport);
+                var sp = _transportStorageService.Get(keyTransport);
                 if (sp == null)
                 {
                     sp = new SpWinSystemIo(spOption, keyTransport);
-                    _serialPortStorageService.AddNew(keyTransport, sp);
+                    _transportStorageService.AddNew(keyTransport, sp);
                     var bg = new HostingBackgroundTransport(keyTransport, spOption.AutoStart);
                     _backgroundStorageService.AddNew(keyTransport, bg);
                 }
@@ -142,11 +137,11 @@ namespace BL.Services.Mediators
             foreach (var tcpIpOption in optionAgregator.TransportOptions.TcpIpOptions)
             {
                 var keyTransport = new KeyTransport(tcpIpOption.Name, TransportType.TcpIp);
-                var tcpIp = _tcpIpStorageService.Get(keyTransport);
+                var tcpIp = _transportStorageService.Get(keyTransport);
                 if (tcpIp == null)
                 {
                     tcpIp = new TcpIpTransport(tcpIpOption, keyTransport);
-                    _tcpIpStorageService.AddNew(keyTransport, tcpIp);
+                    _transportStorageService.AddNew(keyTransport, tcpIp);
                     var bg = new HostingBackgroundTransport(keyTransport, tcpIpOption.AutoStart);
                     _backgroundStorageService.AddNew(keyTransport, bg);
                 }
@@ -154,11 +149,11 @@ namespace BL.Services.Mediators
             foreach (var httpOption in optionAgregator.TransportOptions.HttpOptions)
             {
                 var keyTransport = new KeyTransport(httpOption.Name, TransportType.Http);
-                var http = _httpStorageService.Get(keyTransport);
+                var http = _transportStorageService.Get(keyTransport);
                 if (http == null)
                 {
                     http = new HttpTransport(httpOption, keyTransport);
-                    _httpStorageService.AddNew(keyTransport, http);
+                    _transportStorageService.AddNew(keyTransport, http);
                     var bg = new HostingBackgroundTransport(keyTransport, httpOption.AutoStart);
                     _backgroundStorageService.AddNew(keyTransport, bg);
                 }
@@ -173,26 +168,10 @@ namespace BL.Services.Mediators
 
                 var keyTransport = exchOption.KeyTransport;
                 var bg = _backgroundStorageService.Get(keyTransport);
-                switch (keyTransport.TransportType)
-                {
-                    case TransportType.SerialPort:
-                        var sp = _serialPortStorageService.Get(keyTransport);
-                        exch = new ByRulesExchangeSerialPort(sp, bg, exchOption);
-                        _exchangeStorageService.AddNew(exchOption.Key, exch);
-                        break;
-
-                    case TransportType.TcpIp:
-                        var tcpIp = _tcpIpStorageService.Get(keyTransport);
-                        exch = new BaseExchangeTcpIp(tcpIp, bg, exchOption);
-                        _exchangeStorageService.AddNew(exchOption.Key, exch);
-                        break;
-
-                    case TransportType.Http:
-                        var http = _httpStorageService.Get(keyTransport);
-                        exch = new BaseExchangeHttp(http, bg, exchOption);
-                        _exchangeStorageService.AddNew(exchOption.Key, exch);
-                        break;
-                }
+                var transport = _transportStorageService.Get(keyTransport);
+                IExchangeDataProvider<UniversalInputType, TransportResponse> dataProvider = null;
+                exch = new ExchangeUniversal(exchOption, transport, bg, dataProvider);
+                _exchangeStorageService.AddNew(exchOption.Key, exch);
             }
 
             //ДОБАВИТЬ УСТРОЙСТВО--------------------------------------------------------------------------
@@ -255,27 +234,9 @@ namespace BL.Services.Mediators
                 await bg.StopAsync(CancellationToken.None);
                 bg.Dispose();
             }
-
-            switch (keyTransport.TransportType)
-            {
-                case TransportType.SerialPort:
-                    var sp = _serialPortStorageService.Get(keyTransport);
-                    _serialPortStorageService.Remove(keyTransport);
-                    sp.Dispose();
-                    break;
-
-                case TransportType.TcpIp:
-                    var tcpIp = _tcpIpStorageService.Get(keyTransport);
-                    _tcpIpStorageService.Remove(keyTransport);
-                    tcpIp.Dispose();
-                    break;
-
-                case TransportType.Http:
-                    var http = _httpStorageService.Get(keyTransport);
-                    _httpStorageService.Remove(keyTransport);
-                    http.Dispose();
-                    break;
-            }
+            var transport = _transportStorageService.Get(keyTransport);
+            _transportStorageService.Remove(keyTransport);
+            transport.Dispose();
         }
 
         #endregion
