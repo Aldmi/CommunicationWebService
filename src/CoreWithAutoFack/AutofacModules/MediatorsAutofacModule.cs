@@ -1,14 +1,14 @@
 ﻿using Autofac;
 using BL.Services.Mediators;
-using InputDataModel.Autodictor.InputData;
+using Module = Autofac.Module;
 
 namespace WebServer.AutofacModules
 {
-    public class MediatorsAutofacModule : Module
+    public class MediatorsAutofacModule<TIn> : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<MediatorForStorages<UniversalInputType>>().InstancePerDependency();
+            builder.RegisterType<MediatorForStorages<TIn>>().InstancePerDependency();
             builder.RegisterType<MediatorForOptions>().InstancePerDependency();
         }
     }

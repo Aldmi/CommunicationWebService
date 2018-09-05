@@ -8,7 +8,7 @@ using BL.Services.Mediators;
 using DAL.Abstract.Entities.Options.Device;
 using DAL.Abstract.Entities.Options.Exchange;
 using DAL.Abstract.Entities.Options.Transport;
-using InputDataModel.Autodictor.InputData;
+using InputDataModel.Autodictor.Model;
 using Microsoft.AspNetCore.Mvc;
 using WebServer.DTO.JSON.OptionsDto;
 using WebServer.DTO.JSON.OptionsDto.DeviceOption;
@@ -28,7 +28,7 @@ namespace WebServer.Controllers
         #region fields
 
         private readonly MediatorForOptions _mediatorForOptionsRep;
-        private readonly MediatorForStorages<UniversalInputType> _mediatorForStorages;
+        private readonly MediatorForStorages<AdInputType> _mediatorForStorages;
         private readonly IMapper _mapper;
 
         #endregion
@@ -38,7 +38,7 @@ namespace WebServer.Controllers
 
         #region ctor
 
-        public DevicesOptionController(MediatorForOptions mediatorForOptionsRep, MediatorForStorages<UniversalInputType> mediatorForStorages, IMapper mapper)
+        public DevicesOptionController(MediatorForOptions mediatorForOptionsRep, MediatorForStorages<AdInputType> mediatorForStorages, IMapper mapper)
         {
             _mediatorForOptionsRep = mediatorForOptionsRep;
             _mediatorForStorages = mediatorForStorages;

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using BL.Services.Actions;
 using BL.Services.Exceptions;
 using BL.Services.Mediators;
-using InputDataModel.Autodictor.InputData;
+using InputDataModel.Autodictor.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebServer.Controllers
@@ -20,8 +20,8 @@ namespace WebServer.Controllers
     {
         #region fields
 
-        private readonly MediatorForStorages<UniversalInputType> _mediatorForStorages;
-        private readonly DeviceActionService<UniversalInputType> _deviceActionService;
+        private readonly MediatorForStorages<AdInputType> _mediatorForStorages;
+        private readonly DeviceActionService<AdInputType> _deviceActionService;
 
         #endregion
 
@@ -30,7 +30,7 @@ namespace WebServer.Controllers
 
         #region ctor
 
-        public DevicesController(MediatorForStorages<UniversalInputType> mediatorForStorages, DeviceActionService<UniversalInputType> deviceActionService)
+        public DevicesController(MediatorForStorages<AdInputType> mediatorForStorages, DeviceActionService<AdInputType> deviceActionService)
         {
             _mediatorForStorages = mediatorForStorages;
             _deviceActionService = deviceActionService;

@@ -1,24 +1,24 @@
 ﻿using System.IO;
 using System.Reactive.Subjects;
 using Exchange.Base.DataProviderAbstract;
-using InputDataModel.Autodictor.InputData;
+using InputDataModel.Autodictor.Model;
 using Shared.Types;
 
 namespace InputDataModel.Autodictor.ManualDataProvider
 {
-    public class VidorBinaryDataProvider : IExchangeDataProvider<UniversalInputType, TransportResponse>
+    public class VidorBinaryDataProvider : IExchangeDataProvider<AdInputType, TransportResponse>
     {
 
         public VidorBinaryDataProvider(string sss)
         {
-            
-        }
-
-
-        public VidorBinaryDataProvider()
-        {
             ProviderName = "VidorBinaryDataProvider";
         }
+
+
+        //public VidorBinaryDataProvider()
+        //{
+        //    ProviderName = "VidorBinaryDataProvider";
+        //}
 
         public byte[] GetDataByte()
         {
@@ -52,7 +52,7 @@ namespace InputDataModel.Autodictor.ManualDataProvider
 
         public int CountGetDataByte { get; }
         public int CountSetDataByte { get; }
-        public UniversalInputType InputData { get; set; }
+        public AdInputType InputData { get; set; }
         public TransportResponse OutputData { get; set; }
         public bool IsOutDataValid { get; }
         public Subject<TransportResponse> OutputDataChangeRx { get; }

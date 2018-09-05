@@ -1,14 +1,13 @@
 ﻿using Autofac;
 using BL.Services.Actions;
-using InputDataModel.Autodictor.InputData;
 
 namespace WebServer.AutofacModules
 {
-    public class BlActionsAutofacModule : Module
+    public class BlActionsAutofacModule<TIn> : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<DeviceActionService<UniversalInputType>>().InstancePerDependency();    
+            builder.RegisterType<DeviceActionService<TIn>>().InstancePerDependency();    
         }
     }
 }

@@ -7,7 +7,7 @@ using BL.Services.Storages;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
 using Infrastructure.EventBus.Abstract;
-using InputDataModel.Autodictor.InputData;
+using InputDataModel.Autodictor.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -38,16 +38,12 @@ namespace WebServer
             services.AddMvc()
                 .AddControllersAsServices()
                 .AddJsonOptions(o =>
-            {              
-                o.SerializerSettings.Formatting = Formatting.Indented;
-                o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-            }); 
+                {              
+                    o.SerializerSettings.Formatting = Formatting.Indented;
+                    o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                }); 
             services.AddOptions();
             services.AddAutoMapper();
-        
-
-            //services.Configure<SerialPortsOption>(AppConfiguration);
-            //services.Configure<DevicesWithSpOptions>(AppConfiguration);
         }
 
 
@@ -55,13 +51,19 @@ namespace WebServer
         {
             var connectionString = AppConfiguration.GetConnectionString("OptionDbConnection");
             builder.RegisterModule(new RepositoryAutofacModule(connectionString));
-
-            builder.RegisterModule(new BlStorageAutofacModule());
-            builder.RegisterModule(new BlActionsAutofacModule());
-            builder.RegisterModule(new MediatorsAutofacModule());
             builder.RegisterModule(new EventBusAutofacModule());
-            builder.RegisterModule(new ExchangeDataProviderAutofacModule());
             builder.RegisterModule(new ControllerAutofacModule());
+
+            var inputDataName = AppConfiguration["InputDataModel"];
+            switch (inputDataName)
+            {
+                case "AdInputType":
+                    builder.RegisterModule(new DataProviderExchangeAutofacModule<AdInputType>());
+                    builder.RegisterModule(new BlStorageAutofacModule<AdInputType>());
+                    builder.RegisterModule(new BlActionsAutofacModule<AdInputType>());
+                    builder.RegisterModule(new MediatorsAutofacModule<AdInputType>());
+                    break;
+            }
         }
 
 
@@ -103,7 +105,7 @@ namespace WebServer
                 lifetimeApp.ApplicationStarted.Register(() => back.StartAsync(CancellationToken.None));
             }
 
-            var exchangeServices = scope.Resolve<ExchangeStorageService<UniversalInputType>>();
+            var exchangeServices = scope.Resolve<ExchangeStorageService<AdInputType>>();
             foreach (var exchange in exchangeServices.Values)
             {
                 lifetimeApp.ApplicationStarted.Register(async () => await exchange.CycleReOpened());
@@ -119,7 +121,7 @@ namespace WebServer
                 lifetimeApp.ApplicationStopping.Register(() => back.StopAsync(CancellationToken.None));
             }
 
-            var exchangeServices = scope.Resolve<ExchangeStorageService<UniversalInputType>>();
+            var exchangeServices = scope.Resolve<ExchangeStorageService<AdInputType>>();
             foreach (var exchange in exchangeServices.Values)
             {
                 lifetimeApp.ApplicationStopping.Register(() => exchange.CycleReOpenedCancelation());

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac.Features.Indexed;
 using BL.Services.Exceptions;
 using BL.Services.Storages;
 using DAL.Abstract.Entities.Options;
@@ -36,7 +37,7 @@ namespace BL.Services.Mediators
         private readonly BackgroundStorageService _backgroundStorageService;
         private readonly TransportStorageService _transportStorageService;
         private readonly IEventBus _eventBus;
-        private readonly Func<IEnumerable<IExchangeDataProvider<TIn, TransportResponse>>> _dataProviderCollectionFactory;
+        private readonly IIndex<string, Func<string, IExchangeDataProvider<TIn, TransportResponse>>> _dataProviderFactory;
 
         #endregion
 
@@ -49,15 +50,15 @@ namespace BL.Services.Mediators
             ExchangeStorageService<TIn> exchangeStorageService,
             BackgroundStorageService backgroundStorageService,
             TransportStorageService transportStorageService,
-            IEventBus eventBus,
-            Func<IEnumerable<IExchangeDataProvider<TIn, TransportResponse>>> dataProviderCollectionFactory)
+            IEventBus eventBus,     
+            IIndex<string, Func<string,IExchangeDataProvider<TIn, TransportResponse>>> dataProviderFactory)
         {
             _transportStorageService = transportStorageService;
             _backgroundStorageService = backgroundStorageService;
             _exchangeStorageService = exchangeStorageService;
             _deviceStorageService = deviceStorageService;
             _eventBus = eventBus;
-            _dataProviderCollectionFactory = dataProviderCollectionFactory;
+            _dataProviderFactory = dataProviderFactory;
         }
 
         #endregion
@@ -171,7 +172,8 @@ namespace BL.Services.Mediators
                 var keyTransport = exchOption.KeyTransport;
                 var bg = _backgroundStorageService.Get(keyTransport);
                 var transport = _transportStorageService.Get(keyTransport);
-                var dataProvider =_dataProviderCollectionFactory()?.FirstOrDefault(p=>p.ProviderName == "VidorBinaryDataProvider");
+
+                var dataProvider = _dataProviderFactory["VidorBinaryDataProvider"]("gfhgfhjgfgf"); //TODO: передавать опции провайдеров exchOption.Provider
                 if (dataProvider == null)
                 {
                     throw new StorageHandlerException($"Провайдер данных не найденн в системе: {exchOption.Provider.Name}");
