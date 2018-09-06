@@ -7,6 +7,7 @@ using BL.Services.Exceptions;
 using BL.Services.Mediators;
 using DAL.Abstract.Entities.Options.Device;
 using DAL.Abstract.Entities.Options.Exchange;
+using DAL.Abstract.Entities.Options.Exchange.Providers;
 using DAL.Abstract.Entities.Options.Transport;
 using InputDataModel.Autodictor.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -61,6 +62,17 @@ namespace WebServer.Controllers
                 var deviceOptions = await _mediatorForOptionsRep.GetDeviceOptionsAsync();
                 var exchangeOptions = await _mediatorForOptionsRep.GetExchangeOptionsAsync();
                 var transportOption = await _mediatorForOptionsRep.GetTransportOptionsAsync();
+
+                //DEBUG---
+                var first= exchangeOptions.FirstOrDefault();
+                //first.Provider = new ManualProviderOption
+                //{
+                //    Name = "VidorBinary",
+                //    Id = 10,
+                //    Address = "100",
+                //    TimeRespone = 2500
+                //};
+
 
                 var deviceOptionsDto = _mapper.Map<List<DeviceOptionDto>>(deviceOptions);
                 var exchangeOptionsDto = _mapper.Map<List<ExchangeOptionDto>>(exchangeOptions);

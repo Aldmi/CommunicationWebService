@@ -1,4 +1,5 @@
-﻿using Shared.Types;
+﻿using DAL.Abstract.Entities.Options.Exchange.Providers;
+using Shared.Types;
 
 namespace DAL.Abstract.Entities.Options.Exchange
 {
@@ -7,7 +8,7 @@ namespace DAL.Abstract.Entities.Options.Exchange
         public string Key { get; set; }
         public KeyTransport KeyTransport { get; set; }
         public ExchangeRule ExchangeRule { get; set; }
-        public Provider Provider { get; set; }
+        public ProviderOption Provider { get; set; }
 
         /// <summary>
         /// Добавление функции циклического обмена на бекгроунд

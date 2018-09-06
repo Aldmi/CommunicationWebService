@@ -7,11 +7,11 @@ using Autofac.Features.Indexed;
 using BL.Services.Exceptions;
 using BL.Services.Storages;
 using DAL.Abstract.Entities.Options;
+using DAL.Abstract.Entities.Options.Exchange.Providers;
 using DeviceForExchange;
 using Exchange.Base;
 using Exchange.Base.DataProviderAbstract;
 using Infrastructure.EventBus.Abstract;
-using InputDataModel.Autodictor.ManualDataProvider;
 using Shared.Enums;
 using Shared.Types;
 using Transport.Base.Abstract;
@@ -37,7 +37,7 @@ namespace BL.Services.Mediators
         private readonly BackgroundStorageService _backgroundStorageService;
         private readonly TransportStorageService _transportStorageService;
         private readonly IEventBus _eventBus;
-        private readonly IIndex<string, Func<string, IExchangeDataProvider<TIn, TransportResponse>>> _dataProviderFactory;
+        private readonly IIndex<string, Func<ProviderOption, IExchangeDataProvider<TIn, TransportResponse>>> _dataProviderFactory;
 
         #endregion
 
@@ -51,7 +51,7 @@ namespace BL.Services.Mediators
             BackgroundStorageService backgroundStorageService,
             TransportStorageService transportStorageService,
             IEventBus eventBus,     
-            IIndex<string, Func<string,IExchangeDataProvider<TIn, TransportResponse>>> dataProviderFactory)
+            IIndex<string, Func<ProviderOption,IExchangeDataProvider<TIn, TransportResponse>>> dataProviderFactory)
         {
             _transportStorageService = transportStorageService;
             _backgroundStorageService = backgroundStorageService;
@@ -173,7 +173,17 @@ namespace BL.Services.Mediators
                 var bg = _backgroundStorageService.Get(keyTransport);
                 var transport = _transportStorageService.Get(keyTransport);
 
-                var dataProvider = _dataProviderFactory["VidorBinaryDataProvider"]("gfhgfhjgfgf"); //TODO: передавать опции провайдеров exchOption.Provider
+                //exchOption.Provider= new ManualProviderOption{ Name = "VidorBinary", Id = 10, Address = "100", TimeRespone = 2500 };
+                exchOption.Provider = new ProviderOption
+                {
+                    Name = "VidorBinary",
+                    ManualProviderOption = new ManualProviderOption
+                    {
+                        Address = "100",
+                        TimeRespone = 2500
+                    }
+                };
+                var dataProvider = _dataProviderFactory[exchOption.Provider.Name](exchOption.Provider); //TODO: передавать опции провайдеров exchOption.Provider
                 if (dataProvider == null)
                 {
                     throw new StorageHandlerException($"Провайдер данных не найденн в системе: {exchOption.Provider.Name}");

@@ -3,12 +3,17 @@ using System.Linq;
 using System.Threading;
 using Autofac;
 using AutoMapper;
+using BL.Services.Mediators;
 using BL.Services.Storages;
 using Exchange.Base;
 using InputDataModel.Autodictor.Model;
 using Microsoft.AspNetCore.Mvc;
 using Transport.SerialPort.Abstract;
 using WebServer.AutoMapperConfig;
+using WebServer.DTO.JSON.OptionsDto;
+using WebServer.DTO.JSON.OptionsDto.ExchangeOption;
+using WebServer.DTO.JSON.OptionsDto.ExchangeOption.Providers;
+using WebServer.DTO.JSON.OptionsDto.ExchangeOption.ProvidersOption;
 using Worker.Background.Abstarct;
 
 namespace WebServer.Controllers
@@ -18,8 +23,9 @@ namespace WebServer.Controllers
     /// </summary>
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class ValuesController: Controller
     {
+        private readonly MediatorForStorages<AdInputType> _mediatorForStorages;
         private readonly TransportStorageService _spSrStorageService;
         private readonly IMapper _mapper;
         private readonly IEnumerable<IExchange<AdInputType>> _excBehaviors;
@@ -29,11 +35,17 @@ namespace WebServer.Controllers
 
 
 
-        public ValuesController(TransportStorageService spSrStorageService, IMapper mapper)
-        {
-            _spSrStorageService = spSrStorageService;
-            _mapper = mapper;
-        }
+        //public ValuesController(TransportStorageService spSrStorageService, IMapper mapper)
+        //{
+        //    _spSrStorageService = spSrStorageService;
+        //    _mapper = mapper;
+        //}
+
+
+        //public ValuesController(MediatorForStorages<AdInputType> mediatorForStorages)
+        //{
+        //    _mediatorForStorages = mediatorForStorages;
+        //}
 
         //public ValuesController(IEnumerable<ISerailPort> spServices, IEnumerable<IBackgroundService> backgroundServices)
         //{
@@ -63,12 +75,65 @@ namespace WebServer.Controllers
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<ExchangeOptionDto> Get()
         {
            //var user = new User() {Name = "dsfdsdfsfsdgdfgh"};
            //var userDto=  _mapper.Map<UserDto>(user);
 
-            return new string[] { "value1", "value2" };
+            var exchangesDto= new List<ExchangeOptionDto>
+            {
+                new ExchangeOptionDto
+                {
+                    Id = 1, 
+                    KeyTransport = new KeyTransportDto {Key = "COM1", TransportType = "Sp"},
+                    Key = "Exch_1",
+                    AutoStartCycleFunc = true,
+                    Provider = new ProviderOptionDto
+                    {
+                        Name = "VidorBase",
+                        ManualProviderOptionDto = new ManualProviderOptionDto
+                        {
+                            TimeRespone = 1000,
+                            Address = "1"
+                        }
+                    }
+                },
+                new ExchangeOptionDto
+                {
+                    Id = 1, 
+                    KeyTransport = new KeyTransportDto {Key = "COM1", TransportType = "Sp"},
+                    Key = "Exch_2",
+                    AutoStartCycleFunc = true,
+                    Provider = new ProviderOptionDto
+                    {
+                        Name = "ByRules",
+                        ByRulesProviderOptionDto = new ByRulesProviderOptionDto
+                        {
+                            RulesDto = new List<RuleDto>
+                            {
+                                new RuleDto
+                                {
+                                    Name = "Rule_1",
+                                    Format = "utf8",
+                                    Request = new RequestDto
+                                    {
+                                        Body = "sdgsfsgdfgdfdgfg",
+                                        MaxLenght = 500
+                                    },
+                                    Response = new ResponseDto
+                                    {
+                                        Body = "ttttttttttttt",
+                                        TimeRespone = 500,
+                                        MaxLenght = 500
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            return exchangesDto;
         }
 
         // GET api/values/5

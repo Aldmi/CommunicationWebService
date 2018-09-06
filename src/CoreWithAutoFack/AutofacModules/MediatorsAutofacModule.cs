@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using BL.Services.Mediators;
+using WebServer.Controllers;
 using Module = Autofac.Module;
 
 namespace WebServer.AutofacModules

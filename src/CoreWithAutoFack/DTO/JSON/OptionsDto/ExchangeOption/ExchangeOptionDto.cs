@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebServer.DTO.JSON.OptionsDto.ExchangeOption.Providers;
 
 namespace WebServer.DTO.JSON.OptionsDto.ExchangeOption
 {
@@ -14,8 +15,7 @@ namespace WebServer.DTO.JSON.OptionsDto.ExchangeOption
         [Required(ErrorMessage = "KeyTransport для Exchange не может быть NULL")]
         public KeyTransportDto KeyTransport { get; set; }
 
-        public ExchangeRuleDto ExchangeRule { get; set; }
-
-        public ProviderDto Provider { get; set; }
+        [Required(ErrorMessage = "Provider для Exchange не может быть NULL")]
+        public ProviderOptionDto Provider { get; set; }
     }
 }

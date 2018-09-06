@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Options.Exchange;
+using DAL.Abstract.Entities.Options.Exchange.Providers;
 using Shared.Enums;
 using Shared.Types;
 
@@ -24,12 +25,14 @@ namespace DAL.Abstract.Extensions
                     Id = 1,
                     Key = "SP_COM1_Vidor1",
                     KeyTransport = new KeyTransport("COM1", TransportType.SerialPort),
-                    Provider = new Provider
+                    Provider = new ProviderOption
                     {
-                        Id = 12,
-                        Address = "10",
-                        Name = "VidorBase",
-                        TimeRespone = 500
+                        Name = "VidorBinary",
+                        ManualProviderOption = new ManualProviderOption
+                        {
+                            Address = "100",
+                            TimeRespone = 2500
+                        }
                     }
                 },
                 new ExchangeOption
@@ -37,12 +40,14 @@ namespace DAL.Abstract.Extensions
                     Id = 2,
                     Key = "SP_COM2_Vidor2",
                     KeyTransport = new KeyTransport("COM2", TransportType.SerialPort),
-                    Provider = new Provider
+                    Provider = new ProviderOption
                     {
-                        Id = 5,
-                        Address = "12",
-                        Name = "Table",
-                        TimeRespone = 500
+                        Name = "VidorBinary",
+                        ManualProviderOption = new ManualProviderOption
+                        {
+                            Address = "100",
+                            TimeRespone = 2500
+                        }
                     }
                 },
                 new ExchangeOption
@@ -50,12 +55,14 @@ namespace DAL.Abstract.Extensions
                     Id = 3,
                     Key = "HTTP_google.com_Table1",
                     KeyTransport = new KeyTransport("http:\\google.com", TransportType.Http),
-                    Provider = new Provider
+                    Provider = new ProviderOption
                     {
-                        Id = 6,
-                        Address = "http:\\google.com",
-                        Name = "VidorBase",
-                        TimeRespone = 500
+                        Name = "VidorBinary",
+                        ManualProviderOption = new ManualProviderOption
+                        {
+                            Address = "100",
+                            TimeRespone = 2500
+                        }
                     }
                 }
             };

@@ -1,7 +1,7 @@
 ﻿using System;
 using Autofac;
 using Exchange.Base.DataProviderAbstract;
-using InputDataModel.Autodictor.ManualDataProvider;
+using InputDataModel.Autodictor.ManualDataProviders;
 using InputDataModel.Autodictor.Model;
 using Shared.Types;
 
@@ -17,7 +17,8 @@ namespace WebServer.AutofacModules
             switch (typeof(TIn).Name)
             {
                 case "AdInputType":
-                    builder.RegisterType<VidorBinaryDataProvider>().Named<IExchangeDataProvider<AdInputType, TransportResponse>>("VidorBinaryDataProvider").InstancePerDependency();
+                    builder.RegisterType<VidorBinaryDataProvider>().Named<IExchangeDataProvider<AdInputType, TransportResponse>>("VidorBinary").InstancePerDependency();
+                    builder.RegisterType<ByRulesDataProvider>().Named<IExchangeDataProvider<AdInputType, TransportResponse>>("ByRules").InstancePerDependency();
                     break;
 
                 case "OtherType":

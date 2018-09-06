@@ -2,7 +2,6 @@
 using BL.Services.Mediators;
 using BL.Services.Storages;
 using Exchange.Base.DataProviderAbstract;
-using InputDataModel.Autodictor.ManualDataProvider;
 using InputDataModel.Autodictor.Model;
 using Shared.Types;
 
