@@ -65,6 +65,81 @@
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
+      "Confluent.Kafka/0.11.5": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "System.Console": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.0.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Threading": "4.3.0",
+          "librdkafka.redist": "0.11.5"
+        },
+        "compile": {
+          "lib/netstandard1.3/Confluent.Kafka.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Confluent.Kafka.dll": {}
+        }
+      },
+      "librdkafka.redist/0.11.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/centos7-librdkafka.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/linux-x64/native/debian9-librdkafka.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/linux-x64/native/librdkafka.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/osx-x64/native/librdkafka.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win7-x64/native/librdkafka.dll": {
+            "assetType": "native",
+            "rid": "win7-x64"
+          },
+          "runtimes/win7-x64/native/librdkafkacpp.dll": {
+            "assetType": "native",
+            "rid": "win7-x64"
+          },
+          "runtimes/win7-x64/native/msvcr120.dll": {
+            "assetType": "native",
+            "rid": "win7-x64"
+          },
+          "runtimes/win7-x64/native/zlib.dll": {
+            "assetType": "native",
+            "rid": "win7-x64"
+          },
+          "runtimes/win7-x86/native/librdkafka.dll": {
+            "assetType": "native",
+            "rid": "win7-x86"
+          },
+          "runtimes/win7-x86/native/librdkafkacpp.dll": {
+            "assetType": "native",
+            "rid": "win7-x86"
+          },
+          "runtimes/win7-x86/native/msvcr120.dll": {
+            "assetType": "native",
+            "rid": "win7-x86"
+          },
+          "runtimes/win7-x86/native/zlib.dll": {
+            "assetType": "native",
+            "rid": "win7-x86"
+          }
+        }
+      },
       "Libuv/1.10.0": {
         "type": "package",
         "dependencies": {
@@ -3906,6 +3981,19 @@
           "lib/netstandard2.0/System.Reactive.dll": {}
         }
       },
+      "System.Reactive.Linq/4.1.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Reactive": "4.1.0",
+          "System.Threading.Tasks.Extensions": "4.5.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/System.Reactive.Linq.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Reactive.Linq.dll": {}
+        }
+      },
       "System.Reflection/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -4817,7 +4905,9 @@
           "DeviceForExchange": "1.0.0",
           "Exchange.Base": "1.0.0",
           "Infrastructure.EventBus": "1.0.0",
+          "Infrastructure.MessageBroker": "1.0.0",
           "InputDataModel.Autodictor": "1.0.0",
+          "Logger.Abstract": "1.0.0",
           "Shared": "1.0.0",
           "Transport.Base": "1.0.0",
           "Transport.Http": "1.0.0",
@@ -4925,6 +5015,21 @@
           "bin/placeholder/Infrastructure.EventBus.dll": {}
         }
       },
+      "Infrastructure.MessageBroker/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Confluent.Kafka": "0.11.5",
+          "Logger.Abstract": "1.0.0",
+          "System.Reactive.Linq": "4.1.0"
+        },
+        "compile": {
+          "bin/placeholder/Infrastructure.MessageBroker.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Infrastructure.MessageBroker.dll": {}
+        }
+      },
       "InputDataModel.Autodictor/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -4937,6 +5042,16 @@
         },
         "runtime": {
           "bin/placeholder/InputDataModel.Autodictor.dll": {}
+        }
+      },
+      "Logger.Abstract/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Logger.Abstract.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Logger.Abstract.dll": {}
         }
       },
       "Shared/1.0.0": {
@@ -5107,6 +5222,53 @@
         "automapper.extensions.microsoft.dependencyinjection.nuspec",
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll",
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.pdb"
+      ]
+    },
+    "Confluent.Kafka/0.11.5": {
+      "sha512": "O7eC11tjwe/SYHH5xd7X2kaWRka1MTg6iQcAhDWTATXDolU2j5sant+ZWrG6gR2H5KQFQp0jonvUuwv0YRwlfA==",
+      "type": "package",
+      "path": "confluent.kafka/0.11.5",
+      "files": [
+        "confluent.kafka.0.11.5.nupkg.sha512",
+        "confluent.kafka.nuspec",
+        "lib/net45/Confluent.Kafka.dll",
+        "lib/net45/Confluent.Kafka.xml",
+        "lib/net46/Confluent.Kafka.dll",
+        "lib/net46/Confluent.Kafka.xml",
+        "lib/netstandard1.3/Confluent.Kafka.dll",
+        "lib/netstandard1.3/Confluent.Kafka.xml"
+      ]
+    },
+    "librdkafka.redist/0.11.5": {
+      "sha512": "uni+bGh95wjpjGLI0O8cu9VLV2r7Eokl2o+rWcVOlAlOYKJBr893+R1xQ6ISOfmuzi+GzfCfGra97dTrxRYREQ==",
+      "type": "package",
+      "path": "librdkafka.redist/0.11.5",
+      "files": [
+        "CONFIGURATION.md",
+        "LICENSES.txt",
+        "README.md",
+        "build/librdkafka.redist.props",
+        "build/native/include/librdkafka/rdkafka.h",
+        "build/native/include/librdkafka/rdkafkacpp.h",
+        "build/native/lib/win7/x64/win7-x64-Release/v120/librdkafka.lib",
+        "build/native/lib/win7/x64/win7-x64-Release/v120/librdkafkacpp.lib",
+        "build/native/lib/win7/x86/win7-x86-Release/v120/librdkafka.lib",
+        "build/native/lib/win7/x86/win7-x86-Release/v120/librdkafkacpp.lib",
+        "build/native/librdkafka.redist.targets",
+        "librdkafka.redist.0.11.5.nupkg.sha512",
+        "librdkafka.redist.nuspec",
+        "runtimes/linux-x64/native/centos7-librdkafka.so",
+        "runtimes/linux-x64/native/debian9-librdkafka.so",
+        "runtimes/linux-x64/native/librdkafka.so",
+        "runtimes/osx-x64/native/librdkafka.dylib",
+        "runtimes/win7-x64/native/librdkafka.dll",
+        "runtimes/win7-x64/native/librdkafkacpp.dll",
+        "runtimes/win7-x64/native/msvcr120.dll",
+        "runtimes/win7-x64/native/zlib.dll",
+        "runtimes/win7-x86/native/librdkafka.dll",
+        "runtimes/win7-x86/native/librdkafkacpp.dll",
+        "runtimes/win7-x86/native/msvcr120.dll",
+        "runtimes/win7-x86/native/zlib.dll"
       ]
     },
     "Libuv/1.10.0": {
@@ -10584,6 +10746,23 @@
         "system.reactive.nuspec"
       ]
     },
+    "System.Reactive.Linq/4.1.0": {
+      "sha512": "hZxmIfrxs7v6bUeAwB70qarIlURJxN+4XV6sKxKANOtymO2vscFSuNwZhcreFcaSXqyPWLu7LbXaW/ytxNuMng==",
+      "type": "package",
+      "path": "system.reactive.linq/4.1.0",
+      "files": [
+        ".signature.p7s",
+        "lib/net46/System.Reactive.Linq.dll",
+        "lib/net46/System.Reactive.Linq.xml",
+        "lib/netstandard2.0/System.Reactive.Linq.dll",
+        "lib/netstandard2.0/System.Reactive.Linq.xml",
+        "lib/uap10.0/System.Reactive.Linq.dll",
+        "lib/uap10.0/System.Reactive.Linq.pri",
+        "lib/uap10.0/System.Reactive.Linq.xml",
+        "system.reactive.linq.4.1.0.nupkg.sha512",
+        "system.reactive.linq.nuspec"
+      ]
+    },
     "System.Reflection/4.3.0": {
       "sha512": "KMiAFoW7MfJGa9nDFNcfu+FpEdiHpWgTcS2HdMpDvt9saK3y/G4GwprPyzqjFH9NTaGPQeWNHU+iDlDILj96aQ==",
       "type": "package",
@@ -13158,10 +13337,20 @@
       "path": "../Infrastructure/Infrastructure.EventBus.csproj",
       "msbuildProject": "../Infrastructure/Infrastructure.EventBus.csproj"
     },
+    "Infrastructure.MessageBroker/1.0.0": {
+      "type": "project",
+      "path": "../Infrastructure.MessageBroker1/Infrastructure.MessageBroker.csproj",
+      "msbuildProject": "../Infrastructure.MessageBroker1/Infrastructure.MessageBroker.csproj"
+    },
     "InputDataModel.Autodictor/1.0.0": {
       "type": "project",
       "path": "../InputDataModel.Autodictor/InputDataModel.Autodictor.csproj",
       "msbuildProject": "../InputDataModel.Autodictor/InputDataModel.Autodictor.csproj"
+    },
+    "Logger.Abstract/1.0.0": {
+      "type": "project",
+      "path": "../Logger.Abstract/Logger.Abstract.csproj",
+      "msbuildProject": "../Logger.Abstract/Logger.Abstract.csproj"
     },
     "Shared/1.0.0": {
       "type": "project",
