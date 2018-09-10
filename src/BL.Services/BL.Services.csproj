@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Communication.SerialPort\Transport.SerialPort.csproj" />
     <ProjectReference Include="..\Communication.TcpIp\Transport.TcpIp.csproj" />
     <ProjectReference Include="..\Device.Base\DeviceForExchange.csproj" />
@@ -12,6 +16,7 @@
     <ProjectReference Include="..\Infrastructure.MessageBroker1\Infrastructure.MessageBroker.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.EventBus.csproj" />
     <ProjectReference Include="..\InputDataModel.Autodictor\InputDataModel.Autodictor.csproj" />
+    <ProjectReference Include="..\InputDataModel.Base\InputDataModel.Base.csproj" />
     <ProjectReference Include="..\Logger.Abstract\Logger.Abstract.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
     <ProjectReference Include="..\Transport.Base\Transport.Base.csproj" />
@@ -20,14 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\..\..\..\Users\admin\.nuget\packages\autofac\4.8.1\lib\netstandard1.1\Autofac.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.EntityFrameworkCore">
       <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.0.3\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
-      <HintPath>..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.dependencyinjection.abstractions\2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
   </ItemGroup>
 

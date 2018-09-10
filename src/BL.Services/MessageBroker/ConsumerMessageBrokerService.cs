@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using BL.Services.Storages;
 using Confluent.Kafka;
 using Infrastructure.MessageBroker.Abstract;
+using InputDataModel.Base;
 using Logger.Abstract.Abstract;
+using Newtonsoft.Json;
 using Worker.Background.Abstarct;
 
 namespace BL.Services.MessageBroker
 {
-    public class ConsumerMessageBrokerService : IDisposable
+    public class ConsumerMessageBrokerService<TIn> : IDisposable
     {
-
         #region field
 
         private readonly IConsumer  _consumer;
         private readonly IBackground _background;
         private readonly ILogger _logger;
+        private readonly DeviceStorageService<TIn> _deviceStorageService;
         private readonly int _batchSize;
         private IDisposable _registration;
 
@@ -28,13 +32,19 @@ namespace BL.Services.MessageBroker
 
         #region ctor
 
-        public ConsumerMessageBrokerService(IConsumer consumer, IBackground background, ILogger logger, int batchSize)
+        public ConsumerMessageBrokerService(IConsumer consumer,   //TODO: заменить на Func<IOwned<IConsumer>>
+            IBackground background,
+            ILogger logger,
+            DeviceStorageService<TIn> deviceStorageService,
+            int batchSize)
         {
             _batchSize = batchSize;
             _consumer = consumer;
             _background = background; //TODO: RunAsync запускать на background
             _logger = logger;
-            // _kafkaConsumer = new ConsumerMessageBrokerService(logger, brokerEndpoints, GroupId, topics);
+            _deviceStorageService = deviceStorageService;
+
+            _background.AddCycleAction(RunAsync);
         }
 
         #endregion
@@ -42,12 +52,22 @@ namespace BL.Services.MessageBroker
 
 
 
+        #region Methode
 
-        public async Task RunAsync(CancellationToken cancellationToken)
+        //public async Task StartBackgroundAsync(CancellationToken ct)
+        //{
+        //   await _background.StartAsync(ct);
+        //}
+
+
+        //public async Task StopBackgroundAsync(CancellationToken ct)
+        //{
+        //    await _background.StartAsync(ct);
+        //}
+
+
+        private async Task RunAsync(CancellationToken cancellationToken)
         {
-
-
-
             var observable = _consumer.Consume(cancellationToken);  //создаем наблюдаемую коллекцию сообщений с брокера
 
             var subscription = observable
@@ -55,7 +75,7 @@ namespace BL.Services.MessageBroker
                 .Subscribe(
                     messages =>
                     {
-                        KafkaMessageHandler(messages);
+                        MessageHandler(messages);
                         _consumer.CommitAsync(messages[messages.Count - 1]).GetAwaiter().GetResult();  //ручной коммит офсета для этого консьюмера
                     });
 
@@ -70,25 +90,58 @@ namespace BL.Services.MessageBroker
             await taskCompletionSource.Task;
         }
 
+        #endregion
 
 
-        private void KafkaMessageHandler(IList<Message<Null, string>> messages)
+
+        #region EventHandler
+
+        private void MessageHandler(IList<Message<Null, string>> messages)
         {
             //Обработчик сообщений с kafka
             foreach (var message in messages)
             {
+                try
+                {
+                    var value = message.Value;
+                    var inputDatas = JsonConvert.DeserializeObject<List<InputData<TIn>>>(value);
+                    //найти Device по имени и передать ему данные 
+                    foreach (var inData in inputDatas)
+                    {
+                       var device= _deviceStorageService.Get(inData.DeviceName);
+                       if (device == null)
+                       {
+                            //LOG
+                            continue;
+                       }
+                       //Передать данные по конкретным Exchanges на конкретное действие
+                       var exch= device.Exchanges.FirstOrDefault();
+                       exch.SendOneTimeData(inData.Data.FirstOrDefault());
+                    }           
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+
                 //Console.WriteLine($"{message.Topic}/{message.Partition} @{message.Offset}: '{message.Value.Length}'"); //'{message.Value}'
                 //Console.WriteLine($"{message.Topic}/{message.Partition} @{message.Offset}: '{message.Value.Length}'"); //'{message.Value}'
             }
         }
 
+        #endregion
 
 
+
+        #region Disposable
 
         public void Dispose()
         {
             _registration.Dispose();
             _consumer.Dispose();
         }
+
+        #endregion
     }
 }

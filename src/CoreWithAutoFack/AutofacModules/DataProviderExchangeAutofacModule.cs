@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Exchange.Base.DataProviderAbstract;
+using InputDataModel.Autodictor.ByRuleDataProviders;
 using InputDataModel.Autodictor.ManualDataProviders;
 using InputDataModel.Autodictor.Model;
 using Shared.Types;

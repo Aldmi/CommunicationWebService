@@ -25,10 +25,9 @@ namespace Exchange.Base
 
 
         #region StateExchange
-
         bool IsOpen { get; }                                                      //Соединение открыто
         bool IsConnect { get; }                                                   //Устройсвто на связи по открытому соединению (определяется по правильным ответам от ус-ва)
-        T LastSendData { get; }                                  //Последние отосланные данные 
+        T LastSendData { get; }                                                  //Последние отосланные данные 
         bool IsStartedCycleExchange { get; set; }                                 //Флаг цикл. обмена
         #endregion
 
