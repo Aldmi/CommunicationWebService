@@ -6,7 +6,6 @@ using AutoMapper;
 using BL.Services.Storages;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
-using Infrastructure.EventBus.Abstract;
 using InputDataModel.Autodictor.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -69,9 +68,9 @@ namespace WebServer
 
 
         public void Configure(IApplicationBuilder app,
-            IHostingEnvironment env,
-            ILifetimeScope scope,
-            IConfiguration config)
+                              IHostingEnvironment env,
+                              ILifetimeScope scope,
+                              IConfiguration config)
         {
             //var spPorts = optionsSettingModel.Value;
             //var httpDev = optionsDevicesWithSp.Value;
@@ -170,7 +169,7 @@ namespace WebServer
                     var singleElem= serialPortOptionRepository.GetSingle(option => option.Port == "COM1");
                     var httpElem = httpOptionRepository.GetSingle(option => option.Name == "Http table 1");
                     var tcpIpElem = tcpIpOptionRepository.GetSingle(option => option.Name == "RemoteTcpIpTable 2");
-                    var exchangeElem = exchangeOptionRepository.GetSingle(option => option.Key == "SP_COM1_Vidor1");
+                    var exchangeElem = exchangeOptionRepository.GetSingle(option => option.Key == "SP_COM2_Vidor2");
 
                     //TODO: проверить остальные CRUD операции
                     //DEBUG------------------------------------------

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Options.Exchange;
-using DAL.Abstract.Entities.Options.Exchange.Providers;
+using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
 using Shared.Enums;
 using Shared.Types;
 
@@ -43,10 +43,17 @@ namespace DAL.Abstract.Extensions
                     Provider = new ProviderOption
                     {
                         Name = "VidorBinary",
-                        ManualProviderOption = new ManualProviderOption
+                        ByRulesProviderOption = new ByRulesProviderOption
                         {
-                            Address = "100",
-                            TimeRespone = 2500
+                            Rules = new List<Rule>
+                            {
+                                new Rule{
+                                    Name = "Rule_1",
+                                    Format = "UTF8", 
+                                    Request = new Request{Body = "01{adress}0502{Station}", MaxLenght = 1000},
+                                    Response = new Response{Body = "01050A", MaxLenght = 2000, TimeRespone = 1000}
+                                }                 
+                            }
                         }
                     }
                 },

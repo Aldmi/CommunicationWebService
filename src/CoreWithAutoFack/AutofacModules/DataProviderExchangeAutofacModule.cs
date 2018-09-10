@@ -1,5 +1,4 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using Exchange.Base.DataProviderAbstract;
 using InputDataModel.Autodictor.ManualDataProviders;
 using InputDataModel.Autodictor.Model;

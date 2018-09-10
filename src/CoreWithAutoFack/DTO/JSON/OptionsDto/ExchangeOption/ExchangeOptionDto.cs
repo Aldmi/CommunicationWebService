@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WebServer.DTO.JSON.OptionsDto.ExchangeOption.Providers;
+using WebServer.DTO.JSON.OptionsDto.ExchangeOption.ProvidersOption;
 
 namespace WebServer.DTO.JSON.OptionsDto.ExchangeOption
 {

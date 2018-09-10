@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WebServer.DTO.JSON.OptionsDto.ExchangeOption.Providers
+namespace WebServer.DTO.JSON.OptionsDto.ExchangeOption.ProvidersOption
 {
     public class ByRulesProviderOptionDto
     {

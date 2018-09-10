@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Shared.Types;
 using WebServer.DTO.JSON.OptionsDto.DeviceOption;
 using WebServer.DTO.JSON.OptionsDto.ExchangeOption;
 using WebServer.DTO.JSON.OptionsDto.TransportOption;

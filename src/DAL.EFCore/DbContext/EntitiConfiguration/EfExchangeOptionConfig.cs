@@ -13,11 +13,16 @@ namespace DAL.EFCore.DbContext.EntitiConfiguration
                 .HasField("_keyTransportMetaData")
                 .IsRequired();
 
+            //связать приватно поле _providerOptionMetaData с типом Provider в БД (типа string).  Для сериализации объекта в JSON.
+            builder.Property<string>("ProviderOptionMetaData")
+                .HasField("_providerOptionMetaData")
+                .IsRequired();
+
             //EfProvider.
             //Связь 1к1.
-            builder.HasOne(e => e.Provider)
-                   .WithOne(e => e.EfExchangeOption)
-                   .HasForeignKey<EfProvider>(e => e.EfExchangeOptionId);
+            //builder.HasOne(e => e.Provider)
+            //       .WithOne(e => e.EfExchangeOption)
+            //       .HasForeignKey<EfProvider>(e => e.EfExchangeOptionId);
         }
     }
 }

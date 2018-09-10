@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Options.Device;
-using Shared.Enums;
-using Shared.Types;
 
 namespace DAL.Abstract.Extensions
 {

@@ -1,9 +1,5 @@
 ﻿using Autofac;
-using BL.Services.Mediators;
 using BL.Services.Storages;
-using Exchange.Base.DataProviderAbstract;
-using InputDataModel.Autodictor.Model;
-using Shared.Types;
 
 namespace WebServer.AutofacModules
 {

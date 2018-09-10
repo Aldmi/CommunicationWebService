@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reactive.Subjects;
-using DAL.Abstract.Entities.Options.Exchange.Providers;
+using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
 using Exchange.Base.DataProviderAbstract;
 using InputDataModel.Autodictor.Model;
 using Shared.Types;
@@ -10,7 +10,12 @@ namespace InputDataModel.Autodictor.ManualDataProviders
 {
     public class VidorBinaryDataProvider : IExchangeDataProvider<AdInputType, TransportResponse>
     {
-        private readonly ManualProviderOption _manualProviderOption;
+        #region field
+
+        private readonly ManualProviderOption _providerOption;
+
+        #endregion
+
 
 
 
@@ -18,8 +23,8 @@ namespace InputDataModel.Autodictor.ManualDataProviders
 
         public VidorBinaryDataProvider(ProviderOption providerOption)
         {
-            _manualProviderOption = providerOption.ManualProviderOption;
-            if(_manualProviderOption == null)
+            _providerOption = providerOption.ManualProviderOption;
+            if(_providerOption == null)
                 throw new ArgumentNullException(providerOption.Name);
         }
 

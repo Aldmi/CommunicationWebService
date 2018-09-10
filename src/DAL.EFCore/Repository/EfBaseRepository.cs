@@ -11,6 +11,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.EFCore.Repository
 {
+    /// <summary>
+    /// Базовый тип репозитория для EntitiFramework
+    /// </summary>
+    /// <typeparam name="TDb">Тип в системе хранения</typeparam>
+    /// <typeparam name="TMap">Тип в бизнесс логики</typeparam>
     public abstract class EfBaseRepository<TDb, TMap> : IDisposable
                                                         where TDb : class, IEntity
                                                         where TMap : class

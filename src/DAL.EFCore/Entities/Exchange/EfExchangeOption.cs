@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using DAL.EFCore.Entities.Exchange.ProvidersOption;
 using Newtonsoft.Json;
 using Shared.Enums;
-using Shared.Types;
 
 namespace DAL.EFCore.Entities.Exchange
 {
@@ -17,12 +15,7 @@ namespace DAL.EFCore.Entities.Exchange
         [Required]
         public string Key { get; set; }
 
-        //public EfExchangeRule EfExchangeRule { get; set; } //Или Rule или Provider
-
-        public EfProvider Provider { get; set; }
-
         public bool AutoStartCycleFunc { get; set; }
-
 
         private string _keyTransportMetaData;
         [NotMapped]
@@ -30,6 +23,14 @@ namespace DAL.EFCore.Entities.Exchange
         {
             get => string.IsNullOrEmpty(_keyTransportMetaData) ? null : JsonConvert.DeserializeObject<EfKeyTransport>(_keyTransportMetaData);
             set => _keyTransportMetaData = (value == null) ? null : JsonConvert.SerializeObject(value);
+        }
+
+        private string _providerOptionMetaData;
+        [NotMapped]
+        public EfProviderOption Provider
+        {
+            get => string.IsNullOrEmpty(_providerOptionMetaData) ? null : JsonConvert.DeserializeObject<EfProviderOption>(_providerOptionMetaData);
+            set => _providerOptionMetaData = (value == null) ? null : JsonConvert.SerializeObject(value);
         }
     }
 
@@ -42,5 +43,4 @@ namespace DAL.EFCore.Entities.Exchange
 
         #endregion
     }
-
 }

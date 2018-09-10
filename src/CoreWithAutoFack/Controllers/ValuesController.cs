@@ -9,10 +9,8 @@ using Exchange.Base;
 using InputDataModel.Autodictor.Model;
 using Microsoft.AspNetCore.Mvc;
 using Transport.SerialPort.Abstract;
-using WebServer.AutoMapperConfig;
 using WebServer.DTO.JSON.OptionsDto;
 using WebServer.DTO.JSON.OptionsDto.ExchangeOption;
-using WebServer.DTO.JSON.OptionsDto.ExchangeOption.Providers;
 using WebServer.DTO.JSON.OptionsDto.ExchangeOption.ProvidersOption;
 using Worker.Background.Abstarct;
 
@@ -162,8 +160,10 @@ namespace WebServer.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]ExchangeOptionDto value)
         {
+            var exch = value;
+
         }
 
         // PUT api/values/5

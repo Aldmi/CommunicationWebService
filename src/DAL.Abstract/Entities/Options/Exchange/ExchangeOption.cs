@@ -1,4 +1,4 @@
-﻿using DAL.Abstract.Entities.Options.Exchange.Providers;
+﻿using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
 using Shared.Types;
 
 namespace DAL.Abstract.Entities.Options.Exchange
@@ -7,7 +7,6 @@ namespace DAL.Abstract.Entities.Options.Exchange
     {
         public string Key { get; set; }
         public KeyTransport KeyTransport { get; set; }
-        public ExchangeRule ExchangeRule { get; set; }
         public ProviderOption Provider { get; set; }
 
         /// <summary>

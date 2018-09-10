@@ -7,7 +7,6 @@ using BL.Services.Exceptions;
 using BL.Services.Mediators;
 using DAL.Abstract.Entities.Options.Device;
 using DAL.Abstract.Entities.Options.Exchange;
-using DAL.Abstract.Entities.Options.Exchange.Providers;
 using DAL.Abstract.Entities.Options.Transport;
 using InputDataModel.Autodictor.Model;
 using Microsoft.AspNetCore.Mvc;

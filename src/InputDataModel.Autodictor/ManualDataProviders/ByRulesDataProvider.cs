@@ -1,13 +1,36 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reactive.Subjects;
+using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
 using Exchange.Base.DataProviderAbstract;
 using InputDataModel.Autodictor.Model;
 using Shared.Types;
 
 namespace InputDataModel.Autodictor.ManualDataProviders
 {
-    public class ByRulesDataProvider: IExchangeDataProvider<AdInputType, TransportResponse>
+    public class ByRulesDataProvider : IExchangeDataProvider<AdInputType, TransportResponse>
     {
+
+        #region field
+
+        private readonly ByRulesProviderOption _providerOption;
+
+        #endregion
+
+
+
+
+        #region ctor
+
+        public ByRulesDataProvider(ProviderOption providerOption)
+        {
+            _providerOption = providerOption.ByRulesProviderOption;
+            if(_providerOption == null)
+                throw new ArgumentNullException(providerOption.Name);
+        }
+
+        #endregion
+
 
 
 

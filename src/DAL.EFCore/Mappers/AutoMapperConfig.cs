@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DAL.Abstract.Entities.Options.Device;
 using DAL.Abstract.Entities.Options.Exchange;
-using DAL.Abstract.Entities.Options.Exchange.Providers;
 using DAL.Abstract.Entities.Options.Transport;
 using DAL.EFCore.Entities.Device;
 using DAL.EFCore.Entities.Exchange;
@@ -20,11 +19,8 @@ namespace DAL.EFCore.Mappers
                     cfg.CreateMap<SerialOption, EfSerialOption>().ReverseMap();
                     cfg.CreateMap<TcpIpOption, EfTcpIpOption>().ReverseMap();
                     cfg.CreateMap<HttpOption, EfHttpOption>().ReverseMap();
-
                     cfg.CreateMap<DeviceOption, EfDeviceOption>().ReverseMap();
                     cfg.CreateMap<ExchangeOption, EfExchangeOption>().ReverseMap();
-
-                    //cfg.CreateMap<ProviderOption, EfProvider>().ReverseMap();
                 });
             Mapper = config.CreateMapper();
         }
