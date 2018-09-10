@@ -1,25 +1,31 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Shared.Types;
+using Worker.Background.Abstarct;
 
 namespace Worker.Background.Concrete.HostingBackground
 {
-    public class HostingBackgroundGetInputData : HostingBackgroundBase
+    public class HostingBackgroundGetInputData : HostingBackgroundBase, IGetInputDataBackground
     {
 
 
-        public HostingBackgroundGetInputData(KeyTransport key, bool autoStart) : base(key, autoStart)
+        #region ctor
+
+        public HostingBackgroundGetInputData(bool autoStart) : base(autoStart)
         {
         }
+
+        #endregion
 
 
 
 
         protected override Task ProcessAsync(CancellationToken stoppingToken)
         {
+            //TODO: Добавить обработку фонового процесса
             throw new NotImplementedException();
         }
+
 
         public override void AddCycleAction(Func<CancellationToken, Task> action)
         {

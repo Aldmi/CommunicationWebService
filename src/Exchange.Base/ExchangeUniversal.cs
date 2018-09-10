@@ -20,7 +20,7 @@ namespace Exchange.Base
         #region field
         protected readonly ExchangeOption ExchangeOption;
         private readonly ITransport _transport;
-        private readonly IBackground _background;
+        private readonly ITransportBackground _transportBackground;
         private readonly IExchangeDataProvider<TIn, TransportResponse> _dataProvider;
         #endregion
 
@@ -46,12 +46,12 @@ namespace Exchange.Base
 
         #region ctor
 
-        public ExchangeUniversal(ExchangeOption exchangeOption, ITransport transport, IBackground background, IExchangeDataProvider<TIn, TransportResponse> dataProvider)
+        public ExchangeUniversal(ExchangeOption exchangeOption, ITransport transport, ITransportBackground transportBackground, IExchangeDataProvider<TIn, TransportResponse> dataProvider)
         {
             ExchangeOption = exchangeOption;
 
             _transport = transport;
-            _background = background;
+            _transportBackground = transportBackground;
             _dataProvider = dataProvider;
         }
 
@@ -124,7 +124,7 @@ namespace Exchange.Base
         /// </summary>
         public void StartCycleExchange()
         {
-            _background.AddCycleAction(CycleTimeActionAsync);
+            _transportBackground.AddCycleAction(CycleTimeActionAsync);
             IsStartedCycleExchange = true;
         }
 
@@ -134,7 +134,7 @@ namespace Exchange.Base
         /// </summary>
         public void StopCycleExchange()
         {
-            _background.RemoveCycleFunc(CycleTimeActionAsync);
+            _transportBackground.RemoveCycleFunc(CycleTimeActionAsync);
             IsStartedCycleExchange = false;
         }
 
@@ -163,7 +163,7 @@ namespace Exchange.Base
             if (inData != null)
             {
                 InDataQueue.Enqueue(inData);
-                _background.AddOneTimeAction(OneTimeActionAsync);
+                _transportBackground.AddOneTimeAction(OneTimeActionAsync);
             }
         }
 

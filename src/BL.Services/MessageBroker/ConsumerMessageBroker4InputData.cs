@@ -25,7 +25,7 @@ namespace BL.Services.MessageBroker
         #region field
 
         private readonly IConsumer  _consumer;
-        private readonly IBackground _background;
+        private readonly ITransportBackground _transportBackground;
         private readonly ILogger _logger;
         private readonly GetInputDataService<TIn> _getInputDataService;
         private readonly int _batchSize;
@@ -39,19 +39,19 @@ namespace BL.Services.MessageBroker
         #region ctor
 
         public ConsumerMessageBroker4InputData(IConsumer consumer,   //TODO: заменить на Func<IOwned<IConsumer>>
-            IBackground background,
+            ITransportBackground transportBackground,
             ILogger logger,
             GetInputDataService<TIn> getInputDataService,
             int batchSize)
         {
             _batchSize = batchSize;
             _consumer = consumer;
-            _background = background; //TODO: RunAsync запускать на background
+            _transportBackground = transportBackground; //TODO: RunAsync запускать на background
             _logger = logger;
             _getInputDataService = getInputDataService;
  
 
-            _background.AddCycleAction(RunAsync);
+            _transportBackground.AddCycleAction(RunAsync);
         }
 
         #endregion

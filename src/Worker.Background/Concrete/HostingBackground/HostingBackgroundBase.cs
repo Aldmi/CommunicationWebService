@@ -1,32 +1,29 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Shared.Types;
-using Worker.Background.Abstarct;
 
 namespace Worker.Background.Concrete.HostingBackground
 {
     /// <summary>
     /// аналог IHostedService.
     /// </summary>
-    public abstract class HostingBackgroundBase : IBackground
+    public abstract class HostingBackgroundBase 
     {
-        private Task _executingTask;
+        protected Task ExecutingTask;
         private CancellationTokenSource _stoppingCts = new CancellationTokenSource();
 
 
         #region prop
 
-        public KeyTransport KeyTransport { get; }
         public bool AutoStart { get; }
 
         /// <summary>
         /// Бекгроунд запущен, если задача продолжает выполняться. 
         /// </summary>
-        public bool IsStarted => !(_executingTask == null ||
-                                   _executingTask.IsCanceled ||
-                                   _executingTask.IsCompleted ||
-                                   _executingTask.IsFaulted);
+        public bool IsStarted => !(ExecutingTask == null ||
+                                   ExecutingTask.IsCanceled ||
+                                   ExecutingTask.IsCompleted ||
+                                   ExecutingTask.IsFaulted);
 
         #endregion
 
@@ -34,9 +31,8 @@ namespace Worker.Background.Concrete.HostingBackground
 
         #region ctor
 
-        protected HostingBackgroundBase(KeyTransport key, bool autoStart)
+        protected HostingBackgroundBase(bool autoStart)
         {
-            KeyTransport = key;
             AutoStart = autoStart;
         }
 
@@ -49,15 +45,15 @@ namespace Worker.Background.Concrete.HostingBackground
         public virtual Task StartAsync(CancellationToken cancellationToken)
         {
             _stoppingCts = new CancellationTokenSource();
-            _executingTask = ExecuteAsync(_stoppingCts.Token);
-            return _executingTask.IsCompleted ? _executingTask : Task.CompletedTask;
+            ExecutingTask = ExecuteAsync(_stoppingCts.Token);
+            return ExecutingTask.IsCompleted ? ExecutingTask : Task.CompletedTask;
         }
 
 
         public virtual async Task StopAsync(CancellationToken cancellationToken)
         {
             // Stop called without start
-            if (_executingTask == null)
+            if (ExecutingTask == null)
             {
                 return;
             }
@@ -70,7 +66,7 @@ namespace Worker.Background.Concrete.HostingBackground
             finally
             {
                 // Wait until the task completes or the stop token triggers
-                await Task.WhenAny(_executingTask, Task.Delay(Timeout.Infinite, cancellationToken));
+                await Task.WhenAny(ExecutingTask, Task.Delay(Timeout.Infinite, cancellationToken));
             }
         }
 

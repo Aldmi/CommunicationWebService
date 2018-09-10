@@ -27,7 +27,7 @@ namespace WebServer.Controllers
         private readonly TransportStorageService _spSrStorageService;
         private readonly IMapper _mapper;
         private readonly IEnumerable<IExchange<AdInputType>> _excBehaviors;
-        private readonly IEnumerable<IBackground> _backgroundServices;
+        private readonly IEnumerable<ITransportBackground> _backgroundServices;
         private readonly ILifetimeScope _scope;
         private readonly ISerailPort _spService;
 
