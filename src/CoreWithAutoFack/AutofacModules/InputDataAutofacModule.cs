@@ -8,6 +8,8 @@ using Infrastructure.EventBus.Abstract;
 using Infrastructure.MessageBroker.Abstract;
 using Infrastructure.MessageBroker.Consumer;
 using Infrastructure.MessageBroker.Options;
+using Worker.Background.Abstarct;
+using Worker.Background.Concrete.HostingBackground;
 
 namespace WebServer.AutofacModules
 {
@@ -15,38 +17,38 @@ namespace WebServer.AutofacModules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<GetInputDataService<TIn>>().InstancePerDependency();
-
-
+            //
             var consumerOption = new ConsumerOption
             {
                 BrokerEndpoints = "localhost:9092",
                 GroupId = "rx-consumer",
                 Topics = new List<string> { "CommunicationWebService_InputData" }
             };
-            //builder.RegisterType<ConsumerMessageBroker4InputData<TIn>>()
-            //       .WithParameters(new List<ResolvedParameter>
-            //            {      new ResolvedParameter(
-            //                    (pi, ctx) => (pi.ParameterType == typeof(int) && (pi.Name == "batchSize")),
-            //                    (pi, ctx) => 100),
-            //                new ResolvedParameter(
-            //                    (pi, ctx) => (pi.ParameterType == typeof(KafkaConsumerOption) && (pi.Name == "consumerOption")),
-            //                    (pi, ctx) => consumerOption),
-            //                //DEBUG-----------------------------------------------------------------------------
-            //                new ResolvedParameter(
-            //                (pi, ctx) => (pi.ParameterType == typeof(IConsumer) && (pi.Name == "consumer")),
-            //                (pi, ctx) =>
-            //                {
-            //                    var consumerFactory = ctx.Resolve<Func<KafkaConsumerOption, IConsumer>>();
-            //                    return consumerFactory(consumerOption);
-            //                })
-            //            }).SingleInstance();
+            var backgroundName = "messageBrokerConsumerBg";
+            var autoStartBg = true;
+
+            builder.RegisterType<GetInputDataService<TIn>>().InstancePerDependency();
+            builder.RegisterType<HostingBackgroundSimple>()
+                .Named<ISimpleBackground>(backgroundName)
+                .WithParameters(new List<ResolvedParameter>
+                {
+                    new ResolvedParameter(
+                        (pi, ctx) => (pi.ParameterType == typeof(string) && (pi.Name == "key")),
+                        (pi, ctx) => backgroundName),
+                    new ResolvedParameter(
+                        (pi, ctx) => (pi.ParameterType == typeof(bool) && (pi.Name == "autoStart")),
+                        (pi, ctx) => autoStartBg),
+                }).SingleInstance();
 
 
-            //DEBUG-----------------------------------------------------------------------------
+
             builder.RegisterType<ConsumerMessageBroker4InputData<TIn>>()
                 .WithParameters(new List<ResolvedParameter>
-                {      new ResolvedParameter(
+                {
+                    new ResolvedParameter(
+                        (pi, ctx) => (pi.ParameterType == typeof(ISimpleBackground) && (pi.Name == "background")),
+                        (pi, ctx) => ctx.ResolveNamed<ISimpleBackground>(backgroundName)),
+                    new ResolvedParameter(
                         (pi, ctx) => (pi.ParameterType == typeof(int) && (pi.Name == "batchSize")),
                         (pi, ctx) => 100),           
                     new ResolvedParameter(
@@ -56,7 +58,7 @@ namespace WebServer.AutofacModules
                             var consumerFactory = ctx.Resolve<Func<ConsumerOption, IConsumer>>();
                             return consumerFactory(consumerOption);
                         })
-                }).SingleInstance();
+                }).SingleInstance();        
         }
     }
 }

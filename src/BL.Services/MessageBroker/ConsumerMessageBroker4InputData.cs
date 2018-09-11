@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BL.Services.InputData;
-using BL.Services.Storages;
 using Confluent.Kafka;
 using Infrastructure.MessageBroker.Abstract;
-using Infrastructure.MessageBroker.Consumer;
-using Infrastructure.MessageBroker.Options;
 using InputDataModel.Base;
 using Logger.Abstract.Abstract;
 using Newtonsoft.Json;
@@ -29,6 +25,7 @@ namespace BL.Services.MessageBroker
         private readonly IConsumer  _consumer;
         private readonly ILogger _logger;
         private readonly GetInputDataService<TIn> _getInputDataService;
+        private readonly ISimpleBackground _background;
         private readonly int _batchSize;
         private IDisposable _registration;
 
@@ -43,15 +40,19 @@ namespace BL.Services.MessageBroker
         #region ctor
 
         public ConsumerMessageBroker4InputData(
+            ISimpleBackground background,
             IConsumer consumer,
             ILogger logger,
             GetInputDataService<TIn> getInputDataService,
             int batchSize)
         {
+            _background = background;
             _batchSize = batchSize;
             _consumer = consumer;
             _logger = logger;
             _getInputDataService = getInputDataService;
+
+            _background.AddOneTimeAction(RunAsync);
         }
 
         #endregion

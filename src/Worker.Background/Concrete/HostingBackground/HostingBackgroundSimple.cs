@@ -5,7 +5,7 @@ using Worker.Background.Abstarct;
 
 namespace Worker.Background.Concrete.HostingBackground
 {
-    public class HostingBackgroundGetSimple : HostingBackgroundBase, ISimpleBackground
+    public class HostingBackgroundSimple : HostingBackgroundBase, ISimpleBackground
     {
         #region prop
 
@@ -19,7 +19,7 @@ namespace Worker.Background.Concrete.HostingBackground
 
         #region ctor
 
-        public HostingBackgroundGetSimple(string key, bool autoStart) : base(autoStart)
+        public HostingBackgroundSimple(string key, bool autoStart) : base(autoStart)
         {
             Key = key;
         }
