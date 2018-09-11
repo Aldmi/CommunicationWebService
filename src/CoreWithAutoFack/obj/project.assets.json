@@ -5066,6 +5066,20 @@
           "bin/placeholder/Logger.Abstract.dll": {}
         }
       },
+      "Logger.Nlog/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Logger.Abstract": "1.0.0",
+          "Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Logger.Nlog.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Logger.Nlog.dll": {}
+        }
+      },
       "Shared/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -13369,6 +13383,11 @@
       "path": "../Logger.Abstract/Logger.Abstract.csproj",
       "msbuildProject": "../Logger.Abstract/Logger.Abstract.csproj"
     },
+    "Logger.Nlog/1.0.0": {
+      "type": "project",
+      "path": "../Logger.NlogWrapper/Logger.Nlog.csproj",
+      "msbuildProject": "../Logger.NlogWrapper/Logger.Nlog.csproj"
+    },
     "Shared/1.0.0": {
       "type": "project",
       "path": "../Shared/Shared.csproj",
@@ -13412,7 +13431,10 @@
       "DeviceForExchange >= 1.0.0",
       "Exchange.Base >= 1.0.0",
       "Infrastructure.EventBus >= 1.0.0",
+      "Infrastructure.MessageBroker >= 1.0.0",
       "InputDataModel.Autodictor >= 1.0.0",
+      "Logger.Abstract >= 1.0.0",
+      "Logger.Nlog >= 1.0.0",
       "Microsoft.AspNetCore.All >= 2.0.8",
       "Microsoft.NETCore.App >= 2.0.0",
       "Shared >= 1.0.0",
@@ -13477,11 +13499,20 @@
             "D:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj": {
               "projectPath": "D:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj"
             },
+            "D:\\Git\\CommunicationWebService\\src\\Infrastructure.MessageBroker1\\Infrastructure.MessageBroker.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Infrastructure.MessageBroker1\\Infrastructure.MessageBroker.csproj"
+            },
             "D:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj": {
               "projectPath": "D:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj"
             },
             "D:\\Git\\CommunicationWebService\\src\\InputDataModel.Autodictor\\InputDataModel.Autodictor.csproj": {
               "projectPath": "D:\\Git\\CommunicationWebService\\src\\InputDataModel.Autodictor\\InputDataModel.Autodictor.csproj"
+            },
+            "D:\\Git\\CommunicationWebService\\src\\Logger.Abstract\\Logger.Abstract.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Logger.Abstract\\Logger.Abstract.csproj"
+            },
+            "D:\\Git\\CommunicationWebService\\src\\Logger.NlogWrapper\\Logger.Nlog.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Logger.NlogWrapper\\Logger.Nlog.csproj"
             },
             "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
               "projectPath": "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"

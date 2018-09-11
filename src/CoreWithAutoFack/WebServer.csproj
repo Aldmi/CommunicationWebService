@@ -29,8 +29,11 @@
     <ProjectReference Include="..\DAL.InMemory\DAL.InMemory.csproj" />
     <ProjectReference Include="..\Device.Base\DeviceForExchange.csproj" />
     <ProjectReference Include="..\Exchange.Base\Exchange.Base.csproj" />
+    <ProjectReference Include="..\Infrastructure.MessageBroker1\Infrastructure.MessageBroker.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.EventBus.csproj" />
     <ProjectReference Include="..\InputDataModel.Autodictor\InputDataModel.Autodictor.csproj" />
+    <ProjectReference Include="..\Logger.Abstract\Logger.Abstract.csproj" />
+    <ProjectReference Include="..\Logger.NlogWrapper\Logger.Nlog.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
     <ProjectReference Include="..\Worker.Background\Worker.Background.csproj" />
   </ItemGroup>

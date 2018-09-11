@@ -8,6 +8,8 @@ using BL.Services.InputData;
 using BL.Services.Storages;
 using Confluent.Kafka;
 using Infrastructure.MessageBroker.Abstract;
+using Infrastructure.MessageBroker.Consumer;
+using Infrastructure.MessageBroker.Options;
 using InputDataModel.Base;
 using Logger.Abstract.Abstract;
 using Newtonsoft.Json;
@@ -25,11 +27,13 @@ namespace BL.Services.MessageBroker
         #region field
 
         private readonly IConsumer  _consumer;
-        private readonly ITransportBackground _transportBackground;
         private readonly ILogger _logger;
         private readonly GetInputDataService<TIn> _getInputDataService;
         private readonly int _batchSize;
         private IDisposable _registration;
+
+        protected Task ExecutingTask;
+        private CancellationTokenSource _stoppingCts;
 
         #endregion
 
@@ -38,20 +42,16 @@ namespace BL.Services.MessageBroker
 
         #region ctor
 
-        public ConsumerMessageBroker4InputData(IConsumer consumer,   //TODO: заменить на Func<IOwned<IConsumer>>
-            ITransportBackground transportBackground,
+        public ConsumerMessageBroker4InputData(
+            IConsumer consumer,
             ILogger logger,
             GetInputDataService<TIn> getInputDataService,
             int batchSize)
         {
             _batchSize = batchSize;
             _consumer = consumer;
-            _transportBackground = transportBackground; //TODO: RunAsync запускать на background
             _logger = logger;
             _getInputDataService = getInputDataService;
- 
-
-            _transportBackground.AddCycleAction(RunAsync);
         }
 
         #endregion
@@ -61,16 +61,29 @@ namespace BL.Services.MessageBroker
 
         #region Methode
 
-        //public async Task StartBackgroundAsync(CancellationToken ct)
-        //{
-        //   await _background.StartAsync(ct);
-        //}
+        public Task Start()
+        {
+            _stoppingCts = new CancellationTokenSource();     
+            ExecutingTask = RunAsync(_stoppingCts.Token);
+            return ExecutingTask.IsCompleted ? ExecutingTask : Task.CompletedTask;
+        }
 
 
-        //public async Task StopBackgroundAsync(CancellationToken ct)
-        //{
-        //    await _background.StartAsync(ct);
-        //}
+        public async Task StopAsync(CancellationToken cancellationToken)
+        {       
+            if (ExecutingTask == null)
+            {
+                return;
+            }
+            try
+            {
+                _stoppingCts.Cancel();
+            }
+            finally
+            {
+                await Task.WhenAny(ExecutingTask, Task.Delay(Timeout.Infinite, cancellationToken));
+            }
+        }
 
 
         private async Task RunAsync(CancellationToken cancellationToken)

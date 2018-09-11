@@ -81,8 +81,6 @@ namespace Worker.Background.Concrete.HostingBackground
 
 
         protected abstract Task ProcessAsync(CancellationToken stoppingToken);
-        public abstract void AddCycleAction(Func<CancellationToken, Task> action);
-        public abstract void RemoveCycleFunc(Func<CancellationToken, Task> action);
         public abstract void AddOneTimeAction(Func<CancellationToken, Task> action);
 
         #endregion

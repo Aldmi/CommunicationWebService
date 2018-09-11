@@ -16,8 +16,6 @@ namespace Worker.Background.Abstarct
         Task StartAsync(CancellationToken cancellationToken);
         Task StopAsync(CancellationToken cancellationToken);
 
-        void AddCycleAction(Func<CancellationToken, Task> action);
-        void RemoveCycleFunc(Func<CancellationToken, Task> action);
         void AddOneTimeAction(Func<CancellationToken, Task> action);
     }
 }

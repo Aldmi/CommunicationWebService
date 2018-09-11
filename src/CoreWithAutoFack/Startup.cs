@@ -1,18 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using AutoMapper;
+using BL.Services.InputData;
+using BL.Services.MessageBroker;
 using BL.Services.Storages;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
+using Infrastructure.MessageBroker.Abstract;
+using Infrastructure.MessageBroker.Consumer;
 using InputDataModel.Autodictor.Model;
+using Logger.Abstract.Abstract;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using WebServer.AutofacModules;
+using Worker.Background.Concrete.HostingBackground;
 
 namespace WebServer
 {
@@ -52,6 +59,8 @@ namespace WebServer
             builder.RegisterModule(new RepositoryAutofacModule(connectionString));
             builder.RegisterModule(new EventBusAutofacModule());
             builder.RegisterModule(new ControllerAutofacModule());
+            builder.RegisterModule(new MessageBrokerAutofacModule());
+            builder.RegisterModule(new LogerAutofacModule());
 
             var inputDataName = AppConfiguration["InputDataModel"];
             switch (inputDataName)
@@ -61,7 +70,11 @@ namespace WebServer
                     builder.RegisterModule(new BlStorageAutofacModule<AdInputType>());
                     builder.RegisterModule(new BlActionsAutofacModule<AdInputType>());
                     builder.RegisterModule(new MediatorsAutofacModule<AdInputType>());
+                    builder.RegisterModule(new InputDataAutofacModule<AdInputType>());
                     break;
+
+                case "OtherInputType":
+                    throw new NotImplementedException();
             }
         }
 
@@ -165,14 +178,29 @@ namespace WebServer
                         throw;
                     }
 
-                    //DEBUG------------------------------------------
+                    //DEBUG CRUD----------------------------------------------------------------
                     var singleElem= serialPortOptionRepository.GetSingle(option => option.Port == "COM1");
                     var httpElem = httpOptionRepository.GetSingle(option => option.Name == "Http table 1");
                     var tcpIpElem = tcpIpOptionRepository.GetSingle(option => option.Name == "RemoteTcpIpTable 2");
                     var exchangeElem = exchangeOptionRepository.GetSingle(option => option.Key == "SP_COM2_Vidor2");
-
                     //TODO: проверить остальные CRUD операции
-                    //DEBUG------------------------------------------
+                    //-----------------------------------------------------------------------------
+                    //DEBUG MessageBroker---------------------------------------------------------
+                    var consumerMessageBroker4InputData = scope.Resolve<ConsumerMessageBroker4InputData<AdInputType>>();
+
+                    //START        
+                    consumerMessageBroker4InputData.Start().Wait();
+                    Console.WriteLine("START CONSUMER >>>>>>");
+                    await Task.Delay(3000);
+
+                    //STOP
+                    await consumerMessageBroker4InputData.StopAsync(CancellationToken.None);               
+                    Console.WriteLine("STOP CONSUMER <<<<<<<");
+                    await Task.Delay(3000);
+
+                    //START
+                    consumerMessageBroker4InputData.Start().Wait();
+                    Console.WriteLine("START CONSUMER >>>>>>");
                 }
             }
             catch (Exception e)

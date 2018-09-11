@@ -44,7 +44,7 @@ namespace Worker.Background.Concrete.HostingBackground
         /// <summary>
         /// Добавление функций для циклического опроса
         /// </summary>
-        public override void AddCycleAction(Func<CancellationToken, Task> action)
+        public void AddCycleAction(Func<CancellationToken, Task> action)
         {
             if (action != null)
                 _cycleTimeFuncDict.TryAdd(_cycleTimeFuncDict.Count, action);
@@ -54,7 +54,7 @@ namespace Worker.Background.Concrete.HostingBackground
         /// <summary>
         /// Удаление функции для циклического опроса
         /// </summary>
-        public override void RemoveCycleFunc(Func<CancellationToken, Task> action)
+        public void RemoveCycleFunc(Func<CancellationToken, Task> action)
         {
             if (action != null)
             {

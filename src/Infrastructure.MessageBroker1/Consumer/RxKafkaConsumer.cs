@@ -6,11 +6,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Confluent.Kafka;
 using Confluent.Kafka.Serialization;
+using Infrastructure.MessageBroker.Abstract;
+using Infrastructure.MessageBroker.Options;
 using Logger.Abstract.Abstract;
 
 namespace Infrastructure.MessageBroker.Consumer
 {
-    public sealed class RxKafkaConsumer : IDisposable
+    public sealed class RxKafkaConsumer : IConsumer
     {
         #region field
 
@@ -25,16 +27,16 @@ namespace Infrastructure.MessageBroker.Consumer
 
         #region ctor
 
-        public RxKafkaConsumer(ILogger logger, string brokerEndpoints, string groupId, IEnumerable<string> topics)
+        public RxKafkaConsumer(ConsumerOption option, ILogger logger)
         {
             _logger = logger;
-            _topics = topics;
+            _topics = option.Topics;
 
             var config = new Dictionary<string, object>
             {
-                { "bootstrap.servers", brokerEndpoints },
+                { "bootstrap.servers", option.BrokerEndpoints },
                 { "api.version.request", true },
-                { "group.id", !string.IsNullOrEmpty(groupId) ? groupId : Guid.NewGuid().ToString() },
+                { "group.id", !string.IsNullOrEmpty(option.GroupId) ? option.GroupId : Guid.NewGuid().ToString() },
                 { "socket.blocking.max.ms", 1 },
                 { "enable.auto.commit", false },  //отключить автокоммит офсета после прочтения сообщения (ручной коммит через CommitAsync())
                 { "fetch.wait.max.ms", 5 },
