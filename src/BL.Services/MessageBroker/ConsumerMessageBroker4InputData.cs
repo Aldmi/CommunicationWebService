@@ -16,6 +16,7 @@ namespace BL.Services.MessageBroker
     /// <summary>
     /// Фоновый прлцесс получения даныых от брокера сообщений
     /// Входные данные поступают на нужные ус-ва.
+    /// СТАРТ/СТОП сервиса происходит через background.
     /// </summary>
     /// <typeparam name="TIn">Тип обрабатываемых входных данных</typeparam>
     public class ConsumerMessageBroker4InputData<TIn> : IDisposable
@@ -25,12 +26,8 @@ namespace BL.Services.MessageBroker
         private readonly IConsumer  _consumer;
         private readonly ILogger _logger;
         private readonly GetInputDataService<TIn> _getInputDataService;
-        private readonly ISimpleBackground _background;
         private readonly int _batchSize;
         private IDisposable _registration;
-
-        protected Task ExecutingTask;
-        private CancellationTokenSource _stoppingCts;
 
         #endregion
 
@@ -46,13 +43,12 @@ namespace BL.Services.MessageBroker
             GetInputDataService<TIn> getInputDataService,
             int batchSize)
         {
-            _background = background;
             _batchSize = batchSize;
             _consumer = consumer;
             _logger = logger;
             _getInputDataService = getInputDataService;
 
-            _background.AddOneTimeAction(RunAsync);
+            background.AddOneTimeAction(RunAsync); 
         }
 
         #endregion
@@ -61,31 +57,6 @@ namespace BL.Services.MessageBroker
 
 
         #region Methode
-
-        public Task Start()
-        {
-            _stoppingCts = new CancellationTokenSource();     
-            ExecutingTask = RunAsync(_stoppingCts.Token);
-            return ExecutingTask.IsCompleted ? ExecutingTask : Task.CompletedTask;
-        }
-
-
-        public async Task StopAsync(CancellationToken cancellationToken)
-        {       
-            if (ExecutingTask == null)
-            {
-                return;
-            }
-            try
-            {
-                _stoppingCts.Cancel();
-            }
-            finally
-            {
-                await Task.WhenAny(ExecutingTask, Task.Delay(Timeout.Infinite, cancellationToken));
-            }
-        }
-
 
         private async Task RunAsync(CancellationToken cancellationToken)
         {
@@ -130,6 +101,7 @@ namespace BL.Services.MessageBroker
                 }
                 catch (Exception e)
                 {
+                    //LOG
                     Console.WriteLine(e);
                     throw;
                 }

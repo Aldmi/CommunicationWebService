@@ -1,25 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using AutoMapper;
-using BL.Services.InputData;
 using BL.Services.MessageBroker;
 using BL.Services.Storages;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
-using Infrastructure.MessageBroker.Abstract;
-using Infrastructure.MessageBroker.Consumer;
 using InputDataModel.Autodictor.Model;
-using Logger.Abstract.Abstract;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using WebServer.AutofacModules;
-using Worker.Background.Concrete.HostingBackground;
+using Worker.Background.Abstarct;
 
 namespace WebServer
 {
@@ -70,7 +65,7 @@ namespace WebServer
                     builder.RegisterModule(new BlStorageAutofacModule<AdInputType>());
                     builder.RegisterModule(new BlActionsAutofacModule<AdInputType>());
                     builder.RegisterModule(new MediatorsAutofacModule<AdInputType>());
-                    builder.RegisterModule(new InputDataAutofacModule<AdInputType>());
+                    builder.RegisterModule(new InputDataAutofacModule<AdInputType>(AppConfiguration.GetSection("MessageBrokerConsumer4InData")));
                     break;
 
                 case "OtherInputType":
@@ -111,12 +106,19 @@ namespace WebServer
 
         private void ApplicationStarted(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
         {
+            //ЗАПУСК БЕКГРАУНДА ОПРОСА ШИНЫ ДАННЫХ
+            scope.Resolve<ConsumerMessageBroker4InputData<AdInputType>>();
+            var bgConsumer= scope.ResolveNamed<ISimpleBackground>("messageBrokerConsumerBg");
+            lifetimeApp.ApplicationStarted.Register(() => bgConsumer.StartAsync(CancellationToken.None));
+           
+            //ЗАПУСК БЕКГРАУНДА ОПРОСА УСТРОЙСТВ
             var backgroundServices = scope.Resolve<BackgroundStorageService>();
             foreach (var back in backgroundServices.Values)
             {
                 lifetimeApp.ApplicationStarted.Register(() => back.StartAsync(CancellationToken.None));
             }
 
+            //ЗАПУСК КОННЕКТА УСТРОЙСТВ
             var exchangeServices = scope.Resolve<ExchangeStorageService<AdInputType>>();
             foreach (var exchange in exchangeServices.Values)
             {
@@ -127,12 +129,18 @@ namespace WebServer
 
         private void ApplicationStopping(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
         {
+            //ОСТАНОВ БЕКГРАУНДА ОПРОСА ШИНЫ ДАННЫХ
+            var bgConsumer= scope.ResolveNamed<ISimpleBackground>("messageBrokerConsumerBg");
+            lifetimeApp.ApplicationStopping.Register(() => bgConsumer.StopAsync(CancellationToken.None));
+
+            //ОСТАНОВ БЕКГРАУНДА ОПРОСА УСТРОЙСТВ
             var backgroundServices = scope.Resolve<BackgroundStorageService>();
             foreach (var back in backgroundServices.Values)
             {
                 lifetimeApp.ApplicationStopping.Register(() => back.StopAsync(CancellationToken.None));
             }
 
+            //ОСТАНОВ КОННЕКТА УСТРОЙСТВ
             var exchangeServices = scope.Resolve<ExchangeStorageService<AdInputType>>();
             foreach (var exchange in exchangeServices.Values)
             {
@@ -185,22 +193,25 @@ namespace WebServer
                     var exchangeElem = exchangeOptionRepository.GetSingle(option => option.Key == "SP_COM2_Vidor2");
                     //TODO: проверить остальные CRUD операции
                     //-----------------------------------------------------------------------------
+
                     //DEBUG MessageBroker---------------------------------------------------------
-                    var consumerMessageBroker4InputData = scope.Resolve<ConsumerMessageBroker4InputData<AdInputType>>();
-
-                    //START        
-                    consumerMessageBroker4InputData.Start().Wait();
-                    Console.WriteLine("START CONSUMER >>>>>>");
-                    await Task.Delay(3000);
-
-                    //STOP
-                    await consumerMessageBroker4InputData.StopAsync(CancellationToken.None);               
-                    Console.WriteLine("STOP CONSUMER <<<<<<<");
-                    await Task.Delay(3000);
-
-                    //START
-                    consumerMessageBroker4InputData.Start().Wait();
-                    Console.WriteLine("START CONSUMER >>>>>>");
+                    //var consumerMessageBroker4InputData = scope.Resolve<ConsumerMessageBroker4InputData<AdInputType>>();
+                    //var bg= scope.ResolveNamed<ISimpleBackground>("messageBrokerConsumerBg");
+                    ////START        
+                    ////consumerMessageBroker4InputData.Start().Wait();
+                    //await bg.StartAsync(CancellationToken.None);
+                    //Console.WriteLine("START CONSUMER >>>>>>");
+                    //await Task.Delay(3000);
+                    ////STOP
+                    ////await consumerMessageBroker4InputData.StopAsync(CancellationToken.None);
+                    //await bg.StopAsync(CancellationToken.None);
+                    //Console.WriteLine("STOP CONSUMER <<<<<<<");
+                    //await Task.Delay(3000);
+                    ////START
+                    ////consumerMessageBroker4InputData.Start().Wait();
+                    //await bg.StartAsync(CancellationToken.None);
+                    //Console.WriteLine("START CONSUMER >>>>>>");
+                    //-----------------------------------------------------------------------------
                 }
             }
             catch (Exception e)

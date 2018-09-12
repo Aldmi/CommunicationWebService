@@ -154,16 +154,33 @@ namespace Infrastructure.MessageBroker.Consumer
 
         #region Disposable
 
+        private bool _disposed;
         public void Dispose()
         {
-            if (_consumer != null)
+            if (_disposed)
+                return; // Ресурсы уже освобождены
+
+            Dispose(true);  
+            GC.SuppressFinalize(this);
+            _disposed = true;
+        }
+
+        public void Dispose(bool disposing)
+        {
+            // Освобождаем только управляемые ресурсы
+            if (disposing)
             {
-                _consumer.OnLog -= OnLog;
-                _consumer.OnError -= OnError;
-                _consumer.OnConsumeError -= OnConsumeError;
-                _consumer.OnPartitionEOF -= OnPartitionEof;
-                _consumer.Dispose();
+                if (_consumer != null)
+                {
+                    _consumer.OnLog -= OnLog;
+                    _consumer.OnError -= OnError;
+                    _consumer.OnConsumeError -= OnConsumeError;
+                    _consumer.OnPartitionEOF -= OnPartitionEof;
+                    _consumer.Dispose();
+                }
             }
+            // Освобождаем неуправляемые ресурсы
+            //....
         }
 
         #endregion

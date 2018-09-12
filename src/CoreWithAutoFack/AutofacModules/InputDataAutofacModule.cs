@@ -4,10 +4,9 @@ using Autofac;
 using Autofac.Core;
 using BL.Services.InputData;
 using BL.Services.MessageBroker;
-using Infrastructure.EventBus.Abstract;
 using Infrastructure.MessageBroker.Abstract;
-using Infrastructure.MessageBroker.Consumer;
 using Infrastructure.MessageBroker.Options;
+using Microsoft.Extensions.Configuration;
 using Worker.Background.Abstarct;
 using Worker.Background.Concrete.HostingBackground;
 
@@ -15,6 +14,33 @@ namespace WebServer.AutofacModules
 {
     public class InputDataAutofacModule<TIn> : Module
     {
+        public string BackgroundName { get;  }
+        public bool AutoStartBg { get;  }
+        public ConsumerOption ConsumerOption { get;}
+
+
+
+        #region ctor
+
+        public InputDataAutofacModule(IConfigurationSection config)
+        {
+            var hh = config.GetSection("Topics").Value;
+            var gg = config["Topics"];
+
+            BackgroundName= config["Name"];
+            AutoStartBg=  bool.Parse(config["AutoStart"]);
+            ConsumerOption= new ConsumerOption
+            {
+                BrokerEndpoints = config["BrokerEndpoints"],
+                GroupId = config["GroupId"],
+           
+            };
+        }
+
+        #endregion
+
+
+
         protected override void Load(ContainerBuilder builder)
         {
             //
