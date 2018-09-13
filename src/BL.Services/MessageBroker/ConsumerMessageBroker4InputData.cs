@@ -65,7 +65,7 @@ namespace BL.Services.MessageBroker
             var subscription = observable
                 .Buffer(_batchSize)
                 .Subscribe(
-                     messages =>
+                    messages =>
                     {
                        MessageHandler(messages);
                       _consumer.CommitAsync(messages[messages.Count - 1]).GetAwaiter().GetResult();  //ручной коммит офсета для этого консьюмера
@@ -103,11 +103,9 @@ namespace BL.Services.MessageBroker
                 {
                     //LOG
                     Console.WriteLine(e);
-                    throw;
                 }
 
-                //Console.WriteLine($"{message.Topic}/{message.Partition} @{message.Offset}: '{message.Value.Length}'"); //'{message.Value}'
-                //Console.WriteLine($"{message.Topic}/{message.Partition} @{message.Offset}: '{message.Value.Length}'"); //'{message.Value}'
+                Console.WriteLine($"MessageBrokerGetingData {message.Topic}/{message.Partition} @{message.Offset}: '{message.Value}'");
             }
         }
 

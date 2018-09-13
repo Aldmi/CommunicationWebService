@@ -16,6 +16,7 @@ namespace WebServer.AutofacModules
     {
         public string BackgroundName { get;  }
         public bool AutoStartBg { get;  }
+        public int BatchSize { get;  }
         public ConsumerOption ConsumerOption { get;}
 
 
@@ -24,16 +25,14 @@ namespace WebServer.AutofacModules
 
         public InputDataAutofacModule(IConfigurationSection config)
         {
-            var hh = config.GetSection("Topics").Value;
-            var gg = config["Topics"];
-
             BackgroundName= config["Name"];
             AutoStartBg=  bool.Parse(config["AutoStart"]);
+            BatchSize = int.Parse(config["BatchSize"]);
             ConsumerOption= new ConsumerOption
             {
                 BrokerEndpoints = config["BrokerEndpoints"],
                 GroupId = config["GroupId"],
-           
+                Topics = new List<string> {config["Topics"]}
             };
         }
 
@@ -43,46 +42,35 @@ namespace WebServer.AutofacModules
 
         protected override void Load(ContainerBuilder builder)
         {
-            //
-            var consumerOption = new ConsumerOption
-            {
-                BrokerEndpoints = "localhost:9092",
-                GroupId = "rx-consumer",
-                Topics = new List<string> { "CommunicationWebService_InputData" }
-            };
-            var backgroundName = "messageBrokerConsumerBg";
-            var autoStartBg = true;
-
             builder.RegisterType<GetInputDataService<TIn>>().InstancePerDependency();
+
             builder.RegisterType<HostingBackgroundSimple>()
-                .Named<ISimpleBackground>(backgroundName)
+                .Named<ISimpleBackground>(BackgroundName)
                 .WithParameters(new List<ResolvedParameter>
                 {
                     new ResolvedParameter(
                         (pi, ctx) => (pi.ParameterType == typeof(string) && (pi.Name == "key")),
-                        (pi, ctx) => backgroundName),
+                        (pi, ctx) => BackgroundName),
                     new ResolvedParameter(
                         (pi, ctx) => (pi.ParameterType == typeof(bool) && (pi.Name == "autoStart")),
-                        (pi, ctx) => autoStartBg),
+                        (pi, ctx) => AutoStartBg),
                 }).SingleInstance();
-
-
 
             builder.RegisterType<ConsumerMessageBroker4InputData<TIn>>()
                 .WithParameters(new List<ResolvedParameter>
                 {
                     new ResolvedParameter(
                         (pi, ctx) => (pi.ParameterType == typeof(ISimpleBackground) && (pi.Name == "background")),
-                        (pi, ctx) => ctx.ResolveNamed<ISimpleBackground>(backgroundName)),
+                        (pi, ctx) => ctx.ResolveNamed<ISimpleBackground>(BackgroundName)),
                     new ResolvedParameter(
                         (pi, ctx) => (pi.ParameterType == typeof(int) && (pi.Name == "batchSize")),
-                        (pi, ctx) => 100),           
+                        (pi, ctx) => BatchSize),           
                     new ResolvedParameter(
                         (pi, ctx) => (pi.ParameterType == typeof(IConsumer) && (pi.Name == "consumer")),
                         (pi, ctx) =>
                         {
                             var consumerFactory = ctx.Resolve<Func<ConsumerOption, IConsumer>>();
-                            return consumerFactory(consumerOption);
+                            return consumerFactory(ConsumerOption);
                         })
                 }).SingleInstance();        
         }
