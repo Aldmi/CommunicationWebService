@@ -25,7 +25,7 @@ namespace BL.Services.MessageBroker
 
         private readonly IConsumer  _consumer;
         private readonly ILogger _logger;
-        private readonly GetInputDataService<TIn> _getInputDataService;
+        private readonly InputDataApplyService<TIn> _inputDataApplyService;
         private readonly int _batchSize;
         private IDisposable _registration;
 
@@ -40,13 +40,13 @@ namespace BL.Services.MessageBroker
             ISimpleBackground background,
             IConsumer consumer,
             ILogger logger,
-            GetInputDataService<TIn> getInputDataService,
+            InputDataApplyService<TIn> inputDataApplyService,
             int batchSize)
         {
             _batchSize = batchSize;
             _consumer = consumer;
             _logger = logger;
-            _getInputDataService = getInputDataService;
+            _inputDataApplyService = inputDataApplyService;
 
             background.AddOneTimeAction(RunAsync); 
         }
@@ -90,6 +90,7 @@ namespace BL.Services.MessageBroker
 
         private void MessageHandler(IList<Message<Null, string>> messages)
         {
+            Console.WriteLine(DateTime.Now.ToString("O"));//DEBUG
             //Обработчик сообщений с kafka
             foreach (var message in messages)
             {
@@ -97,7 +98,7 @@ namespace BL.Services.MessageBroker
                 {
                     var value = message.Value;
                     var inputDatas = JsonConvert.DeserializeObject<List<InputData<TIn>>>(value);
-                    _getInputDataService.ApplyInputData(inputDatas);
+                    _inputDataApplyService.ApplyInputData(inputDatas);
                 }
                 catch (Exception e)
                 {
@@ -105,7 +106,7 @@ namespace BL.Services.MessageBroker
                     Console.WriteLine(e);
                 }
 
-                Console.WriteLine($"MessageBrokerGetingData {message.Topic}/{message.Partition} @{message.Offset}: '{message.Value}'");
+                //Console.WriteLine($"MessageBrokerGetingData {message.Topic}/{message.Partition} @{message.Offset}: '{message.Value}'");
             }
         }
 

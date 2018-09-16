@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -24,8 +25,7 @@ namespace WebServer
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile("SettingsCommunication/Setting.json", optional: false, reloadOnChange: false);
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             AppConfiguration = builder.Build();
         }
 
@@ -80,12 +80,9 @@ namespace WebServer
                               ILifetimeScope scope,
                               IConfiguration config)
         {
-            //var spPorts = optionsSettingModel.Value;
-            //var httpDev = optionsDevicesWithSp.Value;
-
             ConfigurationBackgroundProcessAsync(app, scope);
             InitializeAsync(scope).Wait();
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -107,20 +104,25 @@ namespace WebServer
         private void ApplicationStarted(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
         {
             //ЗАПУСК БЕКГРАУНДА ОПРОСА ШИНЫ ДАННЫХ
-            scope.Resolve<ConsumerMessageBroker4InputData<AdInputType>>();
-            var bgConsumer= scope.ResolveNamed<ISimpleBackground>("messageBrokerConsumerBg");
-            lifetimeApp.ApplicationStarted.Register(() => bgConsumer.StartAsync(CancellationToken.None));
-           
+            scope.Resolve<ConsumerMessageBroker4InputData<AdInputType>>();//перед запусклм bg нужно создать ConsumerMessageBroker4InputData
+            bool.TryParse(AppConfiguration["MessageBrokerConsumer4InData:AutoStart"], out var autoStart);
+            if (autoStart)
+            {
+                var backgroundName = AppConfiguration["MessageBrokerConsumer4InData:Name"];
+                var bgConsumer = scope.ResolveNamed<ISimpleBackground>(backgroundName);
+                lifetimeApp.ApplicationStarted.Register(() => bgConsumer.StartAsync(CancellationToken.None));
+            }
+
             //ЗАПУСК БЕКГРАУНДА ОПРОСА УСТРОЙСТВ
             var backgroundServices = scope.Resolve<BackgroundStorageService>();
-            foreach (var back in backgroundServices.Values)
+            foreach (var back in backgroundServices.Values.Where(bg=>bg.AutoStart))
             {
                 lifetimeApp.ApplicationStarted.Register(() => back.StartAsync(CancellationToken.None));
             }
 
             //ЗАПУСК КОННЕКТА УСТРОЙСТВ
             var exchangeServices = scope.Resolve<ExchangeStorageService<AdInputType>>();
-            foreach (var exchange in exchangeServices.Values)
+            foreach (var exchange in exchangeServices.Values.Where(exch=>exch.AutoStart))
             {
                 lifetimeApp.ApplicationStarted.Register(async () => await exchange.CycleReOpened());
             }
@@ -130,19 +132,20 @@ namespace WebServer
         private void ApplicationStopping(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
         {
             //ОСТАНОВ БЕКГРАУНДА ОПРОСА ШИНЫ ДАННЫХ
-            var bgConsumer= scope.ResolveNamed<ISimpleBackground>("messageBrokerConsumerBg");
+            var backgroundName = AppConfiguration["MessageBrokerConsumer4InData:Name"];
+            var bgConsumer= scope.ResolveNamed<ISimpleBackground>(backgroundName);
             lifetimeApp.ApplicationStopping.Register(() => bgConsumer.StopAsync(CancellationToken.None));
 
-            //ОСТАНОВ БЕКГРАУНДА ОПРОСА УСТРОЙСТВ
+            //ОСТАНОВ ЗАПУЩЕННОГО БЕКГРАУНДА ОПРОСА УСТРОЙСТВ
             var backgroundServices = scope.Resolve<BackgroundStorageService>();
-            foreach (var back in backgroundServices.Values)
+            foreach (var back in backgroundServices.Values.Where(bg=> bg.IsStarted))
             {
                 lifetimeApp.ApplicationStopping.Register(() => back.StopAsync(CancellationToken.None));
             }
 
             //ОСТАНОВ КОННЕКТА УСТРОЙСТВ
             var exchangeServices = scope.Resolve<ExchangeStorageService<AdInputType>>();
-            foreach (var exchange in exchangeServices.Values)
+            foreach (var exchange in exchangeServices.Values.Where(exch=> !exch.IsOpen))
             {
                 lifetimeApp.ApplicationStopping.Register(() => exchange.CycleReOpenedCancelation());
             }

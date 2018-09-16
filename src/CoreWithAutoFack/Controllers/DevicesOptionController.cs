@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using BL.Services.Actions;
 using BL.Services.Exceptions;
 using BL.Services.Mediators;
 using DAL.Abstract.Entities.Options.Device;
@@ -28,7 +29,8 @@ namespace WebServer.Controllers
         #region fields
 
         private readonly MediatorForOptions _mediatorForOptionsRep;
-        private readonly MediatorForStorages<AdInputType> _mediatorForStorages;
+        private readonly BuildDeviceService<AdInputType> _buildDeviceService;
+
         private readonly IMapper _mapper;
 
         #endregion
@@ -38,10 +40,10 @@ namespace WebServer.Controllers
 
         #region ctor
 
-        public DevicesOptionController(MediatorForOptions mediatorForOptionsRep, MediatorForStorages<AdInputType> mediatorForStorages, IMapper mapper)
+        public DevicesOptionController(MediatorForOptions mediatorForOptionsRep, BuildDeviceService<AdInputType> buildDeviceService, IMapper mapper)
         {
             _mediatorForOptionsRep = mediatorForOptionsRep;
-            _mediatorForStorages = mediatorForStorages;
+            _buildDeviceService = buildDeviceService;
             _mapper = mapper;
         }
 
@@ -189,13 +191,11 @@ namespace WebServer.Controllers
         {
             try
             {
-                if (!await _mediatorForOptionsRep.IsExistDeviceAsync(deviceName))
+                var newDevice =  await _buildDeviceService.BuildDevice(deviceName);
+                if (newDevice == null)
                 {
                     return NotFound(deviceName);
                 }
-
-                var optionAgregator = await _mediatorForOptionsRep.GetOptionAgregatorForDeviceAsync(deviceName);
-                var newDevice = _mediatorForStorages.BuildAndAddDevice(optionAgregator);
                 return Ok(newDevice);
             }
             catch (StorageHandlerException ex)
@@ -208,6 +208,7 @@ namespace WebServer.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                //LOG
                 throw;
             }
         }

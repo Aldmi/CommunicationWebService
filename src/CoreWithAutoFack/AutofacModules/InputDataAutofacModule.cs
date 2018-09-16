@@ -42,7 +42,7 @@ namespace WebServer.AutofacModules
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<GetInputDataService<TIn>>().InstancePerDependency();
+            builder.RegisterType<InputDataApplyService<TIn>>().InstancePerDependency();
 
             builder.RegisterType<HostingBackgroundSimple>()
                 .Named<ISimpleBackground>(BackgroundName)
