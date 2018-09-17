@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading;
@@ -42,15 +43,15 @@ namespace Infrastructure.MessageBroker.Consumer
                 { "fetch.wait.max.ms", 5 },
                 { "fetch.error.backoff.ms", 5 },
                 { "fetch.message.max.bytes", 10240 },
-                { "queued.min.messages", 1000 }, //1000
-#if DEBUG
+                { "queued.min.messages", 1000 },
+#if DEB
                 // { "debug", "msg" },
 #endif
                 {
                     "default.topic.config",
                     new Dictionary<string, object>
                     {
-                        { "auto.offset.reset", "beginning" }
+                        { "auto.offset.reset", "oldest" } //(beginning) сместить офсет в конец раздела, если офсет нигде не сохранен.
                     }
                 }
             };
@@ -88,7 +89,8 @@ namespace Infrastructure.MessageBroker.Consumer
                     {
                         while (!cancellationToken.IsCancellationRequested)
                         {
-                            _consumer.Poll(TimeSpan.FromMilliseconds(100));  // проверка раз в 100мс новых данных в топиках брокера
+                            _consumer.Poll(TimeSpan.FromMilliseconds(100));  // Проверка раз в 100мс новых данных в топиках брокера
+                            SetHightOffset();                                // Проверка неободимости смещения офсета, если текущий офсет сильно отстал от конца топика.
                         }
                     },
                     cancellationToken,
@@ -101,6 +103,36 @@ namespace Infrastructure.MessageBroker.Consumer
 
 
         public async Task CommitAsync(Message<Null, string> message) => await _consumer.CommitAsync(message);
+
+
+        /// <summary>
+        /// Смещает offset в конец раздела, если разница между текущим и максимальным offset-ом больше 10.
+        /// Это происходит если продьсер пишетв топик а консьюмер еще не читает.
+        /// </summary>
+        private void SetHightOffset()
+        {
+            foreach (var topic in _topics)
+            {
+                try
+                {
+                    var blockTime = TimeSpan.FromSeconds(1);
+                    var topicPartition = new TopicPartition(topic, 0);
+                    var currentOffset = _consumer.Position(new List<TopicPartition> {topicPartition}).FirstOrDefault()?.Offset.Value;
+                    var hightOffset = _consumer.QueryWatermarkOffsets(topicPartition, blockTime).High;
+
+                    if ((currentOffset == -1001) || (hightOffset - currentOffset) > 10)
+                    {
+                        var topicPartitionOffsets = new List<TopicPartitionOffset> {new TopicPartitionOffset(topic, 0, hightOffset)};
+                        _consumer.CommitAsync(topicPartitionOffsets).Wait(blockTime);
+                    }
+                }
+                catch (KafkaException ex)
+                {
+                    //LOG
+                    Console.WriteLine(ex);                  
+                }       
+            }
+        }
 
         #endregion
 
