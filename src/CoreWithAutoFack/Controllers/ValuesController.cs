@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Autofac;
@@ -6,7 +7,9 @@ using AutoMapper;
 using BL.Services.Mediators;
 using BL.Services.Storages;
 using Exchange.Base;
+using InputDataModel.Autodictor.Entities;
 using InputDataModel.Autodictor.Model;
+using InputDataModel.Base;
 using Microsoft.AspNetCore.Mvc;
 using Transport.SerialPort.Abstract;
 using WebServer.DTO.JSON.OptionsDto;
@@ -73,65 +76,121 @@ namespace WebServer.Controllers
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<ExchangeOptionDto> Get()
+        public IEnumerable<InputData<AdInputType>> Get()
         {
-           //var user = new User() {Name = "dsfdsdfsfsdgdfgh"};
-           //var userDto=  _mapper.Map<UserDto>(user);
+            //var user = new User() {Name = "dsfdsdfsfsdgdfgh"};
+            //var userDto=  _mapper.Map<UserDto>(user);
 
-            var exchangesDto= new List<ExchangeOptionDto>
-            {
-                new ExchangeOptionDto
+            //var exchangesDto= new List<ExchangeOptionDto>
+            //{
+            //    new ExchangeOptionDto
+            //    {
+            //        Id = 1, 
+            //        KeyTransport = new KeyTransportDto {Key = "COM1", TransportType = "Sp"},
+            //        Key = "Exch_1",
+            //        AutoStartCycleFunc = true,
+            //        Provider = new ProviderOptionDto
+            //        {
+            //            Name = "VidorBase",
+            //            ManualProviderOptionDto = new ManualProviderOptionDto
+            //            {
+            //                TimeRespone = 1000,
+            //                Address = "1"
+            //            }
+            //        }
+            //    },
+            //    new ExchangeOptionDto
+            //    {
+            //        Id = 1, 
+            //        KeyTransport = new KeyTransportDto {Key = "COM1", TransportType = "Sp"},
+            //        Key = "Exch_2",
+            //        AutoStartCycleFunc = true,
+            //        Provider = new ProviderOptionDto
+            //        {
+            //            Name = "ByRules",
+            //            ByRulesProviderOptionDto = new ByRulesProviderOptionDto
+            //            {
+            //                RulesDto = new List<RuleDto>
+            //                {
+            //                    new RuleDto
+            //                    {
+            //                        Name = "Rule_1",
+            //                        Format = "utf8",
+            //                        Request = new RequestDto
+            //                        {
+            //                            Body = "sdgsfsgdfgdfdgfg",
+            //                            MaxLenght = 500
+            //                        },
+            //                        Response = new ResponseDto
+            //                        {
+            //                            Body = "ttttttttttttt",
+            //                            TimeRespone = 500,
+            //                            MaxLenght = 500
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //};
+
+
+            var inData = new List<InputData<AdInputType>> //коллекция данных для уст-ва.
                 {
-                    Id = 1, 
-                    KeyTransport = new KeyTransportDto {Key = "COM1", TransportType = "Sp"},
-                    Key = "Exch_1",
-                    AutoStartCycleFunc = true,
-                    Provider = new ProviderOptionDto
+                    new InputData<AdInputType>
                     {
-                        Name = "VidorBase",
-                        ManualProviderOptionDto = new ManualProviderOptionDto
+                        DeviceName = "Device_1",
+                        ExchangeName = "Exchange_1",
+                        Data = new List<AdInputType>
                         {
-                            TimeRespone = 1000,
-                            Address = "1"
-                        }
-                    }
-                },
-                new ExchangeOptionDto
-                {
-                    Id = 1, 
-                    KeyTransport = new KeyTransportDto {Key = "COM1", TransportType = "Sp"},
-                    Key = "Exch_2",
-                    AutoStartCycleFunc = true,
-                    Provider = new ProviderOptionDto
-                    {
-                        Name = "ByRules",
-                        ByRulesProviderOptionDto = new ByRulesProviderOptionDto
-                        {
-                            RulesDto = new List<RuleDto>
+                            new AdInputType
                             {
-                                new RuleDto
+                                Id = 1,
+                                Event = "ПРИБ",
+                                NumberOfTrain = "562",
+                                PathNumber = "2",
+                                StationArrival = new Station
                                 {
-                                    Name = "Rule_1",
-                                    Format = "utf8",
-                                    Request = new RequestDto
-                                    {
-                                        Body = "sdgsfsgdfgdfdgfg",
-                                        MaxLenght = 500
-                                    },
-                                    Response = new ResponseDto
-                                    {
-                                        Body = "ttttttttttttt",
-                                        TimeRespone = 500,
-                                        MaxLenght = 500
-                                    }
-                                }
+                                    CodeEsr = 521,
+                                    CodeExpress = 100,
+                                    NameRu = "Москва",
+                                },
+                                DaysFollowing = "ЕЖ",
+                                TypeTrain = TypeTrain.Passenger,
+                                VagonDirection = VagonDirection.FromTheHead,
+                                ExpectedTime = DateTime.Now.AddHours(10),
+                                DelayTime = DateTime.Now.AddHours(8),
+                                StopTime = TimeSpan.FromHours(10)
+                            },
+                            new AdInputType
+                            {
+                                Id = 2,
+                                Event = "СТОЯНКА",
+                                NumberOfTrain = "685",
+                                PathNumber = "2",
+                                StationArrival = new Station
+                                {
+                                    CodeEsr = 521,
+                                    CodeExpress = 100,
+                                    NameRu = "Рязань",
+                                },
+                                StationDeparture = new Station
+                                {
+                                    CodeEsr = 530,
+                                    CodeExpress = 101,
+                                    NameRu = "Питер",
+                                },
+                                TypeTrain = TypeTrain.Suburban,
+                                VagonDirection = VagonDirection.FromTheTail,
+                                ExpectedTime = DateTime.Now.AddHours(36),
+                                DelayTime = DateTime.Now.AddHours(8),
+                                StopTime = TimeSpan.FromHours(10)
                             }
                         }
                     }
-                }
-            };
+                };
 
-            return exchangesDto;
+            return inData;
         }
 
         // GET api/values/5

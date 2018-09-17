@@ -132,7 +132,7 @@ namespace BL.Services.Mediators
                 {
                     sp = new SpWinSystemIo(spOption, keyTransport);
                     _transportStorageService.AddNew(keyTransport, sp);
-                    var bg = new HostingTransportBackgroundTransport(keyTransport, spOption.AutoStart);
+                    var bg = new HostingBackgroundTransport(keyTransport, spOption.AutoStart);
                     _backgroundStorageService.AddNew(keyTransport, bg);
                 }
             }
@@ -144,7 +144,7 @@ namespace BL.Services.Mediators
                 {
                     tcpIp = new TcpIpTransport(tcpIpOption, keyTransport);
                     _transportStorageService.AddNew(keyTransport, tcpIp);
-                    var bg = new HostingTransportBackgroundTransport(keyTransport, tcpIpOption.AutoStart);
+                    var bg = new HostingBackgroundTransport(keyTransport, tcpIpOption.AutoStart);
                     _backgroundStorageService.AddNew(keyTransport, bg);
                 }
             }
@@ -156,7 +156,7 @@ namespace BL.Services.Mediators
                 {
                     http = new HttpTransport(httpOption, keyTransport);
                     _transportStorageService.AddNew(keyTransport, http);
-                    var bg = new HostingTransportBackgroundTransport(keyTransport, httpOption.AutoStart);
+                    var bg = new HostingBackgroundTransport(keyTransport, httpOption.AutoStart);
                     _backgroundStorageService.AddNew(keyTransport, bg);
                 }
             }

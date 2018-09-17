@@ -51,7 +51,7 @@ namespace Infrastructure.MessageBroker.Consumer
                     "default.topic.config",
                     new Dictionary<string, object>
                     {
-                        { "auto.offset.reset", "oldest" } //(beginning) сместить офсет в конец раздела, если офсет нигде не сохранен.
+                        { "auto.offset.reset", "latest" } //(beginning) сместить офсет в конец раздела, если офсет нигде не сохранен.
                     }
                 }
             };
@@ -107,7 +107,7 @@ namespace Infrastructure.MessageBroker.Consumer
 
         /// <summary>
         /// Смещает offset в конец раздела, если разница между текущим и максимальным offset-ом больше 10.
-        /// Это происходит если продьсер пишетв топик а консьюмер еще не читает.
+        /// Это происходит если продьсер пишет в топик, а консьюмер еще не читает.
         /// </summary>
         private void SetHightOffset()
         {

@@ -8,7 +8,7 @@ using Worker.Background.Abstarct;
 
 namespace Worker.Background.Concrete.HostingBackground
 {
-    public class HostingTransportBackgroundTransport : HostingBackgroundBase, ITransportBackground
+    public class HostingBackgroundTransport : HostingBackgroundBase, ITransportBackground
     {
         #region Field
 
@@ -29,7 +29,7 @@ namespace Worker.Background.Concrete.HostingBackground
 
         #region ctor
 
-        public HostingTransportBackgroundTransport(KeyTransport keyTransport, bool autoStart) : base(autoStart)
+        public HostingBackgroundTransport(KeyTransport keyTransport, bool autoStart) : base(autoStart)
         {
             KeyTransport = keyTransport;
         }

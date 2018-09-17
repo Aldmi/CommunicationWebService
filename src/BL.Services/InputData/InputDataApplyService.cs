@@ -27,8 +27,9 @@ namespace BL.Services.InputData
         /// <summary>
         /// Найти все ус-ва по имени и передать им данные.
         /// </summary>
-        /// <param name="inputDatas"></param>
-        public void ApplyInputData(IEnumerable<InputData<TIn>> inputDatas)
+        /// <param name="inputDatas">Данные для нескольких ус-в</param>
+        /// <returns>Список ОШИБОК</returns>
+        public IEnumerable<string> ApplyInputData(IEnumerable<InputData<TIn>> inputDatas)
         {
             //найти Device по имени и передать ему данные 
             foreach (var inData in inputDatas)
@@ -36,9 +37,14 @@ namespace BL.Services.InputData
                 var device = _mediatorForStorages.GetDevice(inData.DeviceName);
                 if (device == null)
                 {
-                    //LOG
+                    yield return $"устройство не найденно: {inData.DeviceName}";
                     continue;
                 }
+
+                //device.SendByConcreteExchange(inData.ExchangeName) 
+                //TODO: в Device Добавить SendByConcreteExchange(string key) и SendByAllExchange()
+              
+
                 //Передать данные по конкретным Exchanges на конкретное действие
                 var exch = device.Exchanges.FirstOrDefault();
                 exch.SendOneTimeData(inData.Data.FirstOrDefault());
