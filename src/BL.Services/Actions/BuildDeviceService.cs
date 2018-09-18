@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BL.Services.Mediators;
 using DeviceForExchange;
@@ -34,7 +35,7 @@ namespace BL.Services.Actions
         #region Methode
 
         /// <summary>
-        /// ПОЗАБОТИТСЯ ОБ ОБРАБОТКЕ ИСКЛЮЧЕНИЙ. (StorageHandlerException, Exception)
+        /// ПОЗАБОТИТСЯ ОБ ОБРАБОТКЕ ИСКЛЮЧЕНИЙ. (StorageHandlerException, OptionHandlerException, Exception)
         /// </summary>
         /// <param name="deviceName"></param>
         /// <returns></returns>
@@ -57,7 +58,26 @@ namespace BL.Services.Actions
         /// <returns></returns>
         public async Task<IEnumerable<Device<TIn>>> BuildAllDevices()
         {
-            throw new NotImplementedException();
+            var newDevices = new List<Device<TIn>>();
+            var exceptions = new List<Exception>();
+            var devices = await _mediatorForOptionsRep.GetDeviceOptionsAsync();
+            foreach (var device in devices)
+            {
+                try
+                {
+                   var dev= await BuildDevice(device.Name);
+                   newDevices.Add(dev);
+                }
+                catch (Exception ex)
+                {
+                    exceptions.Add(ex);
+                }           
+            }
+
+            if(exceptions.Any())
+                throw new AggregateException(exceptions);
+
+            return newDevices;
         }
 
         #endregion

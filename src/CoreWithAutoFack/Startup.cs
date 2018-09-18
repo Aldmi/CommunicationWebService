@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using AutoMapper;
+using BL.Services.Actions;
 using BL.Services.MessageBroker;
 using BL.Services.Storages;
 using DAL.Abstract.Concrete;
@@ -39,10 +40,10 @@ namespace WebServer
             services.AddMvc()
                 .AddControllersAsServices()
                 .AddJsonOptions(o =>
-                {              
+                {
                     o.SerializerSettings.Formatting = Formatting.Indented;
                     o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                }); 
+                });
             services.AddOptions();
             services.AddAutoMapper();
         }
@@ -82,7 +83,7 @@ namespace WebServer
         {
             ConfigurationBackgroundProcessAsync(app, scope);
             InitializeAsync(scope).Wait();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -115,14 +116,14 @@ namespace WebServer
 
             //ЗАПУСК БЕКГРАУНДА ОПРОСА УСТРОЙСТВ
             var backgroundServices = scope.Resolve<BackgroundStorageService>();
-            foreach (var back in backgroundServices.Values.Where(bg=>bg.AutoStart))
+            foreach (var back in backgroundServices.Values.Where(bg => bg.AutoStart))
             {
                 lifetimeApp.ApplicationStarted.Register(() => back.StartAsync(CancellationToken.None));
             }
 
             //ЗАПУСК КОННЕКТА УСТРОЙСТВ
             var exchangeServices = scope.Resolve<ExchangeStorageService<AdInputType>>();
-            foreach (var exchange in exchangeServices.Values.Where(exch=>exch.AutoStart))
+            foreach (var exchange in exchangeServices.Values.Where(exch => exch.AutoStart))
             {
                 lifetimeApp.ApplicationStarted.Register(async () => await exchange.CycleReOpened());
             }
@@ -133,19 +134,19 @@ namespace WebServer
         {
             //ОСТАНОВ БЕКГРАУНДА ОПРОСА ШИНЫ ДАННЫХ
             var backgroundName = AppConfiguration["MessageBrokerConsumer4InData:Name"];
-            var bgConsumer= scope.ResolveNamed<ISimpleBackground>(backgroundName);
+            var bgConsumer = scope.ResolveNamed<ISimpleBackground>(backgroundName);
             lifetimeApp.ApplicationStopping.Register(() => bgConsumer.StopAsync(CancellationToken.None));
 
             //ОСТАНОВ ЗАПУЩЕННОГО БЕКГРАУНДА ОПРОСА УСТРОЙСТВ
             var backgroundServices = scope.Resolve<BackgroundStorageService>();
-            foreach (var back in backgroundServices.Values.Where(bg=> bg.IsStarted))
+            foreach (var back in backgroundServices.Values.Where(bg => bg.IsStarted))
             {
                 lifetimeApp.ApplicationStopping.Register(() => back.StopAsync(CancellationToken.None));
             }
 
             //ОСТАНОВ КОННЕКТА УСТРОЙСТВ
             var exchangeServices = scope.Resolve<ExchangeStorageService<AdInputType>>();
-            foreach (var exchange in exchangeServices.Values.Where(exch=> !exch.IsOpen))
+            foreach (var exchange in exchangeServices.Values.Where(exch => !exch.IsOpen))
             {
                 lifetimeApp.ApplicationStopping.Register(() => exchange.CycleReOpenedCancelation());
             }
@@ -154,7 +155,7 @@ namespace WebServer
 
         private void ApplicationStopped(IApplicationLifetime lifetimeApp, ILifetimeScope scope)
         {
-            lifetimeApp.ApplicationStopped.Register(() => {});
+            lifetimeApp.ApplicationStopped.Register(() => { });
         }
 
 
@@ -163,65 +164,52 @@ namespace WebServer
         /// </summary>
         private async Task InitializeAsync(ILifetimeScope scope)
         {
-            var env = scope.Resolve<IHostingEnvironment>();
-            var serialPortOptionRepository = scope.Resolve<ISerialPortOptionRepository>();
-            var tcpIpOptionRepository = scope.Resolve<ITcpIpOptionRepository>();
-            var httpOptionRepository = scope.Resolve<IHttpOptionRepository>();
-            var exchangeOptionRepository = scope.Resolve<IExchangeOptionRepository>();
-            var deviceOptionRepository = scope.Resolve<IDeviceOptionRepository>();
-
-            try
+            var env = scope.Resolve<IHostingEnvironment>();      
+            if (env.IsDevelopment()) //TODO: добавить переменную окружения OS (win/linux)
             {
-                if (env.IsDevelopment()) //TODO: добавить переменную окружения OS (win/linux)
+                //ИНИЦИАЛИЦИЯ РЕПОЗИТОРИЕВ--------------------------------------------------------
+                try
                 {
-                    //ИНИЦИАЛИЦИЯ РЕПОЗИТОРИЕВ--------------------------------------------------------
-                    try
-                    {
-                        await serialPortOptionRepository.InitializeAsync();
-                        await tcpIpOptionRepository.InitializeAsync();
-                        await httpOptionRepository.InitializeAsync();
-                        await exchangeOptionRepository.InitializeAsync();
-                        await deviceOptionRepository.InitializeAsync();
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        throw;
-                    }
+                    var serialPortOptionRepository = scope.Resolve<ISerialPortOptionRepository>();
+                    var tcpIpOptionRepository = scope.Resolve<ITcpIpOptionRepository>();
+                    var httpOptionRepository = scope.Resolve<IHttpOptionRepository>();
+                    var exchangeOptionRepository = scope.Resolve<IExchangeOptionRepository>();
+                    var deviceOptionRepository = scope.Resolve<IDeviceOptionRepository>();
+
+                    await serialPortOptionRepository.InitializeAsync();
+                    await tcpIpOptionRepository.InitializeAsync();
+                    await httpOptionRepository.InitializeAsync();
+                    await exchangeOptionRepository.InitializeAsync();
+                    await deviceOptionRepository.InitializeAsync();
 
                     //DEBUG CRUD----------------------------------------------------------------
-                    var singleElem= serialPortOptionRepository.GetSingle(option => option.Port == "COM1");
-                    var httpElem = httpOptionRepository.GetSingle(option => option.Name == "Http table 1");
-                    var tcpIpElem = tcpIpOptionRepository.GetSingle(option => option.Name == "RemoteTcpIpTable 2");
-                    var exchangeElem = exchangeOptionRepository.GetSingle(option => option.Key == "SP_COM2_Vidor2");
+                    //var singleElem = serialPortOptionRepository.GetSingle(option => option.Port == "COM1");
+                    //var httpElem = httpOptionRepository.GetSingle(option => option.Name == "Http table 1");
+                    //var tcpIpElem = tcpIpOptionRepository.GetSingle(option => option.Name == "RemoteTcpIpTable 2");
+                    //var exchangeElem = exchangeOptionRepository.GetSingle(option => option.Key == "SP_COM2_Vidor2");
                     //TODO: проверить остальные CRUD операции
                     //-----------------------------------------------------------------------------
-
-                    //DEBUG MessageBroker---------------------------------------------------------
-                    //var consumerMessageBroker4InputData = scope.Resolve<ConsumerMessageBroker4InputData<AdInputType>>();
-                    //var bg= scope.ResolveNamed<ISimpleBackground>("messageBrokerConsumerBg");
-                    ////START        
-                    ////consumerMessageBroker4InputData.Start().Wait();
-                    //await bg.StartAsync(CancellationToken.None);
-                    //Console.WriteLine("START CONSUMER >>>>>>");
-                    //await Task.Delay(3000);
-                    ////STOP
-                    ////await consumerMessageBroker4InputData.StopAsync(CancellationToken.None);
-                    //await bg.StopAsync(CancellationToken.None);
-                    //Console.WriteLine("STOP CONSUMER <<<<<<<");
-                    //await Task.Delay(3000);
-                    ////START
-                    ////consumerMessageBroker4InputData.Start().Wait();
-                    //await bg.StartAsync(CancellationToken.None);
-                    //Console.WriteLine("START CONSUMER >>>>>>");
-                    //-----------------------------------------------------------------------------
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
                 }
             }
-            catch (Exception e)
+
+            //СОЗДАНИЕ СПИСКА УСТРОЙСТВ НА БАЗЕ ОПЦИЙ--------------------------------------------------
+            try
+            {
+                var buildDeviceService = scope.Resolve<BuildDeviceService<AdInputType>>();
+                await buildDeviceService.BuildAllDevices();
+            }
+            catch (AggregateException ex)
             {
                 //LOG
-                Console.WriteLine(e);
-                //throw;
+                foreach (var innerException in ex.InnerExceptions)
+                {
+                    Console.WriteLine(innerException.ToString());
+                }
             }
         }
     }

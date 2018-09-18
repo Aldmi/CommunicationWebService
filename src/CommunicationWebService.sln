@@ -25,6 +25,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exchange.Base", "Exchange.Base\Exchange.Base.csproj", "{1F64CCC2-D64F-48F0-8845-36AB33EB54F8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Device", "Device", "{4B0D52D6-ED79-463F-B251-689A128DBF27}"
+	ProjectSection(SolutionItems) = preProject
+		BL.Services\Mediators\MediatorForStorages.cs = BL.Services\Mediators\MediatorForStorages.cs
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transport.Base", "Transport.Base\Transport.Base.csproj", "{519D47B1-26AA-4860-B1E4-F80D3E328AB5}"
 EndProject
@@ -66,9 +69,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logger.Abstract", "Logger.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.MessageBroker", "Infrastructure.MessageBroker1\Infrastructure.MessageBroker.csproj", "{900D0BCF-8AEB-4CA3-8164-62DED9215D0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger.Nlog", "Logger.NlogWrapper\Logger.Nlog.csproj", "{B2A1420A-2287-443E-A2E4-3E23F4980958}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logger.Nlog", "Logger.NlogWrapper\Logger.Nlog.csproj", "{B2A1420A-2287-443E-A2E4-3E23F4980958}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InputDataModel.Base", "InputDataModel.Base\InputDataModel.Base.csproj", "{6AF9C010-6C97-417F-B5A0-4C309E75E56C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InputDataModel.Base", "InputDataModel.Base\InputDataModel.Base.csproj", "{6AF9C010-6C97-417F-B5A0-4C309E75E56C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
