@@ -43,6 +43,16 @@ namespace WebServer.Controllers
 
         #region Methode
 
+        // GET api/Devices/GetDevices
+        [HttpGet("GetDevices")]
+        public async Task<IActionResult> GetDevices()
+        {
+            var devices = _mediatorForStorages.GetDevices();
+            await Task.CompletedTask;
+            return new JsonResult(devices);
+        }
+
+
         // GET api/Devices/GetDevicesUsingExchange/exchnageKey
         [HttpGet("{exchnageKey}")]
         public async Task<IActionResult> GetDevicesUsingExchange([FromRoute] string exchnageKey)

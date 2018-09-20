@@ -25,9 +25,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exchange.Base", "Exchange.Base\Exchange.Base.csproj", "{1F64CCC2-D64F-48F0-8845-36AB33EB54F8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Device", "Device", "{4B0D52D6-ED79-463F-B251-689A128DBF27}"
-	ProjectSection(SolutionItems) = preProject
-		BL.Services\Mediators\MediatorForStorages.cs = BL.Services\Mediators\MediatorForStorages.cs
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transport.Base", "Transport.Base\Transport.Base.csproj", "{519D47B1-26AA-4860-B1E4-F80D3E328AB5}"
 EndProject

@@ -28,6 +28,28 @@ namespace DAL.Abstract.Extensions
                         "SP_COM1_Vidor1",
                         "SP_COM2_Vidor2"
                     }
+                },
+                new DeviceOption
+                {
+                    Id = 2,
+                    Description = "Табло2",
+                    Name = "HttpTable_google",
+                    AutoBuild = false,
+                    ExchangeKeys = new List<string>
+                    {
+                        "HTTP_google.com_Table1"
+                    }
+                },
+                new DeviceOption
+                {
+                    Id = 3,
+                    Description = "Табло3",
+                    Name = "TcpIp Table1",
+                    AutoBuild = false,
+                    ExchangeKeys = new List<string>
+                    {
+                        "TcpIp_Table1"
+                    }
                 }
             };
             await rep.AddRangeAsync(devices);

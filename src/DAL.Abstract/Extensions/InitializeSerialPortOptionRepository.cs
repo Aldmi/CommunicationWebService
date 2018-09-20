@@ -26,6 +26,7 @@ namespace DAL.Abstract.Extensions
                     DtrEnable = false,
                     Parity = Parity.Even,
                     StopBits = StopBits.One,
+                    AutoStart = true
                 },
                 new SerialOption
                 {
@@ -36,6 +37,7 @@ namespace DAL.Abstract.Extensions
                     DtrEnable = false,
                     Parity = Parity.Even,
                     StopBits = StopBits.One,
+                    AutoStart = true
                 }
             };
 

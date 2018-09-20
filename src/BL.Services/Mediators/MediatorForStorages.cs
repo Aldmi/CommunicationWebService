@@ -172,23 +172,16 @@ namespace BL.Services.Mediators
                 var bg = _backgroundStorageService.Get(keyTransport);
                 var transport = _transportStorageService.Get(keyTransport);
 
-                //exchOption.Provider= new ManualProviderOption{ Name = "VidorBinary", Id = 10, Address = "100", TimeRespone = 2500 };
-                exchOption.Provider = new ProviderOption
+                try
                 {
-                    Name = "VidorBinary",
-                    ManualProviderOption = new ManualProviderOption
-                    {
-                        Address = "100",
-                        TimeRespone = 2500
-                    }
-                };
-                var dataProvider = _dataProviderFactory[exchOption.Provider.Name](exchOption.Provider); //TODO: передавать опции провайдеров exchOption.Provider
-                if (dataProvider == null)
+                    var dataProvider = _dataProviderFactory[exchOption.Provider.Name](exchOption.Provider);
+                    exch = new ExchangeUniversal<TIn>(exchOption, transport, bg, dataProvider);
+                    _exchangeStorageService.AddNew(exchOption.Key, exch);
+                }
+                catch (Exception)
                 {
                     throw new StorageHandlerException($"Провайдер данных не найденн в системе: {exchOption.Provider.Name}");
-                }
-                exch = new ExchangeUniversal<TIn>(exchOption, transport, bg, dataProvider);
-                _exchangeStorageService.AddNew(exchOption.Key, exch);
+                } 
             }
 
             //ДОБАВИТЬ УСТРОЙСТВО--------------------------------------------------------------------------

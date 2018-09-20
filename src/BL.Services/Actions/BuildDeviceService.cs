@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BL.Services.Exceptions;
 using BL.Services.Mediators;
 using DeviceForExchange;
 
 namespace BL.Services.Actions
 {
+    /// <summary>
+    /// Сервис делает БИЛД ус-ва. 
+    /// После успешного билда ус-ва, Обмены, транспорт попадают в Storages
+    /// </summary>
+    /// <typeparam name="TIn"></typeparam>
     public class BuildDeviceService<TIn>
     {
         #region field
@@ -39,13 +45,15 @@ namespace BL.Services.Actions
         /// </summary>
         /// <param name="deviceName"></param>
         /// <returns></returns>
+        /// <exception cref="StorageHandlerException"></exception>
+        /// <exception cref="OptionHandlerException"></exception>
+        /// <exception cref="Exception"></exception> 
         public async Task<Device<TIn>> BuildDevice(string deviceName)
         {        
             if (!await _mediatorForOptionsRep.IsExistDeviceAsync(deviceName))
             {
                 return null;
             }
-
             var optionAgregator = await _mediatorForOptionsRep.GetOptionAgregatorForDeviceAsync(deviceName);
             var newDevice = _mediatorForStorages.BuildAndAddDevice(optionAgregator);
             return newDevice;
@@ -53,9 +61,10 @@ namespace BL.Services.Actions
 
 
         /// <summary>
-        /// 
+        /// Сделать БИЛД для всех устройств хранящихся в репозитории.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Спсисок созданных ус-в</returns>
+        /// <exception cref="AggregateException"></exception>
         public async Task<IEnumerable<Device<TIn>>> BuildAllDevices()
         {
             var newDevices = new List<Device<TIn>>();

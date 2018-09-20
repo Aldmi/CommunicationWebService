@@ -42,7 +42,7 @@ namespace DAL.Abstract.Extensions
                     KeyTransport = new KeyTransport("COM2", TransportType.SerialPort),
                     Provider = new ProviderOption
                     {
-                        Name = "VidorBinary",
+                        Name = "ByRules",
                         ByRulesProviderOption = new ByRulesProviderOption
                         {
                             Rules = new List<Rule>
@@ -61,13 +61,28 @@ namespace DAL.Abstract.Extensions
                 {
                     Id = 3,
                     Key = "HTTP_google.com_Table1",
-                    KeyTransport = new KeyTransport("http:\\google.com", TransportType.Http),
+                    KeyTransport = new KeyTransport("Http table 1", TransportType.Http),
                     Provider = new ProviderOption
                     {
                         Name = "VidorBinary",
                         ManualProviderOption = new ManualProviderOption
                         {
                             Address = "100",
+                            TimeRespone = 2500
+                        }
+                    }
+                },
+                new ExchangeOption
+                {
+                    Id = 4,
+                    Key = "TcpIp_Table1",
+                    KeyTransport = new KeyTransport("TcpIp table 1", TransportType.TcpIp),
+                    Provider = new ProviderOption
+                    {
+                        Name = "VidorBinary",
+                        ManualProviderOption = new ManualProviderOption
+                        {
+                            Address = "5",
                             TimeRespone = 2500
                         }
                     }

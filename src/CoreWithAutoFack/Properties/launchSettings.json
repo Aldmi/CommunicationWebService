@@ -19,7 +19,7 @@
     "CoreWithAutoFack": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchUrl": "api/Devices/GetDevices",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

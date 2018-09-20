@@ -18,20 +18,14 @@ namespace DAL.Abstract.Extensions
             var tcpIpList = new List<TcpIpOption>
             {
                 new TcpIpOption
-                { 
+                {
                    Id=1,
-                   Name = "RemoteTcpIpTable 1",
+                   Name = "TcpIp table 1",
                    AutoStart = true,
-                },
-                new TcpIpOption
-                { 
-                    Id=2,
-                    Name = "RemoteTcpIpTable 2",
-                    AutoStart = true,
                 }
             };
 
-           await rep.AddRangeAsync(tcpIpList);
+            await rep.AddRangeAsync(tcpIpList);
         }
     }
 }
