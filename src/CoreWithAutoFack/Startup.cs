@@ -81,9 +81,9 @@ namespace WebServer
                               ILifetimeScope scope,
                               IConfiguration config)
         {
-            ConfigurationBackgroundProcessAsync(app, scope);
             InitializeAsync(scope).Wait();
-
+            ConfigurationBackgroundProcessAsync(app, scope);
+          
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
