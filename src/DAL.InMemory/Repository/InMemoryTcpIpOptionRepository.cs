@@ -57,6 +57,11 @@ namespace DAL.InMemory.Repository
             return GetSingle(predicate);
         }
 
+        public IEnumerable<TcpIpOption> GetWithInclude(params Expression<Func<TcpIpOption, object>>[] includeProperties)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public IEnumerable<TcpIpOption> List()
         {

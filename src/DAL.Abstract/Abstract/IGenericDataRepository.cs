@@ -12,6 +12,7 @@ namespace DAL.Abstract.Abstract
 
         T GetSingle(Expression<Func<T, bool>> predicate);
         Task<T> GetSingleAsync(Expression<Func<T, bool>> predicate);
+        IEnumerable<T> GetWithInclude(params Expression<Func<T, object>>[] includeProperties); //?????
 
         IEnumerable<T> List();
         IEnumerable<T> List(Expression<Func<T, bool>> predicate);

@@ -55,6 +55,11 @@ namespace DAL.InMemory.Repository
             return GetSingle(predicate);
         }
 
+        public IEnumerable<HttpOption> GetWithInclude(params Expression<Func<HttpOption, object>>[] includeProperties)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public IEnumerable<HttpOption> List()
         {

@@ -47,7 +47,6 @@ namespace DAL.EFCore.Repository
 
 
 
-
         #region CRUD
 
         protected TMap GetById(int id)
@@ -58,7 +57,7 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public async Task<TMap> GetByIdAsync(int id)
+        protected async Task<TMap> GetByIdAsync(int id)
         {
             var efSpOption = await DbSet.FindAsync(id);
             var spOptions = AutoMapperConfig.Mapper.Map<TMap>(efSpOption);
@@ -66,7 +65,7 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public TMap GetSingle(Expression<Func<TMap, bool>> predicate)
+        protected TMap GetSingle(Expression<Func<TMap, bool>> predicate)
         {
             var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<TDb, bool>>>(predicate);
             var efSpOption = DbSet.SingleOrDefault(efPredicate);
@@ -75,7 +74,7 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public async Task<TMap> GetSingleAsync(Expression<Func<TMap, bool>> predicate)
+        protected async Task<TMap> GetSingleAsync(Expression<Func<TMap, bool>> predicate)
         {
             var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<TDb, bool>>>(predicate);
             var efSpOption = await DbSet.SingleOrDefaultAsync(efPredicate);
@@ -83,8 +82,21 @@ namespace DAL.EFCore.Repository
             return spOption;
         }
 
+        //TODO: Отладить!!!!  using: (IEnumerable<Phone> phones = phoneRepo.GetWithInclude(p=>p.Company);)
+        public IEnumerable<TMap> GetWithInclude(params Expression<Func<TMap, object>>[] includeProperties)
+        {
+            var list = new List<Expression<Func<TDb, object>>>();
+            foreach (var includeProperty in includeProperties)
+            {
+                var efIncludeProperty = AutoMapperConfig.Mapper.MapExpression<Expression<Func<TDb, object>>>(includeProperty);
+                list.Add(efIncludeProperty);
+            }
+            var result = Include(list.ToArray()).ToList();
+            return AutoMapperConfig.Mapper.Map<IEnumerable<TMap>>(result);
+        }
 
-        public IEnumerable<TMap> List()
+
+        protected IEnumerable<TMap> List()
         {
             var efOptions = DbSet.ToList();
             var spOptions = AutoMapperConfig.Mapper.Map<IEnumerable<TMap>>(efOptions);
@@ -92,7 +104,7 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public IEnumerable<TMap> List(Expression<Func<TMap, bool>> predicate)
+        protected IEnumerable<TMap> List(Expression<Func<TMap, bool>> predicate)
         {
             var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<TDb, bool>>>(predicate);
             var efOptions = DbSet.Where(efPredicate).ToList();
@@ -101,7 +113,7 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public async Task<IEnumerable<TMap>> ListAsync()
+        protected async Task<IEnumerable<TMap>> ListAsync()
         {
             var efOptions = await DbSet.ToListAsync();
             var spOptions = AutoMapperConfig.Mapper.Map<IEnumerable<TMap>>(efOptions);
@@ -109,7 +121,7 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public async Task<IEnumerable<TMap>> ListAsync(Expression<Func<TMap, bool>> predicate)
+        protected async Task<IEnumerable<TMap>> ListAsync(Expression<Func<TMap, bool>> predicate)
         {
             var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<TDb, bool>>>(predicate);
             var efOptions = await DbSet.Where(efPredicate).ToListAsync();
@@ -118,21 +130,21 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public int Count(Expression<Func<TMap, bool>> predicate)
+        protected int Count(Expression<Func<TMap, bool>> predicate)
         {
             var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<TDb, bool>>>(predicate);
             return DbSet.Count(efPredicate);
         }
 
 
-        public async Task<int> CountAsync(Expression<Func<TMap, bool>> predicate)
+        protected async Task<int> CountAsync(Expression<Func<TMap, bool>> predicate)
         {
             var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<TDb, bool>>>(predicate);
             return await DbSet.CountAsync(efPredicate);
         }
 
 
-        public void Add(TMap entity)
+        protected void Add(TMap entity)
         {
             var efOptions = AutoMapperConfig.Mapper.Map<TDb>(entity);
             DbSet.Add(efOptions);
@@ -140,7 +152,7 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public async Task AddAsync(TMap entity)
+        protected async Task AddAsync(TMap entity)
         {
             var efOptions = AutoMapperConfig.Mapper.Map<TDb>(entity);
             await DbSet.AddAsync(efOptions);
@@ -148,7 +160,7 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public void AddRange(IEnumerable<TMap> entitys)
+        protected void AddRange(IEnumerable<TMap> entitys)
         {
             var efOptions = AutoMapperConfig.Mapper.Map<IEnumerable<TDb>>(entitys);
             DbSet.AddRange(efOptions);
@@ -156,7 +168,7 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public async Task AddRangeAsync(IEnumerable<TMap> entitys)
+        protected async Task AddRangeAsync(IEnumerable<TMap> entitys)
         {
             //DEBUG
             try
@@ -175,7 +187,7 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public void Delete(TMap entity)
+        protected void Delete(TMap entity)
         {
             var efOptions = AutoMapperConfig.Mapper.Map<TDb>(entity);
             DbSet.Remove(efOptions);
@@ -183,7 +195,7 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public void Delete(Expression<Func<TMap, bool>> predicate)
+        protected void Delete(Expression<Func<TMap, bool>> predicate)
         {
             var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<TDb, bool>>>(predicate);
             var efOptions = DbSet.Where(efPredicate).ToList();
@@ -192,7 +204,7 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public async Task DeleteAsync(TMap entity)
+        protected async Task DeleteAsync(TMap entity)
         {
             var efOptions = AutoMapperConfig.Mapper.Map<TDb>(entity);
             DbSet.Remove(efOptions);
@@ -200,7 +212,7 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public async Task DeleteAsync(Expression<Func<TMap, bool>> predicate)
+        protected async Task DeleteAsync(Expression<Func<TMap, bool>> predicate)
         {
             var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<TDb, bool>>>(predicate);
             var efOptions = await DbSet.Where(efPredicate).ToListAsync();
@@ -209,34 +221,45 @@ namespace DAL.EFCore.Repository
         }
 
 
-        public void Edit(TMap entity)
+        protected void Edit(TMap entity)
         {
             Context.Entry(entity).State = EntityState.Modified;
             Context.SaveChanges();
         }
 
 
-        public async Task EditAsync(TMap entity)
+        protected async Task EditAsync(TMap entity)
         {
             Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();
         }
 
 
-        public bool IsExist(Expression<Func<TMap, bool>> predicate)
+        protected bool IsExist(Expression<Func<TMap, bool>> predicate)
         {
             var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<TDb, bool>>>(predicate);
             return DbSet.Any(efPredicate);
         }
 
 
-        public async Task<bool> IsExistAsync(Expression<Func<TMap, bool>> predicate)
+        protected async Task<bool> IsExistAsync(Expression<Func<TMap, bool>> predicate)
         {
             var efPredicate = AutoMapperConfig.Mapper.MapExpression<Expression<Func<TDb, bool>>>(predicate);
             return await DbSet.AnyAsync(efPredicate);
         }
 
+        #endregion
 
+
+
+
+        #region Methode
+
+        private IQueryable<TDb> Include(params Expression<Func<TDb, object>>[] includeProperties)
+        {
+            IQueryable<TDb> query = DbSet.AsNoTracking();
+            return includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+        }
 
         #endregion
 

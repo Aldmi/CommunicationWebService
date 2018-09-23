@@ -56,6 +56,11 @@ namespace DAL.InMemory.Repository
             return GetSingle(predicate);
         }
 
+        public IEnumerable<DeviceOption> GetWithInclude(params Expression<Func<DeviceOption, object>>[] includeProperties)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public IEnumerable<DeviceOption> List()
         {

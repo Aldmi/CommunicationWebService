@@ -55,6 +55,11 @@ namespace DAL.InMemory.Repository
             return GetSingle(predicate);
         }
 
+        public IEnumerable<ExchangeOption> GetWithInclude(params Expression<Func<ExchangeOption, object>>[] includeProperties)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public IEnumerable<ExchangeOption> List()
         {

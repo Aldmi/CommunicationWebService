@@ -57,6 +57,11 @@ namespace DAL.InMemory.Repository
             return GetSingle(predicate);
         }
 
+        public IEnumerable<SerialOption> GetWithInclude(params Expression<Func<SerialOption, object>>[] includeProperties)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public IEnumerable<SerialOption> List()
         {

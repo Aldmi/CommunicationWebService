@@ -46,6 +46,12 @@ namespace DAL.EFCore.Repository
         }
 
 
+        public new IEnumerable<DeviceOption> GetWithInclude(params Expression<Func<DeviceOption, object>>[] includeProperties)
+        {
+            return base.GetWithInclude(includeProperties);
+        }
+
+
         public new IEnumerable<DeviceOption> List()
         {
             return base.List();
