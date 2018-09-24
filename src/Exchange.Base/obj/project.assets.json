@@ -243,6 +243,16 @@
           "bin/placeholder/DAL.Abstract.dll": {}
         }
       },
+      "InputDataModel.Base/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/InputDataModel.Base.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/InputDataModel.Base.dll": {}
+        }
+      },
       "Shared/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -890,6 +900,11 @@
       "path": "../DAL.Abstract/DAL.Abstract.csproj",
       "msbuildProject": "../DAL.Abstract/DAL.Abstract.csproj"
     },
+    "InputDataModel.Base/1.0.0": {
+      "type": "project",
+      "path": "../InputDataModel.Base/InputDataModel.Base.csproj",
+      "msbuildProject": "../InputDataModel.Base/InputDataModel.Base.csproj"
+    },
     "Shared/1.0.0": {
       "type": "project",
       "path": "../Shared/Shared.csproj",
@@ -909,6 +924,7 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "DAL.Abstract >= 1.0.0",
+      "InputDataModel.Base >= 1.0.0",
       "NETStandard.Library >= 2.0.3",
       "Shared >= 1.0.0",
       "System.Reactive >= 4.1.0",
@@ -949,6 +965,9 @@
           "projectReferences": {
             "D:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj": {
               "projectPath": "D:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj"
+            },
+            "D:\\Git\\CommunicationWebService\\src\\InputDataModel.Base\\InputDataModel.Base.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\InputDataModel.Base\\InputDataModel.Base.csproj"
             },
             "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
               "projectPath": "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"

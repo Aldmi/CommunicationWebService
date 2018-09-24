@@ -8,6 +8,7 @@
     <ProjectReference Include="..\DAL.Abstract\DAL.Abstract.csproj" />
     <ProjectReference Include="..\Exchange.Base\Exchange.Base.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.EventBus.csproj" />
+    <ProjectReference Include="..\InputDataModel.Base\InputDataModel.Base.csproj" />
     <ProjectReference Include="..\Transport.Base\Transport.Base.csproj" />
   </ItemGroup>
 

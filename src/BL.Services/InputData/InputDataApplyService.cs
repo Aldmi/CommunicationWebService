@@ -41,13 +41,14 @@ namespace BL.Services.InputData
                     continue;
                 }
 
-                //device.SendByConcreteExchange(inData.ExchangeName) 
-                //TODO: в Device Добавить SendByConcreteExchange(string key) и SendByAllExchange()
-              
-
-                //Передать данные по конкретным Exchanges на конкретное действие
-                var exch = device.Exchanges.FirstOrDefault();
-                exch.SendOneTimeData(inData.Data.FirstOrDefault());
+                if (string.IsNullOrEmpty(inData.ExchangeName))
+                {
+                    device.Send2AllExchanges(inData.DataAction, inData.Data, inData.Command);
+                }
+                else
+                {
+                    device.Send2ConcreteExchanges(inData.ExchangeName, inData.DataAction, inData.Data, inData.Command);
+                }
             }
         }
 

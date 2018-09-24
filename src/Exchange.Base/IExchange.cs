@@ -6,7 +6,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using DAL.Abstract.Entities.Options.Exchange;
 using Exchange.Base.DataProviderAbstract;
-
+using Exchange.Base.Model;
+using InputDataModel.Base;
 using Shared.Types;
 using Transport.Base.RxModel;
 
@@ -27,7 +28,7 @@ namespace Exchange.Base
         #region StateExchange
         bool IsOpen { get; }                                                      //Соединение открыто
         bool IsConnect { get; }                                                   //Устройсвто на связи по открытому соединению (определяется по правильным ответам от ус-ва)
-        T LastSendData { get; }                                                  //Последние отосланные данные 
+        InDataWrapper<T> LastSendData { get; }                                    //Последние отосланные данные 
         bool IsStartedCycleExchange { get; set; }                                 //Флаг цикл. обмена
         #endregion
 
@@ -41,9 +42,9 @@ namespace Exchange.Base
 
 
         #region SendData
-        void SendCommand(string commandName, T data4Command);                  //однократно выполняемая команда
-        void SendOneTimeData(T inData);                                        //однократно отсылаемые данные (если указанны правила, то только для этих правил)
-        void SendCycleTimeData(T inData);                                      //циклически отсылаемые данные
+        void SendCommand(Command4Device command);              //однократно выполняемая команда
+        void SendOneTimeData(IEnumerable<T> inData);                           //однократно отсылаемые данные (если указанны правила, то только для этих правил)
+        void SendCycleTimeData(IEnumerable<T> inData);                         //циклически отсылаемые данные
         #endregion
 
 

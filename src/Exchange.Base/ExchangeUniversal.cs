@@ -2,11 +2,14 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
 using DAL.Abstract.Entities.Options.Exchange;
 using Exchange.Base.DataProviderAbstract;
+using Exchange.Base.Model;
+using InputDataModel.Base;
 using Shared.Types;
 using Transport.Base.Abstract;
 using Transport.Base.RxModel;
@@ -34,11 +37,11 @@ namespace Exchange.Base
         public KeyTransport KeyTransport => ExchangeOption.KeyTransport;
         public bool IsOpen => _transport.IsOpen;
         public bool IsConnect { get; }
-        public TIn LastSendData { get; private set; }
+        public InDataWrapper<TIn> LastSendData { get; private set; }
         public IEnumerable<string> GetRuleNames => new List<string>(); //TODO: сейчас в ExchangeMasterSpOption только 1 ExchangeRule, должно быть список.
         public bool IsStartedCycleExchange { get; set; }
-        protected ConcurrentQueue<TIn> InDataQueue { get; set; } = new ConcurrentQueue<TIn>(); //Очередь данных для SendOneTimeData().
-        protected TIn Data4CycleFunc { get; set; }                                                           //Данные для Цикл. функции.
+        protected ConcurrentQueue<InDataWrapper<TIn>> InDataQueue { get; set; } = new ConcurrentQueue<InDataWrapper<TIn>>(); //Очередь данных для SendOneTimeData().
+        protected InDataWrapper<TIn> Data4CycleFunc { get; set; }                                                           //Данные для Цикл. функции.
 
         #endregion
 
@@ -146,11 +149,15 @@ namespace Exchange.Base
         /// <summary>
         /// Отправить команду. аналог однократно выставляемой функции.
         /// </summary>
-        /// <param name="commandName"></param>
-        /// <param name="data4Command"></param>
-        public void SendCommand(string commandName, TIn data4Command)
+        /// <param name="command"></param>
+        public void SendCommand(Command4Device command)
         {
-            throw new System.NotImplementedException();
+            if (command != Command4Device.None)
+            {
+                var dataWrapper = new InDataWrapper<TIn> { Command = command};
+                InDataQueue.Enqueue(dataWrapper);
+                _transportBackground.AddOneTimeAction(OneTimeActionAsync);
+            }
         }
 
 
@@ -158,11 +165,12 @@ namespace Exchange.Base
         /// Отправить данные для однократно выставляемой функции.
         /// Функция выставляется на БГ.
         /// </summary>
-        public void SendOneTimeData(TIn inData)
+        public void SendOneTimeData(IEnumerable<TIn> inData)
         {
             if (inData != null)
             {
-                InDataQueue.Enqueue(inData);
+                var dataWrapper= new InDataWrapper<TIn>{Datas = inData.ToList()};
+                InDataQueue.Enqueue(dataWrapper);
                 _transportBackground.AddOneTimeAction(OneTimeActionAsync);
             }
         }
@@ -171,15 +179,17 @@ namespace Exchange.Base
         /// <summary>
         /// Выставить данные для цикл. функции.
         /// </summary>
-        public void SendCycleTimeData(TIn inData)
+        public void SendCycleTimeData(IEnumerable<TIn> inData)
         {
             if (inData != null)
             {
-                Data4CycleFunc = inData;
+                var dataWrapper = new InDataWrapper<TIn> { Datas = inData.ToList() };
+                Data4CycleFunc = dataWrapper;
             }
         }
 
         #endregion
+
 
 
         #region Actions

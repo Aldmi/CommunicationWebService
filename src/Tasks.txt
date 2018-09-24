@@ -1,29 +1,35 @@
 1.
----Добавить EventBus - издатель публикует данные определенного типа на шину, подписчики работают на получение типа.---
-После получение данных от клиента, парсим Json, выставляем событие (типа <inputData>) на EventBus о получении данных.
-EventBus будет зависимостью сревиса в котором хранятся List<Device>. Сервис подпишетя на EventBus типа <inputData>
-и будет всегда оповещен о получении данных, сможет выбрать нужный Device и передать ему данные.
+   Транспорт отправляет данные через метод
+          var dataExchangeSuccess = await _transport.DataExchangeAsync(timeRespone, _dataProvider, ct);
 
+		  Единица отправялемых данных находится внутри провайдера (_dataProvider содержит в себе InDataWrapper<TInput>).
+		  Эти данные нужно отправить на ус-во, но как отправить определяет провайдер,
+		  например для HTTP можно сразу оправить весь List<AdInput>, а для более медленног трансопорт нужно отправлять БАЧАМИ 
+		  Например для SP отправлять по 3 строки (batchSize= 3) 
+		  Единица обмена: 3 записи -> byte[] -> request -> ...timeout... -> respawn -> byne[] -> сохранить
+		  (т.е. 3 записям соответсвует ответ, коллекцию таких пар мы сохраняем и отдаем как результат функции DataExchangeAsync)
 
-2.
----Добавить систему передачи данных от клиента через REST api.---
-     * Добавить контроллер DeviceExchangeController
-	   POST - передача данных от клиента в json формате
-	   GET - получение последних переданных данных
-	   PUT - команды для Divice
-После передачи данных чрезе POST запрос эта json строка стохраняется в репозитории (с временным штампом, для проверки валидности, например 30 мин валидна), 
-ее клиент может получить обратно через GET запрос.
-В случае перезагрузки сервера из репозитория вынимается последняя строка, проверяется на валидносит по времени и считается за дефолтные данные для Devices.
-
-
-3.
----Добавить json сериализатор, разработать формат json для передачи данных от клиента ---
-
-
-4.
-Запускать централизованно StartCycleExchange, как BackGround
-
-5.
-Сделать 2 разных типа Exchange
-   1. ByRule - весь обмен определяется правилами.
-   2. ByProvider - протокол задается провайдером, провайдер захардкожен, выбирается его имя и все параметры которые ему нужны.
+		 while(!provider.AllDataSending)
+		 {
+		    try
+            {
+                byte[] writeBuffer = dataProvider.GetDataByte(); //!!! Выдает данные в нужном формате порциями (batchSize).
+                if (writeBuffer != null && writeBuffer.Any())
+                {
+                    StatusDataExchange = StatusDataExchange.Process;
+                    var readBuff = await RequestAndRespawnInstantlyAsync(writeBuffer, dataProvider.CountSetDataByte, timeRespoune, ct);
+                    dataProvider.SetDataByte(readBuff);         // !!! внури провайдера анализируется полученный ответ на отправку одной порции и сохраняется.
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                StatusDataExchange = StatusDataExchange.EndWithCanceled;
+                return StatusDataExchange.EndWithCanceled;
+            }
+            catch (TimeoutException)
+            {
+                //ReOpen();
+                StatusDataExchange = StatusDataExchange.EndWithTimeout;
+                return StatusDataExchange.EndWithTimeout;
+            }
+		 }

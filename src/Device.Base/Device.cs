@@ -4,6 +4,7 @@ using System.Linq;
 using DAL.Abstract.Entities.Options.Device;
 using Exchange.Base;
 using Infrastructure.EventBus.Abstract;
+using InputDataModel.Base;
 using Transport.Base.RxModel;
 
 namespace DeviceForExchange
@@ -66,13 +67,67 @@ namespace DeviceForExchange
         }
 
 
-
-        void SendCommand(string commandName, TIn data4Command)
+        /// <summary>
+        /// Отправить данные или команду на все обмены.
+        /// </summary>
+        /// <param name="dataAction"></param>
+        /// <param name="inData"></param>
+        /// <param name="command4Device"></param>
+        public void Send2AllExchanges(DataAction dataAction, List<TIn> inData, Command4Device command4Device = Command4Device.None)
         {
-            var firtstEch=Exchanges.FirstOrDefault();
-            firtstEch.SendCommand(commandName, data4Command); //DEBUG
+            foreach (var exchange in Exchanges)
+            {
+                switch (dataAction)
+                {
+                    case DataAction.OneTimeAction:
+                        exchange.SendOneTimeData(inData);                        
+                        break;
+
+                    case DataAction.CycleAction:
+                        exchange.SendCycleTimeData(inData);
+                        break;
+
+                    case DataAction.CommandAction:
+                        exchange.SendCommand(command4Device);
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(dataAction), dataAction, null);
+                }
+            }  
         }
 
+
+        /// <summary>
+        /// Отправить данные или команду на выбранный обмен.
+        /// </summary>
+        /// <param name="keyExchange"></param>
+        /// <param name="dataAction"></param>
+        /// <param name="inData"></param>
+        /// <param name="command4Device"></param>
+        public void Send2ConcreteExchanges(string keyExchange, DataAction dataAction, List<TIn> inData, Command4Device command4Device = Command4Device.None)
+        {
+            var exchange = Exchanges.FirstOrDefault(exch=> exch.KeyExchange == keyExchange);
+            switch (dataAction)
+            {
+                case DataAction.OneTimeAction:
+                    exchange?.SendOneTimeData(inData);
+                    break;
+
+                case DataAction.CycleAction:
+                    exchange?.SendCycleTimeData(inData);
+                    break;
+
+                case DataAction.CommandAction:
+                    exchange?.SendCommand(command4Device);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(dataAction), dataAction, null);
+            }     
+        }
+
+ 
         #endregion
 
 

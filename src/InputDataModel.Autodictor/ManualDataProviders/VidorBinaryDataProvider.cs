@@ -3,6 +3,7 @@ using System.IO;
 using System.Reactive.Subjects;
 using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
 using Exchange.Base.DataProviderAbstract;
+using Exchange.Base.Model;
 using InputDataModel.Autodictor.Model;
 using Shared.Types;
 
@@ -68,7 +69,7 @@ namespace InputDataModel.Autodictor.ManualDataProviders
 
         public int CountGetDataByte { get; }
         public int CountSetDataByte { get; }
-        public AdInputType InputData { get; set; }
+        public InDataWrapper<AdInputType> InputData { get; set; }
         public TransportResponse OutputData { get; set; }
         public bool IsOutDataValid { get; }
         public Subject<TransportResponse> OutputDataChangeRx { get; }

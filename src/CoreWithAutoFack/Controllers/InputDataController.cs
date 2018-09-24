@@ -58,7 +58,7 @@ namespace WebServer.Controllers
 
 
         /// <summary>
-        /// Запустить бекграунд слушатнля выходных сообшений от messageBroker
+        /// Запустить бекграунд слушателя выходных сообшений от messageBroker
         /// </summary>
         // GET api/InputData/StartListener
         [HttpPut("StartListener")]
@@ -85,7 +85,7 @@ namespace WebServer.Controllers
 
 
         /// <summary>
-        /// Запустить бекграунд слушатнля выходных сообшений от messageBroker
+        /// Запустить бекграунд слушателя выходных сообшений от messageBroker
         /// </summary>
         [HttpPut("StopListener")]
         public async Task<IActionResult> StopListener()

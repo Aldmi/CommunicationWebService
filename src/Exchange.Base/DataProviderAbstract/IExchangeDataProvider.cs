@@ -1,11 +1,12 @@
 ﻿using System.Reactive.Subjects;
+using Exchange.Base.Model;
 using Transport.Base.DataProvidert;
 
 namespace Exchange.Base.DataProviderAbstract
 {
     public interface IExchangeDataProvider<TInput, TOutput> : ITransportDataProvider
     {
-        TInput InputData { get; set; }     //передача входных даных внешним кодом.
+        InDataWrapper<TInput> InputData { get; set; }     //передача входных даных внешним кодом.
         TOutput OutputData { get; set; }   //возврат выходных данных во внешний код.
         bool IsOutDataValid { get; }       // флаг валидности выходных данных (OutputData)
 
