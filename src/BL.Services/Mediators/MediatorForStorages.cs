@@ -244,7 +244,12 @@ namespace BL.Services.Mediators
                 await bg.StopAsync(CancellationToken.None);
                 bg.Dispose();
             }
+
             var transport = _transportStorageService.Get(keyTransport);
+            if (transport.IsCycleReopened)
+            {
+                transport.CycleReOpenedCancelation();
+            }
             _transportStorageService.Remove(keyTransport);
             transport.Dispose();
         }

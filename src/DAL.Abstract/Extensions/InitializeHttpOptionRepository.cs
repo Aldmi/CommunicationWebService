@@ -15,23 +15,23 @@ namespace DAL.Abstract.Extensions
                 return;
             }
 
-            var httpList = new List<HttpOption>
-            {
-                new HttpOption
-                {
-                    Id= 1,
-                    Name= "Http table 1",
-                    Address= "http://Google.com",
-                    AutoStart= true,
-                    Headers = new Dictionary<string, string>
-                    {
-                        {"heaeder 1", "value 1"},
-                        {"heaeder 2", "value 2"}
-                    }
-                }
-            };
+           // var httpList = new List<HttpOption>
+           // {
+           //     new HttpOption
+           //     {
+           //         Id= 1,
+           //         Name= "Http table 1",
+           //         Address= "http://Google.com",
+           //         AutoStart= true,
+           //         Headers = new Dictionary<string, string>
+           //         {
+           //             {"heaeder 1", "value 1"},
+           //             {"heaeder 2", "value 2"}
+           //         }
+           //     }
+           // };
 
-           await rep.AddRangeAsync(httpList);
+           //await rep.AddRangeAsync(httpList);
         }
     }
 }

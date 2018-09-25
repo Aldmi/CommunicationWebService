@@ -14,3 +14,19 @@ E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\obj\Debug
 E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.csproj.CopyComplete
 E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.dll
 E:\C#\ASP net core\CoreWithAutoFack\CoreWithAutoFack\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.pdb
+C:\Git\CommunicationWebService\src\Worker.Background\bin\Debug\netstandard2.0\Worker.Background.deps.json
+C:\Git\CommunicationWebService\src\Worker.Background\bin\Debug\netstandard2.0\Worker.Background.dll
+C:\Git\CommunicationWebService\src\Worker.Background\bin\Debug\netstandard2.0\Worker.Background.pdb
+C:\Git\CommunicationWebService\src\Worker.Background\bin\Debug\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Git\CommunicationWebService\src\Worker.Background\bin\Debug\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Git\CommunicationWebService\src\Worker.Background\bin\Debug\netstandard2.0\Shared.dll
+C:\Git\CommunicationWebService\src\Worker.Background\bin\Debug\netstandard2.0\Shared.pdb
+C:\Git\CommunicationWebService\src\Worker.Background\bin\Debug\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+C:\Git\CommunicationWebService\src\Worker.Background\bin\Debug\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.xml
+C:\Git\CommunicationWebService\src\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.csprojAssemblyReference.cache
+C:\Git\CommunicationWebService\src\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.csproj.CoreCompileInputs.cache
+C:\Git\CommunicationWebService\src\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.AssemblyInfoInputs.cache
+C:\Git\CommunicationWebService\src\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.AssemblyInfo.cs
+C:\Git\CommunicationWebService\src\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.csproj.CopyComplete
+C:\Git\CommunicationWebService\src\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.dll
+C:\Git\CommunicationWebService\src\Worker.Background\obj\Debug\netstandard2.0\Worker.Background.pdb

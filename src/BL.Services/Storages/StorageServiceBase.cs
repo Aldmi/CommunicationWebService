@@ -33,9 +33,9 @@ namespace BL.Services.Storages
 
         public DictionaryCrudResult Remove(TKey key)
         {
-            if (Storage.ContainsKey(key))
+            if (!Storage.ContainsKey(key))
             {
-                return DictionaryCrudResult.KeyAlredyExist;
+                return DictionaryCrudResult.KeyNotExist;
             }
             var sp = Storage[key];
             sp.Dispose();

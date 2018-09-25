@@ -25,6 +25,8 @@ namespace DAL.Abstract.Extensions
                     Id = 1,
                     Key = "SP_COM1_Vidor1",
                     KeyTransport = new KeyTransport("COM1", TransportType.SerialPort),
+                    AutoStartCycleFunc = false
+                    ,
                     Provider = new ProviderOption
                     {
                         Name = "VidorBinary",
@@ -40,6 +42,7 @@ namespace DAL.Abstract.Extensions
                     Id = 2,
                     Key = "SP_COM2_Vidor2",
                     KeyTransport = new KeyTransport("COM2", TransportType.SerialPort),
+                    AutoStartCycleFunc = false,
                     Provider = new ProviderOption
                     {
                         Name = "ByRules",
@@ -54,36 +57,6 @@ namespace DAL.Abstract.Extensions
                                     Response = new Response{Body = "01050A", MaxLenght = 2000, TimeRespone = 1000}
                                 }                 
                             }
-                        }
-                    }
-                },
-                new ExchangeOption
-                {
-                    Id = 3,
-                    Key = "HTTP_google.com_Table1",
-                    KeyTransport = new KeyTransport("Http table 1", TransportType.Http),
-                    Provider = new ProviderOption
-                    {
-                        Name = "VidorBinary",
-                        ManualProviderOption = new ManualProviderOption
-                        {
-                            Address = "100",
-                            TimeRespone = 2500
-                        }
-                    }
-                },
-                new ExchangeOption
-                {
-                    Id = 4,
-                    Key = "TcpIp_Table1",
-                    KeyTransport = new KeyTransport("TcpIp table 1", TransportType.TcpIp),
-                    Provider = new ProviderOption
-                    {
-                        Name = "VidorBinary",
-                        ManualProviderOption = new ManualProviderOption
-                        {
-                            Address = "5",
-                            TimeRespone = 2500
                         }
                     }
                 }

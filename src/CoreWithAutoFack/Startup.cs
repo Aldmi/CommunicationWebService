@@ -121,11 +121,15 @@ namespace WebServer
                 lifetimeApp.ApplicationStarted.Register(() => back.StartAsync(CancellationToken.None));
             }
 
-            //ЗАПУСК КОННЕКТА УСТРОЙСТВ
+            //ЗАПУСК ОТКРЫТИЯ ПОДКЛЮЧЕНИЯ УСТРОЙСТВ И ЦИКЛИЧЕСКОГО ОБМЕНА.
             var exchangeServices = scope.Resolve<ExchangeStorageService<AdInputType>>();
-            foreach (var exchange in exchangeServices.Values.Where(exch => exch.AutoStart))
+            foreach (var exchange in exchangeServices.Values)
             {
                 lifetimeApp.ApplicationStarted.Register(async () => await exchange.CycleReOpened());
+                if (exchange.AutoStartCycleFunc)
+                {
+                    lifetimeApp.ApplicationStarted.Register(() => exchange.StartCycleExchange());
+                }
             }
         }
 

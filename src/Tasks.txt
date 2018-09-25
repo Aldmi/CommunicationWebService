@@ -33,3 +33,6 @@
                 return StatusDataExchange.EndWithTimeout;
             }
 		 }
+
+2. ѕосле ручного билда устройства (через api DevicesOptionController) устройство просто добавл€етс€ к списку и автоматом ничего на нем не запускаетс€.
+   Ќужно запустить вручную CycleReopen, BG, CycleExchange.

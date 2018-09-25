@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Threading;
@@ -31,17 +30,15 @@ namespace Exchange.Base
 
         #region prop
 
- 
         public string KeyExchange => ExchangeOption.Key;
-        public bool AutoStart => ExchangeOption.AutoStartCycleFunc;
+        public bool AutoStartCycleFunc => ExchangeOption.AutoStartCycleFunc;
         public KeyTransport KeyTransport => ExchangeOption.KeyTransport;
         public bool IsOpen => _transport.IsOpen;
         public bool IsConnect { get; }
         public InDataWrapper<TIn> LastSendData { get; private set; }
-        public IEnumerable<string> GetRuleNames => new List<string>(); //TODO: сейчас в ExchangeMasterSpOption только 1 ExchangeRule, должно быть список.
         public bool IsStartedCycleExchange { get; set; }
         protected ConcurrentQueue<InDataWrapper<TIn>> InDataQueue { get; set; } = new ConcurrentQueue<InDataWrapper<TIn>>(); //Очередь данных для SendOneTimeData().
-        protected InDataWrapper<TIn> Data4CycleFunc { get; set; }                                                           //Данные для Цикл. функции.
+        protected InDataWrapper<TIn> Data4CycleFunc { get; set; }                                                            //Данные для Цикл. функции.
 
         #endregion
 
@@ -88,7 +85,7 @@ namespace Exchange.Base
         #region ReOpen
 
         /// <summary>
-        /// Циклическое 
+        /// Циклическое открытие подключения
         /// </summary>
         private CancellationTokenSource _cycleReOpenedCts;
         public async Task CycleReOpened()
@@ -99,15 +96,14 @@ namespace Exchange.Base
                 _cycleReOpenedCts = new CancellationTokenSource();
                 await Task.Factory.StartNew(async () =>
                 {
-                    if (await _transport.CycleReOpened())
-                    {
-                        StartCycleExchange();
-                    }
+                    await _transport.CycleReOpened();
                 }, _cycleReOpenedCts.Token);
             }
         }
 
-
+        /// <summary>
+        /// Отмена задачи циклического открытия подключения
+        /// </summary>
         public void CycleReOpenedCancelation()
         {
             if (!IsOpen)

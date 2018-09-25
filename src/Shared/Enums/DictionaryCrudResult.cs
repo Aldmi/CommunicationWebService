@@ -4,6 +4,7 @@
     {
         None,
         KeyAlredyExist,
+        KeyNotExist,
         Added,
         Updated,
         Removed

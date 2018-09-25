@@ -51,9 +51,10 @@ namespace Transport.Http.Concrete
         public ISubject<IsOpenChangeRxModel> IsOpenChangeRx { get; }
         public ISubject<StatusDataExchangeChangeRxModel> StatusDataExchangeChangeRx { get; }
         public ISubject<StatusStringChangeRxModel> StatusStringChangeRx { get; }
-        public Task<bool> CycleReOpened()
+        public async Task<bool> CycleReOpened()
         {
-            throw new System.NotImplementedException();
+            await Task.CompletedTask;
+            return true;
         }
 
         public void CycleReOpenedCancelation()

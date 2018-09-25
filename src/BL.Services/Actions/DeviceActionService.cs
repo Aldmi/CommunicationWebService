@@ -46,8 +46,7 @@ namespace BL.Services.Actions
         /// </summary>
         /// <param name="exchnageKey"></param>
         public void StartCycleExchange(string exchnageKey)
-        {
-            
+        {         
             var exchange = _mediatorForStorages.GetExchange(exchnageKey);
             if (exchange == null)
                 throw new ActionHandlerException($"Обмен с таким ключем Не найден: {exchnageKey}");
@@ -108,8 +107,7 @@ namespace BL.Services.Actions
         /// </summary>
         /// <param name="keyTransport"></param>
         public async Task StartBackground(KeyTransport keyTransport)
-        {
-            
+        {      
             var bg = _mediatorForStorages.GetBackground(keyTransport);
             if (bg.IsStarted)
                 throw new ActionHandlerException($"Бекграунд уже запущен: {bg.KeyTransport}");
@@ -156,32 +154,19 @@ namespace BL.Services.Actions
         }
 
 
-
-        /// <summary>
-        /// Отправить данные на конкретный обмен.
-        /// </summary>
-        /// <param name="deviceName"></param>
-        /// <param name="exchnageKey"></param>
-        /// <returns></returns>
-        public async Task SendData(string exchnageKey)//TODO: Добавить данные
-        {
-            var exch = _mediatorForStorages.GetExchange(exchnageKey);
-            if(exch == null)
-                throw new ActionHandlerException($"Обмен с таким ключем Не найден: {exchnageKey}");
-
-            //exch.SendOneTimeData();
-
-            await Task.CompletedTask;
-        }
-
-
         ///// <summary>
-        ///// Отправить данные на все обмены ус-ва.
+        ///// Отправить данные на конкретный обмен.
         ///// </summary>
-        ///// <param name="deviceName"></param>
+        ///// <param name="exchnageKey"></param>
         ///// <returns></returns>
-        //public async Task SendData(string deviceName)
+        //public async Task SendData(string exchnageKey)//TODO: Добавить данные
         //{
+        //    var exch = _mediatorForStorages.GetExchange(exchnageKey);
+        //    if(exch == null)
+        //        throw new ActionHandlerException($"Обмен с таким ключем Не найден: {exchnageKey}");
+
+        //    //exch.SendOneTimeData();
+
         //    await Task.CompletedTask;
         //}
 

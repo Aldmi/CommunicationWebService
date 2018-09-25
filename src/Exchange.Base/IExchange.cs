@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reactive.Subjects;
-using System.Reflection;
 using System.Threading.Tasks;
-using DAL.Abstract.Entities.Options.Exchange;
-using Exchange.Base.DataProviderAbstract;
 using Exchange.Base.Model;
 using InputDataModel.Base;
 using Shared.Types;
@@ -20,8 +16,7 @@ namespace Exchange.Base
     {
         #region ByOption
         string KeyExchange { get; } 
-        IEnumerable<string> GetRuleNames { get; }                                 //Отдать название установленных правил обмена
-        bool AutoStart { get; }
+        bool AutoStartCycleFunc { get; }
         #endregion
 
 

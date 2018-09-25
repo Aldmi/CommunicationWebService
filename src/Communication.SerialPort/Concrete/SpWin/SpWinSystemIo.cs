@@ -123,8 +123,12 @@ namespace Transport.SerialPort.Concrete.SpWin
             {
                 res = ReOpenWithDispose();
                 if (!res)
+                {
+                    Console.WriteLine($"коннект для транспорта НЕ ОТКРЫТ: {KeyTransport}");
                     await Task.Delay(TimeCycleReOpened, _ctsCycleReOpened.Token);
+                }
             }
+            Console.WriteLine($"Коннект ОТКРЫТ: {KeyTransport}");
             IsCycleReopened = false;
             return true;
         }
