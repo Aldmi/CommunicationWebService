@@ -195,26 +195,9 @@ namespace WebServer.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<string> Get(int id)
         {
-           var background= _backgroundServices.FirstOrDefault(back => back.KeyTransport.Key == "COM1");
-           if (background == null)
-              return "NULL";
-
-            switch (id)
-            {
-                case 1:
-                    background.StopAsync(CancellationToken.None);
-                    break;
-
-                case 2:
-                    background.StartAsync(CancellationToken.None);
-                    break;
-            }
-
-           var isStarted= background.IsStarted;
-
-            return "value";
+            return  new List<string>{"str1", "str2"};
         }
 
         // POST api/values

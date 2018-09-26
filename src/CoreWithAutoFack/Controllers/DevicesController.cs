@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BL.Services.Actions;
 using BL.Services.Exceptions;
@@ -65,6 +66,8 @@ namespace WebServer.Controllers
 
         //TODO: добавить GetDevicesUsingBackground
 
+        //TODO: добавить GetExchangesState (string deviceName)
+
 
         [HttpDelete("{deviceName}")]
         public async Task<IActionResult> RemoveDevice([FromRoute] string deviceName)
@@ -87,7 +90,6 @@ namespace WebServer.Controllers
                 throw;
             }
         }
-
 
 
 
@@ -151,7 +153,56 @@ namespace WebServer.Controllers
         }
 
 
+        // PUT api/Devices/StartCycleReOpenedConnection
+        [HttpPut("StartCycleReOpenedConnection")]
+        public async Task<IActionResult> StartCycleReOpenedConnection([FromBody] IEnumerable<string> exchnageKeys)
+        {
+            try
+            {
+               await _deviceActionService.StartCycleReOpenedConnections(exchnageKeys);
+               return Ok(exchnageKeys);
+            }
+            catch (ActionHandlerException ex)
+            {
+                Console.WriteLine(ex);
+                //LOG
+                ModelState.AddModelError("StartCycleReOpenedConnection", ex.Message);
+                return BadRequest(ModelState);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                //LOG
+                throw;
+            }
+        }
 
+
+        // PUT api/Devices/StartCycleReOpenedConnection
+        [HttpPut("StopCycleReOpenedConnection")]
+        public IActionResult StopCycleReOpenedConnection([FromBody] IEnumerable<string> exchnageKeys)
+        {
+            try
+            {
+                _deviceActionService.StopCycleReOpenedConnections(exchnageKeys);
+                return Ok(exchnageKeys);
+            }
+            catch (ActionHandlerException ex)
+            {
+                Console.WriteLine(ex);
+                //LOG
+                ModelState.AddModelError("StopCycleReOpenedConnections", ex.Message);
+                return BadRequest(ModelState);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                //LOG
+                throw;
+            }
+        }
+
+        //TODO: добавить StartBackgrounds , StopBackgrounds
 
         #endregion
     }

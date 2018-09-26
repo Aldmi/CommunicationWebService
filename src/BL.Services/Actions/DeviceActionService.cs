@@ -154,21 +154,64 @@ namespace BL.Services.Actions
         }
 
 
-        ///// <summary>
-        ///// Отправить данные на конкретный обмен.
-        ///// </summary>
-        ///// <param name="exchnageKey"></param>
-        ///// <returns></returns>
-        //public async Task SendData(string exchnageKey)//TODO: Добавить данные
-        //{
-        //    var exch = _mediatorForStorages.GetExchange(exchnageKey);
-        //    if(exch == null)
-        //        throw new ActionHandlerException($"Обмен с таким ключем Не найден: {exchnageKey}");
 
-        //    //exch.SendOneTimeData();
+        /// <summary>
+        /// Запуск открытия подключения для обмена
+        /// </summary>
+        /// <param name="exchnageKey"></param>
+        /// <returns></returns>
+        /// <exception cref="KeyNotFoundException">Обмен не найденн по ключу</exception>
+        /// <exception cref="ActionHandlerException">Соединение уже открыто</exception>
+        public async Task StartCycleReOpenedConnection(string exchnageKey)
+        {         
+            var exchange = _mediatorForStorages.GetExchange(exchnageKey);
+            if (exchange == null)
+                throw new KeyNotFoundException();
 
-        //    await Task.CompletedTask;
-        //}
+            if (exchange.IsOpen)
+                throw new ActionHandlerException($"Соединение уже ОТКРЫТО для этого обмена: {exchnageKey}");
+
+            await exchange.CycleReOpened();
+        }
+
+
+        /// <summary>
+        /// Параллельный запуск открытия подключений на нескольких обменах
+        /// </summary>
+        /// <param name="exchnageKeys"></param>
+        public async Task StartCycleReOpenedConnections(IEnumerable<string> exchnageKeys)
+        {
+            await Task.WhenAll(exchnageKeys.Select(StartCycleReOpenedConnection).ToArray());
+        }
+
+
+        /// <summary>
+        /// Останов задачи циклического открытия подключения для обмена
+        /// </summary>
+        /// <param name="exchnageKey"></param>
+        public void StopCycleReOpenedConnection(string exchnageKey)
+        {         
+            var exchange = _mediatorForStorages.GetExchange(exchnageKey);
+            if (exchange == null)
+                throw new KeyNotFoundException();
+
+            if (!exchange.IsOpen)
+                throw new ActionHandlerException($"Соединение уже ЗАКРЫТО для этого обмена: {exchnageKey}");
+
+            exchange.CycleReOpenedCancelation();
+        }
+
+        /// <summary>
+        /// Останов задач циклического открытия подключения для нескольких обменов
+        /// </summary>
+        /// <param name="exchnageKeys"></param>
+        public void  StopCycleReOpenedConnections(IEnumerable<string> exchnageKeys)
+        {
+            foreach (var exchnageKey in exchnageKeys)
+            {
+                StopCycleReOpenedConnection(exchnageKey);
+            }
+        }
 
         #endregion
     }
