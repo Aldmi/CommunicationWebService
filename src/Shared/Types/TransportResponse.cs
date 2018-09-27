@@ -6,6 +6,8 @@ namespace Shared.Types
 
     public class TransportResponse
     {
+        public string RequestId { get; set; }     
+        
         public TransportResponseStatus TransportResponseStatus { get; set; }
         public string Message { get; set; }     //Доп. информация
         public byte[] RowData { get; set; }    //ответ от устройства

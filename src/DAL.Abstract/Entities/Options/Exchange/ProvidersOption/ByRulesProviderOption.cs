@@ -4,27 +4,28 @@ namespace DAL.Abstract.Entities.Options.Exchange.ProvidersOption
 {
     public class ByRulesProviderOption
     {
-        public List<Rule> Rules { get; set; }
+        public List<RuleOption> Rules { get; set; }
     }
 
 
-    public class Rule
+    public class RuleOption
     {
         public string Name { get; set; }
         public string Format { get; set; }
-        public Request Request { get; set; }
-        public Response Response { get; set; }
+        public int BachSize { get; set; }
+        public RequestOption RequestOption { get; set; }
+        public ResponseOption ResponseOption { get; set; }
     }
 
 
-    public class Request
+    public class RequestOption
     {
         public int MaxLenght { get; set; }
         public string Body { get; set; }
     }
 
 
-    public class Response
+    public class ResponseOption
     {
         public int MaxLenght { get; set; }
         public int TimeRespone { get; set; }

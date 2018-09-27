@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Reactive.Subjects;
+using System.Threading.Tasks;
 using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
 using Exchange.Base.DataProviderAbstract;
 using Exchange.Base.Model;
 using InputDataModel.Autodictor.Model;
 using Shared.Types;
+using Transport.Base.DataProvidert;
 
 namespace InputDataModel.Autodictor.ManualDataProviders
 {
@@ -74,5 +76,12 @@ namespace InputDataModel.Autodictor.ManualDataProviders
         public bool IsOutDataValid { get; }
         public Subject<TransportResponse> OutputDataChangeRx { get; }
         public string ProviderName { get; set; }
+        public Subject<ITransportDataProvider> RaiseSendDataRx { get; }
+        public Task StartExchangePipline(InDataWrapper<AdInputType> inData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int TimeRespone { get; }
     }
 }

@@ -48,13 +48,13 @@ namespace DAL.Abstract.Extensions
                         Name = "ByRules",
                         ByRulesProviderOption = new ByRulesProviderOption
                         {
-                            Rules = new List<Rule>
+                            Rules = new List<RuleOption>
                             {
-                                new Rule{
+                                new RuleOption{
                                     Name = "Rule_1",
                                     Format = "UTF8", 
-                                    Request = new Request{Body = "01{adress}0502{Station}", MaxLenght = 1000},
-                                    Response = new Response{Body = "01050A", MaxLenght = 2000, TimeRespone = 1000}
+                                    RequestOption = new RequestOption{Body = "01{adress}0502{Station}", MaxLenght = 1000},
+                                    ResponseOption = new ResponseOption{Body = "01050A", MaxLenght = 2000, TimeRespone = 1000}
                                 }                 
                             }
                         }

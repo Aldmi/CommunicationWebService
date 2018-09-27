@@ -9,6 +9,8 @@ using DAL.Abstract.Entities.Options.Exchange;
 using Exchange.Base.DataProviderAbstract;
 using Exchange.Base.Model;
 using InputDataModel.Base;
+
+using Shared.Extensions;
 using Shared.Types;
 using Transport.Base.Abstract;
 using Transport.Base.RxModel;
@@ -53,6 +55,7 @@ namespace Exchange.Base
             _transport = transport;
             _transportBackground = transportBackground;
             _dataProvider = dataProvider;
+
         }
 
         #endregion
@@ -197,15 +200,25 @@ namespace Exchange.Base
         {
             if (InDataQueue.TryDequeue(out var inData))
             {
-               _dataProvider.InputData = inData;
-               var timeRespone = 1000;
-               var dataExchangeSuccess = await _transport.DataExchangeAsync(timeRespone, _dataProvider, ct);
-               LastSendData = _dataProvider.InputData;
+                //ПОДПИСКА НА СОБЫТИЕ ОТПРАВКИ ПОРЦИИ ДАННЫХ
+                _dataProvider.RaiseSendDataRx.Subscribe(async provider =>
+                {
+                    var dataExchangeSuccess = await _transport.DataExchangeAsync(_dataProvider.TimeRespone, _dataProvider, ct);
+                    LastSendData = _dataProvider.InputData;
+                });
 
-                var valid = _dataProvider.IsOutDataValid;
-                var output = _dataProvider.OutputData;
+                try
+                {
+                    await _dataProvider.StartExchangePipline(inData);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
             }
-            await Task.Delay(1000, ct);
+
+            await Task.Delay(1000, ct);//DEBUG
         }
 
 
@@ -234,4 +247,8 @@ namespace Exchange.Base
 
         #endregion
     }
+
+
+
+
 }
