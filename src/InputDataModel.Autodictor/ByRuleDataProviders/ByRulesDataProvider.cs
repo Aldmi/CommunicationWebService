@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
 using Exchange.Base.DataProviderAbstract;
@@ -134,23 +135,32 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
         #region Methode
 
-        public async Task StartExchangePipline(InDataWrapper<AdInputType> inData)
+        public async Task StartExchangePipline(InDataWrapper<AdInputType> inData, CancellationTokenSource cts)
         {
-            foreach (var rule in _rules)
+            try
             {
-               var chekedItems= inData.Datas.Where(data => rule.CheckItem(data)).ToList(); //TODO: Проверить на ограничение max item
-               if (chekedItems.Count == 0) continue;
+                foreach (var rule in _rules)
+                {
+                    var chekedItems = inData.Datas.Where(data => rule.CheckItem(data)).ToList(); //TODO: Проверить на ограничение max item
+                    if (chekedItems.Count == 0) continue;
 
-               _currentRule = rule;
-               foreach (var butch in chekedItems.Batch(rule.BatchSize))
-               {             
-                   _stringRequest= _currentRule.CreateStringRequest(butch); //TODO:передвать startIndex, для этого батча (для очета смещ=щения строки по Y).
-                   //InputData = butch;
-                   RaiseSendDataRx.OnNext(this);
-               }
+                    _currentRule = rule;
+                    foreach (var butch in chekedItems.Batch(rule.BatchSize))
+                    {
+                        _stringRequest = _currentRule.CreateStringRequest(butch); //TODO:передвать startIndex, для этого батча (для очета смещ=щения строки по Y).
+                        //InputData = butch;
+                        RaiseSendDataRx.OnNext(this);
+                        //await Task.Delay(-1, cts.Token);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                RaiseSendDataRx.OnError(ex);
             }
 
             //Конвеер обработки входных данных завершен  
+            RaiseSendDataRx.OnCompleted();
             await Task.CompletedTask; 
         }
 
@@ -186,6 +196,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         /// <returns></returns>
         public string CreateStringRequest(IEnumerable<AdInputType> inputTypes)
         {
+            //throw new NotImplementedException("ddsfdsf");//DEBUG
             return "formatString";
         }
     }

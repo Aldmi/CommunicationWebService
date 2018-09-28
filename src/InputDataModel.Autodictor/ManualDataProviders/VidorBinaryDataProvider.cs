@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reactive.Subjects;
+using System.Threading;
 using System.Threading.Tasks;
 using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
 using Exchange.Base.DataProviderAbstract;
@@ -77,7 +78,9 @@ namespace InputDataModel.Autodictor.ManualDataProviders
         public Subject<TransportResponse> OutputDataChangeRx { get; }
         public string ProviderName { get; set; }
         public Subject<ITransportDataProvider> RaiseSendDataRx { get; }
-        public Task StartExchangePipline(InDataWrapper<AdInputType> inData)
+
+
+        public Task StartExchangePipline(InDataWrapper<AdInputType> inData, CancellationTokenSource cts)
         {
             throw new NotImplementedException();
         }

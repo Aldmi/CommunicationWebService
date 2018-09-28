@@ -36,7 +36,7 @@ namespace DAL.Abstract.Extensions
                                 new RuleOption
                                 {
                                     Name = "Rule_1",
-                                    BachSize = 1000,
+                                    BachSize = 1,
                                     Format = "Windows-1251",
                                     RequestOption = new RequestOption{Body = "01{adress}0502{Station}", MaxLenght = 1000},
                                     ResponseOption = new ResponseOption{Body = "01050A", MaxLenght = 2000, TimeRespone = 1000}

@@ -8,9 +8,6 @@ namespace Shared.Extensions
     {
         public static IEnumerable<IEnumerable<T>> Batch<T>(this IEnumerable<T> source, int size)
         {
-            if (size < 0)
-               yield return source;
-
             using (var iter = source.GetEnumerator())
             {
                 while (iter.MoveNext())

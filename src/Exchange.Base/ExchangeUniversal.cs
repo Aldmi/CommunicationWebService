@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
@@ -199,32 +200,41 @@ namespace Exchange.Base
             if (InDataQueue.TryDequeue(out var inData))
             {
                 //ПОДПИСКА НА СОБЫТИЕ ОТПРАВКИ ПОРЦИИ ДАННЫХ
-               var subscription = _dataProvider.RaiseSendDataRx.Subscribe(async provider =>
+
+                //CancellationTokenSource cts;
+                var subscription = _dataProvider.RaiseSendDataRx.Subscribe(
+                async provider =>
                 {
                     try
                     {
                         var dataExchangeSuccess = await _transport.DataExchangeAsync(_dataProvider.TimeRespone, _dataProvider, ct);
                         LastSendData = _dataProvider.InputData;
                     }
-                    catch (Exception e)
+                    catch (Exception e)               //ОШИБКА ОБМЕНА.
                     {
-                        //LOG
+                       
                         Console.WriteLine(e);
-                    }
+                    }    
+                }, 
+                exception =>                          //ОШИБКА ПОДГОТОВКИ ДАННЫХ К ОБМЕНУ.
+                {
+
+                    //LOG
+                    Console.WriteLine(exception);
+                },
+                () =>                                 //ВСЕ ДАННЫЕ УСПЕШНО ПЕРЕДАННЫ.
+                {
+                    
                 });
+
 
                 try
                 {
-                    await _dataProvider.StartExchangePipline(inData);
-                }
-                catch (Exception e)
-                {
-                    //LOG
-                    Console.WriteLine(e);
+                    await _dataProvider.StartExchangePipline(inData, null);
                 }
                 finally
                 {
-                    subscription .Dispose();
+                    subscription.Dispose();
                 }
             }
 
