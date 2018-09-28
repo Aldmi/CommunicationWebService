@@ -10,6 +10,7 @@ using DAL.Abstract.Entities.Options.Exchange;
 using Exchange.Base.DataProviderAbstract;
 using Exchange.Base.Model;
 using InputDataModel.Base;
+using Shared.Enums;
 using Shared.Types;
 using Transport.Base.Abstract;
 using Transport.Base.RxModel;
@@ -76,6 +77,9 @@ namespace Exchange.Base
         ISubject<IExchange<TIn>> IExchange<TIn>.IsConnectChangeRx => throw new NotImplementedException();
 
         ISubject<IExchange<TIn>> IExchange<TIn>.LastSendDataChangeRx => throw new NotImplementedException();
+
+        public ISubject<TransportResponseWrapper> TransportResponseChangeRx { get; } = new Subject<TransportResponseWrapper>();
+        
 
         #endregion
 
@@ -197,52 +201,55 @@ namespace Exchange.Base
         /// </summary>
         protected async Task OneTimeActionAsync(CancellationToken ct)
         {
+            var transportResponseWrapper= new TransportResponseWrapper();
             if (InDataQueue.TryDequeue(out var inData))
             {
                 //ПОДПИСКА НА СОБЫТИЕ ОТПРАВКИ ПОРЦИИ ДАННЫХ
-                var subscription = _dataProvider.RaiseSendDataRx.Subscribe(
-                async provider =>
+                var subscription= _dataProvider.RaiseSendDataRx.Subscribe(async provider =>
                 {
-                    provider.Cts = new CancellationTokenSource();
+                    var transportResponse = new TransportResponse();
+                    var status = StatusDataExchange.None;
                     try
                     {
-                        //_dataProvider.TimeRespone
-                        var dataExchangeSuccess = await _transport.DataExchangeAsync(5000, _dataProvider, ct);
-                        LastSendData = _dataProvider.InputData;
+                        status = await _transport.DataExchangeAsync(3000, provider, ct);//_dataProvider.TimeRespone
+                        if (status == StatusDataExchange.End)
+                        {         
+                            LastSendData = provider.InputData;
+                            transportResponse.ResponseData = provider.OutputData.ResponseData;
+                            transportResponse.Encoding = provider.OutputData.Encoding;
+                            transportResponse.IsOutDataValid = provider.OutputData.IsOutDataValid;
+                        }
                     }
-                    catch (Exception e) //ОШИБКА ОБМЕНА.
+                    catch (Exception ex) //ОШИБКА ТРАНСПОРТА.
                     {
-
-                        Console.WriteLine(e);
+                        transportResponse.TransportException = ex;
+                        Console.WriteLine(ex);
                     }
                     finally
                     {
-                        provider.Cts.Cancel();
+                        transportResponse.RequestData = provider.InputData.ToString();
+                        transportResponse.Status = status;
+                        transportResponseWrapper.TransportResponses.Add(transportResponse);
+                        provider.SendDataIsCompleted();
                     }
-                }, 
-                exception =>                          //ОШИБКА ПОДГОТОВКИ ДАННЫХ К ОБМЕНУ.
-                {
-
-                    //LOG
-                    Console.WriteLine(exception);
-                },
-                () =>                                 //ВСЕ ДАННЫЕ УСПЕШНО ПЕРЕДАННЫ.
-                {
-                    
                 });
-
 
                 try
                 {
                     await _dataProvider.StartExchangePipline(inData);
                 }
+                catch (Exception ex)
+                {    
+                    //ОШИБКА ПОДГОТОВКИ ДАННЫХ К ОБМЕНУ.
+                    transportResponseWrapper.ExceptionExchangePipline = ex;       
+                }
                 finally
                 {
+                    //Отправить RX событие с ответом 
                     subscription.Dispose();
+                    TransportResponseChangeRx.OnNext(transportResponseWrapper);
                 }
             }
-
-            await Task.Delay(1000, ct);//DEBUG
         }
 
 

@@ -72,12 +72,19 @@ namespace InputDataModel.Autodictor.ManualDataProviders
 
         public int CountGetDataByte { get; }
         public int CountSetDataByte { get; }
+        public Subject<IExchangeDataProvider<AdInputType, TransportResponse>> RaiseSendDataRx { get; }
+
+        public void SendDataIsCompleted()
+        {
+            throw new NotImplementedException();
+        }
+
         public InDataWrapper<AdInputType> InputData { get; set; }
         public TransportResponse OutputData { get; set; }
         public bool IsOutDataValid { get; }
         public Subject<TransportResponse> OutputDataChangeRx { get; }
         public string ProviderName { get; set; }
-        public Subject<ITransportDataProvider> RaiseSendDataRx { get; }
+    
 
 
         public Task StartExchangePipline(InDataWrapper<AdInputType> inData)
@@ -87,5 +94,7 @@ namespace InputDataModel.Autodictor.ManualDataProviders
 
         public int TimeRespone { get; }
         public CancellationTokenSource Cts { get; set; }
+
+
     }
 }

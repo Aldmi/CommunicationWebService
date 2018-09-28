@@ -12,7 +12,7 @@ namespace DAL.EFCore.Entities.Exchange.ProvidersOption
     {
         public string Name { get; set; }
         public string Format { get; set; }
-        public int BachSize { get; set; }
+        public int BatchSize { get; set; }
         public EfRequestOption RequestOption { get; set; }
         public EfResponseOption ResponseOption { get; set; }
     }

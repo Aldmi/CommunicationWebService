@@ -17,7 +17,5 @@ namespace Transport.Base.DataProvidert
 
         int CountGetDataByte { get; }    //кол-во байт для отправки.
         int CountSetDataByte { get; }    //кол-во байт для приема.
-
-        CancellationTokenSource Cts { get; set; }
     }
 }

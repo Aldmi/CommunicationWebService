@@ -20,6 +20,8 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
     {
         #region field
 
+        private CancellationTokenSource _cts;
+
         private readonly ByRulesProviderOption _providerOption;
         private readonly List<Rule> _rules;
 
@@ -40,6 +42,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
                 throw new ArgumentNullException(providerOption.Name);
 
            _rules= _providerOption.Rules.Select(option=> new Rule(option)).ToList();
+           _cts = new CancellationTokenSource();
         }
 
         #endregion
@@ -55,13 +58,16 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         public TransportResponse OutputData { get; set; }
         public int CountGetDataByte { get; }
         public int CountSetDataByte { get; }
-        public bool IsOutDataValid { get; }
+
+
+
+        public bool IsOutDataValid { get; set; }
         public Subject<TransportResponse> OutputDataChangeRx { get; }
 
 
 
         public int TimeRespone => _currentRule.Option.ResponseOption.TimeRespone;
-        public CancellationTokenSource Cts { get; set; }
+
 
         #endregion
 
@@ -89,7 +95,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
 
         /// <summary>
-        /// Проверить ответ
+        /// Проверить ответ, Присвоить выходные данные.
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -98,9 +104,22 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
             //_currentRule.Option.ResponseOption.Body
             if (data?[0] == 0x10)
             {
-                return true;
+                IsOutDataValid = true;
             }
-            return false;
+            else
+            {
+                IsOutDataValid = false;
+            }
+
+            //TODO: рефакторинг
+            OutputData = new TransportResponse
+            {
+                ResponseData = data.ToString(),
+                Encoding = _currentRule.Option.ResponseOption.Body,   
+                IsOutDataValid = IsOutDataValid            
+            };
+
+            return IsOutDataValid;   
         }
 
         public Stream GetStream()
@@ -124,12 +143,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         }
 
 
-        public Subject<ITransportDataProvider> RaiseSendDataRx { get; } = new Subject<ITransportDataProvider>();
-
-        public bool CreateRequest(int startIndex)
-        {
-            return true;
-        }
+        public Subject<IExchangeDataProvider<AdInputType, TransportResponse>> RaiseSendDataRx { get; } = new Subject<IExchangeDataProvider<AdInputType, TransportResponse>>();
 
         #endregion
 
@@ -138,37 +152,34 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
         #region Methode
 
-        public async Task StartExchangePipline(InDataWrapper<AdInputType> inData)
-        {
-            try
+        public void SendDataIsCompleted()
+        {     
+            if (!_cts.IsCancellationRequested)
             {
-                foreach (var rule in _rules)
+                _cts.Cancel();
+            }
+        }
+
+
+        public async Task StartExchangePipline(InDataWrapper<AdInputType> inData)
+        {           
+            foreach (var rule in _rules)
+            {
+                var chekedItems = inData.Datas.Where(data => rule.CheckItem(data)).ToList(); //TODO: Проверить на ограничение max item
+                if (chekedItems.Count == 0) continue;
+
+                _currentRule = rule;
+                foreach (var butch in chekedItems.Batch(rule.BatchSize))
                 {
-                    var chekedItems = inData.Datas.Where(data => rule.CheckItem(data)).ToList(); //TODO: Проверить на ограничение max item
-                    if (chekedItems.Count == 0) continue;
-
-                    _currentRule = rule;
-                    foreach (var butch in chekedItems.Batch(rule.BatchSize))
-                    {
-                        _stringRequest = _currentRule.CreateStringRequest(butch); //TODO:передвать startIndex, для этого батча (для очета смещ=щения строки по Y).
-                        //InputData = butch;
-                        RaiseSendDataRx.OnNext(this);
-
-                        try
-                        {
-                            await Task.Delay(-1, Cts.Token);
-                        }
-                        catch (OperationCanceledException){}                  
-                    }
+                    _stringRequest = _currentRule.CreateStringRequest(butch); //TODO:передвать startIndex, для этого батча (для очета смещ=щения строки по Y).
+                    InputData = new InDataWrapper<AdInputType> {Datas = butch.ToList()};
+                    RaiseSendDataRx.OnNext(this);
+                    _cts = new CancellationTokenSource();
+                    try {await Task.Delay(-1, _cts.Token);}catch (OperationCanceledException){}                  
                 }
             }
-            catch (Exception ex)
-            {
-                RaiseSendDataRx.OnError(ex);
-            }
-
+         
             //Конвеер обработки входных данных завершен  
-            //RaiseSendDataRx.OnCompleted();
             await Task.CompletedTask; 
         }
 
@@ -186,7 +197,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         }
 
 
-        public int BatchSize => Option.BachSize;
+        public int BatchSize => Option.BatchSize;
 
         /// <summary>
         /// Проверяет элемент под ограничения правила.

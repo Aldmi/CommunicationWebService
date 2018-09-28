@@ -12,7 +12,7 @@ namespace DAL.Abstract.Entities.Options.Exchange.ProvidersOption
     {
         public string Name { get; set; }
         public string Format { get; set; }
-        public int BachSize { get; set; }
+        public int BatchSize { get; set; }
         public RequestOption RequestOption { get; set; }
         public ResponseOption ResponseOption { get; set; }
     }
