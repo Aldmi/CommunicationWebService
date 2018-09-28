@@ -25,15 +25,23 @@ namespace DAL.Abstract.Extensions
                     Id = 1,
                     Key = "SP_COM1_Vidor1",
                     KeyTransport = new KeyTransport("COM1", TransportType.SerialPort),
-                    AutoStartCycleFunc = false
-                    ,
+                    AutoStartCycleFunc = false,
                     Provider = new ProviderOption
                     {
-                        Name = "VidorBinary",
-                        ManualProviderOption = new ManualProviderOption
+                        Name = "ByRules",
+                        ByRulesProviderOption = new ByRulesProviderOption
                         {
-                            Address = "100",
-                            TimeRespone = 2500
+                            Rules = new List<RuleOption>
+                            {
+                                new RuleOption
+                                {
+                                    Name = "Rule_1",
+                                    BachSize = 1000,
+                                    Format = "Windows-1251",
+                                    RequestOption = new RequestOption{Body = "01{adress}0502{Station}", MaxLenght = 1000},
+                                    ResponseOption = new ResponseOption{Body = "01050A", MaxLenght = 2000, TimeRespone = 1000}
+                                }
+                            }
                         }
                     }
                 },
@@ -45,18 +53,11 @@ namespace DAL.Abstract.Extensions
                     AutoStartCycleFunc = false,
                     Provider = new ProviderOption
                     {
-                        Name = "ByRules",
-                        ByRulesProviderOption = new ByRulesProviderOption
+                        Name = "VidorBinary",
+                        ManualProviderOption = new ManualProviderOption
                         {
-                            Rules = new List<RuleOption>
-                            {
-                                new RuleOption{
-                                    Name = "Rule_1",
-                                    Format = "UTF8", 
-                                    RequestOption = new RequestOption{Body = "01{adress}0502{Station}", MaxLenght = 1000},
-                                    ResponseOption = new ResponseOption{Body = "01050A", MaxLenght = 2000, TimeRespone = 1000}
-                                }                 
-                            }
+                            Address = "100",
+                            TimeRespone = 2500
                         }
                     }
                 }
@@ -66,3 +67,4 @@ namespace DAL.Abstract.Extensions
         }
     }
 }
+

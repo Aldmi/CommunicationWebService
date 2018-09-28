@@ -9,8 +9,6 @@ using DAL.Abstract.Entities.Options.Exchange;
 using Exchange.Base.DataProviderAbstract;
 using Exchange.Base.Model;
 using InputDataModel.Base;
-
-using Shared.Extensions;
 using Shared.Types;
 using Transport.Base.Abstract;
 using Transport.Base.RxModel;
@@ -201,10 +199,18 @@ namespace Exchange.Base
             if (InDataQueue.TryDequeue(out var inData))
             {
                 //ПОДПИСКА НА СОБЫТИЕ ОТПРАВКИ ПОРЦИИ ДАННЫХ
-                _dataProvider.RaiseSendDataRx.Subscribe(async provider =>
+               var subscription = _dataProvider.RaiseSendDataRx.Subscribe(async provider =>
                 {
-                    var dataExchangeSuccess = await _transport.DataExchangeAsync(_dataProvider.TimeRespone, _dataProvider, ct);
-                    LastSendData = _dataProvider.InputData;
+                    try
+                    {
+                        var dataExchangeSuccess = await _transport.DataExchangeAsync(_dataProvider.TimeRespone, _dataProvider, ct);
+                        LastSendData = _dataProvider.InputData;
+                    }
+                    catch (Exception e)
+                    {
+                        //LOG
+                        Console.WriteLine(e);
+                    }
                 });
 
                 try
@@ -213,8 +219,12 @@ namespace Exchange.Base
                 }
                 catch (Exception e)
                 {
+                    //LOG
                     Console.WriteLine(e);
-                    throw;
+                }
+                finally
+                {
+                    subscription .Dispose();
                 }
             }
 
@@ -247,8 +257,4 @@ namespace Exchange.Base
 
         #endregion
     }
-
-
-
-
 }

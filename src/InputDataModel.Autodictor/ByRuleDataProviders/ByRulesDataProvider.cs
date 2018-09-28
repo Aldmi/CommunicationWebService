@@ -83,9 +83,20 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
             return resultBuffer;
         }
 
+
+        /// <summary>
+        /// Проверить ответ
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool SetDataByte(byte[] data)
         {
-            throw new NotImplementedException();
+            //_currentRule.Option.ResponseOption.Body
+            if (data?[0] == 0x10)
+            {
+                return true;
+            }
+            return false;
         }
 
         public Stream GetStream()
@@ -127,13 +138,13 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         {
             foreach (var rule in _rules)
             {
-               var chekedItems= inData.Datas.Where(data => rule.CheckItem(data)).ToList();
+               var chekedItems= inData.Datas.Where(data => rule.CheckItem(data)).ToList(); //TODO: Проверить на ограничение max item
                if (chekedItems.Count == 0) continue;
 
                _currentRule = rule;
                foreach (var butch in chekedItems.Batch(rule.BatchSize))
                {             
-                   _stringRequest= _currentRule.CreateStringRequest(butch);
+                   _stringRequest= _currentRule.CreateStringRequest(butch); //TODO:передвать startIndex, для этого батча (для очета смещ=щения строки по Y).
                    //InputData = butch;
                    RaiseSendDataRx.OnNext(this);
                }
