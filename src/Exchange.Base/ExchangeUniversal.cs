@@ -205,13 +205,13 @@ namespace Exchange.Base
             if (InDataQueue.TryDequeue(out var inData))
             {
                 //ПОДПИСКА НА СОБЫТИЕ ОТПРАВКИ ПОРЦИИ ДАННЫХ
-                var subscription= _dataProvider.RaiseSendDataRx.Subscribe(async provider =>
+                var subscription= _dataProvider.RaiseSendDataRx.Subscribe(provider =>
                 {
                     var transportResponse = new TransportResponse();
                     var status = StatusDataExchange.None;
                     try
                     {
-                        status = await _transport.DataExchangeAsync(3000, provider, ct);//_dataProvider.TimeRespone
+                        status =  _transport.DataExchangeAsync(3000, provider, ct).GetAwaiter().GetResult();//_dataProvider.TimeRespone
                         if (status == StatusDataExchange.End)
                         {         
                             LastSendData = provider.InputData;
@@ -230,7 +230,6 @@ namespace Exchange.Base
                         transportResponse.RequestData = provider.InputData.ToString();
                         transportResponse.Status = status;
                         transportResponseWrapper.TransportResponses.Add(transportResponse);
-                        provider.SendDataIsCompleted();
                     }
                 });
 

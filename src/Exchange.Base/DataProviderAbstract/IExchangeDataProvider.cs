@@ -19,8 +19,6 @@ namespace Exchange.Base.DataProviderAbstract
 
         Task StartExchangePipline(InDataWrapper<TInput> inData);     //Запустить конвеер обмена. После окончания подготовки порции данных конвеером, срабатывает RaiseSendDataRx.
         int TimeRespone { get; }                                     //Время на ответ
-
         Subject<IExchangeDataProvider<TInput, TOutput>> RaiseSendDataRx { get; }     //Событие отправки входных данных, в процессе обработки их конвеером.
-        void SendDataIsCompleted();                                                  //Подписшик на событие RaiseSendDataRx может вызывать этот метод, чтобы выставить флаг окончания обмена данными.
     }
 }

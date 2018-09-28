@@ -152,15 +152,6 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
         #region Methode
 
-        public void SendDataIsCompleted()
-        {     
-            if (!_cts.IsCancellationRequested)
-            {
-                _cts.Cancel();
-            }
-        }
-
-
         public async Task StartExchangePipline(InDataWrapper<AdInputType> inData)
         {           
             foreach (var rule in _rules)
@@ -173,9 +164,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
                 {
                     _stringRequest = _currentRule.CreateStringRequest(butch); //TODO:передвать startIndex, для этого батча (для очета смещ=щения строки по Y).
                     InputData = new InDataWrapper<AdInputType> {Datas = butch.ToList()};
-                    RaiseSendDataRx.OnNext(this);
-                    _cts = new CancellationTokenSource();
-                    try {await Task.Delay(-1, _cts.Token);}catch (OperationCanceledException){}                  
+                    RaiseSendDataRx.OnNext(this);               
                 }
             }
          
