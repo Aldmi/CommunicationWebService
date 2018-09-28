@@ -58,7 +58,10 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         public bool IsOutDataValid { get; }
         public Subject<TransportResponse> OutputDataChangeRx { get; }
 
+
+
         public int TimeRespone => _currentRule.Option.ResponseOption.TimeRespone;
+        public CancellationTokenSource Cts { get; set; }
 
         #endregion
 
@@ -135,7 +138,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
         #region Methode
 
-        public async Task StartExchangePipline(InDataWrapper<AdInputType> inData, CancellationTokenSource cts)
+        public async Task StartExchangePipline(InDataWrapper<AdInputType> inData)
         {
             try
             {
@@ -150,7 +153,12 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
                         _stringRequest = _currentRule.CreateStringRequest(butch); //TODO:передвать startIndex, для этого батча (для очета смещ=щения строки по Y).
                         //InputData = butch;
                         RaiseSendDataRx.OnNext(this);
-                        //await Task.Delay(-1, cts.Token);
+
+                        try
+                        {
+                            await Task.Delay(-1, Cts.Token);
+                        }
+                        catch (OperationCanceledException){}                  
                     }
                 }
             }
@@ -160,7 +168,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
             }
 
             //Конвеер обработки входных данных завершен  
-            RaiseSendDataRx.OnCompleted();
+            //RaiseSendDataRx.OnCompleted();
             await Task.CompletedTask; 
         }
 

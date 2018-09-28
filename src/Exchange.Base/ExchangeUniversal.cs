@@ -200,21 +200,25 @@ namespace Exchange.Base
             if (InDataQueue.TryDequeue(out var inData))
             {
                 //ПОДПИСКА НА СОБЫТИЕ ОТПРАВКИ ПОРЦИИ ДАННЫХ
-
-                //CancellationTokenSource cts;
                 var subscription = _dataProvider.RaiseSendDataRx.Subscribe(
                 async provider =>
                 {
+                    provider.Cts = new CancellationTokenSource();
                     try
                     {
-                        var dataExchangeSuccess = await _transport.DataExchangeAsync(_dataProvider.TimeRespone, _dataProvider, ct);
+                        //_dataProvider.TimeRespone
+                        var dataExchangeSuccess = await _transport.DataExchangeAsync(5000, _dataProvider, ct);
                         LastSendData = _dataProvider.InputData;
                     }
-                    catch (Exception e)               //ОШИБКА ОБМЕНА.
+                    catch (Exception e) //ОШИБКА ОБМЕНА.
                     {
-                       
+
                         Console.WriteLine(e);
-                    }    
+                    }
+                    finally
+                    {
+                        provider.Cts.Cancel();
+                    }
                 }, 
                 exception =>                          //ОШИБКА ПОДГОТОВКИ ДАННЫХ К ОБМЕНУ.
                 {
@@ -230,7 +234,7 @@ namespace Exchange.Base
 
                 try
                 {
-                    await _dataProvider.StartExchangePipline(inData, null);
+                    await _dataProvider.StartExchangePipline(inData);
                 }
                 finally
                 {

@@ -80,11 +80,12 @@ namespace InputDataModel.Autodictor.ManualDataProviders
         public Subject<ITransportDataProvider> RaiseSendDataRx { get; }
 
 
-        public Task StartExchangePipline(InDataWrapper<AdInputType> inData, CancellationTokenSource cts)
+        public Task StartExchangePipline(InDataWrapper<AdInputType> inData)
         {
             throw new NotImplementedException();
         }
 
         public int TimeRespone { get; }
+        public CancellationTokenSource Cts { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace Exchange.Base.DataProviderAbstract
         string ProviderName { get; set; }
 
         Subject<ITransportDataProvider> RaiseSendDataRx { get; }     //Событие отправки входных данных, в процессе обработки их конвеером.
-        Task StartExchangePipline(InDataWrapper<TInput> inData, CancellationTokenSource cts);     //Запустить конвеер обмена. После окончания подготовки порции данных конвеером, срабатывает RaiseSendDataRx.
+        Task StartExchangePipline(InDataWrapper<TInput> inData);     //Запустить конвеер обмена. После окончания подготовки порции данных конвеером, срабатывает RaiseSendDataRx.
         int TimeRespone { get; }                                     //Время на ответ
     }
 }
