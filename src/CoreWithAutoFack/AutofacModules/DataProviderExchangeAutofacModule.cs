@@ -18,8 +18,8 @@ namespace WebServer.AutofacModules
             switch (typeof(TIn).Name)
             {
                 case "AdInputType":
-                    builder.RegisterType<VidorBinaryDataProvider>().Named<IExchangeDataProvider<AdInputType, TransportResponse>>("VidorBinary").InstancePerDependency();
-                    builder.RegisterType<ByRulesDataProvider>().Named<IExchangeDataProvider<AdInputType, TransportResponse>>("ByRules").InstancePerDependency();
+                    builder.RegisterType<VidorBinaryDataProvider>().Named<IExchangeDataProvider<AdInputType, ResponseDataItem<AdInputType>>>("VidorBinary").InstancePerDependency();
+                    builder.RegisterType<ByRulesDataProvider>().Named<IExchangeDataProvider<AdInputType, ResponseDataItem<AdInputType>>>("ByRules").InstancePerDependency();
                     break;
 
                 case "OtherType":

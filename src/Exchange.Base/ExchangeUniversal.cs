@@ -26,7 +26,7 @@ namespace Exchange.Base
         protected readonly ExchangeOption ExchangeOption;
         private readonly ITransport _transport;
         private readonly ITransportBackground _transportBackground;
-        private readonly IExchangeDataProvider<TIn, TransportResponse> _dataProvider;
+        private readonly IExchangeDataProvider<TIn, ResponseDataItem<TIn>> _dataProvider;
         #endregion
 
 
@@ -49,7 +49,7 @@ namespace Exchange.Base
 
         #region ctor
 
-        public ExchangeUniversal(ExchangeOption exchangeOption, ITransport transport, ITransportBackground transportBackground, IExchangeDataProvider<TIn, TransportResponse> dataProvider)
+        public ExchangeUniversal(ExchangeOption exchangeOption, ITransport transport, ITransportBackground transportBackground, IExchangeDataProvider<TIn, ResponseDataItem<TIn>> dataProvider)
         {
             ExchangeOption = exchangeOption;
 
@@ -79,7 +79,7 @@ namespace Exchange.Base
 
         ISubject<IExchange<TIn>> IExchange<TIn>.LastSendDataChangeRx => throw new NotImplementedException();
 
-        public ISubject<TransportResponseWrapper> TransportResponseChangeRx { get; } = new Subject<TransportResponseWrapper>();
+        public ISubject<OutResponseDataWrapper<TIn>> TransportResponseChangeRx { get; } = new Subject<OutResponseDataWrapper<TIn>>();
         
 
         #endregion
@@ -202,13 +202,13 @@ namespace Exchange.Base
         /// </summary>
         protected async Task OneTimeActionAsync(CancellationToken ct)
         {
-            var transportResponseWrapper= new TransportResponseWrapper();
+            var transportResponseWrapper= new OutResponseDataWrapper<TIn>();
             if (InDataQueue.TryDequeue(out var inData))
             {
                 //ПОДПИСКА НА СОБЫТИЕ ОТПРАВКИ ПОРЦИИ ДАННЫХ
                 var subscription= _dataProvider.RaiseSendDataRx.Subscribe(provider =>
                 {
-                    var transportResponse = new TransportResponse();
+                    var transportResponse = new ResponseDataItem<TIn>();
                     var status = StatusDataExchange.None;
                     try
                     {
@@ -228,9 +228,9 @@ namespace Exchange.Base
                     }
                     finally
                     {
-                        transportResponse.RequestData = provider.InputData.ToString();  //TODO???
+                        transportResponse.RequestData = provider.InputData;  //TODO???
                         transportResponse.Status = status;
-                        transportResponseWrapper.TransportResponses.Add(transportResponse);
+                        transportResponseWrapper.ResponsesItems.Add(transportResponse);
                     }
                 });
 

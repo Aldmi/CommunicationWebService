@@ -16,7 +16,7 @@ using Transport.Base.DataProvidert;
 
 namespace InputDataModel.Autodictor.ByRuleDataProviders
 {
-    public class ByRulesDataProvider : IExchangeDataProvider<AdInputType, TransportResponse>
+    public class ByRulesDataProvider : IExchangeDataProvider<AdInputType, ResponseDataItem<AdInputType>>
     {
         #region field
 
@@ -55,14 +55,14 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         public string ProviderName { get; set; }
         public InDataWrapper<AdInputType> InputData { get; set; }
 
-        public TransportResponse OutputData { get; set; }
+        public ResponseDataItem<AdInputType> OutputData { get; set; }
         public int CountGetDataByte { get; }
         public int CountSetDataByte { get; }
 
 
 
         public bool IsOutDataValid { get; set; }
-        public Subject<TransportResponse> OutputDataChangeRx { get; }
+        public Subject<ResponseDataItem<AdInputType>> OutputDataChangeRx { get; }
 
 
 
@@ -112,7 +112,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
             }
 
             //TODO: рефакторинг
-            OutputData = new TransportResponse
+            OutputData = new ResponseDataItem<AdInputType>
             {
                 ResponseData = data.ToString(),
                 Encoding = _currentRule.Option.ResponseOption.Body,   
@@ -143,7 +143,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         }
 
 
-        public Subject<IExchangeDataProvider<AdInputType, TransportResponse>> RaiseSendDataRx { get; } = new Subject<IExchangeDataProvider<AdInputType, TransportResponse>>();
+        public Subject<IExchangeDataProvider<AdInputType, ResponseDataItem<AdInputType>>> RaiseSendDataRx { get; } = new Subject<IExchangeDataProvider<AdInputType, ResponseDataItem<AdInputType>>>();
 
         #endregion
 

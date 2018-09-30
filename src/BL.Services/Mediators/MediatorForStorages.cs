@@ -37,7 +37,7 @@ namespace BL.Services.Mediators
         private readonly BackgroundStorageService _backgroundStorageService;
         private readonly TransportStorageService _transportStorageService;
         private readonly IEventBus _eventBus;
-        private readonly IIndex<string, Func<ProviderOption, IExchangeDataProvider<TIn, TransportResponse>>> _dataProviderFactory;
+        private readonly IIndex<string, Func<ProviderOption, IExchangeDataProvider<TIn, ResponseDataItem<TIn>>>> _dataProviderFactory;
 
         #endregion
 
@@ -51,7 +51,7 @@ namespace BL.Services.Mediators
             BackgroundStorageService backgroundStorageService,
             TransportStorageService transportStorageService,
             IEventBus eventBus,     
-            IIndex<string, Func<ProviderOption,IExchangeDataProvider<TIn, TransportResponse>>> dataProviderFactory)
+            IIndex<string, Func<ProviderOption,IExchangeDataProvider<TIn, ResponseDataItem<TIn>>>> dataProviderFactory)
         {
             _transportStorageService = transportStorageService;
             _backgroundStorageService = backgroundStorageService;
