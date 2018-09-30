@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using Shared.Enums;
 
-namespace Shared.Types
+namespace Exchange.Base.Model
 {
-    public class TransportResponseWrapper
+    public class OutResponseDataWrapper
     {  
         public Exception ExceptionExchangePipline { get; set; }
-        public List<TransportResponse> TransportResponses { get; set; } = new List<TransportResponse>();
+        public List<ResponseDataItem> ResponsesItems { get; set; } = new List<ResponseDataItem>();
                
         public Dictionary<string, dynamic> DataBag { get; set; }     //Не типизированный контейнер для передачи любых данных
     }
 
 
-    public class TransportResponse
+    public class ResponseDataItem
     {
         public string RequestId { get; set; }
         public string Message { get; set; }                   //Доп. информация

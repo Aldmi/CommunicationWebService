@@ -11,6 +11,7 @@ using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
 using DeviceForExchange;
 using Exchange.Base;
 using Exchange.Base.DataProviderAbstract;
+using Exchange.Base.Model;
 using Infrastructure.EventBus.Abstract;
 using Shared.Enums;
 using Shared.Types;

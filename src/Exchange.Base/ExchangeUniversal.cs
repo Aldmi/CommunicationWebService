@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
@@ -211,7 +212,7 @@ namespace Exchange.Base
                     var status = StatusDataExchange.None;
                     try
                     {
-                        status =  _transport.DataExchangeAsync(3000, provider, ct).GetAwaiter().GetResult();//_dataProvider.TimeRespone
+                        status = _transport.DataExchangeAsync(3000, provider, ct).GetAwaiter().GetResult();//_dataProvider.TimeRespone
                         if (status == StatusDataExchange.End)
                         {         
                             LastSendData = provider.InputData;
@@ -227,14 +228,15 @@ namespace Exchange.Base
                     }
                     finally
                     {
-                        transportResponse.RequestData = provider.InputData.ToString();
+                        transportResponse.RequestData = provider.InputData.ToString();  //TODO???
                         transportResponse.Status = status;
                         transportResponseWrapper.TransportResponses.Add(transportResponse);
                     }
                 });
 
+
                 try
-                {
+                {   //ЗАПУСК КОНВЕЕРА ПОДГОТОВКИ ДАННЫХ К ОБМЕНУ
                     await _dataProvider.StartExchangePipline(inData);
                 }
                 catch (Exception ex)
