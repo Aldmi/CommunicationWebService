@@ -11,7 +11,6 @@ namespace DAL.EFCore.Entities.Exchange.ProvidersOption
     public class EfRuleOption
     {
         public string Name { get; set; }
-        public string Format { get; set; }
         public int BatchSize { get; set; }
         public EfRequestOption RequestOption { get; set; }
         public EfResponseOption ResponseOption { get; set; }
@@ -20,6 +19,7 @@ namespace DAL.EFCore.Entities.Exchange.ProvidersOption
 
     public class EfRequestOption
     {
+        public string Format { get; set; }
         public int MaxLenght { get; set; }
         public string Body { get; set; }
     }
@@ -27,6 +27,7 @@ namespace DAL.EFCore.Entities.Exchange.ProvidersOption
 
     public class EfResponseOption
     {
+        public string Format { get; set; }
         public int MaxLenght { get; set; }
         public int TimeRespone { get; set; }
         public string Body { get; set; }

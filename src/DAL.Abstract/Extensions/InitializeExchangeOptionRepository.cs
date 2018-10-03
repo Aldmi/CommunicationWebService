@@ -38,7 +38,7 @@ namespace DAL.Abstract.Extensions
                                     Name = "Rule_1",
                                     BatchSize = 1,
                                     RequestOption = new RequestOption{Body = "01{adress}0502{Station}", MaxLenght = 1000, Format = "Windows-1251"},
-                                    ResponseOption = new ResponseOption{Body = "01050A", MaxLenght = 2000, TimeRespone = 3000, Format = "Windows-1251"}
+                                    ResponseOption = new ResponseOption{Body = "01050A", MaxLenght = 2000, TimeRespone = 3000, Format = "X"}
                                 }
                             }
                         }

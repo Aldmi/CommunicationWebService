@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
 using InputDataModel.Autodictor.Model;
@@ -54,11 +55,11 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders.Rules
 
         public bool CheckCommand(Command4Device command)
         {
-            return true;
+            var ruleName = $"Command_{command.ToString()}";  //Command_On, Command_Off, Command_Restart, Command_Clear
+            return !ruleName.Equals("Command_None");
         }
 
 
-  
 
         /// <summary>
         /// Создать строку Запроса (используя форматную строку) из одного батча данных.
@@ -66,7 +67,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders.Rules
         /// <returns></returns>
         public string CreateStringRequest(IEnumerable<AdInputType> inputTypes, int startRow)
         {
-            //throw new NotImplementedException("ddsfdsf");//DEBUG
+            //throw new NotImplementedException("CreateStringRequest ExceptionTest");//DEBUG
             return "formatString";
         }
 

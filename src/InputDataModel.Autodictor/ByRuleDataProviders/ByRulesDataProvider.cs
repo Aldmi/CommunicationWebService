@@ -75,6 +75,8 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
         public byte[] GetDataByte()
         {
+            StatusString.AppendLine($"GetDataByte. StringRequest= {_stringRequest}");
+
             var format = _currentRule.Option.RequestOption.Format;
             //Преобразовываем КОНЕЧНУЮ строку в массив байт
             byte[]  resultBuffer;
@@ -98,6 +100,9 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         /// <returns></returns>
         public bool SetDataByte(byte[] data)
         {
+            StatusString.AppendLine($"SetDataByte. Length= {data.Length}");
+
+            var format = _currentRule.Option.ResponseOption.Format;
             //_currentRule.Option.ResponseOption.Body
             if (data?[0] == 0x10)
             {
@@ -110,7 +115,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
             OutputData = new ResponseDataItem<AdInputType>
             {   
-                ResponseData = data.ArrayByteToString("HEX"),
+                ResponseData = data.ArrayByteToString(format),
                 Encoding = _currentRule.Option.ResponseOption.Format,   
                 IsOutDataValid = IsOutDataValid            
             };
