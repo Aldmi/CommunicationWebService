@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reactive.Subjects;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
@@ -84,10 +85,11 @@ namespace InputDataModel.Autodictor.ManualDataProviders
         public bool IsOutDataValid { get; }
         public Subject<ResponseDataItem<AdInputType>> OutputDataChangeRx { get; }
         public string ProviderName { get; set; }
-    
+        public StringBuilder StatusString { get; set; }
+        public string Message { get; }
 
 
-        public Task StartExchangePipline(InDataWrapper<AdInputType> inData)
+        public Task StartExchangePipeline(InDataWrapper<AdInputType> inData)
         {
             throw new NotImplementedException();
         }

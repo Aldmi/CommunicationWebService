@@ -201,55 +201,11 @@ namespace Exchange.Base
         /// Однократно вызываемая функция.
         /// </summary>
         protected async Task OneTimeActionAsync(CancellationToken ct)
-        {
-            var transportResponseWrapper= new OutResponseDataWrapper<TIn>();
+        {    
             if (InDataQueue.TryDequeue(out var inData))
             {
-                //ПОДПИСКА НА СОБЫТИЕ ОТПРАВКИ ПОРЦИИ ДАННЫХ
-                var subscription= _dataProvider.RaiseSendDataRx.Subscribe(provider =>
-                {
-                    var transportResponse = new ResponseDataItem<TIn>();
-                    var status = StatusDataExchange.None;
-                    try
-                    {
-                        status = _transport.DataExchangeAsync(3000, provider, ct).GetAwaiter().GetResult();//_dataProvider.TimeRespone
-                        if (status == StatusDataExchange.End)
-                        {         
-                            LastSendData = provider.InputData;
-                            transportResponse.ResponseData = provider.OutputData.ResponseData;
-                            transportResponse.Encoding = provider.OutputData.Encoding;
-                            transportResponse.IsOutDataValid = provider.OutputData.IsOutDataValid;
-                        }
-                    }
-                    catch (Exception ex) //ОШИБКА ТРАНСПОРТА.
-                    {
-                        transportResponse.TransportException = ex;
-                        Console.WriteLine(ex);
-                    }
-                    finally
-                    {
-                        transportResponse.RequestData = provider.InputData;  //TODO???
-                        transportResponse.Status = status;
-                        transportResponseWrapper.ResponsesItems.Add(transportResponse);
-                    }
-                });
-
-
-                try
-                {   //ЗАПУСК КОНВЕЕРА ПОДГОТОВКИ ДАННЫХ К ОБМЕНУ
-                    await _dataProvider.StartExchangePipline(inData);
-                }
-                catch (Exception ex)
-                {    
-                    //ОШИБКА ПОДГОТОВКИ ДАННЫХ К ОБМЕНУ.
-                    transportResponseWrapper.ExceptionExchangePipline = ex;       
-                }
-                finally
-                {
-                    //Отправить RX событие с ответом 
-                    subscription.Dispose();
-                    TransportResponseChangeRx.OnNext(transportResponseWrapper);
-                }
+                var transportResponseWrapper = await SendingPieceOfData(inData, ct);
+                TransportResponseChangeRx.OnNext(transportResponseWrapper);
             }
         }
 
@@ -259,9 +215,72 @@ namespace Exchange.Base
         /// </summary>
         protected async Task CycleTimeActionAsync(CancellationToken ct)
         {
-            await Task.Delay(2000, ct);//DEBUG
-            //Console.WriteLine($"ExchangeOption.KeyTransport.Key=  {ExchangeOption.KeyTransport.Key}");//DEBUG
+            var inData = Data4CycleFunc;
+            var transportResponseWrapper = await SendingPieceOfData(inData, ct);
+            TransportResponseChangeRx.OnNext(transportResponseWrapper);
         }
+
+
+
+        /// <summary>
+        /// Отправка порции данных
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        private async Task<OutResponseDataWrapper<TIn>> SendingPieceOfData(InDataWrapper<TIn> inData, CancellationToken ct)
+        {
+            var transportResponseWrapper = new OutResponseDataWrapper<TIn>();
+            //ПОДПИСКА НА СОБЫТИЕ ОТПРАВКИ ПОРЦИИ ДАННЫХ
+            var subscription = _dataProvider.RaiseSendDataRx.Subscribe(provider =>
+            {
+                var transportResponse = new ResponseDataItem<TIn>();
+                var status = StatusDataExchange.None;
+                try
+                {
+                    status = _transport.DataExchangeAsync(_dataProvider.TimeRespone, provider, ct).GetAwaiter().GetResult();
+                    if (status == StatusDataExchange.End)
+                    {
+                        //ОТВЕТ ПОЛУЧЕНН.
+                        LastSendData = provider.InputData;
+                        transportResponse.ResponseData = provider.OutputData.ResponseData;
+                        transportResponse.Encoding = provider.OutputData.Encoding;
+                        transportResponse.IsOutDataValid = provider.OutputData.IsOutDataValid;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //ОШИБКА ТРАНСПОРТА.
+                    transportResponse.TransportException = ex;
+                    Console.WriteLine(ex);
+                }
+                finally
+                {
+                    transportResponse.RequestData = provider.InputData;
+                    transportResponse.Status = status;
+                    transportResponse.Message = provider.StatusString.ToString();
+                    transportResponseWrapper.ResponsesItems.Add(transportResponse);
+                }
+            });
+
+            try
+            {   //ЗАПУСК КОНВЕЕРА ПОДГОТОВКИ ДАННЫХ К ОБМЕНУ
+                await _dataProvider.StartExchangePipeline(inData);
+            }
+            catch (Exception ex)
+            {
+                //ОШИБКА ПОДГОТОВКИ ДАННЫХ К ОБМЕНУ.
+                transportResponseWrapper.ExceptionExchangePipline = ex;
+                transportResponseWrapper.Message = _dataProvider.StatusString.ToString();
+            }
+            finally
+            {
+                //ОТПРАВИТЬ Rx СОБЫТИЕ С ОТВЕТОМ ОБ ОКОНЧАНИИ ОТПРАВКИ.
+                subscription.Dispose();      
+            }
+            return transportResponseWrapper;
+        }
+
 
         #endregion
 

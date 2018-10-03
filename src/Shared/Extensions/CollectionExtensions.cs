@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Shared.Extensions
 {
@@ -27,6 +28,17 @@ namespace Shared.Extensions
                     yield return chunk;
                 }
             }
+        }
+
+
+        public static string ArrayByteToString(this IEnumerable<byte> source, string format)
+        {
+            var stringBuilder = new StringBuilder();
+            foreach (var item in source)
+            {
+                stringBuilder.Append(item.ToString(format));
+            }
+            return stringBuilder.ToString();
         }
     }
 }

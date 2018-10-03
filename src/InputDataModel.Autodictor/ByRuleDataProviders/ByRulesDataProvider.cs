@@ -4,15 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
 using Exchange.Base.DataProviderAbstract;
 using Exchange.Base.Model;
+using InputDataModel.Autodictor.ByRuleDataProviders.Rules;
 using InputDataModel.Autodictor.Model;
 using Shared.Extensions;
-using Shared.Types;
-using Transport.Base.DataProvidert;
 
 namespace InputDataModel.Autodictor.ByRuleDataProviders
 {
@@ -20,13 +18,9 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
     {
         #region field
 
-        private CancellationTokenSource _cts;
-
-        private readonly ByRulesProviderOption _providerOption;
-        private readonly List<Rule> _rules;
-
-        private Rule _currentRule;
-        private string _stringRequest;
+        private readonly List<Rule> _rules;    // Набор правил, для обработки данных.
+        private Rule _currentRule;             //Текущее правило (по нему создается _stringRequest)
+        private string _stringRequest;        //Строковое представление запроса, которое преобразуется в нужную форму для транспорта.
 
         #endregion
 
@@ -37,12 +31,12 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
         public ByRulesDataProvider(ProviderOption providerOption)
         {
-            _providerOption = providerOption.ByRulesProviderOption;
-            if(_providerOption == null)
+            var option = providerOption.ByRulesProviderOption;
+            if(option == null)
                 throw new ArgumentNullException(providerOption.Name);
 
-           _rules= _providerOption.Rules.Select(option=> new Rule(option)).ToList();
-           _cts = new CancellationTokenSource();
+            ProviderName = providerOption.Name;
+           _rules = option.Rules.Select(opt=> new Rule(opt)).ToList();
         }
 
         #endregion
@@ -52,24 +46,27 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
         #region prop
 
-        public string ProviderName { get; set; }
+        public string ProviderName { get; }
+        public StringBuilder StatusString { get;  } = new StringBuilder();
         public InDataWrapper<AdInputType> InputData { get; set; }
-
         public ResponseDataItem<AdInputType> OutputData { get; set; }
-        public int CountGetDataByte { get; }
-        public int CountSetDataByte { get; }
-
-
-
         public bool IsOutDataValid { get; set; }
-        public Subject<ResponseDataItem<AdInputType>> OutputDataChangeRx { get; }
 
-
-
-        public int TimeRespone => _currentRule.Option.ResponseOption.TimeRespone;
-
+        public int TimeRespone => _currentRule.Option.ResponseOption.TimeRespone;        //Время на ответ
+        public int CountGetDataByte { get; }                                            //TODO: брать с _currentRule.Option
+        public int CountSetDataByte { get; }                                            //TODO: брать с _currentRule.Option
 
         #endregion
+
+
+
+
+        #region RxEvent
+
+        public Subject<IExchangeDataProvider<AdInputType, ResponseDataItem<AdInputType>>> RaiseSendDataRx { get; } = new Subject<IExchangeDataProvider<AdInputType, ResponseDataItem<AdInputType>>>();
+
+        #endregion
+
 
 
 
@@ -78,7 +75,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
         public byte[] GetDataByte()
         {
-            var format = _currentRule.Option.Format;
+            var format = _currentRule.Option.RequestOption.Format;
             //Преобразовываем КОНЕЧНУЮ строку в массив байт
             byte[]  resultBuffer;
             if (format == "HEX")
@@ -111,17 +108,21 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
                 IsOutDataValid = false;
             }
 
-            //TODO: рефакторинг
             OutputData = new ResponseDataItem<AdInputType>
-            {
-                ResponseData = data.ToString(),
-                Encoding = _currentRule.Option.ResponseOption.Body,   
+            {   
+                ResponseData = data.ArrayByteToString("HEX"),
+                Encoding = _currentRule.Option.ResponseOption.Format,   
                 IsOutDataValid = IsOutDataValid            
             };
 
             return IsOutDataValid;   
         }
 
+        #endregion
+
+
+
+        #region NotImplemented
         public Stream GetStream()
         {
             throw new NotImplementedException();
@@ -142,9 +143,6 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
             throw new NotImplementedException();
         }
 
-
-        public Subject<IExchangeDataProvider<AdInputType, ResponseDataItem<AdInputType>>> RaiseSendDataRx { get; } = new Subject<IExchangeDataProvider<AdInputType, ResponseDataItem<AdInputType>>>();
-
         #endregion
 
 
@@ -152,60 +150,41 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
         #region Methode
 
-        public async Task StartExchangePipline(InDataWrapper<AdInputType> inData)
+        public async Task StartExchangePipeline(InDataWrapper<AdInputType> inData)
         {           
             foreach (var rule in _rules)
             {
-                var chekedItems = inData.Datas.Where(data => rule.CheckItem(data)).ToList(); //TODO: Проверить на ограничение max item
-                if (chekedItems.Count == 0) continue;
-
-                _currentRule = rule;
-                foreach (var butch in chekedItems.Batch(rule.BatchSize))
+                StatusString.Clear();
+                StatusString.AppendLine($"RuleName= {rule.Option.Name}");
+                //КОМАНДА-------------------------------------------------------------
+                if (rule.CheckCommand(inData.Command))
                 {
-                    _stringRequest = _currentRule.CreateStringRequest(butch); //TODO:передвать startIndex, для этого батча (для очета смещ=щения строки по Y).
-                    InputData = new InDataWrapper<AdInputType> {Datas = butch.ToList()};
-                    RaiseSendDataRx.OnNext(this);               
+                    _currentRule = rule;
+                    StatusString.AppendLine($"Command= {inData.Command}");
+                    _stringRequest = _currentRule.CreateStringRequest(inData.Command);
+                    InputData = new InDataWrapper<AdInputType> { Command = inData.Command };             
+                    RaiseSendDataRx.OnNext(this);
+                    continue;
+                }
+                //ДАННЫЕ--------------------------------------------------------------
+                var filterItems = rule.FilterItems(inData.Datas).ToList();
+                if (filterItems.Count == 0) continue;
+                _currentRule = rule;
+                var numberOfBatch = 0;
+                foreach (var batch in filterItems.Batch(rule.BatchSize))
+                {
+                    InputData = new InDataWrapper<AdInputType> { Datas = batch.ToList() };
+                    StatusString.AppendLine($"NumberOfBatch= {numberOfBatch}  CountItem = {InputData.Datas.Count}");
+                    _stringRequest = _currentRule.CreateStringRequest(batch, numberOfBatch);
+                    RaiseSendDataRx.OnNext(this);
+                    numberOfBatch++;
                 }
             }
-         
-            //Конвеер обработки входных данных завершен  
+            //Конвеер обработки входных данных завершен    
+            StatusString.Clear();
             await Task.CompletedTask; 
         }
 
         #endregion
-    }
-
-
-    public class Rule
-    {
-        public readonly RuleOption Option;
-
-        public Rule(RuleOption option)
-        {
-            Option = option;
-        }
-
-
-        public int BatchSize => Option.BatchSize;
-
-        /// <summary>
-        /// Проверяет элемент под ограничения правила.
-        /// </summary>
-        /// <param name="inputType"></param>
-        /// <returns></returns>
-        public bool CheckItem(AdInputType inputType)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Создать строку Запроса (используя форматную строку) из одного батча данных.
-        /// </summary>
-        /// <returns></returns>
-        public string CreateStringRequest(IEnumerable<AdInputType> inputTypes)
-        {
-            //throw new NotImplementedException("ddsfdsf");//DEBUG
-            return "formatString";
-        }
     }
 }
