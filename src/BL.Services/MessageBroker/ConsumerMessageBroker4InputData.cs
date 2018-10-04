@@ -98,7 +98,7 @@ namespace BL.Services.MessageBroker
                 {
                     var value = message.Value;
                     var inputDatas = JsonConvert.DeserializeObject<List<InputData<TIn>>>(value);
-                    _inputDataApplyService.ApplyInputData(inputDatas);
+                    var errors= _inputDataApplyService.ApplyInputData(inputDatas);  //TODO: Выставлять обратно на шину (Produser) ответ об ошибках.
                 }
                 catch (Exception e)
                 {

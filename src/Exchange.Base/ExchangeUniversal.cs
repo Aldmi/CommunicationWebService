@@ -37,6 +37,7 @@ namespace Exchange.Base
         public bool AutoStartCycleFunc => ExchangeOption.AutoStartCycleFunc;
         public KeyTransport KeyTransport => ExchangeOption.KeyTransport;
         public bool IsOpen => _transport.IsOpen;
+        public bool IsStartedTransportBg => _transportBackground.IsStarted;
         public bool IsConnect { get; }
         public InDataWrapper<TIn> LastSendData { get; private set; }
         public bool IsStartedCycleExchange { get; set; }

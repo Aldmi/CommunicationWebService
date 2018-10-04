@@ -12,6 +12,7 @@ namespace DeviceForExchange
     /// <summary>
     /// Устройство.
     /// Содержит список обменов.
+    /// Ответы о своей работе каждое ус-во выставляет самостоятельно на шину данных
     /// </summary>
     public class Device<TIn> : IDisposable
     {
@@ -77,23 +78,7 @@ namespace DeviceForExchange
         {
             foreach (var exchange in Exchanges)
             {
-                switch (dataAction)
-                {
-                    case DataAction.OneTimeAction:
-                        exchange.SendOneTimeData(inData);                        
-                        break;
-
-                    case DataAction.CycleAction:
-                        exchange.SendCycleTimeData(inData);
-                        break;
-
-                    case DataAction.CommandAction:
-                        exchange.SendCommand(command4Device);
-                        break;
-
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(dataAction), dataAction, null);
-                }
+                SendDataOrCommand(exchange, dataAction, inData, command4Device);
             }  
         }
 
@@ -108,6 +93,26 @@ namespace DeviceForExchange
         public void Send2ConcreteExchanges(string keyExchange, DataAction dataAction, List<TIn> inData, Command4Device command4Device = Command4Device.None)
         {
             var exchange = Exchanges.FirstOrDefault(exch=> exch.KeyExchange == keyExchange);
+            if (exchange == null)
+            {
+                //TODO: produser.Send(Option.Name, $"Обмен не найденн для этого ус-ва {keyExchange}")
+            }
+
+            SendDataOrCommand(exchange, dataAction, inData, command4Device);  
+        }
+
+
+        private void SendDataOrCommand(IExchange<TIn> exchange, DataAction dataAction, List<TIn> inData,Command4Device command4Device = Command4Device.None)
+        {
+            if (!exchange.IsStartedTransportBg)
+            {
+                //TODO: produser.Send(Option.Name, $"Отправка данных НЕ удачна, Бекграунд обмена {exchange.Name} НЕ ЗАПЦУЩЕН")
+            }
+            if (!exchange.IsOpen)
+            {
+                //TODO: produser.Send(Option.Name, $"Отправка данных НЕ удачна, соединение транспорта для обмена {exchange.Name} НЕ ОТКРЫТО")
+            }
+
             switch (dataAction)
             {
                 case DataAction.OneTimeAction:
@@ -115,6 +120,10 @@ namespace DeviceForExchange
                     break;
 
                 case DataAction.CycleAction:
+                    if (!exchange.IsStartedCycleExchange)
+                    {
+                        //TODO: produser.Send(Option.Name, $"Отправка данных НЕ удачна, Цикл. обмен для обмена {exchange.Name} НЕ ЗАПЦУЩЕН")
+                    }
                     exchange?.SendCycleTimeData(inData);
                     break;
 
@@ -124,7 +133,7 @@ namespace DeviceForExchange
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dataAction), dataAction, null);
-            }     
+            }
         }
 
  
