@@ -2,6 +2,6 @@
 {
     public class ProduserOption
     {
-        
+        public string BrokerEndpoints { get; set; }
     }
 }

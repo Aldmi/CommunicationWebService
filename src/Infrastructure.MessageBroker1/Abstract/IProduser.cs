@@ -6,6 +6,6 @@ namespace Infrastructure.MessageBroker.Abstract
 {
     public interface IProduser : IDisposable
     {
-        Task<Message<Null, string>> ProduceAsync(string value, string topic, int partition = -1);
+        Task<Message<Null, string>> ProduceAsync(string topic, string value, int partition = -1);
     }
 }

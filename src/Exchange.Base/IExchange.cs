@@ -48,6 +48,8 @@ namespace Exchange.Base
         ISubject<IExchange<T>> IsDataExchangeSuccessChangeRx { get; }                         //TODO: сделать строго типизированные события NameRxModel
         ISubject<IExchange<T>> IsConnectChangeRx { get; }
         ISubject<IExchange<T>> LastSendDataChangeRx { get; }
+
+        ISubject<OutResponseDataWrapper<T>> TransportResponseChangeRx { get; }
         #endregion
 
 

@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Autofac.Features.OwnedInstances;
 using DAL.Abstract.Entities.Options.Device;
 using Exchange.Base;
+using Exchange.Base.Model;
 using Infrastructure.EventBus.Abstract;
+using Infrastructure.MessageBroker.Abstract;
+using Infrastructure.MessageBroker.Options;
 using InputDataModel.Base;
+using Newtonsoft.Json;
 using Transport.Base.RxModel;
 
 namespace DeviceForExchange
@@ -19,6 +24,11 @@ namespace DeviceForExchange
         #region field
 
         private readonly IEventBus _eventBus;
+
+        private readonly ProduserOption _produser4DeviceOption;
+        private readonly IProduser _produser;
+        private readonly Owned<IProduser> _produserOwner;
+
         private readonly List<IDisposable> _disposeExchangesEventHandlers = new List<IDisposable>();
 
         #endregion
@@ -37,11 +47,22 @@ namespace DeviceForExchange
 
         #region ctor
 
-        public Device(DeviceOption option, IEnumerable<IExchange<TIn>> exchanges, IEventBus eventBus)
+        public Device(DeviceOption option,
+                      IEnumerable<IExchange<TIn>> exchanges,
+                      IEventBus eventBus,
+                      Func<ProduserOption, Owned<IProduser>> produser4DeviceRespFactory,
+                      ProduserOption produser4DeviceOption)
         {
             Option = option;
             Exchanges = exchanges.ToList();
             _eventBus = eventBus;
+
+            _produser4DeviceOption = produser4DeviceOption;
+            var produserOwner = produser4DeviceRespFactory(_produser4DeviceOption);
+            _produserOwner = produserOwner;                  //можно создать/удалить produser в любое время используя фабрику и Owner 
+            _produser = produserOwner.Value;
+
+            SubscrubeOnExchangesEvents();
         }
 
         #endregion
@@ -58,8 +79,10 @@ namespace DeviceForExchange
                 _disposeExchangesEventHandlers.Add(exch.IsConnectChangeRx.Subscribe(ConnectChangeRxEventHandler));
                 _disposeExchangesEventHandlers.Add(exch.LastSendDataChangeRx.Subscribe(LastSendDataChangeRxEventHandler));
                 _disposeExchangesEventHandlers.Add(exch.IsOpenChangeTransportRx.Subscribe(OpenChangeTransportRxEventHandler));
+                _disposeExchangesEventHandlers.Add(exch.TransportResponseChangeRx.Subscribe(TransportResponseChangeRxEventHandler));
             });
         }
+
 
 
         public void UnsubscrubeOnExchangesEvents()
@@ -95,24 +118,30 @@ namespace DeviceForExchange
             var exchange = Exchanges.FirstOrDefault(exch=> exch.KeyExchange == keyExchange);
             if (exchange == null)
             {
-                //TODO: produser.Send(Option.Name, $"Обмен не найденн для этого ус-ва {keyExchange}")
+                _produser.ProduceAsync(Option.Name, $"Обмен не найденн для этого ус-ва {keyExchange}");
+                return;
             }
-
             SendDataOrCommand(exchange, dataAction, inData, command4Device);  
         }
 
 
+        /// <summary>
+        /// Отправить данные или команду.
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="dataAction"></param>
+        /// <param name="inData"></param>
+        /// <param name="command4Device"></param>
         private void SendDataOrCommand(IExchange<TIn> exchange, DataAction dataAction, List<TIn> inData,Command4Device command4Device = Command4Device.None)
         {
             if (!exchange.IsStartedTransportBg)
             {
-                //TODO: produser.Send(Option.Name, $"Отправка данных НЕ удачна, Бекграунд обмена {exchange.Name} НЕ ЗАПЦУЩЕН")
+                _produser.ProduceAsync(Option.Name, $"Отправка данных НЕ удачна, Бекграунд обмена {exchange.KeyExchange} НЕ ЗАПЦУЩЕН");
             }
             if (!exchange.IsOpen)
             {
-                //TODO: produser.Send(Option.Name, $"Отправка данных НЕ удачна, соединение транспорта для обмена {exchange.Name} НЕ ОТКРЫТО")
+                _produser.ProduceAsync(Option.Name, $"Отправка данных НЕ удачна, соединение транспорта для обмена {exchange.KeyExchange} НЕ ОТКРЫТО");
             }
-
             switch (dataAction)
             {
                 case DataAction.OneTimeAction:
@@ -122,7 +151,7 @@ namespace DeviceForExchange
                 case DataAction.CycleAction:
                     if (!exchange.IsStartedCycleExchange)
                     {
-                        //TODO: produser.Send(Option.Name, $"Отправка данных НЕ удачна, Цикл. обмен для обмена {exchange.Name} НЕ ЗАПЦУЩЕН")
+                        _produser.ProduceAsync(Option.Name, $"Отправка данных НЕ удачна, Цикл. обмен для обмена {exchange.KeyExchange} НЕ ЗАПУЩЕН");
                     }
                     exchange?.SendCycleTimeData(inData);
                     break;
@@ -136,7 +165,6 @@ namespace DeviceForExchange
             }
         }
 
- 
         #endregion
 
 
@@ -146,20 +174,34 @@ namespace DeviceForExchange
 
         private void ConnectChangeRxEventHandler(IExchange<TIn> exchange)
         {
-            var connect = exchange.IsConnect;
-            
+            _produser.ProduceAsync(Option.Name, $"Connect = {exchange.IsConnect} для обмена {exchange.KeyExchange}");
         }
 
 
         private void LastSendDataChangeRxEventHandler(IExchange<TIn> exchange)
         {
-            var lastSendData = exchange.LastSendData;
+            _produser.ProduceAsync(Option.Name, $"LastSendData = {exchange.LastSendData} для обмена {exchange.KeyExchange}");
+        }
+
+        //TODO: События транспорта нужно перевыбрасывать в обмене, чтобы добавить к событию иноформацию об обмене.
+        private void OpenChangeTransportRxEventHandler(IsOpenChangeRxModel isOpenChangeRxModel)
+        {
+            //_eventBus.Publish(isOpenChangeRxModel);  //Публикуем событие на общую шину данных
+
+            //TODO: produser.Send(Option.Name, $"LastSendData = {exchange.LastSendData} для обмена {exchange.KeyExchange}")
+
         }
 
 
-        private void OpenChangeTransportRxEventHandler(IsOpenChangeRxModel isOpenChangeRxModel)
+        private void TransportResponseChangeRxEventHandler(OutResponseDataWrapper<TIn> outResponseDataWrapper)
         {
-            _eventBus.Publish(isOpenChangeRxModel);  //Публикуем событие на общую шину данных
+            var settings= new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,             //Отступы дочерних элементов 
+                NullValueHandling = NullValueHandling.Ignore  //Игнорировать пустые теги
+            };
+            var jsonResp = JsonConvert.SerializeObject(outResponseDataWrapper, settings);
+            _produser.ProduceAsync(Option.Name, $"ResponseDataWrapper = {jsonResp}");   
         }
 
         #endregion
@@ -172,6 +214,7 @@ namespace DeviceForExchange
         public void Dispose()
         {
             UnsubscrubeOnExchangesEvents();
+            _produserOwner.Dispose();
         }
 
         #endregion

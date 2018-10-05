@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac.Features.Indexed;
+using Autofac.Features.OwnedInstances;
 using BL.Services.Exceptions;
 using BL.Services.Storages;
 using DAL.Abstract.Entities.Options;
@@ -13,6 +14,8 @@ using Exchange.Base;
 using Exchange.Base.DataProviderAbstract;
 using Exchange.Base.Model;
 using Infrastructure.EventBus.Abstract;
+using Infrastructure.MessageBroker.Abstract;
+using Infrastructure.MessageBroker.Options;
 using Shared.Enums;
 using Shared.Types;
 using Transport.Http.Concrete;
@@ -38,6 +41,8 @@ namespace BL.Services.Mediators
         private readonly TransportStorageService _transportStorageService;
         private readonly IEventBus _eventBus;
         private readonly IIndex<string, Func<ProviderOption, IExchangeDataProvider<TIn, ResponseDataItem<TIn>>>> _dataProviderFactory;
+        private readonly Func<ProduserOption, Owned<IProduser>> _produser4DeviceRespFactory;
+        private readonly ProduserOption _produser4DeviceOption;       //опции для создания IProduser через фабрику
 
         #endregion
 
@@ -51,7 +56,9 @@ namespace BL.Services.Mediators
             BackgroundStorageService backgroundStorageService,
             TransportStorageService transportStorageService,
             IEventBus eventBus,     
-            IIndex<string, Func<ProviderOption,IExchangeDataProvider<TIn, ResponseDataItem<TIn>>>> dataProviderFactory)
+            IIndex<string, Func<ProviderOption,IExchangeDataProvider<TIn,ResponseDataItem<TIn>>>> dataProviderFactory,
+            Func<ProduserOption, Owned<IProduser>> produser4DeviceRespFactory,
+            ProduserOption produser4DeviceOption)
         {
             _transportStorageService = transportStorageService;
             _backgroundStorageService = backgroundStorageService;
@@ -59,6 +66,8 @@ namespace BL.Services.Mediators
             _deviceStorageService = deviceStorageService;
             _eventBus = eventBus;
             _dataProviderFactory = dataProviderFactory;
+            _produser4DeviceRespFactory = produser4DeviceRespFactory;
+            _produser4DeviceOption = produser4DeviceOption;
         }
 
         #endregion
@@ -187,7 +196,7 @@ namespace BL.Services.Mediators
 
             //ДОБАВИТЬ УСТРОЙСТВО--------------------------------------------------------------------------
             var excanges = _exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
-            var device = new Device<TIn>(deviceOption, excanges, _eventBus);
+            var device = new Device<TIn>(deviceOption, excanges, _eventBus, _produser4DeviceRespFactory, _produser4DeviceOption);
             _deviceStorageService.AddNew(device.Option.Name, device);
 
             return device;

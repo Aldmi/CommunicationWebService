@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using InputDataModel.Base;
 using Shared.Enums;
 
 namespace Exchange.Base.Model
 {
     public class OutResponseDataWrapper<TIn>
-    {  
-        public Exception ExceptionExchangePipline { get; set; }
-        public string Message { get; set; }                    //Доп. информация
+    {
+        public string DeviceName { get; set; }                     //Название ус-ва
+        public string KeyExchange { get; set; }                    //Ключ обмена
+        public DataAction DataAction { get; set; }                 //Действие
+
+        public Exception ExceptionExchangePipline { get; set; }    //Критическая Ошибка обработки данных в конвеере.
+        public string Message { get; set; }                        //Доп. информация
         public List<ResponseDataItem<TIn>> ResponsesItems { get; set; } = new List<ResponseDataItem<TIn>>();
                
         public Dictionary<string, dynamic> DataBag { get; set; }     //Не типизированный контейнер для передачи любых данных

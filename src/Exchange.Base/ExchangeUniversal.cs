@@ -26,7 +26,7 @@ namespace Exchange.Base
         protected readonly ExchangeOption ExchangeOption;
         private readonly ITransport _transport;
         private readonly ITransportBackground _transportBackground;
-        private readonly IExchangeDataProvider<TIn, ResponseDataItem<TIn>> _dataProvider;
+        private readonly IExchangeDataProvider<TIn, ResponseDataItem<TIn>> _dataProvider;   //проавйдер данных является StateFull, т.е. хранит свое последнее состояние между отправкой данных
         #endregion
 
 
@@ -53,7 +53,6 @@ namespace Exchange.Base
         public ExchangeUniversal(ExchangeOption exchangeOption, ITransport transport, ITransportBackground transportBackground, IExchangeDataProvider<TIn, ResponseDataItem<TIn>> dataProvider)
         {
             ExchangeOption = exchangeOption;
-
             _transport = transport;
             _transportBackground = transportBackground;
             _dataProvider = dataProvider;
@@ -195,7 +194,6 @@ namespace Exchange.Base
         #endregion
 
 
-
         #region Actions
 
         /// <summary>
@@ -206,6 +204,8 @@ namespace Exchange.Base
             if (InDataQueue.TryDequeue(out var inData))
             {
                 var transportResponseWrapper = await SendingPieceOfData(inData, ct);
+                transportResponseWrapper.KeyExchange = KeyExchange;
+                transportResponseWrapper.DataAction = (inData.Command == Command4Device.None) ? DataAction.OneTimeAction : DataAction.CommandAction;
                 TransportResponseChangeRx.OnNext(transportResponseWrapper);
             }
         }
@@ -218,6 +218,8 @@ namespace Exchange.Base
         {
             var inData = Data4CycleFunc;
             var transportResponseWrapper = await SendingPieceOfData(inData, ct);
+            transportResponseWrapper.KeyExchange = KeyExchange;
+            transportResponseWrapper.DataAction = DataAction.CycleAction;
             TransportResponseChangeRx.OnNext(transportResponseWrapper);
         }
 

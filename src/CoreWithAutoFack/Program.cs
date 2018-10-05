@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Autofac.Extensions.DependencyInjection;
-using Exchange.Base;
+﻿using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 

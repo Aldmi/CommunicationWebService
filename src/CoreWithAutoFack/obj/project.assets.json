@@ -4974,9 +4974,11 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "Autofac.Extensions.DependencyInjection": "4.3.0",
           "DAL.Abstract": "1.0.0",
           "Exchange.Base": "1.0.0",
           "Infrastructure.EventBus": "1.0.0",
+          "Infrastructure.MessageBroker": "1.0.0",
           "InputDataModel.Base": "1.0.0",
           "Transport.Base": "1.0.0"
         },

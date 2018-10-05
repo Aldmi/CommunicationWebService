@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Confluent.Kafka;
 using Confluent.Kafka.Serialization;
 using Infrastructure.MessageBroker.Abstract;
+using Infrastructure.MessageBroker.Options;
 using Logger.Abstract.Abstract;
 
 
@@ -14,6 +15,7 @@ namespace Infrastructure.MessageBroker.Produser
     {
         #region field
 
+        private readonly ProduserOption _option;
         private readonly ILogger _logger;
         private readonly Producer<Null, string> _producer;
 
@@ -23,13 +25,14 @@ namespace Infrastructure.MessageBroker.Produser
 
         #region ctor
 
-        public KafkaProducer(ILogger logger, string brokerEndpoints)
+        public KafkaProducer(ProduserOption option, ILogger logger)
         {
+            _option = option;
             _logger = logger;
 
             var config = new Dictionary<string, object>
             {
-                { "bootstrap.servers", brokerEndpoints },
+                { "bootstrap.servers", option.BrokerEndpoints },
                 { "api.version.request", true },
                 { "socket.blocking.max.ms", 1 },
                 { "queue.buffering.max.ms", 5 },

@@ -4,7 +4,6 @@ using Exchange.Base.Model;
 using InputDataModel.Autodictor.ByRuleDataProviders;
 using InputDataModel.Autodictor.ManualDataProviders;
 using InputDataModel.Autodictor.Model;
-using Shared.Types;
 
 namespace WebServer.AutofacModules
 {

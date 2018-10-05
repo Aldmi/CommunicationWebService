@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using Autofac;
 using AutoMapper;
 using BL.Services.Mediators;
@@ -12,9 +10,7 @@ using InputDataModel.Autodictor.Model;
 using InputDataModel.Base;
 using Microsoft.AspNetCore.Mvc;
 using Transport.SerialPort.Abstract;
-using WebServer.DTO.JSON.OptionsDto;
 using WebServer.DTO.JSON.OptionsDto.ExchangeOption;
-using WebServer.DTO.JSON.OptionsDto.ExchangeOption.ProvidersOption;
 using Worker.Background.Abstarct;
 
 namespace WebServer.Controllers

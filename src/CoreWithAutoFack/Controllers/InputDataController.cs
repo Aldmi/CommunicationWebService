@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac.Features.Indexed;
-using BL.Services.Exceptions;
 using BL.Services.InputData;
 using InputDataModel.Autodictor.Model;
 using InputDataModel.Base;
