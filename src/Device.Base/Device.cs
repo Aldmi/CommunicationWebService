@@ -23,7 +23,7 @@ namespace DeviceForExchange
     {
         #region field
 
-        private readonly IEventBus _eventBus;
+        private readonly IEventBus _eventBus; //TODO: Not Use
 
         private readonly ProduserOption _produser4DeviceOption;
         private readonly IProduser _produser;
@@ -76,8 +76,8 @@ namespace DeviceForExchange
         {
             Exchanges.ForEach(exch =>
             {
-                _disposeExchangesEventHandlers.Add(exch.IsConnectChangeRx.Subscribe(ConnectChangeRxEventHandler));
-                _disposeExchangesEventHandlers.Add(exch.LastSendDataChangeRx.Subscribe(LastSendDataChangeRxEventHandler));
+               // _disposeExchangesEventHandlers.Add(exch.IsConnectChangeRx.Subscribe(ConnectChangeRxEventHandler));
+               // _disposeExchangesEventHandlers.Add(exch.LastSendDataChangeRx.Subscribe(LastSendDataChangeRxEventHandler));
                 _disposeExchangesEventHandlers.Add(exch.IsOpenChangeTransportRx.Subscribe(OpenChangeTransportRxEventHandler));
                 _disposeExchangesEventHandlers.Add(exch.TransportResponseChangeRx.Subscribe(TransportResponseChangeRxEventHandler));
             });

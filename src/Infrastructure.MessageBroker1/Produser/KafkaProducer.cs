@@ -61,7 +61,7 @@ namespace Infrastructure.MessageBroker.Produser
 
         #region Methode
 
-        public async Task<Message<Null, string>> ProduceAsync(string value, string topic, int partition = -1)
+        public async Task<Message<Null, string>> ProduceAsync(string topic, string value, int partition = -1)
         {
             try
             {

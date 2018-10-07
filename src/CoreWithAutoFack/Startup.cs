@@ -57,6 +57,7 @@ namespace WebServer
             builder.RegisterModule(new ControllerAutofacModule());
             builder.RegisterModule(new MessageBrokerAutofacModule());
             builder.RegisterModule(new LogerAutofacModule());
+            builder.RegisterModule(new BlConfigAutofacModule());
 
             var inputDataName = AppConfiguration["InputDataModel"];
             switch (inputDataName)
@@ -65,7 +66,7 @@ namespace WebServer
                     builder.RegisterModule(new DataProviderExchangeAutofacModule<AdInputType>());
                     builder.RegisterModule(new BlStorageAutofacModule<AdInputType>());
                     builder.RegisterModule(new BlActionsAutofacModule<AdInputType>());
-                    builder.RegisterModule(new MediatorsAutofacModule<AdInputType>(AppConfiguration.GetSection("MessageBrokerProduser4DeviceResp")));
+                    builder.RegisterModule(new MediatorsAutofacModule<AdInputType>());
                     builder.RegisterModule(new InputDataAutofacModule<AdInputType>(AppConfiguration.GetSection("MessageBrokerConsumer4InData")));
                     break;
 

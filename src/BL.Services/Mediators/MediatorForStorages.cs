@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Autofac.Features.Indexed;
 using Autofac.Features.OwnedInstances;
+using BL.Services.Config;
 using BL.Services.Exceptions;
 using BL.Services.Storages;
 using DAL.Abstract.Entities.Options;
@@ -42,7 +43,9 @@ namespace BL.Services.Mediators
         private readonly IEventBus _eventBus;
         private readonly IIndex<string, Func<ProviderOption, IExchangeDataProvider<TIn, ResponseDataItem<TIn>>>> _dataProviderFactory;
         private readonly Func<ProduserOption, Owned<IProduser>> _produser4DeviceRespFactory;
-        private readonly ProduserOption _produser4DeviceOption;       //опции для создания IProduser через фабрику
+
+        private readonly AppConfigWrapper _appConfigWrapper;
+        //опции для создания IProduser через фабрику
 
         #endregion
 
@@ -58,7 +61,7 @@ namespace BL.Services.Mediators
             IEventBus eventBus,     
             IIndex<string, Func<ProviderOption,IExchangeDataProvider<TIn,ResponseDataItem<TIn>>>> dataProviderFactory,
             Func<ProduserOption, Owned<IProduser>> produser4DeviceRespFactory,
-            ProduserOption produser4DeviceOption)
+            AppConfigWrapper appConfigWrapper)
         {
             _transportStorageService = transportStorageService;
             _backgroundStorageService = backgroundStorageService;
@@ -67,7 +70,7 @@ namespace BL.Services.Mediators
             _eventBus = eventBus;
             _dataProviderFactory = dataProviderFactory;
             _produser4DeviceRespFactory = produser4DeviceRespFactory;
-            _produser4DeviceOption = produser4DeviceOption;
+            _appConfigWrapper = appConfigWrapper;
         }
 
         #endregion
@@ -196,7 +199,7 @@ namespace BL.Services.Mediators
 
             //ДОБАВИТЬ УСТРОЙСТВО--------------------------------------------------------------------------
             var excanges = _exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
-            var device = new Device<TIn>(deviceOption, excanges, _eventBus, _produser4DeviceRespFactory, _produser4DeviceOption);
+            var device = new Device<TIn>(deviceOption, excanges, _eventBus, _produser4DeviceRespFactory, _appConfigWrapper.GetProduser4DeviceOption);
             _deviceStorageService.AddNew(device.Option.Name, device);
 
             return device;
