@@ -858,23 +858,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Aldmi\\.nuget\\packages\\": {},
+    "C:\\Users\\admin\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj",
+      "projectUniqueName": "C:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj",
       "projectName": "Worker.Background",
-      "projectPath": "D:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj",
-      "packagesPath": "C:\\Users\\Aldmi\\.nuget\\packages\\",
-      "outputPath": "D:\\Git\\CommunicationWebService\\src\\Worker.Background\\obj\\",
+      "projectPath": "C:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Git\\CommunicationWebService\\src\\Worker.Background\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Aldmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -882,14 +882,13 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://packages.nuget.org/": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
-              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
+            "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
+              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
             }
           }
         }
