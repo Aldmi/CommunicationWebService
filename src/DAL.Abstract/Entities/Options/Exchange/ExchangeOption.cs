@@ -8,6 +8,7 @@ namespace DAL.Abstract.Entities.Options.Exchange
         public string Key { get; set; }
         public KeyTransport KeyTransport { get; set; }
         public ProviderOption Provider { get; set; }
+        public int CountBadTrying { get; set; }
 
         /// <summary>
         /// Добавление функции циклического обмена на бекгроунд

@@ -9,11 +9,13 @@ using BL.Services.MessageBroker;
 using BL.Services.Storages;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
+using Exchange.Base;
 using InputDataModel.Autodictor.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MoreLinq;
 using Newtonsoft.Json;
 using WebServer.AutofacModules;
 using Worker.Background.Abstarct;
@@ -122,9 +124,10 @@ namespace WebServer
                 lifetimeApp.ApplicationStarted.Register(() => back.StartAsync(CancellationToken.None));
             }
 
-            //ЗАПУСК ОТКРЫТИЯ ПОДКЛЮЧЕНИЯ УСТРОЙСТВ И ЦИКЛИЧЕСКОГО ОБМЕНА.
+            //ЗАПУСК НА ОБМЕНЕ ОТКРЫТИЯ ПОДКЛЮЧЕНИЯ УСТРОЙСТВ (ТОЛЬКО С УНИКАЛЬНЫМ ТРАНСПОРТОМ)
+            //ЗАПУСК НА ОБМЕНЕ ЦИКЛИЧЕСКОГО ОБМЕНА.
             var exchangeServices = scope.Resolve<ExchangeStorageService<AdInputType>>();
-            foreach (var exchange in exchangeServices.Values)
+            foreach (var exchange in exchangeServices.Values.DistinctBy(exch => exch.KeyTransport))
             {
                 lifetimeApp.ApplicationStarted.Register(async () => await exchange.CycleReOpened());
                 if (exchange.AutoStartCycleFunc)

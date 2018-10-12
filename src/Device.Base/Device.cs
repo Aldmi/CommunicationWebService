@@ -187,7 +187,7 @@ namespace DeviceForExchange
         private void OpenChangeTransportRxEventHandler(IsOpenChangeRxModel isOpenChangeRxModel)
         {
             //_eventBus.Publish(isOpenChangeRxModel);  //Публикуем событие на общую шину данных
-
+            Console.WriteLine($"isOpenChangeRxModel {isOpenChangeRxModel.TransportName}   {isOpenChangeRxModel.IsOpen} START>>>>>>>");//DEBUG
             //TODO: produser.Send(Option.Name, $"LastSendData = {exchange.LastSendData} для обмена {exchange.KeyExchange}")
 
         }

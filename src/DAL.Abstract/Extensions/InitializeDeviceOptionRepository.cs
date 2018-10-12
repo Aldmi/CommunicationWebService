@@ -64,10 +64,21 @@ namespace DAL.Abstract.Extensions
                     AutoBuild = false,
                     ExchangeKeys = new List<string>
                     {
-                        "SP_COM1_Vidor1",
-                        "SP_COM2_Vidor2"
+                        "SP_COM1_Vidor1"
                     }
-                }
+                },
+                //new DeviceOption
+                //{
+                //    Id = 2,
+                //    Description = "Табло1",
+                //    Name = "Vidor2",
+                //    TopicName4MessageBroker = "Vidor1",
+                //    AutoBuild = false,
+                //    ExchangeKeys = new List<string>
+                //    {
+                //        "SP_COM2_Vidor2222",
+                //    }
+                //}
             };
 
             await rep.AddRangeAsync(devices);

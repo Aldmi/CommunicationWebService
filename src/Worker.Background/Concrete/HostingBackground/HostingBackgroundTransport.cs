@@ -74,18 +74,14 @@ namespace Worker.Background.Concrete.HostingBackground
         }
 
 
+        /// <summary>
+        /// ПОКА ЕСТЬ ОДИНОЧНЫЕ ФУНКЦИИ, ОБРАБАТЫВАЮТСЯ ТОЛЬКО ОНИ.
+        /// ЕСЛИ ОДИНОЧНЫХ ФУНКЦИЙ НЕТ ВЫПОЛНЯЮТСЯ ЦИКЛИЧЕСКИЕ ФУНКЦИИ.
+        /// </summary>
+        /// <param name="stoppingToken"></param>
+        /// <returns></returns>
         protected override async Task ProcessAsync(CancellationToken stoppingToken)
         {
-            var indexCycleFunc = 0;
-            //вызов циклических функций--------------------------------------------------------------------
-            if (_cycleTimeFuncDict != null && _cycleTimeFuncDict.Count > 0)
-            {
-                if (indexCycleFunc >= _cycleTimeFuncDict.Count)
-                    indexCycleFunc = 0;
-
-                await _cycleTimeFuncDict[indexCycleFunc++](stoppingToken);
-            }
-
             //вызов одиночной функции запроса---------------------------------------------------------------
             if (_oneTimeFuncQueue != null && _oneTimeFuncQueue.Count > 0)
             {
@@ -94,9 +90,17 @@ namespace Worker.Background.Concrete.HostingBackground
                     await oneTimeaction(stoppingToken);
                 }
             }
+            else
+            {
+                //вызов циклических функций--------------------------------------------------------------------
+                if (_cycleTimeFuncDict != null && _cycleTimeFuncDict.Count > 0)
+                {
+                    await _cycleTimeFuncDict[0](stoppingToken);
+                }
+            }
 
-            await Task.Delay(2000, stoppingToken); //DEBUG
-            Console.WriteLine($"BackGroundMasterSp  {KeyTransport.Key}"); //DEBUG
+            //await Task.Delay(2000, stoppingToken); //DEBUG
+            //Console.WriteLine($"BackGroundMasterSp  {KeyTransport.Key}"); //DEBUG
         }
 
         #endregion

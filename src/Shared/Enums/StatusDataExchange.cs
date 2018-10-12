@@ -11,6 +11,8 @@
         End,
         EndWithTimeout,
         EndWithCanceled,
-        EndWithError
+        EndWithError,
+        EndWithTimeoutCritical,
+        EndWithErrorCritical
     }
 }

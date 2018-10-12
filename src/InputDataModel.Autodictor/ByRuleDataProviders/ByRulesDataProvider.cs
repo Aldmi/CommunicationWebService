@@ -54,7 +54,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
         public int TimeRespone => _currentRule.Option.ResponseOption.TimeRespone;        //Время на ответ
         public int CountGetDataByte { get; }                                            //TODO: брать с _currentRule.Option
-        public int CountSetDataByte { get; }                                            //TODO: брать с _currentRule.Option
+        public int CountSetDataByte { get; } = 12;                                          //TODO: брать с _currentRule.Option
 
         #endregion
 
@@ -172,7 +172,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
                     continue;
                 }
                 //ДАННЫЕ--------------------------------------------------------------
-                var filterItems = rule.FilterItems(inData.Datas).ToList();
+                var filterItems = rule.FilterItems(inData.Datas).ToList();  //TODO: OrderBy, maxItem - обрезали/Paging - нарезали (с заполнением пустых строк)
                 if (filterItems.Count == 0) continue;
                 _currentRule = rule;
                 var numberOfBatch = 0;

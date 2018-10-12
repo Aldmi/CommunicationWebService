@@ -38,7 +38,7 @@ namespace Exchange.Base
         public KeyTransport KeyTransport => ExchangeOption.KeyTransport;
         public bool IsOpen => _transport.IsOpen;
         public bool IsStartedTransportBg => _transportBackground.IsStarted;
-        public bool IsConnect { get; }
+        public bool IsConnect { get; set; }
         public InDataWrapper<TIn> LastSendData { get; private set; }
         public bool IsStartedCycleExchange { get; set; }
         protected ConcurrentQueue<InDataWrapper<TIn>> InDataQueue { get; set; } = new ConcurrentQueue<InDataWrapper<TIn>>(); //Очередь данных для SendOneTimeData().
@@ -97,6 +97,7 @@ namespace Exchange.Base
         private CancellationTokenSource _cycleReOpenedCts;
         public async Task CycleReOpened()
         {
+            Console.WriteLine($"KeyExchange {KeyExchange} START>>>>>>>");//DEBUG
             if (_transport != null)
             {
                 _cycleReOpenedCts?.Cancel();
@@ -106,6 +107,7 @@ namespace Exchange.Base
                     await _transport.CycleReOpened();
                 }, _cycleReOpenedCts.Token);
             }
+            Console.WriteLine($"KeyExchange {KeyExchange} STOP<<<<<<<<");//DEBUG
         }
 
         /// <summary>
@@ -210,7 +212,6 @@ namespace Exchange.Base
             }
         }
 
-
         /// <summary>
         /// Обработка отправки цикл. даных.
         /// </summary>
@@ -223,14 +224,13 @@ namespace Exchange.Base
             TransportResponseChangeRx.OnNext(transportResponseWrapper);
         }
 
-
-
         /// <summary>
         /// Отправка порции данных
         /// </summary>
         /// <param name="inData"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
+        private int _countTryingTakeData = 0;
         private async Task<OutResponseDataWrapper<TIn>> SendingPieceOfData(InDataWrapper<TIn> inData, CancellationToken ct)
         {
             var transportResponseWrapper = new OutResponseDataWrapper<TIn>();
@@ -242,13 +242,31 @@ namespace Exchange.Base
                 try
                 {
                     status = _transport.DataExchangeAsync(_dataProvider.TimeRespone, provider, ct).GetAwaiter().GetResult();
-                    if (status == StatusDataExchange.End)
+                    switch (status)
                     {
-                        //ОТВЕТ ПОЛУЧЕНН.
-                        LastSendData = provider.InputData;
-                        transportResponse.ResponseData = provider.OutputData.ResponseData;
-                        transportResponse.Encoding = provider.OutputData.Encoding;
-                        transportResponse.IsOutDataValid = provider.OutputData.IsOutDataValid;
+                        //ОБМЕН ЗАВЕРЩЕН ПРАВИЛЬНО.
+                        case StatusDataExchange.End:
+                            IsConnect = true;
+                            _countTryingTakeData = 0;
+                            LastSendData = provider.InputData;
+                            transportResponse.ResponseData = provider.OutputData.ResponseData;
+                            transportResponse.Encoding = provider.OutputData.Encoding;
+                            transportResponse.IsOutDataValid = provider.OutputData.IsOutDataValid;
+                            break;
+
+                        //ОБМЕН ЗАВЕРЩЕН КРИТИЧЕСКИ НЕ ВЕРНО. ПРОВЕРКА НЕОБХОДИМОСТИ ПЕРЕОТКРЫТИЯ СОЕДИНЕНИЯ.
+                        case StatusDataExchange.EndWithTimeoutCritical:
+                        case StatusDataExchange.EndWithErrorCritical:
+                            CycleReOpened(); //TODO: отладить что будет после с обменом.
+                            break;
+
+                        //ОБМЕН ЗАВЕРЩЕН НЕ ВЕРНО.
+                        default:
+                            if (++_countTryingTakeData > ExchangeOption.CountBadTrying)
+                            {
+                                IsConnect = false;
+                            }
+                            break;
                     }
                 }
                 catch (Exception ex)
@@ -278,7 +296,7 @@ namespace Exchange.Base
             }
             finally
             {
-                //ОТПРАВИТЬ Rx СОБЫТИЕ С ОТВЕТОМ ОБ ОКОНЧАНИИ ОТПРАВКИ.
+                _countTryingTakeData = 0;
                 subscription.Dispose();      
             }
             return transportResponseWrapper;

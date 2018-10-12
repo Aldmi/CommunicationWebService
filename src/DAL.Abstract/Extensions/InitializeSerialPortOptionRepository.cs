@@ -28,17 +28,17 @@ namespace DAL.Abstract.Extensions
                     StopBits = StopBits.One,
                     AutoStart = true
                 },
-                new SerialOption
-                {
-                    Id = 2,
-                    Port = "COM2",
-                    BaudRate = 9600,
-                    DataBits = 8,
-                    DtrEnable = false,
-                    Parity = Parity.Even,
-                    StopBits = StopBits.One,
-                    AutoStart = true
-                }
+                //new SerialOption
+                //{
+                //    Id = 2,
+                //    Port = "COM2",
+                //    BaudRate = 9600,
+                //    DataBits = 8,
+                //    DtrEnable = false,
+                //    Parity = Parity.Even,
+                //    StopBits = StopBits.One,
+                //    AutoStart = true
+                //}
             };
 
            await rep.AddRangeAsync(serials);

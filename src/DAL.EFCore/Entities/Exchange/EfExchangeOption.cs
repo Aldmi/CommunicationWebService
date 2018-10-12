@@ -17,6 +17,8 @@ namespace DAL.EFCore.Entities.Exchange
 
         public bool AutoStartCycleFunc { get; set; }
 
+        public int CountBadTrying { get; set; }
+
         private string _keyTransportMetaData;
         [NotMapped]
         public EfKeyTransport KeyTransport

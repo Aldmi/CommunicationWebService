@@ -26,6 +26,7 @@ namespace DAL.Abstract.Extensions
                     Key = "SP_COM1_Vidor1",
                     KeyTransport = new KeyTransport("COM1", TransportType.SerialPort),
                     AutoStartCycleFunc = false,
+                    CountBadTrying = 3,
                     Provider = new ProviderOption
                     {
                         Name = "ByRules",
@@ -44,22 +45,22 @@ namespace DAL.Abstract.Extensions
                         }
                     }
                 },
-                new ExchangeOption
-                {
-                    Id = 2,
-                    Key = "SP_COM2_Vidor2",
-                    KeyTransport = new KeyTransport("COM2", TransportType.SerialPort),
-                    AutoStartCycleFunc = false,
-                    Provider = new ProviderOption
-                    {
-                        Name = "VidorBinary",
-                        ManualProviderOption = new ManualProviderOption
-                        {
-                            Address = "100",
-                            TimeRespone = 2500
-                        }
-                    }
-                }
+                //new ExchangeOption
+                //{
+                //    Id = 2,
+                //    Key = "SP_COM2_Vidor2222",
+                //    KeyTransport = new KeyTransport("COM2", TransportType.SerialPort),
+                //    AutoStartCycleFunc = false,
+                //    Provider = new ProviderOption
+                //    {
+                //        Name = "VidorBinary",
+                //        ManualProviderOption = new ManualProviderOption
+                //        {
+                //            Address = "100",
+                //            TimeRespone = 2500
+                //        }
+                //    }
+                //}
             };
 
            await rep.AddRangeAsync(exchanges);

@@ -212,7 +212,7 @@ namespace Transport.SerialPort.Concrete.SpWin
                 if (writeBuffer != null && writeBuffer.Any())
                 {
                     StatusDataExchange = StatusDataExchange.Process;
-                    var readBuff = await RequestAndRespawnInstantlyAsync(writeBuffer, dataProvider.CountSetDataByte, timeRespoune, ct);
+                    var readBuff = await RequestAndRespawnConstPeriodAsync(writeBuffer, dataProvider.CountSetDataByte, timeRespoune, ct);
                     dataProvider.SetDataByte(readBuff);
                 }
             }
