@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Autofac.Features.OwnedInstances;
+using Confluent.Kafka;
 using DAL.Abstract.Entities.Options.Device;
 using Exchange.Base;
 using Exchange.Base.Model;
+using Exchange.Base.RxModel;
 using Infrastructure.EventBus.Abstract;
 using Infrastructure.MessageBroker.Abstract;
 using Infrastructure.MessageBroker.Options;
@@ -24,11 +27,8 @@ namespace DeviceForExchange
         #region field
 
         private readonly IEventBus _eventBus; //TODO: Not Use
-
-        private readonly ProduserOption _produser4DeviceOption;
         private readonly IProduser _produser;
         private readonly Owned<IProduser> _produserOwner;
-
         private readonly List<IDisposable> _disposeExchangesEventHandlers = new List<IDisposable>();
 
         #endregion
@@ -57,8 +57,7 @@ namespace DeviceForExchange
             Exchanges = exchanges.ToList();
             _eventBus = eventBus;
 
-            _produser4DeviceOption = produser4DeviceOption;
-            var produserOwner = produser4DeviceRespFactory(_produser4DeviceOption);
+            var produserOwner = produser4DeviceRespFactory(produser4DeviceOption);
             _produserOwner = produserOwner;                  //можно создать/удалить produser в любое время используя фабрику и Owner 
             _produser = produserOwner.Value;
 
@@ -76,13 +75,14 @@ namespace DeviceForExchange
         {
             Exchanges.ForEach(exch =>
             {
-               // _disposeExchangesEventHandlers.Add(exch.IsConnectChangeRx.Subscribe(ConnectChangeRxEventHandler));
-               // _disposeExchangesEventHandlers.Add(exch.LastSendDataChangeRx.Subscribe(LastSendDataChangeRxEventHandler));
+                _disposeExchangesEventHandlers.Add(exch.IsConnectChangeRx.Subscribe(ConnectChangeRxEventHandler));
+                //_disposeExchangesEventHandlers.Add(exch.LastSendDataChangeRx.Subscribe(LastSendDataChangeRxEventHandler));
                 _disposeExchangesEventHandlers.Add(exch.IsOpenChangeTransportRx.Subscribe(OpenChangeTransportRxEventHandler));
                 _disposeExchangesEventHandlers.Add(exch.ResponseChangeRx.Subscribe(TransportResponseChangeRxEventHandler));
             });
         }
 
+ 
 
 
         public void UnsubscrubeOnExchangesEvents()
@@ -165,6 +165,19 @@ namespace DeviceForExchange
             }
         }
 
+
+        private async Task SendData2Produder(string topicName,string formatStr)
+        {
+            try
+            {
+               await _produser.ProduceAsync(topicName, formatStr);
+            }
+            catch (KafkaException e)
+            {
+                Console.WriteLine($"KafkaException= {e.Message}"); //LOG
+            }
+        }
+
         #endregion
 
 
@@ -172,26 +185,21 @@ namespace DeviceForExchange
 
         #region RxEventHandler 
 
-        private void ConnectChangeRxEventHandler(IExchange<TIn> exchange)
+        private void ConnectChangeRxEventHandler(ConnectChangeRxModel model)
         {
-            _produser.ProduceAsync(Option.Name, $"Connect = {exchange.IsConnect} для обмена {exchange.KeyExchange}");
+            _produser.ProduceAsync(Option.Name, $"Connect = {model.IsConnect} для обмена {model.KeyExchange}");
         }
 
-
-        private void LastSendDataChangeRxEventHandler(IExchange<TIn> exchange)
+        private void LastSendDataChangeRxEventHandler(LastSendDataChangeRxModel<TIn> model)
         {
-            _produser.ProduceAsync(Option.Name, $"LastSendData = {exchange.LastSendData} для обмена {exchange.KeyExchange}");
+            _produser.ProduceAsync(Option.Name, $"LastSendData = {model.LastSendData} для обмена {model.KeyExchange}");
         }
 
-        //TODO: События транспорта нужно перевыбрасывать в обмене, чтобы добавить к событию иноформацию об обмене.
-        private void OpenChangeTransportRxEventHandler(IsOpenChangeRxModel isOpenChangeRxModel)
+        private async void OpenChangeTransportRxEventHandler(IsOpenChangeRxModel model)
         {
-            //_eventBus.Publish(isOpenChangeRxModel);  //Публикуем событие на общую шину данных
-            Console.WriteLine($"isOpenChangeRxModel {isOpenChangeRxModel.TransportName}   {isOpenChangeRxModel.IsOpen} START>>>>>>>");//DEBUG
-            //TODO: produser.Send(Option.Name, $"LastSendData = {exchange.LastSendData} для обмена {exchange.KeyExchange}")
-
+           await SendData2Produder(Option.TopicName4MessageBroker,$"IsOpen = {model.IsOpen} для ТРАНСПОРТА {model.TransportName}");
+           //_eventBus.Publish(isOpenChangeRxModel);  //Публикуем событие на общую шину данных       
         }
-
 
         private void TransportResponseChangeRxEventHandler(OutResponseDataWrapper<TIn> outResponseDataWrapper)
         {
