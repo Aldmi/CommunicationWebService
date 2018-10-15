@@ -79,7 +79,7 @@ namespace DeviceForExchange
                // _disposeExchangesEventHandlers.Add(exch.IsConnectChangeRx.Subscribe(ConnectChangeRxEventHandler));
                // _disposeExchangesEventHandlers.Add(exch.LastSendDataChangeRx.Subscribe(LastSendDataChangeRxEventHandler));
                 _disposeExchangesEventHandlers.Add(exch.IsOpenChangeTransportRx.Subscribe(OpenChangeTransportRxEventHandler));
-                _disposeExchangesEventHandlers.Add(exch.TransportResponseChangeRx.Subscribe(TransportResponseChangeRxEventHandler));
+                _disposeExchangesEventHandlers.Add(exch.ResponseChangeRx.Subscribe(TransportResponseChangeRxEventHandler));
             });
         }
 

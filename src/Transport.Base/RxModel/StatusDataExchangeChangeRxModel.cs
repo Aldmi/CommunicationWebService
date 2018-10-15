@@ -6,5 +6,6 @@ namespace Transport.Base.RxModel
     {
         public StatusDataExchange StatusDataExchange { get; set; }
         public string TransportName { get; set; }
+        public string KeyExchange { get; set; }
     }
 }
