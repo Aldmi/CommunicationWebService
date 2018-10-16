@@ -99,7 +99,7 @@ namespace Worker.Background.Concrete.HostingBackground
                 }
             }
 
-            //await Task.Delay(2000, stoppingToken); //DEBUG
+            await Task.Delay(CheckUpdateTime, stoppingToken);
             //Console.WriteLine($"BackGroundMasterSp  {KeyTransport.Key}"); //DEBUG
         }
 

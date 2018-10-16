@@ -24,6 +24,7 @@ namespace Exchange.Base.Model
         public string RequestId { get; set; }
         public string Message { get; set; }                   //Доп. информация
         public StatusDataExchange Status { get; set; }
+        public string StatusStr => Status.ToString();
 
         public InDataWrapper<TIn> RequestData { get; set; }    //Данные запроса
         public Exception TransportException { get; set; }      //Ошибка передачи данных

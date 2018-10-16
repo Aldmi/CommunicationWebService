@@ -64,10 +64,9 @@ namespace BL.Services.MessageBroker
 
             var subscription = observable
                 .Buffer(_batchSize)
-                .Subscribe(
-                    messages =>
+                .Subscribe(async messages =>
                     {
-                       MessageHandler(messages);
+                      await MessageHandler(messages);
                       _consumer.CommitAsync(messages[messages.Count - 1]).GetAwaiter().GetResult();  //ручной коммит офсета для этого консьюмера
                     });
 
@@ -88,9 +87,8 @@ namespace BL.Services.MessageBroker
 
         #region EventHandler
 
-        private void MessageHandler(IList<Message<Null, string>> messages)
+        private async Task MessageHandler(IList<Message<Null, string>> messages)
         {
-            Console.WriteLine(DateTime.Now.ToString("O"));//DEBUG
             //Обработчик сообщений с kafka
             foreach (var message in messages)
             {
@@ -98,7 +96,7 @@ namespace BL.Services.MessageBroker
                 {
                     var value = message.Value;
                     var inputDatas = JsonConvert.DeserializeObject<List<InputData<TIn>>>(value);
-                    var errors= _inputDataApplyService.ApplyInputData(inputDatas);  //TODO: Выставлять обратно на шину (Produser) ответ об ошибках.
+                    var errors= await _inputDataApplyService.ApplyInputData(inputDatas);  //TODO: Выставлять обратно на шину (Produser) ответ об ошибках.
                 }
                 catch (Exception e)
                 {

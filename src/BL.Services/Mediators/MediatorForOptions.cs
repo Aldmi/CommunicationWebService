@@ -63,6 +63,15 @@ namespace BL.Services.Mediators
             return await _deviceOptionRep.ListAsync();
         }
 
+        
+        /// <summary>
+        /// Вернуть все опции устройств из репозитория.
+        /// </summary>
+        public async Task<IEnumerable<DeviceOption>> GetDeviceOptionsWithAutoBuildAsync()
+        {     
+            return await _deviceOptionRep.ListAsync(option=>option.AutoBuild);
+        }
+
 
         /// <summary>
         /// Вернуть опции одного устройства по имени, из репозитория.

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BL.Services.Mediators;
 using InputDataModel.Base;
 
@@ -29,27 +30,32 @@ namespace BL.Services.InputData
         /// </summary>
         /// <param name="inputDatas">Данные для нескольких ус-в</param>
         /// <returns>Список ОШИБОК</returns>
-        public IEnumerable<string> ApplyInputData(IEnumerable<InputData<TIn>> inputDatas)
+        public async Task<IEnumerable<string>> ApplyInputData(IEnumerable<InputData<TIn>> inputDatas)
         {
             //найти Device по имени и передать ему данные 
+            var errors= new List<string>();
+            var tasks = new List<Task>();
             foreach (var inData in inputDatas)
             {
                 var device = _mediatorForStorages.GetDevice(inData.DeviceName);
                 if (device == null)
                 {
-                    yield return $"устройство не найденно: {inData.DeviceName}";
+                    errors.Add($"устройство не найденно: {inData.DeviceName}");
                     continue;
                 }
 
                 if (string.IsNullOrEmpty(inData.ExchangeName))
                 {
-                    device.Send2AllExchanges(inData.DataAction, inData.Data, inData.Command);
+                    tasks.Add(device.Send2AllExchanges(inData.DataAction, inData.Data, inData.Command));
                 }
                 else
                 {
-                    device.Send2ConcreteExchanges(inData.ExchangeName, inData.DataAction, inData.Data, inData.Command);
+                    tasks.Add(device.Send2ConcreteExchanges(inData.ExchangeName, inData.DataAction, inData.Data, inData.Command));
                 }
             }
+
+            await Task.WhenAll(tasks);
+            return errors;
         }
 
         #endregion

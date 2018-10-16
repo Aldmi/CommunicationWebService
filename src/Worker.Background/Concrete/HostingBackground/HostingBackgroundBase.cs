@@ -7,8 +7,9 @@ namespace Worker.Background.Concrete.HostingBackground
     /// <summary>
     /// аналог IHostedService.
     /// </summary>
-    public abstract class HostingBackgroundBase 
+    public abstract class HostingBackgroundBase
     {
+        protected const int CheckUpdateTime = 100;
         protected Task ExecutingTask;
         private CancellationTokenSource _stoppingCts = new CancellationTokenSource();
 

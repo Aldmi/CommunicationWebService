@@ -111,11 +111,11 @@ namespace WebServer.Controllers
 
 
         [HttpPost("SendData4Devices")]
-        public IActionResult SendData4Devices([FromBody] IEnumerable<InputData<AdInputType>> inputDatas)
+        public async Task<IActionResult> SendData4Devices([FromBody] IEnumerable<InputData<AdInputType>> inputDatas)
         {
             try
             {
-                var errors= _inputDataApplyService.ApplyInputData(inputDatas);
+                var errors= await _inputDataApplyService.ApplyInputData(inputDatas);
                 if (errors.Any())
                 {
                     var errorCompose = new StringBuilder("Error in sending data: ");

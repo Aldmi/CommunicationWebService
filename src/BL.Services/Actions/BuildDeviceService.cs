@@ -41,26 +41,6 @@ namespace BL.Services.Actions
         #region Methode
 
         /// <summary>
-        /// ПОЗАБОТИТСЯ ОБ ОБРАБОТКЕ ИСКЛЮЧЕНИЙ. (StorageHandlerException, OptionHandlerException, Exception)
-        /// </summary>
-        /// <param name="deviceName"></param>
-        /// <returns></returns>
-        /// <exception cref="StorageHandlerException"></exception>
-        /// <exception cref="OptionHandlerException"></exception>
-        /// <exception cref="Exception"></exception> 
-        public async Task<Device<TIn>> BuildDevice(string deviceName)
-        {        
-            if (!await _mediatorForOptionsRep.IsExistDeviceAsync(deviceName))
-            {
-                return null;
-            }
-            var optionAgregator = await _mediatorForOptionsRep.GetOptionAgregatorForDeviceAsync(deviceName);
-            var newDevice = _mediatorForStorages.BuildAndAddDevice(optionAgregator);
-            return newDevice;
-        }
-
-
-        /// <summary>
         /// Сделать БИЛД для всех устройств хранящихся в репозитории.
         /// </summary>
         /// <returns>Спсисок созданных ус-в</returns>
@@ -69,7 +49,7 @@ namespace BL.Services.Actions
         {
             var newDevices = new List<Device<TIn>>();
             var exceptions = new List<Exception>();
-            var devices = await _mediatorForOptionsRep.GetDeviceOptionsAsync();
+            var devices = await _mediatorForOptionsRep.GetDeviceOptionsWithAutoBuildAsync();
             foreach (var device in devices)
             {
                 try
@@ -87,6 +67,26 @@ namespace BL.Services.Actions
                 throw new AggregateException(exceptions);
 
             return newDevices;
+        }
+
+
+        /// <summary>
+        /// ПОЗАБОТИТСЯ ОБ ОБРАБОТКЕ ИСКЛЮЧЕНИЙ. (StorageHandlerException, OptionHandlerException, Exception)
+        /// </summary>
+        /// <param name="deviceName"></param>
+        /// <returns></returns>
+        /// <exception cref="StorageHandlerException"></exception>
+        /// <exception cref="OptionHandlerException"></exception>
+        /// <exception cref="Exception"></exception> 
+        public async Task<Device<TIn>> BuildDevice(string deviceName)
+        {        
+            if (!await _mediatorForOptionsRep.IsExistDeviceAsync(deviceName))
+            {
+                return null;
+            }
+            var optionAgregator = await _mediatorForOptionsRep.GetOptionAgregatorForDeviceAsync(deviceName);
+            var newDevice = _mediatorForStorages.BuildAndAddDevice(optionAgregator);
+            return newDevice;
         }
 
         #endregion

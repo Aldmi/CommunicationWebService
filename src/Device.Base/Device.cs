@@ -97,12 +97,14 @@ namespace DeviceForExchange
         /// <param name="dataAction"></param>
         /// <param name="inData"></param>
         /// <param name="command4Device"></param>
-        public void Send2AllExchanges(DataAction dataAction, List<TIn> inData, Command4Device command4Device = Command4Device.None)
+        public async Task Send2AllExchanges(DataAction dataAction, List<TIn> inData, Command4Device command4Device = Command4Device.None)
         {
+            var tasks= new List<Task>();
             foreach (var exchange in Exchanges)
             {
-                SendDataOrCommand(exchange, dataAction, inData, command4Device);
-            }  
+                tasks.Add(SendDataOrCommand(exchange, dataAction, inData, command4Device));
+            }
+            await Task.WhenAll(tasks);
         }
 
 
@@ -113,15 +115,15 @@ namespace DeviceForExchange
         /// <param name="dataAction"></param>
         /// <param name="inData"></param>
         /// <param name="command4Device"></param>
-        public void Send2ConcreteExchanges(string keyExchange, DataAction dataAction, List<TIn> inData, Command4Device command4Device = Command4Device.None)
+        public async Task Send2ConcreteExchanges(string keyExchange, DataAction dataAction, List<TIn> inData, Command4Device command4Device = Command4Device.None)
         {
             var exchange = Exchanges.FirstOrDefault(exch=> exch.KeyExchange == keyExchange);
             if (exchange == null)
             {
-                _produser.ProduceAsync(Option.Name, $"Обмен не найденн для этого ус-ва {keyExchange}");
+                await Send2Produder(Option.TopicName4MessageBroker, $"Обмен не найденн для этого ус-ва {keyExchange}");
                 return;
             }
-            SendDataOrCommand(exchange, dataAction, inData, command4Device);  
+            await SendDataOrCommand(exchange, dataAction, inData, command4Device);  
         }
 
 
@@ -132,15 +134,17 @@ namespace DeviceForExchange
         /// <param name="dataAction"></param>
         /// <param name="inData"></param>
         /// <param name="command4Device"></param>
-        private void SendDataOrCommand(IExchange<TIn> exchange, DataAction dataAction, List<TIn> inData,Command4Device command4Device = Command4Device.None)
+        private async Task SendDataOrCommand(IExchange<TIn> exchange, DataAction dataAction, List<TIn> inData, Command4Device command4Device = Command4Device.None)
         {
             if (!exchange.IsStartedTransportBg)
             {
-                _produser.ProduceAsync(Option.Name, $"Отправка данных НЕ удачна, Бекграунд обмена {exchange.KeyExchange} НЕ ЗАПЦУЩЕН");
+                await Send2Produder(Option.TopicName4MessageBroker, $"Отправка данных НЕ удачна, Бекграунд обмена {exchange.KeyExchange} НЕ ЗАПЦУЩЕН");
+                return;
             }
             if (!exchange.IsOpen)
             {
-                _produser.ProduceAsync(Option.Name, $"Отправка данных НЕ удачна, соединение транспорта для обмена {exchange.KeyExchange} НЕ ОТКРЫТО");
+                await Send2Produder(Option.TopicName4MessageBroker, $"Отправка данных НЕ удачна, соединение транспорта для обмена {exchange.KeyExchange} НЕ ОТКРЫТО");
+                return;
             }
             switch (dataAction)
             {
@@ -151,7 +155,8 @@ namespace DeviceForExchange
                 case DataAction.CycleAction:
                     if (!exchange.IsStartedCycleExchange)
                     {
-                        _produser.ProduceAsync(Option.Name, $"Отправка данных НЕ удачна, Цикл. обмен для обмена {exchange.KeyExchange} НЕ ЗАПУЩЕН");
+                        await Send2Produder(Option.TopicName4MessageBroker, $"Отправка данных НЕ удачна, Цикл. обмен для обмена {exchange.KeyExchange} НЕ ЗАПУЩЕН");
+                        return;
                     }
                     exchange?.SendCycleTimeData(inData);
                     break;
@@ -166,7 +171,7 @@ namespace DeviceForExchange
         }
 
 
-        private async Task SendData2Produder(string topicName,string formatStr)
+        private async Task Send2Produder(string topicName, string formatStr)
         {
             try
             {
@@ -174,7 +179,7 @@ namespace DeviceForExchange
             }
             catch (KafkaException e)
             {
-                Console.WriteLine($"KafkaException= {e.Message}"); //LOG
+                Console.WriteLine($"KafkaException= {e.Message} для {topicName}"); //LOG
             }
         }
 
@@ -185,23 +190,23 @@ namespace DeviceForExchange
 
         #region RxEventHandler 
 
-        private void ConnectChangeRxEventHandler(ConnectChangeRxModel model)
+        private async void ConnectChangeRxEventHandler(ConnectChangeRxModel model)
         {
-            _produser.ProduceAsync(Option.Name, $"Connect = {model.IsConnect} для обмена {model.KeyExchange}");
+            await Send2Produder(Option.TopicName4MessageBroker, $"Connect = {model.IsConnect} для обмена {model.KeyExchange}");
         }
 
-        private void LastSendDataChangeRxEventHandler(LastSendDataChangeRxModel<TIn> model)
+        private async void LastSendDataChangeRxEventHandler(LastSendDataChangeRxModel<TIn> model)
         {
-            _produser.ProduceAsync(Option.Name, $"LastSendData = {model.LastSendData} для обмена {model.KeyExchange}");
+            await Send2Produder(Option.TopicName4MessageBroker, $"LastSendData = {model.LastSendData} для обмена {model.KeyExchange}");
         }
 
         private async void OpenChangeTransportRxEventHandler(IsOpenChangeRxModel model)
         {
-           await SendData2Produder(Option.TopicName4MessageBroker,$"IsOpen = {model.IsOpen} для ТРАНСПОРТА {model.TransportName}");
+           await Send2Produder(Option.TopicName4MessageBroker,$"IsOpen = {model.IsOpen} для ТРАНСПОРТА {model.TransportName}");
            //_eventBus.Publish(isOpenChangeRxModel);  //Публикуем событие на общую шину данных       
         }
 
-        private void TransportResponseChangeRxEventHandler(OutResponseDataWrapper<TIn> outResponseDataWrapper)
+        private async void TransportResponseChangeRxEventHandler(OutResponseDataWrapper<TIn> outResponseDataWrapper)
         {
             var settings= new JsonSerializerSettings
             {
@@ -209,7 +214,7 @@ namespace DeviceForExchange
                 NullValueHandling = NullValueHandling.Ignore  //Игнорировать пустые теги
             };
             var jsonResp = JsonConvert.SerializeObject(outResponseDataWrapper, settings);
-            _produser.ProduceAsync(Option.Name, $"ResponseDataWrapper = {jsonResp}");   
+            await Send2Produder(Option.TopicName4MessageBroker, $"ResponseDataWrapper = {jsonResp}");
         }
 
         #endregion

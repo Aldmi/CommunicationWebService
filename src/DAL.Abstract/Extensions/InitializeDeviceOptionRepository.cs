@@ -61,7 +61,7 @@ namespace DAL.Abstract.Extensions
                     Description = "Табло1",
                     Name = "Vidor1",
                     TopicName4MessageBroker = "Vidor1",
-                    AutoBuild = false,
+                    AutoBuild = true,
                     ExchangeKeys = new List<string>
                     {
                         "SP_COM1_Vidor1"
