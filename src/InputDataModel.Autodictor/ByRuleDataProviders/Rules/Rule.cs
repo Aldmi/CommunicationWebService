@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
 using InputDataModel.Autodictor.Model;
 using InputDataModel.Base;
-using System.Linq.Dynamic;
+using System.Linq.Dynamic.Core;
 
 namespace InputDataModel.Autodictor.ByRuleDataProviders.Rules
 {
@@ -76,7 +76,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders.Rules
                     return $"DateTime({date.Year}, {date.Month}, {date.Day}, {date.Hour}, {date.Minute}, 0)";
                 });
                 //ПРИМЕНИТЬ ФИЛЬТР И УПОРЯДОЧЕВАНИЕ
-                var filtred = inData.Where(where).OrderBy(Option.OrderBy).ToList();
+                var filtred = inData.AsQueryable().Where(where).OrderBy(Option.OrderBy).ToList();
 
                 //TODO: ПРИМЕНИТЬ TakesItems
                 return filtred;

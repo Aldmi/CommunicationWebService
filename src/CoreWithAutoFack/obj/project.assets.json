@@ -3710,15 +3710,6 @@
           "lib/netstandard1.6/System.Linq.dll": {}
         }
       },
-      "System.Linq.Dynamic/1.0.7": {
-        "type": "package",
-        "compile": {
-          "lib/net40/System.Linq.Dynamic.dll": {}
-        },
-        "runtime": {
-          "lib/net40/System.Linq.Dynamic.dll": {}
-        }
-      },
       "System.Linq.Dynamic.Core/1.0.8.18": {
         "type": "package",
         "dependencies": {
@@ -5080,7 +5071,6 @@
         "dependencies": {
           "Exchange.Base": "1.0.0",
           "Shared": "1.0.0",
-          "System.Linq.Dynamic": "1.0.7",
           "System.Linq.Dynamic.Core": "1.0.8.18",
           "morelinq": "3.0.0"
         },
@@ -10266,18 +10256,6 @@
         "system.linq.nuspec"
       ]
     },
-    "System.Linq.Dynamic/1.0.7": {
-      "sha512": "xpnS9Q9upR9K3XKUhFW8f8emWi3+6yRyftCNht4dhB/P9YIYbeT+xn607kDK6vYCcSkl3wwKPEmfKTEyWZkBIg==",
-      "type": "package",
-      "path": "system.linq.dynamic/1.0.7",
-      "files": [
-        ".signature.p7s",
-        "NuGet.exe",
-        "lib/net40/System.Linq.Dynamic.dll",
-        "system.linq.dynamic.1.0.7.nupkg.sha512",
-        "system.linq.dynamic.nuspec"
-      ]
-    },
     "System.Linq.Dynamic.Core/1.0.8.18": {
       "sha512": "Ti7yhula15jyfG/S2RoSmAgXwOltY1ILSef+SSCfTjq6GiOZNqhESRrXS2Aflq2ico++TOFg05rWTWShdVLtOQ==",
       "type": "package",
@@ -13680,17 +13658,5 @@
         "warn": true
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.Linq.Dynamic 1.0.7' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
-      "libraryId": "System.Linq.Dynamic",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v2.0"
-      ]
-    }
-  ]
+  }
 }
