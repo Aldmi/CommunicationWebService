@@ -52,7 +52,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         public ResponseDataItem<AdInputType> OutputData { get; set; }
         public bool IsOutDataValid { get; set; }
 
-        public int TimeRespone => _currentRule.Option.ResponseOption.TimeRespone;        //Время на ответ
+        public int TimeRespone => _currentRule.Option.SubRules[0].ResponseOption.TimeRespone;        //Время на ответ
         public int CountGetDataByte { get; }                                            //TODO: брать с _currentRule.Option
         public int CountSetDataByte { get; } = 12;                                          //TODO: брать с _currentRule.Option
 
@@ -70,14 +70,13 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
 
 
-
         #region IExchangeDataProviderImplementation
 
         public byte[] GetDataByte()
         {
             StatusString.AppendLine($"GetDataByte. StringRequest= {_stringRequest}");
 
-            var format = _currentRule.Option.RequestOption.Format;
+            var format = _currentRule.Option.SubRules[0].RequestOption.Format;
             //Преобразовываем КОНЕЧНУЮ строку в массив байт
             byte[]  resultBuffer;
             if (format == "HEX")
@@ -102,7 +101,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         {
             StatusString.AppendLine($"SetDataByte. Length= {data.Length}");
 
-            var format = _currentRule.Option.ResponseOption.Format;
+            var format = _currentRule.Option.SubRules[0].ResponseOption.Format;
             //_currentRule.Option.ResponseOption.Body
             if (data?[0] == 0x10)
             {
@@ -116,7 +115,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
             OutputData = new ResponseDataItem<AdInputType>
             {   
                 ResponseData = data.ArrayByteToString(format),
-                Encoding = _currentRule.Option.ResponseOption.Format,   
+                Encoding = _currentRule.Option.SubRules[0].ResponseOption.Format,   
                 IsOutDataValid = IsOutDataValid            
             };
 
@@ -124,6 +123,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         }
 
         #endregion
+
 
 
 

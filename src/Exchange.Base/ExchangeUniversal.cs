@@ -27,7 +27,7 @@ namespace Exchange.Base
         protected readonly ExchangeOption ExchangeOption;
         private readonly ITransport _transport;
         private readonly ITransportBackground _transportBackground;
-        private readonly IExchangeDataProvider<TIn, ResponseDataItem<TIn>> _dataProvider;   //проавйдер данных является StateFull, т.е. хранит свое последнее состояние между отправкой данных
+        private readonly IExchangeDataProvider<TIn, ResponseDataItem<TIn>> _dataProvider;                               //проавйдер данных является StateFull, т.е. хранит свое последнее состояние между отправкой данных
         private readonly ConcurrentQueue<InDataWrapper<TIn>> _inDataQueue  = new ConcurrentQueue<InDataWrapper<TIn>>(); //Очередь данных для SendOneTimeData().
         private InDataWrapper<TIn> _data4CycleFunc;                                                                     //Данные для Цикл. функции.
         #endregion

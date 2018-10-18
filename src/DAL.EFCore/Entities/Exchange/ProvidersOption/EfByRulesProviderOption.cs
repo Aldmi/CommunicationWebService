@@ -10,10 +10,22 @@ namespace DAL.EFCore.Entities.Exchange.ProvidersOption
 
     public class EfRuleOption
     {
-        public string Name { get; set; }
-        public int BatchSize { get; set; }
-        public EfRequestOption RequestOption { get; set; }
-        public EfResponseOption ResponseOption { get; set; }
+        public string Name { get; set; }                        
+        public string WhereFilter { get; set; }            
+        public string OrderBy { get; set; }                 
+        public int TakeItems { get; set; }                  
+        public int BatchSize { get; set; }                 
+        public List<ViewRuleOption> SubRules { get; set; }  
+    }
+
+
+    public class ViewRuleOption
+    {
+        public int Id { get; set; }
+        public int StartPosition { get; set; }               
+        public int EndPosition { get; set; }            
+        public EfRequestOption RequestOption { get; set; }     
+        public EfResponseOption ResponseOption { get; set; }   
     }
 
 
