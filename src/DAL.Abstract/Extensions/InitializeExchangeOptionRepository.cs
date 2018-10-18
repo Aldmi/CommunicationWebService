@@ -46,7 +46,7 @@ namespace DAL.Abstract.Extensions
                                         {
                                             Id = 1,
                                             StartPosition = 0,
-                                            EndPosition = 1,
+                                            Count = 1,
                                             BatchSize = 1000,
                                             RequestOption = new RequestOption{Body = "01{adress}0502{Station}", MaxLenght = 1000, Format = "Windows-1251"},
                                             ResponseOption = new ResponseOption{Body = "01050A", MaxLenght = 2000, TimeRespone = 3000, Format = "X"}
@@ -55,7 +55,7 @@ namespace DAL.Abstract.Extensions
                                         {
                                             Id = 2,
                                             StartPosition = 1,
-                                            EndPosition = 2,
+                                            Count = 1,
                                             BatchSize = 1000,
                                             RequestOption = new RequestOption{Body = "01{adress}05020606{Station}", MaxLenght = 1000, Format = "Windows-1251"},
                                             ResponseOption = new ResponseOption{Body = "01050A0606", MaxLenght = 2000, TimeRespone = 3000, Format = "X"}

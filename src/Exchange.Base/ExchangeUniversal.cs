@@ -99,7 +99,6 @@ namespace Exchange.Base
 
 
 
-
         #region Methode
 
         #region ReOpen
@@ -316,7 +315,6 @@ namespace Exchange.Base
 
         #endregion
         #endregion
-
 
 
 

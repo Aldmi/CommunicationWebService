@@ -3710,6 +3710,15 @@
           "lib/netstandard1.6/System.Linq.dll": {}
         }
       },
+      "System.Linq.Dynamic/1.0.7": {
+        "type": "package",
+        "compile": {
+          "lib/net40/System.Linq.Dynamic.dll": {}
+        },
+        "runtime": {
+          "lib/net40/System.Linq.Dynamic.dll": {}
+        }
+      },
       "System.Linq.Dynamic.Core/1.0.8.18": {
         "type": "package",
         "dependencies": {
@@ -5071,6 +5080,7 @@
         "dependencies": {
           "Exchange.Base": "1.0.0",
           "Shared": "1.0.0",
+          "System.Linq.Dynamic": "1.0.7",
           "System.Linq.Dynamic.Core": "1.0.8.18",
           "morelinq": "3.0.0"
         },
@@ -10256,6 +10266,18 @@
         "system.linq.nuspec"
       ]
     },
+    "System.Linq.Dynamic/1.0.7": {
+      "sha512": "xpnS9Q9upR9K3XKUhFW8f8emWi3+6yRyftCNht4dhB/P9YIYbeT+xn607kDK6vYCcSkl3wwKPEmfKTEyWZkBIg==",
+      "type": "package",
+      "path": "system.linq.dynamic/1.0.7",
+      "files": [
+        ".signature.p7s",
+        "NuGet.exe",
+        "lib/net40/System.Linq.Dynamic.dll",
+        "system.linq.dynamic.1.0.7.nupkg.sha512",
+        "system.linq.dynamic.nuspec"
+      ]
+    },
     "System.Linq.Dynamic.Core/1.0.8.18": {
       "sha512": "Ti7yhula15jyfG/S2RoSmAgXwOltY1ILSef+SSCfTjq6GiOZNqhESRrXS2Aflq2ico++TOFg05rWTWShdVLtOQ==",
       "type": "package",
@@ -13534,23 +13556,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\admin\\.nuget\\packages\\": {},
+    "C:\\Users\\Aldmi\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\WebServer.csproj",
+      "projectUniqueName": "D:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\WebServer.csproj",
       "projectName": "WebServer",
-      "projectPath": "C:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\WebServer.csproj",
-      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\obj\\",
+      "projectPath": "D:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\WebServer.csproj",
+      "packagesPath": "C:\\Users\\Aldmi\\.nuget\\packages\\",
+      "outputPath": "D:\\Git\\CommunicationWebService\\src\\CoreWithAutoFack\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Aldmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13558,55 +13580,56 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://packages.nuget.org/": {}
       },
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Git\\CommunicationWebService\\src\\BL.Services\\BL.Services.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\BL.Services\\BL.Services.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\BL.Services\\BL.Services.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\BL.Services\\BL.Services.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.SerialPort\\Transport.SerialPort.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Communication.TcpIp\\Transport.TcpIp.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\DAL.Abstract\\DAL.Abstract.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\DAL.EFCore\\DAL.EFCore.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\DAL.EFCore\\DAL.EFCore.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\DAL.EFCore\\DAL.EFCore.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\DAL.EFCore\\DAL.EFCore.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\DAL.InMemory\\DAL.InMemory.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\DAL.InMemory\\DAL.InMemory.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\DAL.InMemory\\DAL.InMemory.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\DAL.InMemory\\DAL.InMemory.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Device.Base\\DeviceForExchange.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Device.Base\\DeviceForExchange.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Device.Base\\DeviceForExchange.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Device.Base\\DeviceForExchange.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Exchange.Base\\Exchange.Base.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Infrastructure.MessageBroker1\\Infrastructure.MessageBroker.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Infrastructure.MessageBroker1\\Infrastructure.MessageBroker.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Infrastructure.MessageBroker1\\Infrastructure.MessageBroker.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Infrastructure.MessageBroker1\\Infrastructure.MessageBroker.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Infrastructure\\Infrastructure.EventBus.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\InputDataModel.Autodictor\\InputDataModel.Autodictor.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\InputDataModel.Autodictor\\InputDataModel.Autodictor.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\InputDataModel.Autodictor\\InputDataModel.Autodictor.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\InputDataModel.Autodictor\\InputDataModel.Autodictor.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Logger.Abstract\\Logger.Abstract.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Logger.Abstract\\Logger.Abstract.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Logger.Abstract\\Logger.Abstract.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Logger.Abstract\\Logger.Abstract.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Logger.NlogWrapper\\Logger.Nlog.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Logger.NlogWrapper\\Logger.Nlog.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Logger.NlogWrapper\\Logger.Nlog.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Logger.NlogWrapper\\Logger.Nlog.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Shared\\Shared.csproj"
             },
-            "C:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj": {
-              "projectPath": "C:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj"
+            "D:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj": {
+              "projectPath": "D:\\Git\\CommunicationWebService\\src\\Worker.Background\\Worker.Background.csproj"
             }
           }
         }
@@ -13657,5 +13680,17 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Linq.Dynamic 1.0.7' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "System.Linq.Dynamic",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.0"
+      ]
+    }
+  ]
 }

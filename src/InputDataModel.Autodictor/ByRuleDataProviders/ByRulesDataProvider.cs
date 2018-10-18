@@ -19,6 +19,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         #region field
 
         private readonly List<Rule> _rules;    // Набор правил, для обработки данных.
+        private ViewRule _currentViewRule;
         private Rule _currentRule;             //Текущее правило (по нему создается _stringRequest)
         private string _stringRequest;        //Строковое представление запроса, которое преобразуется в нужную форму для транспорта.
 
@@ -155,6 +156,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
         #region Methode
 
+
         public async Task StartExchangePipeline(InDataWrapper<AdInputType> inData)
         {           
             foreach (var rule in _rules)
@@ -172,25 +174,25 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
                     continue;
                 }
                 //ДАННЫЕ--------------------------------------------------------------
-                var filterItems = rule.FilteredAndOrderedAndTakesItems(inData.Datas).ToList();  //TODO: OrderBy, maxItem - обрезали/Paging - нарезали (с заполнением пустых строк)
-                if (filterItems.Count == 0) continue;
+                var filterItems = rule.FilteredAndOrderedAndTakesItems(inData.Datas)?.ToList();
+                if (filterItems == null || filterItems.Count == 0)
+                    continue;
 
-                _currentRule = rule;
+                _currentRule = rule;//TODO: ??? все правила протокола находятся во _currentViewRule
                 foreach (var viewRule in rule.ViewRules)
                 {
-                    
-                }
+                    foreach (var request in viewRule.GetRequestString(filterItems))
+                    {
+                        if(request == null) //правило отображения не подходит под ДАННЫЕ
+                          continue;
 
-                //_currentRule = rule;
-                //var numberOfBatch = 0;
-                //foreach (var batch in filterItems.Batch(rule.BatchSize))
-                //{
-                //    InputData = new InDataWrapper<AdInputType> { Datas = batch.ToList() };
-                //    StatusString.AppendLine($"NumberOfBatch= {numberOfBatch}  CountItem = {InputData.Datas.Count}");
-                //    _stringRequest = _currentRule.CreateStringRequest(batch, numberOfBatch);
-                //    RaiseSendDataRx.OnNext(this);
-                //    numberOfBatch++;
-                //}
+                        _currentViewRule = viewRule;
+                        InputData = new InDataWrapper<AdInputType> { Datas = request.BatchedData.ToList() };
+                        StatusString.AppendLine($"CountItem = {InputData.Datas.Count}");
+                        _stringRequest = request.StringRequest;
+                        RaiseSendDataRx.OnNext(this);
+                    }
+                }
             }
             //Конвеер обработки входных данных завершен    
             StatusString.Clear();

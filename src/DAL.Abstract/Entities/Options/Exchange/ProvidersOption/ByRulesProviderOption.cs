@@ -25,7 +25,7 @@ namespace DAL.Abstract.Entities.Options.Exchange.ProvidersOption
     {
         public int Id { get; set; }
         public int StartPosition { get; set; }               //Начальная позиция элемента из списка
-        public int EndPosition { get; set; }                 //Конечная позиция элемента из списка
+        public int Count { get; set; }                      //Конечная позиция элемента из списка
         public int BatchSize { get; set; }                   //Разбить отправку на порции по BatchSize.
         public RequestOption RequestOption { get; set; }     //Запрос
         public ResponseOption ResponseOption { get; set; }   //Ответ

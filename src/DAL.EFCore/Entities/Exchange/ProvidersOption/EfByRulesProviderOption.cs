@@ -22,7 +22,7 @@ namespace DAL.EFCore.Entities.Exchange.ProvidersOption
     {
         public int Id { get; set; }
         public int StartPosition { get; set; }               
-        public int EndPosition { get; set; }     
+        public int Count { get; set; }     
         public int BatchSize { get; set; }    
         public EfRequestOption RequestOption { get; set; }     
         public EfResponseOption ResponseOption { get; set; }   
