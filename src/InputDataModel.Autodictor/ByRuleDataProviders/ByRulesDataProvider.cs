@@ -52,7 +52,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         public ResponseDataItem<AdInputType> OutputData { get; set; }
         public bool IsOutDataValid { get; set; }
 
-        public int TimeRespone => _currentRule.Option.SubRules[0].ResponseOption.TimeRespone;        //Время на ответ
+        public int TimeRespone => _currentRule.Option.ViewRules[0].ResponseOption.TimeRespone;        //Время на ответ
         public int CountGetDataByte { get; }                                            //TODO: брать с _currentRule.Option
         public int CountSetDataByte { get; } = 12;                                          //TODO: брать с _currentRule.Option
 
@@ -76,7 +76,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         {
             StatusString.AppendLine($"GetDataByte. StringRequest= {_stringRequest}");
 
-            var format = _currentRule.Option.SubRules[0].RequestOption.Format;
+            var format = _currentRule.Option.ViewRules[0].RequestOption.Format;
             //Преобразовываем КОНЕЧНУЮ строку в массив байт
             byte[]  resultBuffer;
             if (format == "HEX")
@@ -101,7 +101,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         {
             StatusString.AppendLine($"SetDataByte. Length= {data.Length}");
 
-            var format = _currentRule.Option.SubRules[0].ResponseOption.Format;
+            var format = _currentRule.Option.ViewRules[0].ResponseOption.Format;
             //_currentRule.Option.ResponseOption.Body
             if (data?[0] == 0x10)
             {
@@ -115,7 +115,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
             OutputData = new ResponseDataItem<AdInputType>
             {   
                 ResponseData = data.ArrayByteToString(format),
-                Encoding = _currentRule.Option.SubRules[0].ResponseOption.Format,   
+                Encoding = _currentRule.Option.ViewRules[0].ResponseOption.Format,   
                 IsOutDataValid = IsOutDataValid            
             };
 
@@ -172,18 +172,25 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
                     continue;
                 }
                 //ДАННЫЕ--------------------------------------------------------------
-                var filterItems = rule.FilterItems(inData.Datas).ToList();  //TODO: OrderBy, maxItem - обрезали/Paging - нарезали (с заполнением пустых строк)
+                var filterItems = rule.FilteredAndOrderedAndTakesItems(inData.Datas).ToList();  //TODO: OrderBy, maxItem - обрезали/Paging - нарезали (с заполнением пустых строк)
                 if (filterItems.Count == 0) continue;
+
                 _currentRule = rule;
-                var numberOfBatch = 0;
-                foreach (var batch in filterItems.Batch(rule.BatchSize))
+                foreach (var viewRule in rule.ViewRules)
                 {
-                    InputData = new InDataWrapper<AdInputType> { Datas = batch.ToList() };
-                    StatusString.AppendLine($"NumberOfBatch= {numberOfBatch}  CountItem = {InputData.Datas.Count}");
-                    _stringRequest = _currentRule.CreateStringRequest(batch, numberOfBatch);
-                    RaiseSendDataRx.OnNext(this);
-                    numberOfBatch++;
+                    
                 }
+
+                //_currentRule = rule;
+                //var numberOfBatch = 0;
+                //foreach (var batch in filterItems.Batch(rule.BatchSize))
+                //{
+                //    InputData = new InDataWrapper<AdInputType> { Datas = batch.ToList() };
+                //    StatusString.AppendLine($"NumberOfBatch= {numberOfBatch}  CountItem = {InputData.Datas.Count}");
+                //    _stringRequest = _currentRule.CreateStringRequest(batch, numberOfBatch);
+                //    RaiseSendDataRx.OnNext(this);
+                //    numberOfBatch++;
+                //}
             }
             //Конвеер обработки входных данных завершен    
             StatusString.Clear();

@@ -13,17 +13,17 @@ namespace DAL.EFCore.Entities.Exchange.ProvidersOption
         public string Name { get; set; }                        
         public string WhereFilter { get; set; }            
         public string OrderBy { get; set; }                 
-        public int TakeItems { get; set; }                  
-        public int BatchSize { get; set; }                 
-        public List<ViewRuleOption> SubRules { get; set; }  
+        public int TakeItems { get; set; }                               
+        public List<EfViewRuleOption> ViewRules { get; set; }  
     }
 
 
-    public class ViewRuleOption
+    public class EfViewRuleOption
     {
         public int Id { get; set; }
         public int StartPosition { get; set; }               
-        public int EndPosition { get; set; }            
+        public int EndPosition { get; set; }     
+        public int BatchSize { get; set; }    
         public EfRequestOption RequestOption { get; set; }     
         public EfResponseOption ResponseOption { get; set; }   
     }

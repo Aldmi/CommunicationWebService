@@ -37,17 +37,17 @@ namespace DAL.Abstract.Extensions
                                 new RuleOption
                                 {
                                     Name = "Rule_1",
-                                    BatchSize = 1,
                                     WhereFilter = "((TypeTrain == \"Suburban\") && (Path == \"2\" || Path == \"3\" || Path == \"4\")",
                                     OrderBy = "ArrivalTime",
                                     TakeItems = 2,
-                                    SubRules = new List<ViewRuleOption>
+                                    ViewRules = new List<ViewRuleOption>
                                     {
                                         new ViewRuleOption
                                         {
                                             Id = 1,
                                             StartPosition = 0,
                                             EndPosition = 1,
+                                            BatchSize = 1000,
                                             RequestOption = new RequestOption{Body = "01{adress}0502{Station}", MaxLenght = 1000, Format = "Windows-1251"},
                                             ResponseOption = new ResponseOption{Body = "01050A", MaxLenght = 2000, TimeRespone = 3000, Format = "X"}
                                         },
@@ -56,6 +56,7 @@ namespace DAL.Abstract.Extensions
                                             Id = 2,
                                             StartPosition = 1,
                                             EndPosition = 2,
+                                            BatchSize = 1000,
                                             RequestOption = new RequestOption{Body = "01{adress}05020606{Station}", MaxLenght = 1000, Format = "Windows-1251"},
                                             ResponseOption = new ResponseOption{Body = "01050A0606", MaxLenght = 2000, TimeRespone = 3000, Format = "X"}
                                         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
 using InputDataModel.Autodictor.Model;
 using InputDataModel.Base;
@@ -10,7 +11,12 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders.Rules
 
     public class Rule
     {
+        #region fields
+
         public readonly RuleOption Option;
+
+        #endregion
+
 
 
         #region ctor
@@ -18,16 +24,16 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders.Rules
         public Rule(RuleOption option)
         {
             Option = option;
+            ViewRules= option.ViewRules.Select(opt=> new ViewRule(opt)).ToList();
         }
 
         #endregion
 
 
 
-
         #region prop
 
-        public int BatchSize => Option.BatchSize;
+        public IEnumerable<ViewRule> ViewRules { get; set; }
 
         #endregion
 
@@ -41,14 +47,46 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders.Rules
         /// </summary>
         /// <param name="inData"></param>
         /// <returns></returns>
-        public IEnumerable<AdInputType> FilterItems(IEnumerable<AdInputType> inData)
+        public IEnumerable<AdInputType> FilteredAndOrderedAndTakesItems(IEnumerable<AdInputType> inData)
         {
             if(inData == null)
                 return new List<AdInputType>();
 
+            //ЗАМЕНА  DateTime.Now.AddMinute(...)-------------------
+           //string pattern = @"DateTime\.Now\.AddMinute\(([^()]*)\)";
+           //var where = Option.
+           // var result = Regex.Replace(where, pattern, x =>
+           // {
+           //     var val = x.Groups[1].Value;
+           //     if (int.TryParse(val, out var min))
+           //     {
+           //         var date = now.AddMinutes(min);
+           //         return $"DateTime({date.Year}, {date.Month}, {date.Day}, {date.Hour}, {date.Minute}, 0)";
+           //     }
+           //     return x.Value;
+           // });
+
+
             var chekedItems = inData.Where(CheckItem);   
             return chekedItems;
         }
+
+
+        public IEnumerable<AdInputType> OrderItems(IEnumerable<AdInputType> inData)
+        {
+
+
+            return inData;
+        }
+
+
+        public IEnumerable<AdInputType> TakeItems(IEnumerable<AdInputType> inData)
+        {
+
+
+            return inData;
+        }
+
 
         /// <summary>
         /// Проверяет элемент под ограничения правила.
