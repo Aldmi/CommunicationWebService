@@ -77,12 +77,15 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders.Rules
                 });
                 //ПРИМЕНИТЬ ФИЛЬТР И УПОРЯДОЧЕВАНИЕ
                 var filtred = inData.AsQueryable().Where(where).OrderBy(Option.OrderBy).ToList();
-
-                //TODO: ПРИМЕНИТЬ TakesItems
-                return filtred;
+                //ВЗЯТЬ TakeItems ИЛИ ДОПОЛНИТЬ ДО TakeItems.
+                var takedItems= new AdInputType[Option.TakeItems];
+                var endPosition= (Option.TakeItems < filtred.Count) ? Option.TakeItems : filtred.Count;
+                filtred.CopyTo(0, takedItems, 0, endPosition);
+                return takedItems;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                //LOG
                 return null;
             }
         }
@@ -94,7 +97,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders.Rules
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        public bool CheckCommand(Command4Device command)
+        public bool IsCommand(Command4Device command)
         {
             var ruleName = $"Command_{command.ToString()}";  //Command_On, Command_Off, Command_Restart, Command_Clear
             return !ruleName.Equals("Command_None");

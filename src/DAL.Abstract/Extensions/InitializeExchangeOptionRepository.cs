@@ -37,7 +37,7 @@ namespace DAL.Abstract.Extensions
                                 new RuleOption
                                 {
                                     Name = "Rule_1",
-                                    WhereFilter = "((TypeTrain == \"Suburban\") && (Path == \"2\" || Path == \"3\" || Path == \"4\")",
+                                    WhereFilter = "(TypeTrain == \"Suburban\") && (PathNumber == \"2\" || PathNumber == \"3\" || PathNumber == \"4\")",
                                     OrderBy = "ArrivalTime",
                                     TakeItems = 2,
                                     ViewRules = new List<ViewRuleOption>

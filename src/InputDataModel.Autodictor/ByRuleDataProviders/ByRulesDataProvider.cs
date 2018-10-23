@@ -18,10 +18,8 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
     {
         #region field
 
-        private readonly List<Rule> _rules;    // Набор правил, для обработки данных.
-        private ViewRule _currentViewRule;
-        private Rule _currentRule;             //Текущее правило (по нему создается _stringRequest)
-        private string _stringRequest;        //Строковое представление запроса, которое преобразуется в нужную форму для транспорта.
+        private readonly List<Rule> _rules;                   // Набор правил, для обработки данных.
+        private ViewRuleRequestModelWrapper _currentRequest;  // Созданный запрос, после подготовки данных. 
 
         #endregion
 
@@ -34,7 +32,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         {
             var option = providerOption.ByRulesProviderOption;
             if(option == null)
-                throw new ArgumentNullException(providerOption.Name);
+               throw new ArgumentNullException(providerOption.Name);
 
             ProviderName = providerOption.Name;
            _rules = option.Rules.Select(opt=> new Rule(opt)).ToList();
@@ -53,9 +51,9 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         public ResponseDataItem<AdInputType> OutputData { get; set; }
         public bool IsOutDataValid { get; set; }
 
-        public int TimeRespone => _currentRule.Option.ViewRules[0].ResponseOption.TimeRespone;        //Время на ответ
-        public int CountGetDataByte { get; }                                            //TODO: брать с _currentRule.Option
-        public int CountSetDataByte { get; } = 12;                                          //TODO: брать с _currentRule.Option
+        public int TimeRespone => _currentRequest.ResponseOption.TimeRespone;        //Время на ответ
+        public int CountGetDataByte { get; }                                         //TODO: брать с _currentRule.Option
+        public int CountSetDataByte { get; } = 12;                                   //TODO: брать с _currentRule.Option
 
         #endregion
 
@@ -75,9 +73,9 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
         public byte[] GetDataByte()
         {
-            StatusString.AppendLine($"GetDataByte. StringRequest= {_stringRequest}");
+            StatusString.AppendLine($"GetDataByte. StringRequest= {_currentRequest.StringRequest}");
 
-            var format = _currentRule.Option.ViewRules[0].RequestOption.Format;
+            var format = _currentRequest.RequestOption.Format;
             //Преобразовываем КОНЕЧНУЮ строку в массив байт
             byte[]  resultBuffer;
             if (format == "HEX")
@@ -87,7 +85,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
             }
             else
             {
-                resultBuffer = Encoding.GetEncoding(format).GetBytes(_stringRequest).ToArray();
+                resultBuffer = Encoding.GetEncoding(format).GetBytes(_currentRequest.StringRequest).ToArray();
             }
             return resultBuffer;
         }
@@ -102,7 +100,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
         {
             StatusString.AppendLine($"SetDataByte. Length= {data.Length}");
 
-            var format = _currentRule.Option.ViewRules[0].ResponseOption.Format;
+            var format = _currentRequest.ResponseOption.Format;
             //_currentRule.Option.ResponseOption.Body
             if (data?[0] == 0x10)
             {
@@ -116,7 +114,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
             OutputData = new ResponseDataItem<AdInputType>
             {   
                 ResponseData = data.ArrayByteToString(format),
-                Encoding = _currentRule.Option.ViewRules[0].ResponseOption.Format,   
+                Encoding = _currentRequest.ResponseOption.Format,   
                 IsOutDataValid = IsOutDataValid            
             };
 
@@ -141,7 +139,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
 
         public string GetString()
         {
-            return _stringRequest;
+            return _currentRequest.StringRequest;
         }
 
         public bool SetString(Stream stream)
@@ -164,11 +162,11 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
                 StatusString.Clear();
                 StatusString.AppendLine($"RuleName= {rule.Option.Name}");
                 //КОМАНДА-------------------------------------------------------------
-                if (rule.CheckCommand(inData.Command))
+                if (rule.IsCommand(inData.Command))
                 {
-                    _currentRule = rule;
+                    //_currentRule = rule;
                     StatusString.AppendLine($"Command= {inData.Command}");
-                    _stringRequest = _currentRule.CreateStringRequest(inData.Command);
+                    //_stringRequest = _currentRule.CreateStringRequest(inData.Command);
                     InputData = new InDataWrapper<AdInputType> { Command = inData.Command };             
                     RaiseSendDataRx.OnNext(this);
                     continue;
@@ -178,7 +176,6 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
                 if (filterItems == null || filterItems.Count == 0)
                     continue;
 
-                _currentRule = rule;//TODO: ??? все правила протокола находятся во _currentViewRule
                 foreach (var viewRule in rule.ViewRules)
                 {
                     foreach (var request in viewRule.GetRequestString(filterItems))
@@ -186,10 +183,9 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders
                         if(request == null) //правило отображения не подходит под ДАННЫЕ
                           continue;
 
-                        _currentViewRule = viewRule;
-                        InputData = new InDataWrapper<AdInputType> { Datas = request.BatchedData.ToList() };
-                        StatusString.AppendLine($"CountItem = {InputData.Datas.Count}");
-                        _stringRequest = request.StringRequest;
+                        _currentRequest = request;
+                        InputData = new InDataWrapper<AdInputType> { Datas = _currentRequest.BatchedData.ToList() };
+                        StatusString.AppendLine($"CountItem4Sending = {InputData.Datas.Count}");
                         RaiseSendDataRx.OnNext(this);
                     }
                 }

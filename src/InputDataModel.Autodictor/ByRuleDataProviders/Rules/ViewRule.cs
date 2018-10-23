@@ -50,7 +50,13 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders.Rules
                 foreach (var batch in viewedItems.Batch(Option.BatchSize))
                 {
                     var resStr = CreateStringRequest(batch);
-                    yield return new ViewRuleRequestModelWrapper{ BatchedData = batch, StringRequest = resStr};
+                    yield return new ViewRuleRequestModelWrapper
+                    {
+                        BatchedData = batch,
+                        StringRequest = resStr,
+                        RequestOption = Option.RequestOption,
+                        ResponseOption = Option.ResponseOption
+                    };
                 }
             }
         }
@@ -79,8 +85,8 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders.Rules
         /// <returns></returns>
         private string CreateStringRequest(IEnumerable<AdInputType> batch)
         {
-            var startRow = Option.StartPosition;
-            //TODO:  {row} можно вычислить
+            var startRow = Option.StartPosition;          //TODO: {row} можно вычислить
+            var requestBody = Option.RequestOption.Body;
             //throw new NotImplementedException("CreateStringRequest ExceptionTest");//DEBUG
             return $"formatString startRow= {startRow}"; 
         }
@@ -94,7 +100,9 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders.Rules
     /// </summary>
     public class ViewRuleRequestModelWrapper
     {
-        public IEnumerable<AdInputType> BatchedData { get; set; }
-        public string StringRequest { get; set; }
+        public IEnumerable<AdInputType> BatchedData { get; set; }    //набор входных данных на базе которых созданна StringRequest
+        public string StringRequest { get; set; }                   //строка запроса, созданная по правилам RequestOption
+        public RequestOption RequestOption { get; set; }            //Запрос
+        public ResponseOption ResponseOption { get; set; }          //Ответ
     }
 }
