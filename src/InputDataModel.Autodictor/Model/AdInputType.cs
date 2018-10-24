@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using InputDataModel.Autodictor.Entities;
 
 namespace InputDataModel.Autodictor.Model
@@ -13,7 +12,7 @@ namespace InputDataModel.Autodictor.Model
         Express,                 //Скорый
         HighSpeed,               //Скоростной
         Swallow,                 //Ласточка
-        Rex,                     //РЭКС
+        Rex                      //РЭКС
     }
 
     public enum VagonDirection { None, FromTheHead, FromTheTail }

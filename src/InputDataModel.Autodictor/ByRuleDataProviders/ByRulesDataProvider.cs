@@ -12,6 +12,7 @@ using InputDataModel.Autodictor.ByRuleDataProviders.Rules;
 using InputDataModel.Autodictor.Model;
 using Shared.Extensions;
 
+
 namespace InputDataModel.Autodictor.ByRuleDataProviders
 {
     public class ByRulesDataProvider : IExchangeDataProvider<AdInputType, ResponseDataItem<AdInputType>>
