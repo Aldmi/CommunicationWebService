@@ -24,7 +24,7 @@ namespace InputDataModel.Autodictor.ByRuleDataProviders.Rules
         public Rule(RuleOption option)
         {
             Option = option;
-            ViewRules= option.ViewRules.Select(opt=> new ViewRule(opt)).ToList();
+            ViewRules= option.ViewRules.Select(opt=> new ViewRule(Option.AddressDevice, opt)).ToList();
         }
 
         #endregion

@@ -11,6 +11,7 @@ namespace DAL.Abstract.Entities.Options.Exchange.ProvidersOption
     public class RuleOption
     {
         public string Name { get; set; }                    //Имя правила, или название команды вида Command_On, Command_Off, Command_Restart, Command_Clear       
+        public string AddressDevice { get; set; }           // Адресс ус-ва.
         public string WhereFilter { get; set; }             //Булевое выражение для фильтрации (например "(ArrivalTime > DateTime.Now.AddMinute(-100) && ArrivalTime < DateTime.Now.AddMinute(100)) || ((EventTrain == \"Transit\") && (ArrivalTime > DateTime.Now))")
         public string OrderBy { get; set; }                 //Имя св-ва для фильтрации (например "ArrivalTime").
         public int TakeItems { get; set; }                  //N первых элементов. Если элементов меньше, то ДОПОЛНИТЬ список пустыми элементами.
@@ -37,7 +38,9 @@ namespace DAL.Abstract.Entities.Options.Exchange.ProvidersOption
     {
         public string Format { get; set; }
         public int MaxLenght { get; set; }
-        public string Body { get; set; }
+        public string Header { get; set; }                   // НАЧАЛО запроса (ТОЛЬКО ЗАВИСИМЫЕ ДАННЫЕ).
+        public string Body { get; set; }                     // ТЕЛО запроса (ТОЛЬКО НЕЗАВИСИМЫЕ ДАННЫЕ). Каждый элемент батча подставляет свои данные в Body, затем все элементы Конкатенируются.
+        public string Footer { get; set; }                   // КОНЕЦ ЗАПРОСА (ТОЛЬКО ЗАВИСИМЫЕ ДАННЫЕ).
     }
 
 

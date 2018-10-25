@@ -10,7 +10,8 @@ namespace DAL.EFCore.Entities.Exchange.ProvidersOption
 
     public class EfRuleOption
     {
-        public string Name { get; set; }                        
+        public string Name { get; set; }
+        public string AddressDevice { get; set; }       
         public string WhereFilter { get; set; }            
         public string OrderBy { get; set; }                 
         public int TakeItems { get; set; }                               
@@ -33,7 +34,9 @@ namespace DAL.EFCore.Entities.Exchange.ProvidersOption
     {
         public string Format { get; set; }
         public int MaxLenght { get; set; }
-        public string Body { get; set; }
+        public string Header { get; set; }                   // НАЧАЛО запроса (ТОЛЬКО ЗАВИСИМЫЕ ДАННЫЕ).
+        public string Body { get; set; }                     // ТЕЛО запроса (ТОЛЬКО НЕЗАВИСИМЫЕ ДАННЫЕ). Каждый элемент батча подставляет свои данные в Body, затем все элементы Конкатенируются.
+        public string Footer { get; set; }                   // КОНЕЦ ЗАПРОСА (ТОЛЬКО ЗАВИСИМЫЕ ДАННЫЕ).
     }
 
 
