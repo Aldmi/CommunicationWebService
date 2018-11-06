@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using Exchange.Base.DataProviderAbstract;
 using Exchange.Base.Model;
-using InputDataModel.Autodictor.ByRuleDataProviders;
-using InputDataModel.Autodictor.ManualDataProviders;
+using InputDataModel.Autodictor.DataProviders.ByRuleDataProviders;
+using InputDataModel.Autodictor.DataProviders.ManualDataProviders;
 using InputDataModel.Autodictor.Model;
 
 namespace WebServer.AutofacModules
