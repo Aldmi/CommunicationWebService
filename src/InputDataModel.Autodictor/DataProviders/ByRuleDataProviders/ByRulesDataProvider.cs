@@ -171,7 +171,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
                     continue;
                 }
                 //ДАННЫЕ--------------------------------------------------------------
-                var filterItems = FilteredAndOrderedAndTakesItems(inData.Datas, "", "", 10)?.ToList();
+                var filterItems = FilteredAndOrderedAndTakesItems(inData.Datas, rule.Option.WhereFilter, rule.Option.OrderBy, rule.Option.TakeItems)?.ToList();
                 if (filterItems == null || filterItems.Count == 0)
                     continue;
 
