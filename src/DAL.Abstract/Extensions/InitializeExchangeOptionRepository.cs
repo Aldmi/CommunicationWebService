@@ -42,7 +42,7 @@ namespace DAL.Abstract.Extensions
                                     WhereFilter = "true",
                                     OrderBy = "Id",
                                     //OrderBy = "ArrivalTime",
-                                    TakeItems = 2,
+                                    TakeItems = 1, //2
                                     
                                     ViewRules = new List<ViewRuleOption>
                                     {
@@ -55,15 +55,15 @@ namespace DAL.Abstract.Extensions
                                             RequestOption = new RequestOption{Header = "{adress}", Body = "01{adress}0502{Station}", Footer = "{CrcXor16}", MaxLenght = 1000, Format = "Windows-1251"},
                                             ResponseOption = new ResponseOption{Body = "01050A", MaxLenght = 2000, TimeRespone = 3000, Format = "X"}
                                         },
-                                        new ViewRuleOption
-                                        {
-                                            Id = 2,
-                                            StartPosition = 1,
-                                            Count = 1,
-                                            BatchSize = 1000,
-                                            RequestOption = new RequestOption{Header = "{adress}", Body = "01{adress}05026{ArrivalTime}2158{Station}", Footer = "{CrcXor16}", MaxLenght = 1000, Format = "Windows-1251"},
-                                            ResponseOption = new ResponseOption{Body = "01050A0606", MaxLenght = 2000, TimeRespone = 3000, Format = "X"}
-                                        }
+                                        //new ViewRuleOption
+                                        //{
+                                        //    Id = 2,
+                                        //    StartPosition = 1,
+                                        //    Count = 1,
+                                        //    BatchSize = 1000,
+                                        //    RequestOption = new RequestOption{Header = "{adress}", Body = "01{adress}05026{ArrivalTime}2158{Station}", Footer = "{CrcXor16}", MaxLenght = 1000, Format = "Windows-1251"},
+                                        //    ResponseOption = new ResponseOption{Body = "01050A0606", MaxLenght = 2000, TimeRespone = 3000, Format = "X"}
+                                        //}
                                     }
                                 }
                             }

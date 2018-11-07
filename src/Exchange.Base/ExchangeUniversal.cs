@@ -197,6 +197,16 @@ namespace Exchange.Base
         /// </summary>
         public void SendCycleTimeData(IEnumerable<TIn> inData)
         {
+            //TODO: В текущей реализации Цикл. Отправки данных, данные переданные в inData могут пропасть.
+            //TODO: Т.к. сохраняется только одно (последнее занчение) для отправки.
+            //TODO: Если на медленном трансопрте чато менять данные для цикл отпр, то будет потеря данных.
+            //TODO: Можно сделать Очередь отправки данных (только данных, не команд как в OneTimeActionAsync)
+            //TODO: В SendCycleTimeData данные не перезаписывают одну переменную _data4CycleFunc, а копяться в очереди.
+            //TODO: В CycleTimeActionAsync разматывается очередь по принципу 
+            //TODO: "если элементов > 1, то TryDequeue элемент из очереди и отправляем его"
+            //TODO: "если элементов == 1 элемента, то TryPeek элемент из очереди и отправляем его"
+            //TODO: В устоявщемся режиме работы должен быть всегда 1 элемент.
+            //TODO: Вести контроль переполнения очереди ("если элементов > 100, то элементы не добавлять и сообщть от этом в возвращаемом занчении SendCycleTimeData").
             if (inData != null)
             {
                 var dataWrapper = new InDataWrapper<TIn> { Datas = inData.ToList() };
@@ -213,7 +223,7 @@ namespace Exchange.Base
         /// Однократно вызываемая функция.
         /// </summary>
         protected async Task OneTimeActionAsync(CancellationToken ct)
-        {    
+        {
             if (_inDataQueue.TryDequeue(out var inData))
             {
                 var transportResponseWrapper = await SendingPieceOfData(inData, ct);
@@ -253,7 +263,7 @@ namespace Exchange.Base
                     status = _transport.DataExchangeAsync(_dataProvider.TimeRespone, provider, ct).GetAwaiter().GetResult();
                     switch (status)
                     {
-                        //ОБМЕН ЗАВЕРЩЕН ПРАВИЛЬНО.
+                        //ОБМЕН ЗАВЕРШЕН ПРАВИЛЬНО.
                         case StatusDataExchange.End:
                             IsConnect = true;
                             _countTryingTakeData = 0;
@@ -263,7 +273,7 @@ namespace Exchange.Base
                             transportResp.IsOutDataValid = provider.OutputData.IsOutDataValid;
                             break;
 
-                        //ОБМЕН ЗАВЕРЩЕН КРИТИЧЕСКИ НЕ ВЕРНО. ПРОВЕРКА НЕОБХОДИМОСТИ ПЕРЕОТКРЫТИЯ СОЕДИНЕНИЯ.
+                        //ОБМЕН ЗАВЕРЩЕН КРИТИЧЕСКИ НЕ ПРАВИЛЬНО. ПРОВЕРКА НЕОБХОДИМОСТИ ПЕРЕОТКРЫТИЯ СОЕДИНЕНИЯ.
                         case StatusDataExchange.EndWithTimeoutCritical:
                         case StatusDataExchange.EndWithErrorCritical:
                             CycleReOpened(); //TODO: отладить что будет после с обменом.
