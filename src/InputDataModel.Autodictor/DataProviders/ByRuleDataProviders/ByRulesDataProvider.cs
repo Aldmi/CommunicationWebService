@@ -171,13 +171,13 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
                     continue;
                 }
                 //ДАННЫЕ--------------------------------------------------------------
-                var filterItems = FilteredAndOrderedAndTakesItems(inData.Datas, rule.Option.WhereFilter, rule.Option.OrderBy, rule.Option.TakeItems)?.ToList();
-                if (filterItems == null || filterItems.Count == 0)
+                var takesItems = FilteredAndOrderedAndTakesItems(inData.Datas, rule.Option.WhereFilter, rule.Option.OrderBy, rule.Option.TakeItems)?.ToList();
+                if (takesItems == null || takesItems.Count == 0)
                     continue;
 
                 foreach (var viewRule in rule.ViewRules)
                 {
-                    foreach (var request in viewRule.GetRequestString(filterItems))
+                    foreach (var request in viewRule.GetRequestString(takesItems))
                     {
                         if(request == null) //правило отображения не подходит под ДАННЫЕ
                           continue;

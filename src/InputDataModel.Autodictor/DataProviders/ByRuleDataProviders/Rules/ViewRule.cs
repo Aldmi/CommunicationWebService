@@ -157,6 +157,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
         /// </summary>
         private string MakeBodySectionIndependentInserts(string body, AdInputType uit, int? currentRow)
         {
+            var lang = uit.Lang;
             if (body.Contains("}"))                                                           //если указанны переменные подстановки
             {
                 var subStr = body.Split('}');
@@ -171,7 +172,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                     switch (subvar)
                     {
                         case "TypeName":
-                            var ruTypeTrain = uit.TypeTrain;
+                            var ruTypeTrain = uit.TrainType;
                             var formatStr = string.Format(replaseStr.Replace("TypeName", "0"), ruTypeTrain);
                             resStr.Append(formatStr);
                             break;
@@ -205,7 +206,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                             break;
 
                         case nameof(uit.Event):
-                            formatStr = string.Format(replaseStr.Replace(nameof(uit.Event), "0"), string.IsNullOrEmpty(uit.Event) ? " " : uit.Event);
+                            formatStr = string.Format(replaseStr.Replace(nameof(uit.Event), "0"), string.IsNullOrEmpty(uit.Event.NameRu) ? " " : uit.Event);
                             resStr.Append(formatStr);
                             break;
 
@@ -731,11 +732,13 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
               5. Получилась сумарная строка в которой могли остаться КОНСТАНТНЫЕ СИМВОЛЫ STX, ETX, они заменяются уже при преобразовании строки
              */
 
-
             return String.Empty;
         }
 
 
+        /// <summary>
+        /// Математическое вычисление формулы с участием переменной rowNumber
+        /// </summary>
         private string CalculateMathematicFormat(string str, int row)
         {
             var matchString = Regex.Match(str, "\\{\\((.*)\\)\\:(.*)\\}").Groups[1].Value;
@@ -746,10 +749,9 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
             var func = expr.ToLambda<int>();
             var arithmeticResult = func();
             var reultStr = str.Replace("(" + matchString + ")", "0");
-            reultStr = String.Format(reultStr, arithmeticResult);
+            reultStr = string.Format(reultStr, arithmeticResult);
             return reultStr;
         }
-
 
         #endregion
     }
