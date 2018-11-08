@@ -17,7 +17,7 @@
 
         #region Methode
 
-        public string GetEventName(Lang lang)
+        public string GetName(Lang lang)
         {
             switch (lang)
             {
@@ -29,7 +29,7 @@
             }
         }
 
-        public string GetEventNameAlias(Lang lang)
+        public string GetNameAlias(Lang lang)
         {
             switch (lang)
             {

@@ -34,8 +34,4 @@ namespace InputDataModel.Autodictor.Model
         public Note Note { get; set; }                               //Примечание.
         public DaysFollowing DaysFollowing { get; set; }             //Дни следования
     }
-
-
-
-
 }

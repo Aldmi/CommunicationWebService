@@ -1,6 +1,4 @@
-﻿using InputDataModel.Autodictor.Entities;
-
-namespace InputDataModel.Autodictor.Model
+﻿namespace InputDataModel.Autodictor.Entities
 {
     public class EventTrain : TrainBase
     {   

@@ -172,8 +172,8 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                     switch (subvar)
                     {
                         case "TypeName":
-                            var ruTypeTrain = uit.TrainType;
-                            var formatStr = string.Format(replaseStr.Replace("TypeName", "0"), ruTypeTrain);
+                            var typeTrain = uit.TrainType.GetName(lang);
+                            var formatStr = string.Format(replaseStr.Replace("TypeName", "0"), typeTrain);
                             resStr.Append(formatStr);
                             break;
 
@@ -206,15 +206,16 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                             break;
 
                         case nameof(uit.Event):
-                            formatStr = string.Format(replaseStr.Replace(nameof(uit.Event), "0"), string.IsNullOrEmpty(uit.Event.NameRu) ? " " : uit.Event);
+                            var eventTrain = uit.Event?.GetName(lang);
+                            formatStr = string.Format(replaseStr.Replace(nameof(uit.Event), "0"), string.IsNullOrEmpty(eventTrain) ? " " : eventTrain);
                             resStr.Append(formatStr);
                             break;
 
                         case nameof(uit.Addition):
-                             formatStr = string.Format(replaseStr.Replace(nameof(uit.Addition), "0"), !string.IsNullOrEmpty(uit.Addition) ? uit.Addition : " ");
-                             resStr.Append(formatStr);
+                            var addition = uit.Addition?.GetName(lang);
+                            formatStr = string.Format(replaseStr.Replace(nameof(uit.Addition), "0"), !string.IsNullOrEmpty(addition) ? addition : " ");
+                            resStr.Append(formatStr);
                             break;
-
 
                         case "StationsCut":
                             //var stationsCut = " ";
@@ -237,29 +238,32 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                             break;
 
                         case nameof(uit.StationArrival):
-                            var stationArrival = uit.StationArrival?.NameRu ?? " ";
+                            var stationArrival = uit.StationArrival?.GetName(lang) ?? " ";
                             formatStr = string.Format(replaseStr.Replace(nameof(uit.StationArrival), "0"), stationArrival);
                             resStr.Append(formatStr);
                             break;
 
                         case nameof(uit.StationDeparture):
-                            var stationDeparture = uit.StationDeparture?.NameRu ?? " ";
+                            var stationDeparture = uit.StationDeparture?.GetName(lang) ?? " ";
                             formatStr = string.Format(replaseStr.Replace(nameof(uit.StationDeparture), "0"), stationDeparture);
                             resStr.Append(formatStr);
                             break;
 
                         case nameof(uit.Note):
-                            formatStr = string.Format(replaseStr.Replace(nameof(uit.Note), "0"), string.IsNullOrEmpty(uit.Note) ? " " : uit.Note);
+                            var note = uit.Note?.GetName(lang);
+                            formatStr = string.Format(replaseStr.Replace(nameof(uit.Note), "0"), string.IsNullOrEmpty(note) ? " " : note);
                             resStr.Append(formatStr);
                             break;
 
-                        case nameof(uit.DaysFollowingAlias):
-                            formatStr = string.Format(replaseStr.Replace(nameof(uit.DaysFollowingAlias), "0"), string.IsNullOrEmpty(uit.DaysFollowingAlias) ? " " : uit.DaysFollowingAlias);
+                        case "DaysFollowing":
+                            var daysFollowing = uit.DaysFollowing?.GetName(lang);
+                            formatStr = string.Format(replaseStr.Replace("DaysFollowing", "0"), string.IsNullOrEmpty(daysFollowing) ? " " : daysFollowing);
                             resStr.Append(formatStr);
                             break;
 
-                        case nameof(uit.DaysFollowing):
-                            formatStr = string.Format(replaseStr.Replace(nameof(uit.DaysFollowing), "0"), string.IsNullOrEmpty(uit.DaysFollowing) ? " " : uit.DaysFollowing);
+                        case "DaysFollowingAlias":
+                            var daysFollowingAlias = uit.DaysFollowing?.GetNameAlias(lang);
+                            formatStr = string.Format(replaseStr.Replace("DaysFollowingAlias", "0"), string.IsNullOrEmpty(daysFollowingAlias) ? " " : daysFollowingAlias);
                             resStr.Append(formatStr);
                             break;
 
@@ -270,7 +274,6 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                                 resStr.Append(formatStr);
                                 continue;
                             }
-
                             if (mathStr.Contains(":")) //если указзанн формат времени
                             {
                                 var dateFormat = s.Split(':')[1]; //без закр. скобки
@@ -320,19 +323,46 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                         //    resStr.Append(formatStr);
                         //    break;
 
+                        case "1":
+                            break;
+
+                        case "2":
+                            break;
+
+                        case "3":
+                            break;
+
                         case "4":
                             break;
 
-                        case "6":
+                        case "Hour":
+                            formatStr = string.Format(replaseStr.Replace("Hour", "0"), DateTime.Now.Hour);
+                            resStr.Append(formatStr);
                             break;
 
-                        case "7":
+                        case "Minute":
+                            formatStr = string.Format(replaseStr.Replace("Minute", "0"), DateTime.Now.Minute);
+                            resStr.Append(formatStr);
                             break;
 
-                        case "8":
+                        case "Second":
+                            formatStr = string.Format(replaseStr.Replace("Second", "0"), DateTime.Now.Second);
+                            resStr.Append(formatStr);
                             break;
 
-                        case "9":
+                        case "SyncTInSec":
+                            var secTime = DateTime.Now.Hour * 3600 + DateTime.Now.Minute * 60 + DateTime.Now.Second;
+                            if (mathStr.Contains(":")) //если указан формат времени
+                            {
+                                var dateFormat = s.Split(':')[1]; //без закр. скобки
+                                formatStr = string.Format(replaseStr.Replace("SyncTInSec", "0"), (secTime == 0) ? " " : secTime.ToString(dateFormat));
+                                resStr.Append(formatStr);
+                            }
+                            else
+                            {
+                                formatStr = string.Format(replaseStr.Replace("SyncTInSec", "0"), (secTime == 0) ? " " : secTime.ToString(CultureInfo.InvariantCulture));
+                                resStr.Append(formatStr);
+                            }
                             break;
 
                         default:
@@ -344,11 +374,15 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                                     resStr.Append(formatStr);
                                 }
                             }
+                            else
+                            {
+                                //Добавим в неизменном виде спецификаторы байтовой информации.
+                                resStr.Append(replaseStr);
+                            }
                             break;
                     }
 
-
-
+          
                     //if (subvar == nameof(uit.AddressDevice))
                     //{
                     //    if (mathStr.Contains(":")) //если указанн формат числа
