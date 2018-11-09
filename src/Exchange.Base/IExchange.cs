@@ -48,7 +48,7 @@ namespace Exchange.Base
         #region ExchangeRx
         ISubject<ConnectChangeRxModel> IsConnectChangeRx { get; }                                       //СОБЫТИЕ СМЕНЫ КОННЕКТА IsConnect. МЕНЯЕТСЯ В ПРОЦЕССЕ ОБМЕНА.
         ISubject<LastSendDataChangeRxModel<T>> LastSendDataChangeRx { get; }                            //СОБЫТИЕ ИЗМЕНЕНИЯ ПОСЛЕД ОТПРАВЕЛННЫХ ДАННЫХ LastSendData.
-        ISubject<OutResponseDataWrapper<T>> ResponseChangeRx { get; }                                   //СОБЫТИЕ ОТВЕТА НА ПЕРЕДАННЫЮ ПОРЦИЮ ДАННЫХ. 
+        ISubject<ResponsePieceOfDataWrapper<T>> ResponseChangeRx { get; }                                   //СОБЫТИЕ ОТВЕТА НА ПЕРЕДАННЫЮ ПОРЦИЮ ДАННЫХ. 
         #endregion
 
 

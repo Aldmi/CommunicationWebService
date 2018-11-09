@@ -86,7 +86,7 @@ namespace Exchange.Base
         #region ExchangeRx
         public ISubject<ConnectChangeRxModel> IsConnectChangeRx { get; } = new Subject<ConnectChangeRxModel>();
         public ISubject<LastSendDataChangeRxModel<TIn>> LastSendDataChangeRx { get; } = new Subject<LastSendDataChangeRxModel<TIn>>();
-        public ISubject<OutResponseDataWrapper<TIn>> ResponseChangeRx { get; } = new Subject<OutResponseDataWrapper<TIn>>();
+        public ISubject<ResponsePieceOfDataWrapper<TIn>> ResponseChangeRx { get; } = new Subject<ResponsePieceOfDataWrapper<TIn>>();
         #endregion
 
 
@@ -250,9 +250,9 @@ namespace Exchange.Base
         /// </summary>
         /// <returns>Ответ на отправку порции данных</returns>
         private int _countTryingTakeData = 0;
-        private async Task<OutResponseDataWrapper<TIn>> SendingPieceOfData(InDataWrapper<TIn> inData, CancellationToken ct)
+        private async Task<ResponsePieceOfDataWrapper<TIn>> SendingPieceOfData(InDataWrapper<TIn> inData, CancellationToken ct)
         {
-            var transportResponseWrapper = new OutResponseDataWrapper<TIn>();
+            var transportResponseWrapper = new ResponsePieceOfDataWrapper<TIn>();
             //ПОДПИСКА НА СОБЫТИЕ ОТПРАВКИ ПОРЦИИ ДАННЫХ
             var subscription = _dataProvider.RaiseSendDataRx.Subscribe(provider =>
             {

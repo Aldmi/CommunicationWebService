@@ -206,14 +206,14 @@ namespace DeviceForExchange
            //_eventBus.Publish(isOpenChangeRxModel);  //Публикуем событие на общую шину данных       
         }
 
-        private async void TransportResponseChangeRxEventHandler(OutResponseDataWrapper<TIn> outResponseDataWrapper)
+        private async void TransportResponseChangeRxEventHandler(ResponsePieceOfDataWrapper<TIn> responsePieceOfDataWrapper)
         {
             var settings= new JsonSerializerSettings
             {
                 Formatting = Formatting.Indented,             //Отступы дочерних элементов 
                 NullValueHandling = NullValueHandling.Ignore  //Игнорировать пустые теги
             };
-            var jsonResp = JsonConvert.SerializeObject(outResponseDataWrapper, settings);
+            var jsonResp = JsonConvert.SerializeObject(responsePieceOfDataWrapper, settings);
             await Send2Produder(Option.TopicName4MessageBroker, $"ResponseDataWrapper = {jsonResp}");
         }
 

@@ -8,6 +8,7 @@ using DAL.Abstract.Entities.Options.Exchange.ProvidersOption;
 using InputDataModel.Autodictor.Entities;
 using InputDataModel.Autodictor.Model;
 using NCalc;
+using Shared.CrcCalculate;
 using Shared.Extensions;
 
 namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
@@ -151,11 +152,28 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                     var mathStr = Regex.Match(replaseStr, @"{(.*)}").Groups[1].Value;
                     var subvar = mathStr.Split(':').First();
                     int parseVal;
+                    string formatStr;
                     switch (subvar)
                     {
+                        case "AddressDevice":
+                            if (mathStr.Contains(":")) //если указанн формат числа
+                            {
+                                if (int.TryParse(_addressDevice, out parseVal))
+                                {
+                                    formatStr = string.Format(replaseStr.Replace("AddressDevice", "0"), parseVal);
+                                    resStr.Append(formatStr);
+                                }
+                            }
+                            else
+                            {
+                                 formatStr = string.Format(replaseStr.Replace("AddressDevice", "0"), _addressDevice);
+                                resStr.Append(formatStr);
+                            }
+                            break;
+
                         case "TypeName":
                             var typeTrain = uit.TrainType.GetName(lang);
-                            var formatStr = string.Format(replaseStr.Replace("TypeName", "0"), typeTrain);
+                            formatStr = string.Format(replaseStr.Replace("TypeName", "0"), typeTrain);
                             resStr.Append(formatStr);
                             break;
 
@@ -393,32 +411,18 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
         private string MakeDependentInserts(string str)
         {
             /*
-              1. Вставить AddressDevice
+              1. Убрать константные символы STX,RTX
               2. Вычислить NumberOfCharacters и вставить.
               3. Вычислить NByte (кол-во байт между {NByte} и {CRC}) и вставить.
               4. Вычислить CRC и вставвить
               5. Получилась сумарная строка в которой могли остаться КОНСТАНТНЫЕ СИМВОЛЫ STX, ETX, они заменяются уже при преобразовании строки
-             */
+            */
+            var strWithoutConstantCharacters = str.Replace("STX", string.Empty).Replace("ETX", string.Empty);
+            str = MakeNumberOfCharacters(strWithoutConstantCharacters);
+            str = MakeNByte(str);
+            str = MakeCrc(str);
 
-            //if (subvar == nameof(uit.AddressDevice))
-            //{
-            //    if (mathStr.Contains(":")) //если указанн формат числа
-            //    {
-            //        if (int.TryParse(uit.AddressDevice, out parseVal))
-            //        {
-            //            var formatStr = string.Format(replaseStr.Replace(nameof(uit.AddressDevice), "0"), parseVal);
-            //            resStr.Append(formatStr);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        var formatStr = string.Format(replaseStr.Replace(nameof(uit.AddressDevice), "0"), uit.AddressDevice);
-            //        resStr.Append(formatStr);
-            //    }
-            //    continue;
-            //}
-
-            return String.Empty;
+            return str;
         }
 
 
@@ -476,6 +480,125 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
             reultStr = string.Format(reultStr, arithmeticResult);
             return reultStr;
         }
+
+
+        /// <summary>
+        /// Заменить все переменные NumberOfCharacters.
+        /// Вычислить N символов след. за NumberOfCharacters в кавычках
+        /// </summary>
+        private string MakeNumberOfCharacters(string str)
+        {
+            if (str.Contains("}"))                                                           //если указанны переменные подстановки
+            {
+                var subStr = str.Split('}');
+                StringBuilder resStr = new StringBuilder();
+                for (var index = 0; index < subStr.Length; index++)
+                {
+                    var s = subStr[index];
+                    var replaseStr = (s.Contains("{")) ? (s + "}") : s;
+                    //Подсчет кол-ва символов
+                    if (replaseStr.Contains("NumberOfCharacters"))
+                    {
+                        var targetStr = (subStr.Length > (index + 1)) ? subStr[index + 1] : string.Empty;
+                        if (Regex.Match(targetStr, "\\\"(.*)\"").Success) //
+                        {
+                            var matchString = Regex.Match(targetStr, "\\\"(.*)\\\"").Groups[1].Value;
+                            if (!string.IsNullOrEmpty(matchString))
+                            {
+                                var lenght = matchString.TrimEnd('\\').Length;
+                                var dateFormat = Regex.Match(replaseStr, "\\{NumberOfCharacters:(.*)\\}").Groups[1].Value;
+                                var formatStr = !string.IsNullOrEmpty(dateFormat) ?
+                                    string.Format(replaseStr.Replace("NumberOfCharacters", "0"), lenght.ToString(dateFormat)) :
+                                    string.Format(replaseStr.Replace("NumberOfCharacters", "0"), lenght);
+                                resStr.Append(formatStr);
+                            }
+                        }
+                        continue;
+                    }
+                    //Добавим в неизменном виде спецификаторы байтовой информации.
+                    resStr.Append(replaseStr);
+                }
+                return resStr.ToString().Replace("\\\"", string.Empty);
+            }
+            return str;
+        }
+
+
+        private string MakeNByte(string str)
+        {
+            var requestFillBodyWithoutConstantCharacters = str.Replace("STX", string.Empty).Replace("ETX", string.Empty);
+
+            //ВЫЧИСЛЯЕМ NByte---------------------------------------------------------------------------
+            int lenght = 0;
+            string matchString = null;
+            if (Regex.Match(requestFillBodyWithoutConstantCharacters, "{Nbyte(.*)}(.*){CRC(.*)}").Success) //вычислили длинну строки между Nbyte и CRC
+            {
+                matchString = Regex.Match(requestFillBodyWithoutConstantCharacters, "{Nbyte(.*)}(.*){CRC(.*)}").Groups[2].Value;
+                lenght = matchString.Length;
+            }
+            else if (Regex.Match(requestFillBodyWithoutConstantCharacters, "{Nbyte(.*)}(.*)").Success)//вычислили длинну строки от Nbyte до конца строки
+            {
+                matchString = Regex.Match(requestFillBodyWithoutConstantCharacters, "{Nbyte(.*)}(.*)").Groups[1].Value;
+                lenght = matchString.Length;
+            }
+
+            ////ОГРАНИЧНИЕ ДЛИННЫ ПОСЫЛКИ------------------------------------------------------------------
+            //var limetedStr = requestFillBodyWithoutConstantCharacters;
+            //if (RequestRule.MaxLenght.HasValue && lenght >= RequestRule.MaxLenght)
+            //{
+            //    var removeCount = lenght - RequestRule.MaxLenght.Value;
+            //    limetedStr = matchString.Remove(RequestRule.MaxLenght.Value, removeCount);
+            //    lenght = limetedStr.Length;
+            //    requestFillBodyWithoutConstantCharacters =
+            //        requestFillBodyWithoutConstantCharacters.Replace(matchString, limetedStr);
+            //}
+
+            //ЗАПОНЯЕМ ВСЕ СЕКЦИИ ДО CRC
+            var subStr = requestFillBodyWithoutConstantCharacters.Split('}');
+            StringBuilder resStr = new StringBuilder();
+            foreach (var s in subStr)
+            {
+                var replaseStr = (s.Contains("{")) ? (s + "}") : s;
+                if (replaseStr.Contains("Nbyte"))
+                {
+                    var formatStr = string.Format(replaseStr.Replace("Nbyte", "0"), lenght);
+                    resStr.Append(formatStr);
+                }
+                else
+                {
+                    resStr.Append(replaseStr);
+                }
+            }
+            return resStr.ToString();
+        }
+
+
+        private string MakeCrc(string str)
+        {
+            var format = Option.RequestOption.Format;
+            var matchString = Regex.Match(str, "(.*){CRC(.*)}").Groups[1].Value;
+            byte[] xorBytes;
+
+            //TODO: Добавить в Shared метод преобразования строки к массиву байцт по формату
+            if (format == "HEX")
+            {
+                xorBytes = new byte[10]; //DEBUG
+
+                //Распарсить строку matchString в масив байт как она есть. 0203АА96 ...
+            }
+            else
+            {
+                xorBytes = Encoding.GetEncoding(format).GetBytes(matchString);
+            }
+            //вычислить CRC по правилам XOR
+            if (str.Contains("CRCXor"))
+            {
+                byte xor = CrcCalc.CalcXor(xorBytes);
+                str = string.Format(str.Replace("CRCXor", "0"), xor);
+            }
+            return str;
+        }
+
 
         #endregion
     }
