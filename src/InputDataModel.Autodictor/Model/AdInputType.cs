@@ -24,8 +24,8 @@ namespace InputDataModel.Autodictor.Model
         public Station  StationWhereTo { get; set; }                  //ближайшая станция после текущей
         public DirectionStation DirectionStation { get; set; }       //Направление.
 
-        public DateTime ArrivalTime { get; set; }
-        public DateTime DepartureTime { get; set; }
+        public DateTime? ArrivalTime { get; set; }
+        public DateTime? DepartureTime { get; set; }
         public DateTime? DelayTime { get; set; }                     //Время задержки (прибытия или отправления поезда)
         public DateTime ExpectedTime { get; set; }                   //Ожидаемое время (Время + Время задержки)
         public TimeSpan? StopTime { get; set; }                      //время стоянки (для транзитов: Время отпр - время приб)

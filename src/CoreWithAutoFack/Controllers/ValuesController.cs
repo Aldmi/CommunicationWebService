@@ -131,61 +131,63 @@ namespace WebServer.Controllers
             //};
 
 
-            var inData = new List<InputData<AdInputType>> //коллекция данных для уст-ва.
-                {
-                    new InputData<AdInputType>
-                    {
-                        DeviceName = "Device_1",
-                        ExchangeName = "Exchange_1",
-                        Data = new List<AdInputType>
-                        {
-                            new AdInputType
-                            {
-                                Id = 1,
-                                Event = "ПРИБ",
-                                NumberOfTrain = "562",
-                                PathNumber = "2",
-                                StationArrival = new Station
-                                {
-                                    CodeEsr = 521,
-                                    CodeExpress = 100,
-                                    NameRu = "Москва",
-                                },
-                                DaysFollowing = "ЕЖ",
-                                TrainType = TrainType.Passenger,
-                                VagonDirection = VagonDirection.FromTheHead,
-                                ExpectedTime = DateTime.Now.AddHours(10),
-                                DelayTime = DateTime.Now.AddHours(8),
-                                StopTime = TimeSpan.FromHours(10)
-                            },
-                            new AdInputType
-                            {
-                                Id = 2,
-                                Event = "СТОЯНКА",
-                                NumberOfTrain = "685",
-                                PathNumber = "2",
-                                StationArrival = new Station
-                                {
-                                    CodeEsr = 521,
-                                    CodeExpress = 100,
-                                    NameRu = "Рязань",
-                                },
-                                StationDeparture = new Station
-                                {
-                                    CodeEsr = 530,
-                                    CodeExpress = 101,
-                                    NameRu = "Питер",
-                                },
-                                TrainType = TrainType.Suburban,
-                                VagonDirection = VagonDirection.FromTheTail,
-                                ExpectedTime = DateTime.Now.AddHours(36),
-                                DelayTime = DateTime.Now.AddHours(8),
-                                StopTime = TimeSpan.FromHours(10)
-                            }
-                        }
-                    }
-                };
+            //TODO: заменить на РЕАЛЬНый тестовый запрос
+            //var inData = new List<InputData<AdInputType>> //коллекция данных для уст-ва.
+            //    {
+            //        new InputData<AdInputType>
+            //        {
+            //            DeviceName = "Device_1",
+            //            ExchangeName = "Exchange_1",
+            //            Data = new List<AdInputType>
+            //            {
+            //                new AdInputType
+            //                {
+            //                    Id = 1,
+            //                    Event = "ПРИБ",
+            //                    NumberOfTrain = "562",
+            //                    PathNumber = "2",
+            //                    StationArrival = new Station
+            //                    {
+            //                        CodeEsr = 521,
+            //                        CodeExpress = 100,
+            //                        NameRu = "Москва",
+            //                    },
+            //                    DaysFollowing = "ЕЖ",
+            //                    TrainType = TrainType.Passenger,
+            //                    VagonDirection = VagonDirection.FromTheHead,
+            //                    ExpectedTime = DateTime.Now.AddHours(10),
+            //                    DelayTime = DateTime.Now.AddHours(8),
+            //                    StopTime = TimeSpan.FromHours(10)
+            //                },
+            //                new AdInputType
+            //                {
+            //                    Id = 2,
+            //                    Event = "СТОЯНКА",
+            //                    NumberOfTrain = "685",
+            //                    PathNumber = "2",
+            //                    StationArrival = new Station
+            //                    {
+            //                        CodeEsr = 521,
+            //                        CodeExpress = 100,
+            //                        NameRu = "Рязань",
+            //                    },
+            //                    StationDeparture = new Station
+            //                    {
+            //                        CodeEsr = 530,
+            //                        CodeExpress = 101,
+            //                        NameRu = "Питер",
+            //                    },
+            //                    TrainType = TrainType.Suburban,
+            //                    VagonDirection = VagonDirection.FromTheTail,
+            //                    ExpectedTime = DateTime.Now.AddHours(36),
+            //                    DelayTime = DateTime.Now.AddHours(8),
+            //                    StopTime = TimeSpan.FromHours(10)
+            //                }
+            //            }
+            //        }
+            //    };
 
+            var inData = new List<InputData<AdInputType>>();
             return inData;
         }
 
