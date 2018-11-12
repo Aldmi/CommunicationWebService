@@ -37,7 +37,7 @@ namespace DAL.Abstract.Extensions
                                 new RuleOption
                                 {
                                     Name = "Rule_1",
-                                    AddressDevice = "1",
+                                    AddressDevice = "10",
                                     //WhereFilter = "(TypeTrain == \"Suburban\") && (PathNumber == \"2\" || PathNumber == \"3\" || PathNumber == \"4\")",
                                     WhereFilter = "true",
                                     OrderBy = "Id",

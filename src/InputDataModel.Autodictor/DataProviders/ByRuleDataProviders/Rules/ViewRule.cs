@@ -15,6 +15,8 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
 {
     /// <summary>
     /// Правило отображения порции даных
+    /// STX - \u0002
+    /// RTX - \u0003
     /// </summary>
     public class ViewRule
     {
@@ -97,21 +99,22 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
             var items = batch.ToList();
 
             //DEBUG----------------------------------------------------
-            var startSection = "STX{AddressDevice:X2}{Nbyte:X2}";
+            var startSection = "\u0002{AddressDevice:X2}{Nbyte:D2}";
 
-            var body = "%StationArr=???{NumberOfCharacters:X2}??? !!!\"{StationArrival}\"!!!" +
-                       "%TypeName=???{TypeName}???" +
-                       "%NumberOfTrain=???{NumberOfTrain}???" +
-                       "%PathNumber=???{PathNumber:D5}???" +
-                       "%Stations=???{Stations}???" +
-                       "%TArrival=???{TArrival:t}???" +
-                       "%01000018{(rowNumber*11-11):X3}" +
-                       "%StationDep=???{NumberOfCharacters:X2}??? !!!\"{StationDeparture}\"!!!" +
-                       "%StatC=???{NumberOfCharacters:X2}??? !!!\"{StationsCut}\"!!!" +
-                       "%DelayT= !!!{DelayTime}!!!" + 
-                       "%ExpectedT= !!!{ExpectedTime:t}!!!";
+            //var body = "%StationArr=???{NumberOfCharacters:X2}??? !!!\"{StationArrival}\"!!!" +
+            //           "%TypeName=???{TypeName}???" +
+            //           "%NumberOfTrain=???{NumberOfTrain}???" +
+            //           "%PathNumber=???{PathNumber:D5}???" +
+            //           "%Stations=???{Stations}???" +
+            //           "%TArrival=???{TArrival:t}???" +
+            //           "%01000018{(rowNumber*11-11):X3}" +
+            //           "%StationDep=???{NumberOfCharacters:X2}??? !!!\"{StationDeparture}\"!!!" +
+            //           "%StatC=???{NumberOfCharacters:X2}??? !!!\"{StationsCut}\"!!!" +
+            //           "%DelayT= !!!{DelayTime}!!!" + 
+            //           "%ExpectedT= !!!{ExpectedTime:t}!!!";
 
-            var endSection = " {CRCXor:X2}ETX";
+            var body = "%StationArr={NumberOfCharacters:D2} \\\"{StationArrival}\\\" NumberOfTr={NumberOfTrain}";
+            var endSection = " {CRCXor:X2}\u0003";
             //DEBUG----------------------------------------------------
 
             //ЗАПОЛНИТЬ ТЕЛО ЗАПРОСА (вставить НЕЗАВИСИМЫЕ данные)-------------------------------------------------------------------------
@@ -155,22 +158,6 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                     string formatStr;
                     switch (subvar)
                     {
-                        case "AddressDevice":
-                            if (mathStr.Contains(":")) //если указанн формат числа
-                            {
-                                if (int.TryParse(_addressDevice, out parseVal))
-                                {
-                                    formatStr = string.Format(replaseStr.Replace("AddressDevice", "0"), parseVal);
-                                    resStr.Append(formatStr);
-                                }
-                            }
-                            else
-                            {
-                                 formatStr = string.Format(replaseStr.Replace("AddressDevice", "0"), _addressDevice);
-                                resStr.Append(formatStr);
-                            }
-                            break;
-
                         case "TypeName":
                             var typeTrain = uit.TrainType.GetName(lang);
                             formatStr = string.Format(replaseStr.Replace("TypeName", "0"), typeTrain);
@@ -417,8 +404,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
               4. Вычислить CRC и вставвить
               5. Получилась сумарная строка в которой могли остаться КОНСТАНТНЫЕ СИМВОЛЫ STX, ETX, они заменяются уже при преобразовании строки
             */
-            var strWithoutConstantCharacters = str.Replace("STX", string.Empty).Replace("ETX", string.Empty);
-            str = MakeNumberOfCharacters(strWithoutConstantCharacters);
+            str = MakeAddressDeviceAndNumberOfCharacters(str);
             str = MakeNByte(str);
             str = MakeCrc(str);
 
@@ -486,7 +472,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
         /// Заменить все переменные NumberOfCharacters.
         /// Вычислить N символов след. за NumberOfCharacters в кавычках
         /// </summary>
-        private string MakeNumberOfCharacters(string str)
+        private string MakeAddressDeviceAndNumberOfCharacters(string str)
         {
             if (str.Contains("}"))                                                           //если указанны переменные подстановки
             {
@@ -496,6 +482,26 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                 {
                     var s = subStr[index];
                     var replaseStr = (s.Contains("{")) ? (s + "}") : s;
+                    //Вставка адреса ус-ва
+                    if (replaseStr.Contains("AddressDevice"))
+                    {
+                        var mathStr = Regex.Match(replaseStr, @"{(.*)}").Groups[1].Value;
+                        string formatStr;
+                        if (mathStr.Contains(":")) //если указанн формат числа
+                        {
+                            if (int.TryParse(_addressDevice, out var parseVal))
+                            {
+                                formatStr = string.Format(replaseStr.Replace("AddressDevice", "0"), parseVal);
+                                resStr.Append(formatStr);
+                            }
+                        }
+                        else
+                        {
+                            formatStr = string.Format(replaseStr.Replace("AddressDevice", "0"), _addressDevice);
+                            resStr.Append(formatStr);
+                        }
+                        continue;
+                    }
                     //Подсчет кол-ва символов
                     if (replaseStr.Contains("NumberOfCharacters"))
                     {
@@ -518,7 +524,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                     //Добавим в неизменном виде спецификаторы байтовой информации.
                     resStr.Append(replaseStr);
                 }
-                return resStr.ToString().Replace("\\\"", string.Empty);
+                return resStr.ToString().Replace("\\\"", string.Empty); //заменить \"
             }
             return str;
         }
