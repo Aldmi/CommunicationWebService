@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -102,27 +103,27 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
             //DEBUG----------------------------------------------------
             var startSection = "\u0002{AddressDevice:X2}{Nbyte:D2}";
 
-            //var body = "%StationArr= {NumberOfCharacters:X2} \"{StationArrival}\"" +
-            //           "%TypeName= {TypeName}" +
-            //           "%NumberOfTrain= {NumberOfTrain}" +
-            //           "%PathNumber= {PathNumber:D5}" +
-            //           "%Stations= {Stations} " +
-            //           "%TArrival= {TArrival:t}" +
-            //           "%rowNumb= {(rowNumber*11-11):X3}" +
-            //           "%StationDep= {NumberOfCharacters:X2} \"{StationDeparture}\"" +
-            //           "%StatC= {NumberOfCharacters:X2} \"{StationsCut}\"" +
-            //           "%DelayT= {DelayTime}" +
-            //           "%ExpectedT= {ExpectedTime:t}";
-
-            var body = "%StationArr= {NumberOfCharacters:X2} \\\"{StationArrival}\\\"" +
+            var body = "%StationArr= {NumberOfCharacters:X2} \"{StationArrival}\"" +
                        "%TypeName= {TypeName}" +
                        "%NumberOfTrain= {NumberOfTrain}" +
                        "%PathNumber= {PathNumber:D5}" +
                        "%Stations= {Stations} " +
                        "%TArrival= {TArrival:t}" +
-                       "%rowNumb= {((rowNumber*11-11)+5):X3}" +
-                       "%StationDep= {NumberOfCharacters:X2} \\\"{StationDeparture}\\\"" +
-                       "%StatC= {NumberOfCharacters:X2} \\\"{StationsCut}\\\"";
+                       "%rowNumb= {(rowNumber*11-11):X3}" +
+                       "%StationDep= {NumberOfCharacters:X2} \"{StationDeparture}\"" +
+                       "%StatC= {NumberOfCharacters:X2} \"{StationsCut}\"" +
+                       "%DelayT= {DelayTime}" +
+                       "%ExpectedT= {ExpectedTime:t}";
+
+            //var body = "%StationArr= {NumberOfCharacters:X2} \\\"{StationArrival}\\\"" +
+            //           "%TypeName= {TypeName}" +
+            //           "%NumberOfTrain= {NumberOfTrain}" +
+            //           "%PathNumber= {PathNumber:D5}" +
+            //           "%Stations= {Stations} " +
+            //           "%TArrival= {TArrival:t}" +
+            //           "%rowNumb= {((rowNumber*11-11)+5):X3}" +
+            //           "%StationDep= {NumberOfCharacters:X2} \\\"{StationDeparture}\\\"" +
+            //           "%StatC= {NumberOfCharacters:X2} \\\"{StationsCut}\\\"";
 
 
             //var body = "%StationArr={NumberOfCharacters:D2} \\\"{StationArrival}\\\" NumberOfTr={NumberOfTrain}";
@@ -157,7 +158,6 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
         /// </summary>
         private string MakeBodySectionIndependentInserts(string body, AdInputType uit, int currentRow)
         {
-            currentRow = 3;
             var lang = uit.Lang;
             //ЗАПОЛНИТЬ СЛОВАРЬ ВСЕМИ ВОЗМОЖНЫМИ ВАРИАНТАМИ ВСТАВОК
             var typeTrain = uit.TrainType?.GetName(lang);
@@ -184,29 +184,27 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                 [nameof(uit.Note)] = string.IsNullOrEmpty(note) ? " " : note,
                 ["DaysFollowing"] = string.IsNullOrEmpty(daysFollowing) ? " " : daysFollowing,
                 ["DaysFollowingAlias"] = string.IsNullOrEmpty(daysFollowingAlias) ? " " : daysFollowingAlias,
-
-                //[nameof(uit.DelayTime)] = uit.DelayTime,
-                //[nameof(uit.ExpectedTime)] = uit.ExpectedTime,
-                //["TArrival"] = uit.ArrivalTime,
-                //["TDepart"] = uit.ArrivalTime,
-
+                [nameof(uit.DelayTime)] = uit.DelayTime ?? DateTime.MinValue,
+                [nameof(uit.ExpectedTime)] = uit.ExpectedTime,
+                ["TArrival"] = uit.ArrivalTime ?? DateTime.MinValue,
+                ["TDepart"] = uit.DepartureTime ?? DateTime.MinValue,
                 ["Hour"] = DateTime.Now.Hour,
                 ["Minute"] = DateTime.Now.Minute,
                 ["Second"] = DateTime.Now.Second,
                 ["SyncTInSec"] = DateTime.Now.Hour * 3600 + DateTime.Now.Minute * 60 + DateTime.Now.Second,
                 ["rowNumber"] = currentRow
             };
-
+            //ВСТАВИТЬ ПЕРЕМЕННЫЕ ИЗ СЛОВАРЯ В body
             var resStr = HelperString.StringTemplateInsert(body, dict);
             return resStr;
         }
 
 
 
-        ///// <summary>
-        //    /// Первоначальная вставка НЕЗАВИСИМЫХ переменных
-        //    /// </summary>
-        //    private string MakeBodySectionIndependentInserts(string body, AdInputType uit, int? currentRow)
+        /// <summary>
+        /// Первоначальная вставка НЕЗАВИСИМЫХ переменных V2
+        /// </summary> 
+        //private string MakeBodySectionIndependentInserts(string body, AdInputType uit, int? currentRow)
         //{
         //    var lang = uit.Lang;
         //    if (body.Contains("}"))                                                           //если указанны переменные подстановки
@@ -377,7 +375,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
         //                    break;
 
         //                case "TDepart":
-        //                    if(!uit.DepartureTime.HasValue)
+        //                    if (!uit.DepartureTime.HasValue)
         //                        break;
         //                    var timeDepart = uit.DepartureTime.Value;
         //                    if (mathStr.Contains(":")) //если указанн формат времени
@@ -462,16 +460,13 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
         private string MakeDependentInserts(string str)
         {
             /*
-              1. Убрать константные символы STX,RTX
-              2. Вычислить NumberOfCharacters и вставить.
-              3. Вычислить NByte (кол-во байт между {NByte} и {CRC}) и вставить.
-              4. Вычислить CRC и вставвить
-              5. Получилась сумарная строка в которой могли остаться КОНСТАНТНЫЕ СИМВОЛЫ STX, ETX, они заменяются уже при преобразовании строки
+              1. Вставит AddressDevice и Вычислить NumberOfCharacters и вставить.
+              2. Вычислить NByte (кол-во байт между {NByte} и {CRC}) и вставить.
+              3. Вычислить CRC и вставить
             */
             str = MakeAddressDeviceAndNumberOfCharacters(str);
             str = MakeNByte(str);
             str = MakeCrc(str);
-
             return str;
         }
 

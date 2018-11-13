@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using NCalc;
 
@@ -17,27 +18,70 @@ namespace Shared.Helpers
         {
             string Evaluator(Match match)
             {
+                string res;
                 var key = match.Groups[1].Value;
                 if (dict.ContainsKey(key))
                 {
                     var replacement = dict[key];
                     var formatValue = match.Groups[2].Value;
-                    var format = "{0" + formatValue + "}";
-                    return string.Format(format, replacement);
+                    if (replacement is DateTime time)
+                    {
+                        res = DateTimeStrHandler(time, formatValue);
+                    }
+                    else
+                    {
+                        var format = "{0" + formatValue + "}";
+                        res = string.Format(format, replacement);
+                    }
                 }
+                else
                 if (key.Contains("rowNumber"))
                 {
                     var replacement = dict["rowNumber"];
                     var calcVal = CalculateMathematicFormat(key, (int)replacement);
                     var formatValue = match.Groups[2].Value;
                     var format = "{0" + formatValue + "}";
-                    return string.Format(format, calcVal);
+                    res = string.Format(format, calcVal);
                 }
-                return match.Value;
+                else
+                {
+                    res = match.Value;
+                }
+                return res;
             }
 
             var result = Regex.Replace(template, pattern, Evaluator);
             return result;
+        }
+
+
+        /// <summary>
+        /// Обработчик времени по формату
+        /// </summary>
+        private static string DateTimeStrHandler(DateTime val, string formatValue)
+        {
+            const string defaultStr = " ";
+            if (val == DateTime.MinValue)
+                return defaultStr;
+
+            object resVal;
+            if (formatValue.Contains("Sec")) //формат задан в секундах
+            {
+                resVal = (val.Hour * 3600 + val.Minute * 60);
+                formatValue = Regex.Match(formatValue, @"\((.*)\)").Groups[1].Value;
+            }
+            else
+            if (formatValue.Contains("Min")) //формат задан в секундах
+            {
+                resVal = (val.Hour * 60 + val.Minute);
+                formatValue = Regex.Match(formatValue, @"\((.*)\)").Groups[1].Value;
+            }
+            else
+            {
+                resVal = val;
+            }
+            var format = "{0" + formatValue + "}";
+            return string.Format(format, resVal);
         }
 
         /// <summary>
