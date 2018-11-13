@@ -11,6 +11,7 @@ using Exchange.Base.Model;
 using InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules;
 using InputDataModel.Autodictor.Model;
 using Shared.Extensions;
+using Shared.Helpers;
 
 namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
 {
@@ -73,23 +74,13 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
 
         public byte[] GetDataByte()
         {
-            StatusString.AppendLine($"GetDataByte. StringRequest= {_currentRequest.StringRequest}");
-
+            var stringRequset = _currentRequest.StringRequest;
             var format = _currentRequest.RequestOption.Format;
+            StatusString.AppendLine($"GetDataByte. StringRequest= {stringRequset}");
             //Преобразовываем КОНЕЧНУЮ строку в массив байт
-            byte[]  resultBuffer;
-            if (format == "HEX")
-            {
-                resultBuffer = new byte[100] ; //DEBUG
-                //Распарсить строку в масив байт как она есть. 0203АА96 ...
-            }
-            else
-            {
-                resultBuffer = Encoding.GetEncoding(format).GetBytes(_currentRequest.StringRequest).ToArray();
-            }
+            var resultBuffer= stringRequset.ConvertString2ByteArray(format);
             return resultBuffer;
         }
-
 
         /// <summary>
         /// Проверить ответ, Присвоить выходные данные.
@@ -98,11 +89,22 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
         /// <returns></returns>
         public bool SetDataByte(byte[] data)
         {
-            StatusString.AppendLine($"SetDataByte. Length= {data.Length}");
-
             var format = _currentRequest.ResponseOption.Format;
-            //_currentRule.Option.ResponseOption.Body
-            if (data?[0] == 0x10)
+            if (data == null)
+            {
+                IsOutDataValid = true;
+                OutputData = new ResponseDataItem<AdInputType>
+                {
+                    ResponseData = null,
+                    Encoding = format,
+                    IsOutDataValid = IsOutDataValid
+                };
+                return false;
+            }       
+            var stringResponse = data.ArrayByteToString(format);
+            StatusString.AppendLine($"SetDataByte. Length= {data.Length}  stringResponse= {stringResponse}");
+
+            if (stringResponse == _currentRequest.ResponseOption.Body)
             {
                 IsOutDataValid = true;
             }
@@ -113,11 +115,10 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
 
             OutputData = new ResponseDataItem<AdInputType>
             {   
-                ResponseData = data.ArrayByteToString(format),
-                Encoding = _currentRequest.ResponseOption.Format,   
+                ResponseData = stringResponse,
+                Encoding = format,   
                 IsOutDataValid = IsOutDataValid            
             };
-
             return IsOutDataValid;   
         }
 

@@ -195,7 +195,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                 ["rowNumber"] = currentRow
             };
             //ВСТАВИТЬ ПЕРЕМЕННЫЕ ИЗ СЛОВАРЯ В body
-            var resStr = HelperString.StringTemplateInsert(body, dict);
+            var resStr = HelpersString.StringTemplateInsert(body, dict);
             return resStr;
         }
 
