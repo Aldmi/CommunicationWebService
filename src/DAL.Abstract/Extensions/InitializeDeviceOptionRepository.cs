@@ -64,7 +64,8 @@ namespace DAL.Abstract.Extensions
                     AutoBuild = true,
                     ExchangeKeys = new List<string>
                     {
-                        "SP_COM1_Vidor1"
+                        "SP_COM1_Vidor1",
+                        "TcpIp_table_1"
                     }
                 },
                 //new DeviceOption

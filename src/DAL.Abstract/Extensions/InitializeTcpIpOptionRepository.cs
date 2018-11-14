@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
+using DAL.Abstract.Entities.Options.Transport;
 
 namespace DAL.Abstract.Extensions
 {
@@ -13,17 +15,19 @@ namespace DAL.Abstract.Extensions
                 return;
             }
 
-            //var tcpIpList = new List<TcpIpOption>
-            //{
-            //    new TcpIpOption
-            //    {
-            //       Id=1,
-            //       Name = "TcpIp table 1",
-            //       AutoStart = true,
-            //    }
-            //};
+            var tcpIpList = new List<TcpIpOption>
+            {
+                new TcpIpOption
+                {
+                   Id=1,
+                   Name = "TcpIp table 1",
+                   IpAddress = "192.168.0.47",
+                   IpPort = 3000,
+                   AutoStart = true,
+                }
+            };
 
-            //await rep.AddRangeAsync(tcpIpList);
+            await rep.AddRangeAsync(tcpIpList);
         }
     }
 }

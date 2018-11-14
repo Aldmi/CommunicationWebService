@@ -70,22 +70,56 @@ namespace DAL.Abstract.Extensions
                         }
                     }
                 },
-                //new ExchangeOption
-                //{
-                //    Id = 2,
-                //    Key = "SP_COM2_Vidor2222",
-                //    KeyTransport = new KeyTransport("COM2", TransportType.SerialPort),
-                //    AutoStartCycleFunc = false,
-                //    Provider = new ProviderOption
-                //    {
-                //        Name = "VidorBinary",
-                //        ManualProviderOption = new ManualProviderOption
-                //        {
-                //            Address = "100",
-                //            TimeRespone = 2500
-                //        }
-                //    }
-                //}
+                new ExchangeOption
+                {
+                    Id = 2,
+                    Key = "TcpIp_table_1",
+                    KeyTransport = new KeyTransport("TcpIp table 1", TransportType.TcpIp),
+                    AutoStartCycleFunc = false,
+                    CountBadTrying = 3,
+                    Provider = new ProviderOption
+                    {
+                        Name = "ByRules",
+                        ByRulesProviderOption = new ByRulesProviderOption
+                        {
+                            Rules = new List<RuleOption>
+                            {
+                                new RuleOption
+                                {
+                                    Name = "Rule_1",
+                                    AddressDevice = "10",
+                                    //WhereFilter = "(TypeTrain == \"Suburban\") && (PathNumber == \"2\" || PathNumber == \"3\" || PathNumber == \"4\")",
+                                    WhereFilter = "true",
+                                    OrderBy = "Id",
+                                    //OrderBy = "ArrivalTime",
+                                    TakeItems = 1, //2
+                                    
+                                    ViewRules = new List<ViewRuleOption>
+                                    {
+                                        new ViewRuleOption
+                                        {
+                                            Id = 1,
+                                            StartPosition = 0,
+                                            Count = 1,
+                                            BatchSize = 1000,
+                                            RequestOption = new RequestOption{Header = "{adress}", Body = "01{adress}0502{Station}", Footer = "{CrcXor16}", MaxLenght = 1000, Format = "Windows-1251"},
+                                            ResponseOption = new ResponseOption{Body = "01050A", MaxLenght = 2000, TimeRespone = 3000, Format = "X"}
+                                        },
+                                        //new ViewRuleOption
+                                        //{
+                                        //    Id = 2,
+                                        //    StartPosition = 1,
+                                        //    Count = 1,
+                                        //    BatchSize = 1000,
+                                        //    RequestOption = new RequestOption{Header = "{adress}", Body = "01{adress}05026{ArrivalTime}2158{Station}", Footer = "{CrcXor16}", MaxLenght = 1000, Format = "Windows-1251"},
+                                        //    ResponseOption = new ResponseOption{Body = "01050A0606", MaxLenght = 2000, TimeRespone = 3000, Format = "X"}
+                                        //}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             };
 
            await rep.AddRangeAsync(exchanges);

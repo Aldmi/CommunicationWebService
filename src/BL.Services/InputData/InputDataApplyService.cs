@@ -44,6 +44,12 @@ namespace BL.Services.InputData
                     continue;
                 }
 
+                if(_mediatorForStorages.GetExchange(inData.ExchangeName) == null)
+                {
+                  errors.Add($"Обмен не найденн: {inData.ExchangeName}");
+                  continue;
+                }
+
                 if (string.IsNullOrEmpty(inData.ExchangeName))
                 {
                     tasks.Add(device.Send2AllExchanges(inData.DataAction, inData.Data, inData.Command));

@@ -1,4 +1,7 @@
-﻿using System.Reactive.Subjects;
+﻿using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
 using DAL.Abstract.Entities.Options.Transport;
@@ -14,8 +17,10 @@ namespace Transport.TcpIp.Concrete
     {
         #region fields
 
+        private TcpClient _terminalClient;
+        private NetworkStream _terminalNetStream;
+
         private const int TimeCycleReOpened = 3000;
-        private readonly System.IO.Ports.SerialPort _port; //COM порт
         private CancellationTokenSource _ctsCycleReOpened;
 
         #endregion
@@ -35,7 +40,7 @@ namespace Transport.TcpIp.Concrete
             {
                 if (value == _isOpen) return;
                 _isOpen = value;
-                IsOpenChangeRx.OnNext(new IsOpenChangeRxModel { IsOpen = _isOpen, TransportName = Option.Port });
+                //IsOpenChangeRx.OnNext(new IsOpenChangeRxModel { IsOpen = _isOpen, TransportName = Option.Port });
             }
         }
 
@@ -47,7 +52,7 @@ namespace Transport.TcpIp.Concrete
             {
                 if (value == _statusString) return;
                 _statusString = value;
-                StatusStringChangeRx.OnNext(new StatusStringChangeRxModel { Status = _statusString, TransportName = Option.Port });
+                //StatusStringChangeRx.OnNext(new StatusStringChangeRxModel { Status = _statusString, TransportName = Option.Port });
             }
         }
 
@@ -59,7 +64,7 @@ namespace Transport.TcpIp.Concrete
             {
                 if (value == _statusDataExchange) return;
                 _statusDataExchange = value;
-                StatusDataExchangeChangeRx.OnNext(new StatusDataExchangeChangeRxModel { StatusDataExchange = _statusDataExchange, TransportName = Option.Port });
+                //StatusDataExchangeChangeRx.OnNext(new StatusDataExchangeChangeRxModel { StatusDataExchange = _statusDataExchange, TransportName = Option.Port });
             }
         }
 
@@ -97,7 +102,8 @@ namespace Transport.TcpIp.Concrete
         public async Task<bool> CycleReOpened()
         {
             await Task.CompletedTask;
-            return true;
+            IsOpen = true;
+            return true; //DEBUG
         }
 
 
@@ -108,9 +114,26 @@ namespace Transport.TcpIp.Concrete
         }
 
 
-        public Task ReOpen()
+        public async Task ReOpen()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                _terminalClient = new TcpClient { NoDelay = false };  //true - пакет будет отправлен мгновенно (при NetworkStream.Write). false - пока не собранно значительное кол-во данных отправки не будет.
+                IPAddress ipAddress = IPAddress.Parse(Option.IpAddress);
+                StatusString = $"Conect to {ipAddress} : {Option.IpPort} ...";
+
+                await _terminalClient.ConnectAsync(ipAddress, Option.IpPort);
+                _terminalNetStream = _terminalClient.GetStream();
+                IsOpen = true;
+                return;
+            }
+            catch (Exception ex)
+            {
+                IsOpen = false;
+                StatusString = $"Ошибка инициализации соединения: \"{ex.Message}\"";
+                //LogException.WriteLog("Инициализация: ", ex, LogException.TypeLog.TcpIp);
+                Dispose();
+            }
         }
 
 
@@ -124,7 +147,12 @@ namespace Transport.TcpIp.Concrete
 
             StatusDataExchange = StatusDataExchange.Start;
 
-            throw new System.NotImplementedException();
+            var buffer = dataProvider.GetDataByte();
+
+
+            await Task.CompletedTask;
+
+            return StatusDataExchange;
         }
 
         #endregion
@@ -135,7 +163,12 @@ namespace Transport.TcpIp.Concrete
 
         public void Dispose()
         {
-            
+            if (_terminalNetStream != null)
+            {
+                _terminalNetStream.Close();
+                StatusString = "Сетевой поток закрыт ...";
+            }
+            _terminalClient?.Client?.Close();
         }
 
         #endregion
