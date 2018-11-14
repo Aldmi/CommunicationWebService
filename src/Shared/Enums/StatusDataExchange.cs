@@ -1,7 +1,7 @@
 ﻿namespace Shared.Enums
 {
     /// <summary>
-    /// статус обмена данными
+    /// статус ПОСЛЕДНЕГО обмена данными
     /// </summary>
     public enum StatusDataExchange
     {

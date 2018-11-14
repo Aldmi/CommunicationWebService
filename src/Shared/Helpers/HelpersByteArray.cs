@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using System.Linq;
 using System.Text;
+
 
 namespace Shared.Helpers
 {
@@ -12,13 +14,17 @@ namespace Shared.Helpers
             {
                 //Распарсить строку в масив байт как она есть. 0203АА96 ...
                 case "HEX":
-                      break;
+                    resultBuffer = str.Split(2).Select(s => byte.Parse(s, NumberStyles.AllowHexSpecifier)).ToArray();
+                    break;
 
-                 default:
+                default:
                     resultBuffer = Encoding.GetEncoding(format).GetBytes(str).ToArray();
                     break;
             }
             return resultBuffer;
         }
+
+
+
     }
 }

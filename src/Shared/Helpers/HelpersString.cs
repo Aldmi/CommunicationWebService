@@ -84,6 +84,7 @@ namespace Shared.Helpers
             return string.Format(format, resVal);
         }
 
+
         /// <summary>
         /// Математическое вычисление формулы с участием переменной rowNumber
         /// </summary>
@@ -96,6 +97,19 @@ namespace Shared.Helpers
             var func = expr.ToLambda<int>();
             var arithmeticResult = func();
             return arithmeticResult;
+        }
+
+
+        /// <summary>
+        /// Разбиение строки на подстроки.
+        /// </summary>
+        /// <param name="text">строка</param>
+        /// <param name="size">кол-во символов в подстроке</param>
+        /// <returns></returns>
+        public static IEnumerable<string> Split(this string text, int size) 
+        {
+            for (var i = 0; i < text.Length; i += size)
+                yield return text.Substring(i, Math.Min(size, text.Length - i));
         }
     }
 }

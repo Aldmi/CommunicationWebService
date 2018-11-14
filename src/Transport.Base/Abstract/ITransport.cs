@@ -11,9 +11,9 @@ namespace Transport.Base.Abstract
 {
     public interface ITransport : ISupportKeyTransport, IDisposable
     {
-        bool IsOpen { get; }                                                                   // ФЛАГ ОТКРЫТИЯ ПОРТА
-        string StatusString { get; }                                                           // СТАТУС ПОРТА
-        StatusDataExchange StatusDataExchange { get; }                                         // СТАТУС ОБМЕНА
+        bool IsOpen { get; }                                                                   // ФЛАГ ОТКРЫТИЯ ПОРТА ТРАНСОРТА
+        string StatusString { get; }                                                           // СОСТОЯНИЕ ТРАНСПОРТА
+        StatusDataExchange StatusDataExchange { get; }                                         // СТАТУС ПОСЛЕДНЕГО ОБМЕНА
         bool IsCycleReopened { get; }                                                          // ФЛАГ НАХОЖДЕНИЯ ПОРТА В ЦИКЛЕ ПЕРЕОТКРЫТИЯ  
 
         ISubject<IsOpenChangeRxModel> IsOpenChangeRx { get; }                                  // СОБЫТИЕ ОТКРЫТИЯ/ЗАКРЫТИЯ ЛИНИИ КОММУНИКАЦИИ УСТРОЙСТВА
