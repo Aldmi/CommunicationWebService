@@ -22,7 +22,7 @@ namespace DAL.Abstract.Extensions
                    Id=1,
                    Name = "TcpIp table 1",
                    IpAddress = "192.168.0.47",
-                   IpPort = 3000,
+                   IpPort = 50000,
                    AutoStart = true,
                 }
             };

@@ -62,7 +62,7 @@ namespace Transport.Http.Concrete
             throw new System.NotImplementedException();
         }
 
-        public Task ReOpen()
+        public Task<bool> ReOpen()
         {
             throw new System.NotImplementedException();
         }

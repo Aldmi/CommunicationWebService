@@ -164,7 +164,7 @@ namespace Transport.SerialPort.Concrete.SpWin
 
 
 
-        public async Task ReOpen()
+        public async Task<bool> ReOpen()
         {
             try
             {
@@ -178,6 +178,7 @@ namespace Transport.SerialPort.Concrete.SpWin
                 {
                     _port.Open();
                     IsOpen = true;
+                    return true;
                 }
             }
             catch (Exception ex)
@@ -185,6 +186,7 @@ namespace Transport.SerialPort.Concrete.SpWin
                 StatusString = $"Ошибка ReOpen порта: {_port.PortName}. ОШИБКА: {ex}";
                 await CycleReOpened();
             }
+            return false;
         }
 
 

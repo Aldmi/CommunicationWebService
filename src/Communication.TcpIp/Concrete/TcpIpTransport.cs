@@ -101,9 +101,21 @@ namespace Transport.TcpIp.Concrete
 
         public async Task<bool> CycleReOpened()
         {
-            await Task.CompletedTask;
-            IsOpen = true;
-            return true; //DEBUG
+            IsCycleReopened = true;
+            _ctsCycleReOpened = new CancellationTokenSource();
+            bool res = false;
+            while (!_ctsCycleReOpened.IsCancellationRequested && !res)
+            {
+                res = await ReOpen();
+                if (!res)
+                {
+                    Console.WriteLine($"коннект для транспорта НЕ ОТКРЫТ: {KeyTransport}");
+                    await Task.Delay(TimeCycleReOpened, _ctsCycleReOpened.Token);
+                }
+            }
+            Console.WriteLine($"Коннект ОТКРЫТ: {KeyTransport}");
+            IsCycleReopened = false;
+            return true;
         }
 
 
@@ -114,18 +126,17 @@ namespace Transport.TcpIp.Concrete
         }
 
 
-        public async Task ReOpen()
+        public async Task<bool> ReOpen()
         {
             try
             {
                 _terminalClient = new TcpClient { NoDelay = false };  //true - пакет будет отправлен мгновенно (при NetworkStream.Write). false - пока не собранно значительное кол-во данных отправки не будет.
-                IPAddress ipAddress = IPAddress.Parse(Option.IpAddress);
+                var ipAddress = IPAddress.Parse(Option.IpAddress);
                 StatusString = $"Conect to {ipAddress} : {Option.IpPort} ...";
-
                 await _terminalClient.ConnectAsync(ipAddress, Option.IpPort);
                 _terminalNetStream = _terminalClient.GetStream();
                 IsOpen = true;
-                return;
+                return true;
             }
             catch (Exception ex)
             {
@@ -134,6 +145,7 @@ namespace Transport.TcpIp.Concrete
                 //LogException.WriteLog("Инициализация: ", ex, LogException.TypeLog.TcpIp);
                 Dispose();
             }
+            return false;
         }
 
 
@@ -155,6 +167,51 @@ namespace Transport.TcpIp.Concrete
             return StatusDataExchange;
         }
 
+
+
+        public async Task<bool> SendDataAsync(ITransportDataProvider dataProvider)
+        {
+            byte[] buffer = dataProvider.GetDataByte();
+            try
+            {
+                if (_terminalClient != null && _terminalNetStream != null && _terminalClient.Client != null && _terminalClient.Client.Connected)
+                {
+                    await _terminalNetStream.WriteAsync(buffer, 0, buffer.Length);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusString = $"ИСКЛЮЧЕНИЕ SendDataToServer :{ex.Message}";
+                //LogException.WriteLog("Отправка данных серверу: ", ex, LogException.TypeLog.TcpIp);
+            }
+            return false;
+        }
+
+
+        public async Task<byte[]> TakeDataAsync(int nbytes, int timeOut, CancellationToken ct)
+        {
+            byte[] bDataTemp = new byte[256];
+
+            //int nByteTake=0;
+            //while (true)
+            //{
+            //    nByteTake = _terminalNetStream.Read(bDataTemp, 0, nbytes);
+            //    Task.Delay(500);
+            //}
+
+            //TODO: создать task в котором считывать пока не считаем нужное кол-во байт. Прерывать этот task по таймауту  AsyncHelp.WithTimeout
+            int nByteTake = await AsyncHelp.WithTimeout(_terminalNetStream.ReadAsync(bDataTemp, 0, nbytes, ct), timeOut, ct);
+            if (nByteTake == nbytes)
+            {
+                var bData = new byte[nByteTake];
+                Array.Copy(bDataTemp, bData, nByteTake);
+                return bData;
+            }
+            return null;
+        }
+
+
         #endregion
 
 
@@ -169,6 +226,8 @@ namespace Transport.TcpIp.Concrete
                 StatusString = "Сетевой поток закрыт ...";
             }
             _terminalClient?.Client?.Close();
+            _terminalClient?.Client?.Dispose();
+            _terminalClient?.Dispose();
         }
 
         #endregion
