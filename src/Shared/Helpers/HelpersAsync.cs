@@ -20,7 +20,7 @@ namespace Shared.Helpers
         /// <summary>
         /// 
         /// </summary>
-        public static async Task<T> WithTimeoutHandleException<T>(this Task<T> task, int time, CancellationToken ct)
+        public static async Task<T> WithTimeout2HandleException<T>(this Task<T> task, int time, CancellationToken ct)
         {
             Task delayTask = Task.Delay(time, ct);
             Task firstToFinish = await Task.WhenAny(task, delayTask);
@@ -40,13 +40,14 @@ namespace Shared.Helpers
         /// <param name="ctsTimeout">источник токена для отмены основной задачи task</param>
         /// <param name="ct">Отмена ожидания</param>
         /// <returns></returns>
-        public static async Task<T> WithTimeoutCanceledTask<T>(this Task<T> task, int time, CancellationTokenSource ctsTimeout)
+        public static async Task<T> WithTimeout2CanceledTask<T>(this Task<T> task, int time, CancellationTokenSource ctsTimeout)
         {
             Task delayTask = Task.Delay(time);
             Task firstToFinish = await Task.WhenAny(task, delayTask);
             if (firstToFinish == delayTask)
             {
                 ctsTimeout.Cancel();
+                ctsTimeout.Dispose();
                 throw new TimeoutException();
             }
             return await task;

@@ -79,7 +79,7 @@ namespace Transport.TcpIp.Concrete
 
         #region ctor
 
-        public TcpIpTransport(TcpIpOption option,  KeyTransport keyTransport)
+        public TcpIpTransport(TcpIpOption option, KeyTransport keyTransport)
         {
             Option = option;
             KeyTransport = keyTransport;
@@ -91,7 +91,7 @@ namespace Transport.TcpIp.Concrete
 
         #region Rx
 
-        public ISubject<IsOpenChangeRxModel> IsOpenChangeRx { get; } =  new Subject<IsOpenChangeRxModel>();                                        //СОБЫТИЕ ИЗМЕНЕНИЯ ОТКРЫТИЯ/ЗАКРЫТИЯ ПОРТА
+        public ISubject<IsOpenChangeRxModel> IsOpenChangeRx { get; } = new Subject<IsOpenChangeRxModel>();                                        //СОБЫТИЕ ИЗМЕНЕНИЯ ОТКРЫТИЯ/ЗАКРЫТИЯ ПОРТА
         public ISubject<StatusDataExchangeChangeRxModel> StatusDataExchangeChangeRx { get; } = new Subject<StatusDataExchangeChangeRxModel>();     //СОБЫТИЕ ИЗМЕНЕНИЯ ОТПРАВКИ ДАННЫХ ПО ПОРТУ
         public ISubject<StatusStringChangeRxModel> StatusStringChangeRx { get; } = new Subject<StatusStringChangeRxModel>();                       //СОБЫТИЕ ИЗМЕНЕНИЯ СТРОКИ СТАТУСА ПОРТА
 
@@ -160,12 +160,18 @@ namespace Transport.TcpIp.Concrete
                 return StatusDataExchange.None;
 
             StatusDataExchange = StatusDataExchange.Start;
+            await _terminalNetStream.FlushAsync(CancellationToken.None);
             if (await SendDataAsync(dataProvider, ct))
             {
                 try
                 {
                     var data = await TakeDataAsync(dataProvider.CountSetDataByte, timeRespoune, ct);
-                    dataProvider.SetDataByte(data);
+                    var res= dataProvider.SetDataByte(data);
+                    if (!res)
+                    {
+                        StatusDataExchange = StatusDataExchange.EndWithError;
+                        return StatusDataExchange;
+                    }
                 }
                 catch (OperationCanceledException)
                 {
@@ -182,9 +188,10 @@ namespace Transport.TcpIp.Concrete
                     StatusDataExchange = StatusDataExchange.EndWithErrorCritical;
                     return StatusDataExchange;
                 }
-                catch (Exception ex)//DEBUG
+                catch (Exception)
                 {
-                    
+                    StatusDataExchange = StatusDataExchange.EndWithErrorCritical;
+                    return StatusDataExchange;
                 }
                 StatusDataExchange = StatusDataExchange.End;
                 return StatusDataExchange.End;
@@ -219,6 +226,8 @@ namespace Transport.TcpIp.Concrete
         {
             byte[] bDataTemp = new byte[256];
 
+            nbytes = 200;//DEBUG !!!!!!!!!!!!
+
             //TODO: создать task в котором считывать пока не считаем нужное кол-во байт. Прерывать этот task по таймауту  AsyncHelp.WithTimeout
             //int nByteTake=0;
             //while (true)
@@ -229,16 +238,18 @@ namespace Transport.TcpIp.Concrete
             // ctsTimeout = new CancellationTokenSource();//токен сработает по таймауту в функции WithTimeout
             // cts = CancellationTokenSource.CreateLinkedTokenSource(ctsTimeout.Token, ct); // Объединенный токен, сработает от выставленного ctsTimeout.Token или от ct
             //int nByteTake = await _terminalNetStream.ReadAsync(bDataTemp, 0, nbytes, cts.Token).WithTimeout(timeOut, ctsTimeout);
-
             var ctsTimeout = new CancellationTokenSource();//токен сработает по таймауту в функции WithTimeout
             var cts = CancellationTokenSource.CreateLinkedTokenSource(ctsTimeout.Token, ct); // Объединенный токен, сработает от выставленного ctsTimeout.Token или от ct
-            int nByteTake = await _terminalNetStream.ReadAsync(bDataTemp, 0, nbytes, cts.Token).WithTimeoutCanceledTask(timeOut, ctsTimeout);
+            int nByteTake = await _terminalNetStream.ReadAsync(bDataTemp, 0, nbytes, cts.Token).WithTimeout2CanceledTask(timeOut, ctsTimeout);
             if (nByteTake == nbytes)
             {
                 var bData = new byte[nByteTake];
                 Array.Copy(bDataTemp, bData, nByteTake);
                 return bData;
             }
+            
+            //TODO: добавить логирование если кол-во считанных данных не верное (помещать считаыннй НЕВЕРНЫЙ буфер в лог)
+            
             return null;
         }
 

@@ -92,7 +92,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
             var format = _currentRequest.ResponseOption.Format;
             if (data == null)
             {
-                IsOutDataValid = true;
+                IsOutDataValid = false;
                 OutputData = new ResponseDataItem<AdInputType>
                 {
                     ResponseData = null,

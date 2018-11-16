@@ -283,7 +283,9 @@ namespace Exchange.Base
                         default:
                             if (++_countTryingTakeData > ExchangeOption.CountBadTrying)
                             {
+                                _countTryingTakeData = 0;
                                 IsConnect = false;
+                                CycleReOpened();
                             }
                             break;
                     }
@@ -317,7 +319,6 @@ namespace Exchange.Base
             }
             finally
             {
-                _countTryingTakeData = 0;
                 subscription.Dispose();      
             }
             return transportResponseWrapper;
