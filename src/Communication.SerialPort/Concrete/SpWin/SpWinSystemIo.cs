@@ -302,7 +302,7 @@ namespace Transport.SerialPort.Concrete.SpWin
                     };
                     _port.DataReceived += handler;
 
-                    var buff = await HelpersAsync.WithTimeout(tcs.Task, readTimeout, ct);
+                    var buff = await tcs.Task.WithTimeoutHandleException(readTimeout, ct);
                     return buff;
                 }
                 catch (TimeoutException)

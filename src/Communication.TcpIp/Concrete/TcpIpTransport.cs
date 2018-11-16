@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Reactive.Subjects;
@@ -6,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DAL.Abstract.Entities.Options.Transport;
 using Shared.Enums;
+using Shared.Helpers;
 using Shared.Types;
 using Transport.Base.DataProvidert;
 using Transport.Base.RxModel;
@@ -158,25 +160,49 @@ namespace Transport.TcpIp.Concrete
                 return StatusDataExchange.None;
 
             StatusDataExchange = StatusDataExchange.Start;
+            if (await SendDataAsync(dataProvider, ct))
+            {
+                try
+                {
+                    var data = await TakeDataAsync(dataProvider.CountSetDataByte, timeRespoune, ct);
+                    dataProvider.SetDataByte(data);
+                }
+                catch (OperationCanceledException)
+                {
+                    StatusDataExchange = StatusDataExchange.EndWithCanceled;
+                    return StatusDataExchange;
+                }
+                catch (TimeoutException)
+                {
+                    StatusDataExchange = StatusDataExchange.EndWithTimeout;
+                    return StatusDataExchange;
+                }
+                catch (IOException)
+                {
+                    StatusDataExchange = StatusDataExchange.EndWithErrorCritical;
+                    return StatusDataExchange;
+                }
+                catch (Exception ex)//DEBUG
+                {
+                    
+                }
+                StatusDataExchange = StatusDataExchange.End;
+                return StatusDataExchange.End;
+            }
 
-            var buffer = dataProvider.GetDataByte();
-
-
-            await Task.CompletedTask;
-
+            StatusDataExchange = StatusDataExchange.EndWithErrorCritical;
             return StatusDataExchange;
         }
 
 
-
-        public async Task<bool> SendDataAsync(ITransportDataProvider dataProvider)
+        public async Task<bool> SendDataAsync(ITransportDataProvider dataProvider, CancellationToken ct)
         {
             byte[] buffer = dataProvider.GetDataByte();
             try
             {
                 if (_terminalClient != null && _terminalNetStream != null && _terminalClient.Client != null && _terminalClient.Client.Connected)
                 {
-                    await _terminalNetStream.WriteAsync(buffer, 0, buffer.Length);
+                    await _terminalNetStream.WriteAsync(buffer, 0, buffer.Length, ct);
                     return true;
                 }
             }
@@ -193,15 +219,20 @@ namespace Transport.TcpIp.Concrete
         {
             byte[] bDataTemp = new byte[256];
 
+            //TODO: создать task в котором считывать пока не считаем нужное кол-во байт. Прерывать этот task по таймауту  AsyncHelp.WithTimeout
             //int nByteTake=0;
             //while (true)
             //{
             //    nByteTake = _terminalNetStream.Read(bDataTemp, 0, nbytes);
             //    Task.Delay(500);
             //}
+            // ctsTimeout = new CancellationTokenSource();//токен сработает по таймауту в функции WithTimeout
+            // cts = CancellationTokenSource.CreateLinkedTokenSource(ctsTimeout.Token, ct); // Объединенный токен, сработает от выставленного ctsTimeout.Token или от ct
+            //int nByteTake = await _terminalNetStream.ReadAsync(bDataTemp, 0, nbytes, cts.Token).WithTimeout(timeOut, ctsTimeout);
 
-            //TODO: создать task в котором считывать пока не считаем нужное кол-во байт. Прерывать этот task по таймауту  AsyncHelp.WithTimeout
-            int nByteTake = await AsyncHelp.WithTimeout(_terminalNetStream.ReadAsync(bDataTemp, 0, nbytes, ct), timeOut, ct);
+            var ctsTimeout = new CancellationTokenSource();//токен сработает по таймауту в функции WithTimeout
+            var cts = CancellationTokenSource.CreateLinkedTokenSource(ctsTimeout.Token, ct); // Объединенный токен, сработает от выставленного ctsTimeout.Token или от ct
+            int nByteTake = await _terminalNetStream.ReadAsync(bDataTemp, 0, nbytes, cts.Token).WithTimeoutCanceledTask(timeOut, ctsTimeout);
             if (nByteTake == nbytes)
             {
                 var bData = new byte[nByteTake];
@@ -210,7 +241,6 @@ namespace Transport.TcpIp.Concrete
             }
             return null;
         }
-
 
         #endregion
 
