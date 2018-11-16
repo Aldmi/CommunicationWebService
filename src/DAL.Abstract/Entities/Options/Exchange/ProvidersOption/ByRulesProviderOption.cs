@@ -37,7 +37,7 @@ namespace DAL.Abstract.Entities.Options.Exchange.ProvidersOption
     public class RequestOption
     {
         public string Format { get; set; }
-        public int MaxLenght { get; set; }
+        public int MaxBodyLenght { get; set; }               // Максимальная длина тела запроса
         public string Header { get; set; }                   // НАЧАЛО запроса (ТОЛЬКО ЗАВИСИМЫЕ ДАННЫЕ).
         public string Body { get; set; }                     // ТЕЛО запроса (ТОЛЬКО НЕЗАВИСИМЫЕ ДАННЫЕ). Каждый элемент батча подставляет свои данные в Body, затем все элементы Конкатенируются.
         public string Footer { get; set; }                   // КОНЕЦ ЗАПРОСА (ТОЛЬКО ЗАВИСИМЫЕ ДАННЫЕ).
@@ -47,8 +47,8 @@ namespace DAL.Abstract.Entities.Options.Exchange.ProvidersOption
     public class ResponseOption
     {
         public string Format { get; set; }
-        public int MaxLenght { get; set; }
+        public int Lenght { get; set; }                      // Ожидаемое кол-во байт ОТВЕТА
         public int TimeRespone { get; set; }
-        public string Body { get; set; }
+        public string Body { get; set; }                     // ТЕЛО ОТВЕТА
     }
 }

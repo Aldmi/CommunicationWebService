@@ -141,16 +141,18 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                 resBodyStr.Append(res);
             }
 
+            //ОГРАНИЧИТЬ ДЛИННУ ТЕЛА ЗАПРОСА-----------------------------------------------------------------------------------
+            var limitBodyStr= LimitBodySectionLenght(resBodyStr);
+
             //КОНКАТЕНИРОВАТЬ СТРОКИ В СУММАРНУЮ СТРОКУ-------------------------------------------------------------------------------------
             //resSumStr содержит только ЗАВИСИМЫЕ данные: {AddressDevice} {NByte} {NumberOfCharacters {CRC}}
-            var resSumStr = startSection + resBodyStr + endSection;
+            var resSumStr = startSection + limitBodyStr + endSection;
 
             //ВСТАВИТЬ ЗАВИСИМЫЕ ДАННЫЕ ({AddressDevice} {NByte} {NumberOfCharacters {CRC})-------------------------------------------------
             var resDependencyStr = MakeDependentInserts(resSumStr);
 
             return resDependencyStr;
         }
-
 
 
         /// <summary>
@@ -197,6 +199,21 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
             //ВСТАВИТЬ ПЕРЕМЕННЫЕ ИЗ СЛОВАРЯ В body
             var resStr = HelpersString.StringTemplateInsert(body, dict);
             return resStr;
+        }
+
+
+        /// <summary>
+        /// Ограничить длинну строки
+        /// </summary>
+        private StringBuilder LimitBodySectionLenght(StringBuilder resBodyStr)
+        {
+            if (resBodyStr.Length < Option.RequestOption.MaxBodyLenght)
+                return resBodyStr;
+
+            var startIndex = Option.RequestOption.MaxBodyLenght;
+            var lenght = resBodyStr.Length - Option.RequestOption.MaxBodyLenght;
+            resBodyStr.Remove(startIndex, lenght);
+            return resBodyStr;
         }
 
 

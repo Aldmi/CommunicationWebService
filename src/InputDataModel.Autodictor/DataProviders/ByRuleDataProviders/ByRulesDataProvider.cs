@@ -53,8 +53,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
         public bool IsOutDataValid { get; set; }
 
         public int TimeRespone => _currentRequest.ResponseOption.TimeRespone;        //Время на ответ
-        public int CountGetDataByte { get; }                                         //TODO: брать с _currentRule.Option
-        public int CountSetDataByte { get; } = 12;                                   //TODO: брать с _currentRule.Option
+        public int CountSetDataByte => _currentRequest.ResponseOption.Lenght;                                   
 
         #endregion
 
@@ -126,33 +125,6 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
 
 
 
-
-        #region NotImplemented
-        public Stream GetStream()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool SetStream(Stream stream)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetString()
-        {
-            return _currentRequest.StringRequest;
-        }
-
-        public bool SetString(Stream stream)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-
-
-
         #region Methode
 
         public async Task StartExchangePipeline(InDataWrapper<AdInputType> inData)
@@ -193,6 +165,31 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
             //Конвеер обработки входных данных завершен    
             StatusString.Clear();
             await Task.CompletedTask; 
+        }
+
+        #endregion
+
+
+
+        #region NotImplemented
+        public Stream GetStream()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SetStream(Stream stream)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetString()
+        {
+            return _currentRequest.StringRequest;
+        }
+
+        public bool SetString(Stream stream)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
