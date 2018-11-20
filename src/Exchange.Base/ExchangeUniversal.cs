@@ -77,8 +77,6 @@ namespace Exchange.Base
             _transport = transport;
             _transportBackground = transportBackground;
             _dataProvider = dataProvider;
-
-            //SendCycleTimeData(new List<TIn> {new TIn() });
         }
 
         #endregion

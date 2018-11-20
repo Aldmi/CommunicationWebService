@@ -103,15 +103,15 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
             //DEBUG----------------------------------------------------
             var startSection = "\u0002{AddressDevice:X2}{Nbyte:D2}";
 
-            var body = "%StationArr= {NumberOfCharacters:X2} \"{StationArrival}\"" +
+            var body = "%StationArr= {NumberOfCharacters:X2} \\\"{StationArrival}\\\"" +
                        "%TypeName= {TypeName}" +
                        "%NumberOfTrain= {NumberOfTrain}" +
-                       "%PathNumber= {PathNumber:D5}" +
+                       "%PathNumber= {NumberOfCharacters:X2} \\\"{PathNumber:D5}\\\"" +
                        "%Stations= {Stations} " +
                        "%TArrival= {TArrival:t}" +
                        "%rowNumb= {(rowNumber*11-11):X3}" +
-                       "%StationDep= {NumberOfCharacters:X2} \"{StationDeparture}\"" +
-                       "%StatC= {NumberOfCharacters:X2} \"{StationsCut}\"" +
+                       "%StationDep= {NumberOfCharacters:X2} \\\"{StationDeparture}\\\"" +
+                       "%StatC= {NumberOfCharacters:X2} \\\"{StationsCut}\\\"" +
                        "%DelayT= {DelayTime}" +
                        "%ExpectedT= {ExpectedTime:t}";
 
@@ -141,14 +141,17 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                 resBodyStr.Append(res);
             }
 
-            //ОГРАНИЧИТЬ ДЛИННУ ТЕЛА ЗАПРОСА-----------------------------------------------------------------------------------
-            var limitBodyStr= LimitBodySectionLenght(resBodyStr);
+            //ВСТАВИТЬ ЗАВИСИМЫЕ ДАННЫЕ В ТЕЛО ЗАПРОСА--------------------------------------------------------------------------------------
+            var resBodyDependentStr= MakeBodyDependentInserts(resBodyStr.ToString());
+
+            //ОГРАНИЧИТЬ ДЛИННУ ТЕЛА ЗАПРОСА------------------------------------------------------------------------------------------------
+            var limitBodyStr= LimitBodySectionLenght(new StringBuilder(resBodyDependentStr));
 
             //КОНКАТЕНИРОВАТЬ СТРОКИ В СУММАРНУЮ СТРОКУ-------------------------------------------------------------------------------------
             //resSumStr содержит только ЗАВИСИМЫЕ данные: {AddressDevice} {NByte} {NumberOfCharacters {CRC}}
             var resSumStr = startSection + limitBodyStr + endSection;
 
-            //ВСТАВИТЬ ЗАВИСИМЫЕ ДАННЫЕ ({AddressDevice} {NByte} {NumberOfCharacters {CRC})-------------------------------------------------
+            //ВСТАВИТЬ ЗАВИСИМЫЕ ДАННЫЕ ({AddressDevice} {NByte} {CRC})-------------------------------------------------
             var resDependencyStr = MakeDependentInserts(resSumStr);
 
             return resDependencyStr;
@@ -199,6 +202,56 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
             //ВСТАВИТЬ ПЕРЕМЕННЫЕ ИЗ СЛОВАРЯ В body
             var resStr = HelpersString.StringTemplateInsert(body, dict);
             return resStr;
+        }
+
+
+        /// <summary>
+        /// Вставить зависимые (вычисляемые) данные в ТЕЛО запроса 
+        /// {NumberOfCharacters}
+        /// </summary>
+        /// <param name="str">входная строка тела в которой только ЗАВИСИМЫЕ данные</param>
+        /// <returns></returns>
+        private string MakeBodyDependentInserts(string str)
+        {
+            if (str.Contains("}"))                                                           //если указанны переменные подстановки
+            {
+                var subStr = str.Split('}');
+                StringBuilder resStr = new StringBuilder();
+                for (var index = 0; index < subStr.Length; index++)
+                {
+                    var s = subStr[index];
+                    var replaseStr = (s.Contains("{")) ? (s + "}") : s;
+                    //1. Подсчет кол-ва символов
+                    if (replaseStr.Contains("NumberOfCharacters"))
+                    {
+                        var targetStr = (subStr.Length > (index + 1)) ? subStr[index + 1] : string.Empty;
+                        if (Regex.Match(targetStr, "\\\"(.*)\"").Success) //
+                        {
+                            var matchString = Regex.Match(targetStr, "\\\"(.*)\\\"").Groups[1].Value;
+                            if (!string.IsNullOrEmpty(matchString))
+                            {
+                                var lenght = matchString.TrimEnd('\\').Length;
+                                var dateFormat = Regex.Match(replaseStr, "\\{NumberOfCharacters:(.*)\\}").Groups[1].Value;
+                                var formatStr = !string.IsNullOrEmpty(dateFormat) ?
+                                    string.Format(replaseStr.Replace("NumberOfCharacters", "0"), lenght.ToString(dateFormat)) :
+                                    string.Format(replaseStr.Replace("NumberOfCharacters", "0"), lenght);
+                                resStr.Append(formatStr);
+                            }
+                        }
+                        continue;
+                    }
+                    ////2. Вставка хххх
+                    //if (replaseStr.Contains("хххх"))
+                    //{
+                    //    continue;
+                    //}
+
+                    //Добавим в неизменном виде спецификаторы байтовой информации.
+                    resStr.Append(replaseStr);
+                }
+                return resStr.ToString().Replace("\\\"", string.Empty); //заменить \"
+            }
+            return str;
         }
 
 
@@ -481,7 +534,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
               2. Вычислить NByte (кол-во байт между {NByte} и {CRC}) и вставить.
               3. Вычислить CRC и вставить
             */
-            str = MakeAddressDeviceAndNumberOfCharacters(str);
+            str = MakeAddressDevice(str);
             str = MakeNByte(str);
             str = MakeCrc(str);
             return str;
@@ -490,7 +543,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
 
         private string CreateStationsCutStr(AdInputType uit, Lang lang)
         {
-            var eventNum = uit.Event.Num;
+            var eventNum = uit.Event?.Num;
             if (!eventNum.HasValue)
                 return string.Empty;
 
@@ -548,61 +601,15 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
         /// Заменить все переменные NumberOfCharacters.
         /// Вычислить N символов след. за NumberOfCharacters в кавычках
         /// </summary>
-        private string MakeAddressDeviceAndNumberOfCharacters(string str)
+        private string MakeAddressDevice(string str)
         {
-            if (str.Contains("}"))                                                           //если указанны переменные подстановки
+            var dict = new Dictionary<string, object>
             {
-                var subStr = str.Split('}');
-                StringBuilder resStr = new StringBuilder();
-                for (var index = 0; index < subStr.Length; index++)
-                {
-                    var s = subStr[index];
-                    var replaseStr = (s.Contains("{")) ? (s + "}") : s;
-                    //Вставка адреса ус-ва
-                    if (replaseStr.Contains("AddressDevice"))
-                    {
-                        var mathStr = Regex.Match(replaseStr, @"{(.*)}").Groups[1].Value;
-                        string formatStr;
-                        if (mathStr.Contains(":")) //если указанн формат числа
-                        {
-                            if (int.TryParse(_addressDevice, out var parseVal))
-                            {
-                                formatStr = string.Format(replaseStr.Replace("AddressDevice", "0"), parseVal);
-                                resStr.Append(formatStr);
-                            }
-                        }
-                        else
-                        {
-                            formatStr = string.Format(replaseStr.Replace("AddressDevice", "0"), _addressDevice);
-                            resStr.Append(formatStr);
-                        }
-                        continue;
-                    }
-                    //Подсчет кол-ва символов
-                    if (replaseStr.Contains("NumberOfCharacters"))
-                    {
-                        var targetStr = (subStr.Length > (index + 1)) ? subStr[index + 1] : string.Empty;
-                        if (Regex.Match(targetStr, "\\\"(.*)\"").Success) //
-                        {
-                            var matchString = Regex.Match(targetStr, "\\\"(.*)\\\"").Groups[1].Value;
-                            if (!string.IsNullOrEmpty(matchString))
-                            {
-                                var lenght = matchString.TrimEnd('\\').Length;
-                                var dateFormat = Regex.Match(replaseStr, "\\{NumberOfCharacters:(.*)\\}").Groups[1].Value;
-                                var formatStr = !string.IsNullOrEmpty(dateFormat) ?
-                                    string.Format(replaseStr.Replace("NumberOfCharacters", "0"), lenght.ToString(dateFormat)) :
-                                    string.Format(replaseStr.Replace("NumberOfCharacters", "0"), lenght);
-                                resStr.Append(formatStr);
-                            }
-                        }
-                        continue;
-                    }
-                    //Добавим в неизменном виде спецификаторы байтовой информации.
-                    resStr.Append(replaseStr);
-                }
-                return resStr.ToString().Replace("\\\"", string.Empty); //заменить \"
-            }
-            return str;
+                ["AddressDevice"] = _addressDevice,
+            };
+            //ВСТАВИТЬ ПЕРЕМЕННЫЕ ИЗ СЛОВАРЯ В body
+            var resStr = HelpersString.StringTemplateInsert(str, dict);
+            return resStr;
         }
 
 
@@ -659,19 +666,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
         {
             var format = Option.RequestOption.Format;
             var matchString = Regex.Match(str, "(.*){CRC(.*)}").Groups[1].Value;
-            byte[] xorBytes;
-
-            //TODO: Добавить в Shared метод преобразования строки к массиву байцт по формату
-            if (format == "HEX")
-            {
-                xorBytes = new byte[10]; //DEBUG
-
-                //Распарсить строку matchString в масив байт как она есть. 0203АА96 ...
-            }
-            else
-            {
-                xorBytes = Encoding.GetEncoding(format).GetBytes(matchString);
-            }
+            var xorBytes = matchString.ConvertString2ByteArray(format);
             //вычислить CRC по правилам XOR
             if (str.Contains("CRCXor"))
             {
@@ -680,7 +675,6 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
             }
             return str;
         }
-
 
         #endregion
     }

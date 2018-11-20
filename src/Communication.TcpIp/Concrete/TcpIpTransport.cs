@@ -225,9 +225,6 @@ namespace Transport.TcpIp.Concrete
         public async Task<byte[]> TakeDataAsync(int nbytes, int timeOut, CancellationToken ct)
         {
             byte[] bDataTemp = new byte[256];
-
-            //nbytes = 200;//DEBUG !!!!!!!!!!!!
-
             //TODO: создать task в котором считывать пока не считаем нужное кол-во байт. Прерывать этот task по таймауту  AsyncHelp.WithTimeout
             //int nByteTake=0;
             //while (true)

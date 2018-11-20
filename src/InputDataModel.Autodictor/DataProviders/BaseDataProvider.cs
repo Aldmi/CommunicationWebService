@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Text.RegularExpressions;
 using InputDataModel.Autodictor.Model;
+using Newtonsoft.Json;
 
 namespace InputDataModel.Autodictor.DataProviders
 {
@@ -16,8 +17,9 @@ namespace InputDataModel.Autodictor.DataProviders
         /// <param name="whereFilter">фильтрация данных</param>
         /// <param name="orderBy">упорядочевание данных по имени св-ва</param>
         /// <param name="takeItems">кол-во элементов которые нужно взять из коллекции или дополнить до этого кол-ва</param>
+        /// <param name="defaultItemJson">дефолтное значение AdInputType, дополняется до TakeIteme этим значением</param>
         /// <returns></returns>
-        public IEnumerable<AdInputType> FilteredAndOrderedAndTakesItems(IEnumerable<AdInputType> inData, string whereFilter, string orderBy, int takeItems)
+        public IEnumerable<AdInputType> FilteredAndOrderedAndTakesItems(IEnumerable<AdInputType> inData, string whereFilter, string orderBy, int takeItems, string defaultItemJson)
         {
             if(inData == null)
                 return new List<AdInputType>();
@@ -48,7 +50,9 @@ namespace InputDataModel.Autodictor.DataProviders
                 //ПРИМЕНИТЬ ФИЛЬТР И УПОРЯДОЧЕВАНИЕ
                 var filtred = inData.AsQueryable().Where(where).OrderBy(orderBy).ToList();
                 //ВЗЯТЬ TakeItems ИЛИ ДОПОЛНИТЬ ДО TakeItems.
-                var takedItems= new AdInputType[takeItems];
+
+                var defaultItem= GetDefaultAdInputType(defaultItemJson);
+                var takedItems= Enumerable.Repeat(defaultItem, takeItems).ToArray();
                 var endPosition= (takeItems < filtred.Count) ? takeItems : filtred.Count;
                 filtred.CopyTo(0, takedItems, 0, endPosition);
                 return takedItems;
@@ -58,6 +62,13 @@ namespace InputDataModel.Autodictor.DataProviders
                 //LOG
                 return null;
             }
+        }
+
+
+        private AdInputType GetDefaultAdInputType(string defaultItemJson)
+        {
+            var adInputType = JsonConvert.DeserializeObject<AdInputType>(defaultItemJson);
+            return adInputType;
         }
     }
 }

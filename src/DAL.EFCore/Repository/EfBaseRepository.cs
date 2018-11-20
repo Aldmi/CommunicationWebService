@@ -170,7 +170,6 @@ namespace DAL.EFCore.Repository
 
         protected async Task AddRangeAsync(IEnumerable<TMap> entitys)
         {
-            //DEBUG
             try
             {
                 var efOptions = AutoMapperConfig.Mapper.Map<IEnumerable<TDb>>(entitys);
@@ -181,8 +180,6 @@ namespace DAL.EFCore.Repository
                 Console.WriteLine(e);
                 throw;
             }
-        
-        
             await Context.SaveChangesAsync();
         }
 

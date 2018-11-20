@@ -64,17 +64,6 @@ namespace WebServer.Controllers
                 var exchangeOptions = await _mediatorForOptionsRep.GetExchangeOptionsAsync();
                 var transportOption = await _mediatorForOptionsRep.GetTransportOptionsAsync();
 
-                //DEBUG---
-                var first= exchangeOptions.FirstOrDefault();
-                //first.Provider = new ManualProviderOption
-                //{
-                //    Name = "VidorBinary",
-                //    Id = 10,
-                //    Address = "100",
-                //    TimeRespone = 2500
-                //};
-
-
                 var deviceOptionsDto = _mapper.Map<List<DeviceOptionDto>>(deviceOptions);
                 var exchangeOptionsDto = _mapper.Map<List<ExchangeOptionDto>>(exchangeOptions);
                 var transportOptionDto = _mapper.Map<TransportOptionsDto>(transportOption);

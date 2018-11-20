@@ -69,11 +69,20 @@ namespace WebServer.Controllers
 
 
 
-
         // GET api/values
         [HttpGet]
-        public IEnumerable<InputData<AdInputType>> Get()
+        
+        // public IEnumerable<InputData<AdInputType>> Get()
+        public AdInputType Get()
         {
+            var adInputType= new AdInputType
+            {
+                PathNumber = "5",
+            };
+
+            return adInputType;
+
+
             //var user = new User() {Name = "dsfdsdfsfsdgdfgh"};
             //var userDto=  _mapper.Map<UserDto>(user);
 
@@ -187,8 +196,8 @@ namespace WebServer.Controllers
             //        }
             //    };
 
-            var inData = new List<InputData<AdInputType>>();
-            return inData;
+            //var inData = new List<InputData<AdInputType>>();
+            //return inData;
         }
 
         // GET api/values/5

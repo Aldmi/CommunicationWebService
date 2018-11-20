@@ -93,7 +93,7 @@ namespace DAL.Abstract.Extensions
                                     OrderBy = "Id",
                                     //OrderBy = "ArrivalTime",
                                     TakeItems = 1, //2
-                                    
+                                    DefaultItemJson= "{\"pathNumber\": \"5\"}",  //"{}" - дефолтный конструктор типа
                                     ViewRules = new List<ViewRuleOption>
                                     {
                                         new ViewRuleOption

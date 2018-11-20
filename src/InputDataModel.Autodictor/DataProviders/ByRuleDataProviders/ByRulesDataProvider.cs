@@ -128,7 +128,17 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
         #region Methode
 
         public async Task StartExchangePipeline(InDataWrapper<AdInputType> inData)
-        {           
+        {
+            //DEBUG
+            //TODO: тут можно не дополнять,
+            if (inData == null)
+            {
+                inData= new InDataWrapper<AdInputType>
+                {
+                    Datas = new List<AdInputType>()
+                };
+            }
+
             foreach (var rule in _rules)
             {
                 StatusString.Clear();
@@ -144,7 +154,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
                     continue;
                 }
                 //ДАННЫЕ--------------------------------------------------------------
-                var takesItems = FilteredAndOrderedAndTakesItems(inData.Datas, rule.Option.WhereFilter, rule.Option.OrderBy, rule.Option.TakeItems)?.ToList();
+                var takesItems = FilteredAndOrderedAndTakesItems(inData.Datas, rule.Option.WhereFilter, rule.Option.OrderBy, rule.Option.TakeItems, rule.Option.DefaultItemJson)?.ToList();
                 if (takesItems == null || takesItems.Count == 0)
                     continue;
 

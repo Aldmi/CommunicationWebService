@@ -14,7 +14,8 @@ namespace DAL.EFCore.Entities.Exchange.ProvidersOption
         public string AddressDevice { get; set; }       
         public string WhereFilter { get; set; }            
         public string OrderBy { get; set; }                 
-        public int TakeItems { get; set; }                               
+        public int TakeItems { get; set; }       
+        public string DefaultItemJson { get; set; } 
         public List<EfViewRuleOption> ViewRules { get; set; }  
     }
 
