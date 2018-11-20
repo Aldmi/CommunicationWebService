@@ -226,7 +226,7 @@ namespace Transport.TcpIp.Concrete
         {
             byte[] bDataTemp = new byte[256];
 
-            nbytes = 200;//DEBUG !!!!!!!!!!!!
+            //nbytes = 200;//DEBUG !!!!!!!!!!!!
 
             //TODO: создать task в котором считывать пока не считаем нужное кол-во байт. Прерывать этот task по таймауту  AsyncHelp.WithTimeout
             //int nByteTake=0;

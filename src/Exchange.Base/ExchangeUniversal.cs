@@ -77,6 +77,8 @@ namespace Exchange.Base
             _transport = transport;
             _transportBackground = transportBackground;
             _dataProvider = dataProvider;
+
+            //SendCycleTimeData(new List<TIn> {new TIn() });
         }
 
         #endregion
@@ -243,6 +245,7 @@ namespace Exchange.Base
             transportResponseWrapper.KeyExchange = KeyExchange;
             transportResponseWrapper.DataAction = DataAction.CycleAction;
             ResponseChangeRx.OnNext(transportResponseWrapper);
+            await Task.Delay(3000, ct); //DEBUG
         }
 
         /// <summary>
@@ -325,6 +328,7 @@ namespace Exchange.Base
         }
 
         #endregion
+
         #endregion
 
 

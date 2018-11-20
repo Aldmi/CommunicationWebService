@@ -75,7 +75,7 @@ namespace DAL.Abstract.Extensions
                     Id = 2,
                     Key = "TcpIp_table_1",
                     KeyTransport = new KeyTransport("TcpIp table 1", TransportType.TcpIp),
-                    AutoStartCycleFunc = false,
+                    AutoStartCycleFunc = true, // DEBUG
                     CountBadTrying = 3,
                     Provider = new ProviderOption
                     {
@@ -103,7 +103,7 @@ namespace DAL.Abstract.Extensions
                                             Count = 1,
                                             BatchSize = 1000,
                                             RequestOption = new RequestOption{Header = "{adress}", Body = "01{adress}0502{Station}", Footer = "{CrcXor16}", MaxBodyLenght = 140, Format = "Windows-1251"},
-                                            ResponseOption = new ResponseOption{Body = "01050A", Lenght = 3, TimeRespone = 3000, Format = "X"}
+                                            ResponseOption = new ResponseOption{Body = "01050A", Lenght = 3, TimeRespone = 3000, Format = "X2"}
                                         },
                                         //new ViewRuleOption
                                         //{
