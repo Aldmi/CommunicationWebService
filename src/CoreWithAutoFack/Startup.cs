@@ -39,13 +39,16 @@ namespace WebServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IConfiguration>(provider => AppConfiguration);
+
             services.AddMvc()
                 .AddControllersAsServices()
+                .AddXmlSerializerFormatters()
                 .AddJsonOptions(o =>
                 {
                     o.SerializerSettings.Formatting = Formatting.Indented;
                     o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
+
             services.AddOptions();
             services.AddAutoMapper();
         }
@@ -82,8 +85,19 @@ namespace WebServer
         public void Configure(IApplicationBuilder app,
                               IHostingEnvironment env,
                               ILifetimeScope scope,
-                              IConfiguration config)
+                              IConfiguration config,
+                              IMapper mapper)
         {
+            try
+            {
+                mapper.ConfigurationProvider.AssertConfigurationIsValid(); //Проверка настройки маппинга
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
             InitializeAsync(scope).Wait();
             ConfigurationBackgroundProcessAsync(app, scope);
           

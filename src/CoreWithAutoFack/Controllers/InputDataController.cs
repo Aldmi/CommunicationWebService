@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac.Features.Indexed;
+using AutoMapper;
 using BL.Services.InputData;
 using InputDataModel.Autodictor.Model;
 using InputDataModel.Base;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using WebServer.DTO.XML;
 using Worker.Background.Abstarct;
 
 namespace WebServer.Controllers
@@ -30,7 +32,10 @@ namespace WebServer.Controllers
 
         #region ctor
 
-        public InputDataController(IConfiguration config, IIndex<string, ISimpleBackground> background, InputDataApplyService<AdInputType> inputDataApplyService)
+        public InputDataController(IConfiguration config,
+                                   IIndex<string, ISimpleBackground> background,
+                                   InputDataApplyService<AdInputType> inputDataApplyService)
+                                  
         {
             _inputDataApplyService = inputDataApplyService;
             var backgroundName= config["MessageBrokerConsumer4InData:Name"];
@@ -136,6 +141,51 @@ namespace WebServer.Controllers
                 throw;
             }
         }
+
+
+        [HttpPost("SendDataXml4Devices")]
+        [Produces("application/xml")]
+        public async Task<IActionResult> SendDataXml4Devices([FromBody] AdInputType4XmlDtoContainer adInputType4XmlList)
+        {
+            //try
+            //{
+            //    var first = adInputType4XmlList.Trains.FirstOrDefault();
+            //    var res = _mapper.Map<List<AdInputType>>(trainsList.Trains);
+            //}
+            //catch (Exception e)
+            //{
+
+            //}
+
+            return Ok();
+
+
+            //try
+            //{
+            //    var errors= await _inputDataApplyService.ApplyInputData(inputDatas);
+            //    if (errors.Any())
+            //    {
+            //        var errorCompose = new StringBuilder("Error in sending data: ");
+            //        foreach (var err in errors)
+            //        {
+            //            errorCompose.AppendLine(err);
+            //        }     
+            //        ModelState.AddModelError("SendData4Devices", errorCompose.ToString());
+            //        return BadRequest(ModelState);
+            //    }
+
+            //    return Ok();
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex);
+            //    //LOG
+            //    throw;
+            //}
+        }
+
+
+
 
         #endregion
     }
