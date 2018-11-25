@@ -127,3 +127,36 @@ System.Net.Internals.SocketExceptionFactory+ExtendedSocketException (0x80004005)
    at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
    at Transport.TcpIp.Concrete.TcpIpTransport.<ReOpen>d__39.MoveNext() in D:\Git\CommunicationWebService\src\Communication.TcpIp\Concrete\TcpIpTransport.cs:line 141
 2018-11-25 19:41:34.769 +07:00 [WRN] коннект для транспорта НЕ ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-25 23:13:25.848 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-25 23:13:40.761 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-25 23:14:03.742 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3276
+2018-11-25 23:14:04.381 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-25 23:14:04.432 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-25 23:14:04.528 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 415.8308ms
+2018-11-25 23:14:04.552 +07:00 [INF] Request finished in 833.645ms 400 application/json; charset=utf-8
+2018-11-25 23:14:45.044 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3276
+2018-11-25 23:14:45.049 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-25 23:14:45.050 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-25 23:14:45.051 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.4955ms
+2018-11-25 23:14:45.052 +07:00 [INF] Request finished in 8.8695ms 400 application/json; charset=utf-8
+2018-11-25 23:15:36.220 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-25 23:15:36.240 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-25 23:15:36.266 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-25 23:15:36.268 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 39.5717ms
+2018-11-25 23:15:36.274 +07:00 [INF] Request finished in 53.8557ms 200 
+2018-11-25 23:18:28.995 +07:00 [ERR] KafkaException= Local: Message timed out для Vidor1
+Confluent.Kafka.KafkaException: Local: Message timed out
+   at Infrastructure.MessageBroker.Produser.KafkaProducer.<ProduceAsync>d__4.MoveNext() in D:\Git\CommunicationWebService\src\Infrastructure.MessageBroker1\Produser\KafkaProducer.cs:line 94
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at DeviceForExchange.Device`1.<Send2Produder>d__17.MoveNext() in D:\Git\CommunicationWebService\src\Device.Base\Device.cs:line 182
+2018-11-25 23:18:29.980 +07:00 [ERR] KafkaException= Local: Message timed out для Vidor1
+Confluent.Kafka.KafkaException: Local: Message timed out
+   at Infrastructure.MessageBroker.Produser.KafkaProducer.<ProduceAsync>d__4.MoveNext() in D:\Git\CommunicationWebService\src\Infrastructure.MessageBroker1\Produser\KafkaProducer.cs:line 94
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at DeviceForExchange.Device`1.<Send2Produder>d__17.MoveNext() in D:\Git\CommunicationWebService\src\Device.Base\Device.cs:line 182

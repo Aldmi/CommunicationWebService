@@ -101,19 +101,19 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
             var items = batch.ToList();
 
             //DEBUG----------------------------------------------------
-            var startSection = "\u0002{AddressDevice:X2}{Nbyte:D2}";
+            var header = Option.RequestOption.Header;//"\u0002{AddressDevice:X2}{Nbyte:D2}";
 
-            var body = "%StationArr= {NumberOfCharacters:X2} \\\"{StationArrival}\\\"" +
-                       "%TypeName= {TypeName}" +
-                       "%NumberOfTrain= {NumberOfTrain}" +
-                       "%PathNumber= {NumberOfCharacters:X2} \\\"{PathNumber:D5}\\\"" +
-                       "%Stations= {Stations} " +
-                       "%TArrival= {TArrival:t}" +
-                       "%rowNumb= {(rowNumber*11-11):X3}" +
-                       "%StationDep= {NumberOfCharacters:X2} \\\"{StationDeparture}\\\"" +
-                       "%StatC= {NumberOfCharacters:X2} \\\"{StationsCut}\\\"" +
-                       "%DelayT= {DelayTime}" +
-                       "%ExpectedT= {ExpectedTime:t}";
+            //var body = "%StationArr= {NumberOfCharacters:X2} \\\"{StationArrival}\\\"" +
+            //           "%TypeName= {TypeName}" +
+            //           "%NumberOfTrain= {NumberOfTrain}" +
+            //           "%PathNumber= {NumberOfCharacters:X2} \\\"{PathNumber:D5}\\\"" +
+            //           "%Stations= {Stations} " +
+            //           "%TArrival= {TArrival:t}" +
+            //           "%rowNumb= {(rowNumber*11-11):X3}" +
+            //           "%StationDep= {NumberOfCharacters:X2} \\\"{StationDeparture}\\\"" +
+            //           "%StatC= {NumberOfCharacters:X2} \\\"{StationsCut}\\\"" +
+            //           "%DelayT= {DelayTime}" +
+            //           "%ExpectedT= {ExpectedTime:t}";
 
             //var body = "%StationArr= {NumberOfCharacters:X2} \\\"{StationArrival}\\\"" +
             //           "%TypeName= {TypeName}" +
@@ -125,9 +125,8 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
             //           "%StationDep= {NumberOfCharacters:X2} \\\"{StationDeparture}\\\"" +
             //           "%StatC= {NumberOfCharacters:X2} \\\"{StationsCut}\\\"";
 
-
-            //var body = "%StationArr={NumberOfCharacters:D2} \\\"{StationArrival}\\\" NumberOfTr={NumberOfTrain}";
-            var endSection = " {CRCXor:X2}\u0003";
+            var body = Option.RequestOption.Body;
+            var footer = Option.RequestOption.Footer;//" {CRCXor:X2}\u0003";
             //DEBUG----------------------------------------------------
 
             //ЗАПОЛНИТЬ ТЕЛО ЗАПРОСА (вставить НЕЗАВИСИМЫЕ данные)-------------------------------------------------------------------------
@@ -149,7 +148,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
 
             //КОНКАТЕНИРОВАТЬ СТРОКИ В СУММАРНУЮ СТРОКУ-------------------------------------------------------------------------------------
             //resSumStr содержит только ЗАВИСИМЫЕ данные: {AddressDevice} {NByte} {NumberOfCharacters {CRC}}
-            var resSumStr = startSection + limitBodyStr + endSection;
+            var resSumStr = header + limitBodyStr + footer;
 
             //ВСТАВИТЬ ЗАВИСИМЫЕ ДАННЫЕ ({AddressDevice} {NByte} {CRC})-------------------------------------------------
             var resDependencyStr = MakeDependentInserts(resSumStr);

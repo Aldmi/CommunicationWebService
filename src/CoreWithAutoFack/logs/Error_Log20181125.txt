@@ -116,3 +116,19 @@ System.Net.Internals.SocketExceptionFactory+ExtendedSocketException (0x80004005)
    at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
    at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
    at Transport.TcpIp.Concrete.TcpIpTransport.<ReOpen>d__39.MoveNext() in D:\Git\CommunicationWebService\src\Communication.TcpIp\Concrete\TcpIpTransport.cs:line 141
+2018-11-25 23:18:28.995 +07:00 [ERR] KafkaException= Local: Message timed out для Vidor1
+Confluent.Kafka.KafkaException: Local: Message timed out
+   at Infrastructure.MessageBroker.Produser.KafkaProducer.<ProduceAsync>d__4.MoveNext() in D:\Git\CommunicationWebService\src\Infrastructure.MessageBroker1\Produser\KafkaProducer.cs:line 94
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at DeviceForExchange.Device`1.<Send2Produder>d__17.MoveNext() in D:\Git\CommunicationWebService\src\Device.Base\Device.cs:line 182
+2018-11-25 23:18:29.980 +07:00 [ERR] KafkaException= Local: Message timed out для Vidor1
+Confluent.Kafka.KafkaException: Local: Message timed out
+   at Infrastructure.MessageBroker.Produser.KafkaProducer.<ProduceAsync>d__4.MoveNext() in D:\Git\CommunicationWebService\src\Infrastructure.MessageBroker1\Produser\KafkaProducer.cs:line 94
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at DeviceForExchange.Device`1.<Send2Produder>d__17.MoveNext() in D:\Git\CommunicationWebService\src\Device.Base\Device.cs:line 182

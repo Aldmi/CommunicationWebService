@@ -15,33 +15,33 @@ namespace DAL.Abstract.Extensions
                 return;
             }
 
-            var serials = new List<SerialOption>
-            {
-                new SerialOption
-                {
-                    Id = 1,
-                    Port = "COM1",
-                    BaudRate = 9600,
-                    DataBits = 8,
-                    DtrEnable = false,
-                    Parity = Parity.Even,
-                    StopBits = StopBits.One,
-                    AutoStart = true
-                },
-                //new SerialOption
-                //{
-                //    Id = 2,
-                //    Port = "COM2",
-                //    BaudRate = 9600,
-                //    DataBits = 8,
-                //    DtrEnable = false,
-                //    Parity = Parity.Even,
-                //    StopBits = StopBits.One,
-                //    AutoStart = true
-                //}
-            };
+            //var serials = new List<SerialOption>
+            //{
+            //    new SerialOption
+            //    {
+            //        Id = 1,
+            //        Port = "COM1",
+            //        BaudRate = 9600,
+            //        DataBits = 8,
+            //        DtrEnable = false,
+            //        Parity = Parity.Even,
+            //        StopBits = StopBits.One,
+            //        AutoStart = true
+            //    },
+            //    //new SerialOption
+            //    //{
+            //    //    Id = 2,
+            //    //    Port = "COM2",
+            //    //    BaudRate = 9600,
+            //    //    DataBits = 8,
+            //    //    DtrEnable = false,
+            //    //    Parity = Parity.Even,
+            //    //    StopBits = StopBits.One,
+            //    //    AutoStart = true
+            //    //}
+            //};
 
-           await rep.AddRangeAsync(serials);
+           //await rep.AddRangeAsync(serials);
         }
     }
 }
