@@ -6,6 +6,7 @@ using BL.Services.Exceptions;
 using BL.Services.Mediators;
 using InputDataModel.Autodictor.Model;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace WebServer.Controllers
 {
@@ -23,6 +24,7 @@ namespace WebServer.Controllers
 
         private readonly MediatorForStorages<AdInputType> _mediatorForStorages;
         private readonly DeviceActionService<AdInputType> _deviceActionService;
+        private readonly ILogger _logger;
 
         #endregion
 
@@ -31,10 +33,13 @@ namespace WebServer.Controllers
 
         #region ctor
 
-        public DevicesController(MediatorForStorages<AdInputType> mediatorForStorages, DeviceActionService<AdInputType> deviceActionService)
+        public DevicesController(MediatorForStorages<AdInputType> mediatorForStorages,
+                                 DeviceActionService<AdInputType> deviceActionService,
+                                 ILogger logger)
         {
             _mediatorForStorages = mediatorForStorages;
             _deviceActionService = deviceActionService;
+            _logger = logger;
         }
 
         #endregion
@@ -83,10 +88,9 @@ namespace WebServer.Controllers
                 await _mediatorForStorages.RemoveDevice(deviceName);
                 return Ok(device);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
-                //LOG
+                _logger.Error(ex, "Ошибка в DevicesController/RemoveDevice");
                 throw;
             }
         }
@@ -109,15 +113,13 @@ namespace WebServer.Controllers
             }
             catch (ActionHandlerException ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Ошибка в DevicesController/StartCycleExchange");
                 ModelState.AddModelError("StartCycleExchangeException", ex.Message);
                 return BadRequest(ModelState);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Критическая Ошибка в DevicesController/StartCycleExchange");
                 throw;
             }
         }
@@ -139,15 +141,13 @@ namespace WebServer.Controllers
             }
             catch (ActionHandlerException ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Ошибка в DevicesController/StopCycleExchange");
                 ModelState.AddModelError("StartCycleExchangeException", ex.Message);
                 return BadRequest(ModelState);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Критическая Ошибка в DevicesController/StopCycleExchange");
                 throw;
             }
         }
@@ -164,15 +164,13 @@ namespace WebServer.Controllers
             }
             catch (ActionHandlerException ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Ошибка в DevicesController/StartCycleReOpenedConnection");
                 ModelState.AddModelError("StartCycleReOpenedConnection", ex.Message);
                 return BadRequest(ModelState);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Критическая Ошибка в DevicesController/StartCycleReOpenedConnection");
                 throw;
             }
         }
@@ -189,15 +187,13 @@ namespace WebServer.Controllers
             }
             catch (ActionHandlerException ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Ошибка в DevicesController/StopCycleReOpenedConnection");
                 ModelState.AddModelError("StopCycleReOpenedConnections", ex.Message);
                 return BadRequest(ModelState);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Критическая Ошибка в DevicesController/StopCycleReOpenedConnection");
                 throw;
             }
         }

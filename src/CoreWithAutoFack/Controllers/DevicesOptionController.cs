@@ -11,6 +11,7 @@ using DAL.Abstract.Entities.Options.Exchange;
 using DAL.Abstract.Entities.Options.Transport;
 using InputDataModel.Autodictor.Model;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using WebServer.DTO.JSON.OptionsDto;
 using WebServer.DTO.JSON.OptionsDto.DeviceOption;
 using WebServer.DTO.JSON.OptionsDto.ExchangeOption;
@@ -32,6 +33,7 @@ namespace WebServer.Controllers
         private readonly BuildDeviceService<AdInputType> _buildDeviceService;
 
         private readonly IMapper _mapper;
+        private readonly ILogger _logger;
 
         #endregion
 
@@ -40,11 +42,15 @@ namespace WebServer.Controllers
 
         #region ctor
 
-        public DevicesOptionController(MediatorForOptions mediatorForOptionsRep, BuildDeviceService<AdInputType> buildDeviceService, IMapper mapper)
+        public DevicesOptionController(MediatorForOptions mediatorForOptionsRep,
+                                       BuildDeviceService<AdInputType> buildDeviceService,
+                                       IMapper mapper,
+                                       ILogger logger)
         {
             _mediatorForOptionsRep = mediatorForOptionsRep;
             _buildDeviceService = buildDeviceService;
             _mapper = mapper;
+            _logger = logger;
         }
 
         #endregion
@@ -78,8 +84,7 @@ namespace WebServer.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Ошибка в DevicesOptionController/Get");
                 throw;
             }
         }
@@ -102,8 +107,7 @@ namespace WebServer.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Ошибка в DevicesOptionController/Get");
                 throw;
             }
         }
@@ -136,15 +140,13 @@ namespace WebServer.Controllers
             }
             catch (OptionHandlerException ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Ошибка в DevicesOptionController/Post");
                 ModelState.AddModelError("PostException", ex.Message);
                 return BadRequest(ModelState);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Критическая Ошибка в DevicesOptionController/Post");
                 throw;
             }
         }
@@ -166,8 +168,7 @@ namespace WebServer.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Ошибка в DevicesOptionController/Delete");
                 throw;
             }
         }
@@ -189,15 +190,13 @@ namespace WebServer.Controllers
             }
             catch (StorageHandlerException ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Ошибка в DevicesOptionController/BuildDevice");
                 ModelState.AddModelError("BuildAndAddDeviceException", ex.Message);
                 return BadRequest(ModelState);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
-                //LOG
+                _logger.Error(ex, "Критическая Ошибка в DevicesOptionController/BuildDevice");
                 throw;
             }
         }

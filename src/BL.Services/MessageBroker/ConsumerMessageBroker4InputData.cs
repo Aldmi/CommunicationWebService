@@ -7,7 +7,7 @@ using BL.Services.InputData;
 using Confluent.Kafka;
 using Infrastructure.MessageBroker.Abstract;
 using InputDataModel.Base;
-using Logger.Abstract.Abstract;
+using Serilog;
 using Newtonsoft.Json;
 using Worker.Background.Abstarct;
 

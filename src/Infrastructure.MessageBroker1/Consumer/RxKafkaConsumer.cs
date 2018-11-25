@@ -9,7 +9,7 @@ using Confluent.Kafka;
 using Confluent.Kafka.Serialization;
 using Infrastructure.MessageBroker.Abstract;
 using Infrastructure.MessageBroker.Options;
-using Logger.Abstract.Abstract;
+using Serilog;
 
 namespace Infrastructure.MessageBroker.Consumer
 {

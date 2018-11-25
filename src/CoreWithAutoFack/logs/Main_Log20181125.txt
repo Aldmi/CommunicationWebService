@@ -1,0 +1,5 @@
+2018-11-25 18:24:08.509 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-25 18:25:10.443 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-25 18:25:18.290 +07:00 [ERR] ОШИБКА СОЗДАНИЕ СПИСКА УСТРОЙСТВ НА БАЗЕ ОПЦИЙ
+System.Exception: !!!!!!!!!!!!!!!!!!!!!!
+   at BL.Services.Actions.BuildDeviceService`1.<BuildAllDevices>d__3.MoveNext() in D:\Git\CommunicationWebService\src\BL.Services\Actions\BuildDeviceService.cs:line 57

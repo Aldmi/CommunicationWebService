@@ -17,7 +17,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MoreLinq;
 using Newtonsoft.Json;
+using Serilog;
 using WebServer.AutofacModules;
+using WebServer.Extensions;
 using Worker.Background.Abstarct;
 
 namespace WebServer
@@ -38,6 +40,7 @@ namespace WebServer
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSerilogServices();
             services.AddTransient<IConfiguration>(provider => AppConfiguration);
 
             services.AddMvc()
@@ -61,7 +64,6 @@ namespace WebServer
             builder.RegisterModule(new EventBusAutofacModule());
             builder.RegisterModule(new ControllerAutofacModule());
             builder.RegisterModule(new MessageBrokerAutofacModule());
-            builder.RegisterModule(new LogerAutofacModule());
             builder.RegisterModule(new BlConfigAutofacModule());
 
             var inputDataName = AppConfiguration["InputDataModel"];
@@ -79,7 +81,6 @@ namespace WebServer
                     throw new NotImplementedException();
             }
         }
-
 
 
         public void Configure(IApplicationBuilder app,
@@ -186,6 +187,7 @@ namespace WebServer
         /// </summary>
         private async Task InitializeAsync(ILifetimeScope scope)
         {
+            var logger = scope.Resolve<ILogger>();
             var env = scope.Resolve<IHostingEnvironment>();      
             if (env.IsDevelopment()) //TODO: добавить переменную окружения OS (win/linux)
             {
@@ -227,10 +229,9 @@ namespace WebServer
             }
             catch (AggregateException ex)
             {
-                //LOG
                 foreach (var innerException in ex.InnerExceptions)
                 {
-                    Console.WriteLine(innerException.ToString());
+                    logger.Error(innerException, "ОШИБКА СОЗДАНИЕ СПИСКА УСТРОЙСТВ НА БАЗЕ ОПЦИЙ");
                 }
             }
         }

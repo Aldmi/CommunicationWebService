@@ -11,6 +11,7 @@ using InputDataModel.Autodictor.Model;
 using InputDataModel.Base;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Serilog;
 using WebServer.DTO.XML;
 using Worker.Background.Abstarct;
 
@@ -24,6 +25,7 @@ namespace WebServer.Controllers
 
         private readonly ISimpleBackground _background;
         private readonly InputDataApplyService<AdInputType> _inputDataApplyService;
+        private readonly ILogger _logger;
 
         #endregion
 
@@ -34,10 +36,12 @@ namespace WebServer.Controllers
 
         public InputDataController(IConfiguration config,
                                    IIndex<string, ISimpleBackground> background,
-                                   InputDataApplyService<AdInputType> inputDataApplyService)
+                                   InputDataApplyService<AdInputType> inputDataApplyService,
+                                   ILogger logger)
                                   
         {
             _inputDataApplyService = inputDataApplyService;
+            _logger = logger;
             var backgroundName= config["MessageBrokerConsumer4InData:Name"];
            _background = background[backgroundName];
         }
@@ -81,8 +85,7 @@ namespace WebServer.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Ошибка в InputDataController/StartListener");
                 throw;
             }
         }
@@ -107,8 +110,7 @@ namespace WebServer.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Ошибка в InputDataController/StopListener");
                 throw;
             }
         }
@@ -136,8 +138,7 @@ namespace WebServer.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                //LOG
+                _logger.Error(ex, "Ошибка в InputDataController/SendData4Devices");
                 throw;
             }
         }
@@ -178,14 +179,10 @@ namespace WebServer.Controllers
             //}
             //catch (Exception ex)
             //{
-            //    Console.WriteLine(ex);
-            //    //LOG
+            //_logger.Error(ex, "Ошибка в InputDataController/SendDataXml4Devices");
             //    throw;
             //}
         }
-
-
-
 
         #endregion
     }

@@ -1,0 +1,3 @@
+2018-11-25 18:25:18.290 +07:00 [ERR] ОШИБКА СОЗДАНИЕ СПИСКА УСТРОЙСТВ НА БАЗЕ ОПЦИЙ
+System.Exception: !!!!!!!!!!!!!!!!!!!!!!
+   at BL.Services.Actions.BuildDeviceService`1.<BuildAllDevices>d__3.MoveNext() in D:\Git\CommunicationWebService\src\BL.Services\Actions\BuildDeviceService.cs:line 57

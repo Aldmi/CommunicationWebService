@@ -1,6 +1,7 @@
 ﻿using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Serilog;
 
 namespace WebServer
 {
@@ -14,6 +15,7 @@ namespace WebServer
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureServices(services => services.AddAutofac())
+                .UseSerilog()
                 .UseStartup<Startup>()
                 .Build();
     }
