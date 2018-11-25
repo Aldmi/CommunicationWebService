@@ -13,6 +13,7 @@ using Infrastructure.MessageBroker.Abstract;
 using Infrastructure.MessageBroker.Options;
 using InputDataModel.Base;
 using Newtonsoft.Json;
+using Serilog;
 using Transport.Base.RxModel;
 
 namespace DeviceForExchange
@@ -27,6 +28,7 @@ namespace DeviceForExchange
         #region field
 
         private readonly IEventBus _eventBus; //TODO: Not Use
+        private readonly ILogger _logger;
         private readonly IProduser _produser;
         private readonly Owned<IProduser> _produserOwner;
         private readonly List<IDisposable> _disposeExchangesEventHandlers = new List<IDisposable>();
@@ -51,11 +53,13 @@ namespace DeviceForExchange
                       IEnumerable<IExchange<TIn>> exchanges,
                       IEventBus eventBus,
                       Func<ProduserOption, Owned<IProduser>> produser4DeviceRespFactory,
-                      ProduserOption produser4DeviceOption)
+                      ProduserOption produser4DeviceOption,
+                      ILogger logger)
         {
             Option = option;
             Exchanges = exchanges.ToList();
             _eventBus = eventBus;
+            _logger = logger;
 
             var produserOwner = produser4DeviceRespFactory(produser4DeviceOption);
             _produserOwner = produserOwner;                  //можно создать/удалить produser в любое время используя фабрику и Owner 
@@ -177,9 +181,9 @@ namespace DeviceForExchange
             {
                await _produser.ProduceAsync(topicName, formatStr);
             }
-            catch (KafkaException e)
+            catch (KafkaException ex)
             {
-                Console.WriteLine($"KafkaException= {e.Message} для {topicName}"); //LOG
+                _logger.Error(ex, $"KafkaException= {ex.Message} для {topicName}");
             }
         }
 

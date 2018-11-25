@@ -6,6 +6,7 @@ using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
 using DAL.Abstract.Entities.Options.Transport;
+using Serilog;
 using Shared.Enums;
 using Shared.Helpers;
 using Shared.Types;
@@ -24,6 +25,7 @@ namespace Transport.TcpIp.Concrete
 
         private const int TimeCycleReOpened = 3000;
         private CancellationTokenSource _ctsCycleReOpened;
+        private readonly ILogger _logger;
 
         #endregion
 
@@ -79,10 +81,11 @@ namespace Transport.TcpIp.Concrete
 
         #region ctor
 
-        public TcpIpTransport(TcpIpOption option, KeyTransport keyTransport)
+        public TcpIpTransport(TcpIpOption option, KeyTransport keyTransport, ILogger logger)
         {
             Option = option;
             KeyTransport = keyTransport;
+            _logger = logger;
         }
 
         #endregion
@@ -111,11 +114,11 @@ namespace Transport.TcpIp.Concrete
                 res = await ReOpen();
                 if (!res)
                 {
-                    Console.WriteLine($"коннект для транспорта НЕ ОТКРЫТ: {KeyTransport}");
+                    _logger.Warning($"коннект для транспорта НЕ ОТКРЫТ: {KeyTransport}");
                     await Task.Delay(TimeCycleReOpened, _ctsCycleReOpened.Token);
                 }
             }
-            Console.WriteLine($"Коннект ОТКРЫТ: {KeyTransport}");
+            _logger.Information($"коннект для транспорта ОТКРЫТ: {KeyTransport}");
             IsCycleReopened = false;
             return true;
         }
@@ -144,7 +147,7 @@ namespace Transport.TcpIp.Concrete
             {
                 IsOpen = false;
                 StatusString = $"Ошибка инициализации соединения: \"{ex.Message}\"";
-                //LogException.WriteLog("Инициализация: ", ex, LogException.TypeLog.TcpIp);
+                _logger.Error(ex, StatusString);
                 Dispose();
             }
             return false;
@@ -175,21 +178,25 @@ namespace Transport.TcpIp.Concrete
                 }
                 catch (OperationCanceledException)
                 {
+                    _logger.Information($"TcpIpTransport {KeyTransport}. OperationCanceled");
                     StatusDataExchange = StatusDataExchange.EndWithCanceled;
                     return StatusDataExchange;
                 }
                 catch (TimeoutException)
                 {
+                    _logger.Warning($"TcpIpTransport {KeyTransport}. TimeoutException");
                     StatusDataExchange = StatusDataExchange.EndWithTimeout;
                     return StatusDataExchange;
                 }
-                catch (IOException)
+                catch (IOException ex)
                 {
+                    _logger.Error(ex, $"TcpIpTransport {KeyTransport}. IOException");
                     StatusDataExchange = StatusDataExchange.EndWithErrorCritical;
                     return StatusDataExchange;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _logger.Fatal(ex, $"TcpIpTransport {KeyTransport}. Exception");
                     StatusDataExchange = StatusDataExchange.EndWithErrorCritical;
                     return StatusDataExchange;
                 }
@@ -216,7 +223,7 @@ namespace Transport.TcpIp.Concrete
             catch (Exception ex)
             {
                 StatusString = $"ИСКЛЮЧЕНИЕ SendDataToServer :{ex.Message}";
-                //LogException.WriteLog("Отправка данных серверу: ", ex, LogException.TypeLog.TcpIp);
+                _logger.Error(ex, $"TcpIpTransport/SendDataToServer {KeyTransport}");
             }
             return false;
         }
@@ -244,9 +251,9 @@ namespace Transport.TcpIp.Concrete
                 Array.Copy(bDataTemp, bData, nByteTake);
                 return bData;
             }
-            
+
+            _logger.Warning($"TcpIpTransport/TakeDataAsync {KeyTransport}.  Кол-во считанных данных не верное  Принято= {nByteTake}  Ожидаем= {nbytes}");
             //TODO: добавить логирование если кол-во считанных данных не верное (помещать считаыннй НЕВЕРНЫЙ буфер в лог)
-            
             return null;
         }
 

@@ -12,6 +12,7 @@ using Exchange.Base.DataProviderAbstract;
 using Exchange.Base.Model;
 using Exchange.Base.RxModel;
 using InputDataModel.Base;
+using Serilog;
 using Shared.Enums;
 using Shared.Types;
 using Transport.Base.Abstract;
@@ -28,6 +29,7 @@ namespace Exchange.Base
         private readonly ITransport _transport;
         private readonly ITransportBackground _transportBackground;
         private readonly IExchangeDataProvider<TIn, ResponseDataItem<TIn>> _dataProvider;                               //проавйдер данных является StateFull, т.е. хранит свое последнее состояние между отправкой данных
+        private readonly ILogger _logger;
         private readonly ConcurrentQueue<InDataWrapper<TIn>> _inDataQueue  = new ConcurrentQueue<InDataWrapper<TIn>>(); //Очередь данных для SendOneTimeData().
         private InDataWrapper<TIn> _data4CycleFunc;                                                                     //Данные для Цикл. функции.
         #endregion
@@ -71,12 +73,18 @@ namespace Exchange.Base
 
         #region ctor
 
-        public ExchangeUniversal(ExchangeOption exchangeOption, ITransport transport, ITransportBackground transportBackground, IExchangeDataProvider<TIn, ResponseDataItem<TIn>> dataProvider)
+        public ExchangeUniversal(ExchangeOption exchangeOption,
+                                 ITransport transport,
+                                 ITransportBackground transportBackground,
+                                 IExchangeDataProvider<TIn,
+                                 ResponseDataItem<TIn>> dataProvider,
+                                 ILogger logger)
         {
             ExchangeOption = exchangeOption;
             _transport = transport;
             _transportBackground = transportBackground;
             _dataProvider = dataProvider;
+            _logger = logger;
         }
 
         #endregion
@@ -109,7 +117,7 @@ namespace Exchange.Base
         private CancellationTokenSource _cycleReOpenedCts;
         public async Task CycleReOpened()
         {
-            Console.WriteLine($"KeyExchange {KeyExchange} START>>>>>>>");//DEBUG
+            _logger.Debug($"KeyExchange {KeyExchange} START>>>>>>>");//DEBUG
             if (_transport != null)
             {
                 _cycleReOpenedCts?.Cancel();
@@ -119,7 +127,7 @@ namespace Exchange.Base
                     await _transport.CycleReOpened();
                 }, _cycleReOpenedCts.Token);
             }
-            Console.WriteLine($"KeyExchange {KeyExchange} STOP<<<<<<<<");//DEBUG
+            _logger.Debug($"KeyExchange {KeyExchange} STOP<<<<<<<<");//DEBUG
         }
 
         /// <summary>
@@ -274,10 +282,11 @@ namespace Exchange.Base
                             transportResp.IsOutDataValid = provider.OutputData.IsOutDataValid;
                             break;
 
-                        //ОБМЕН ЗАВЕРЩЕН КРИТИЧЕСКИ НЕ ПРАВИЛЬНО. ПРОВЕРКА НЕОБХОДИМОСТИ ПЕРЕОТКРЫТИЯ СОЕДИНЕНИЯ.
+                        //ОБМЕН ЗАВЕРЩЕН КРИТИЧЕСКИ НЕ ПРАВИЛЬНО. ПЕРЕОТКРЫТИЕ СОЕДИНЕНИЯ.
                         case StatusDataExchange.EndWithTimeoutCritical:
                         case StatusDataExchange.EndWithErrorCritical:
                             CycleReOpened(); //TODO: отладить что будет после с обменом.
+                            _logger.Warning($"ОБМЕН ЗАВЕРЩЕН КРИТИЧЕСКИ НЕ ПРАВИЛЬНО. ПЕРЕОТКРЫТИЕ СОЕДИНЕНИЯ. KeyExchange {KeyExchange}");
                             break;
 
                         //ОБМЕН ЗАВЕРШЕН НЕ ПРАВИЛЬНО.
@@ -286,6 +295,7 @@ namespace Exchange.Base
                             {
                                 _countTryingTakeData = 0;
                                 IsConnect = false;
+                                _logger.Warning($"ОБМЕН ЗАВЕРШЕН НЕ ПРАВИЛЬНО. KeyExchange {KeyExchange}");
                                 CycleReOpened();
                             }
                             break;
@@ -295,8 +305,8 @@ namespace Exchange.Base
                 {
                     //ОШИБКА ТРАНСПОРТА.
                     IsConnect = false;
-                    transportResp.TransportException = ex;                
-                    Console.WriteLine(ex);
+                    transportResp.TransportException = ex;
+                    _logger.Error(ex, $"ОШИБКА ТРАНСПОРТА. KeyExchange {KeyExchange}");
                 }
                 finally
                 {
@@ -317,6 +327,7 @@ namespace Exchange.Base
                 IsConnect = false;
                 transportResponseWrapper.ExceptionExchangePipline = ex;
                 transportResponseWrapper.Message = _dataProvider.StatusString.ToString();
+                _logger.Error(ex, $"ОШИБКА ПОДГОТОВКИ ДАННЫХ К ОБМЕНУ. KeyExchange {KeyExchange}");
             }
             finally
             {

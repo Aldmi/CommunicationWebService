@@ -17,6 +17,7 @@ using Exchange.Base.Model;
 using Infrastructure.EventBus.Abstract;
 using Infrastructure.MessageBroker.Abstract;
 using Infrastructure.MessageBroker.Options;
+using Serilog;
 using Shared.Enums;
 using Shared.Types;
 using Transport.Http.Concrete;
@@ -45,6 +46,7 @@ namespace BL.Services.Mediators
         private readonly Func<ProduserOption, Owned<IProduser>> _produser4DeviceRespFactory;
 
         private readonly AppConfigWrapper _appConfigWrapper;
+        private readonly ILogger _logger;
         //опции для создания IProduser через фабрику
 
         #endregion
@@ -61,7 +63,8 @@ namespace BL.Services.Mediators
             IEventBus eventBus,     
             IIndex<string, Func<ProviderOption,IExchangeDataProvider<TIn,ResponseDataItem<TIn>>>> dataProviderFactory,
             Func<ProduserOption, Owned<IProduser>> produser4DeviceRespFactory,
-            AppConfigWrapper appConfigWrapper)
+            AppConfigWrapper appConfigWrapper,
+            ILogger logger)
         {
             _transportStorageService = transportStorageService;
             _backgroundStorageService = backgroundStorageService;
@@ -71,6 +74,7 @@ namespace BL.Services.Mediators
             _dataProviderFactory = dataProviderFactory;
             _produser4DeviceRespFactory = produser4DeviceRespFactory;
             _appConfigWrapper = appConfigWrapper;
+            _logger = logger;
         }
 
         #endregion
@@ -155,7 +159,7 @@ namespace BL.Services.Mediators
                 var tcpIp = _transportStorageService.Get(keyTransport);
                 if (tcpIp == null)
                 {
-                    tcpIp = new TcpIpTransport(tcpIpOption, keyTransport);
+                    tcpIp = new TcpIpTransport(tcpIpOption, keyTransport, _logger);
                     _transportStorageService.AddNew(keyTransport, tcpIp);
                     var bg = new HostingBackgroundTransport(keyTransport, tcpIpOption.AutoStart);
                     _backgroundStorageService.AddNew(keyTransport, bg);
@@ -188,7 +192,7 @@ namespace BL.Services.Mediators
                 try
                 {
                     var dataProvider = _dataProviderFactory[exchOption.Provider.Name](exchOption.Provider);
-                    exch = new ExchangeUniversal<TIn>(exchOption, transport, bg, dataProvider);
+                    exch = new ExchangeUniversal<TIn>(exchOption, transport, bg, dataProvider, _logger);
                     _exchangeStorageService.AddNew(exchOption.Key, exch);
                 }
                 catch (Exception)
@@ -199,7 +203,7 @@ namespace BL.Services.Mediators
 
             //ДОБАВИТЬ УСТРОЙСТВО--------------------------------------------------------------------------
             var excanges = _exchangeStorageService.GetMany(deviceOption.ExchangeKeys).ToList();
-            var device = new Device<TIn>(deviceOption, excanges, _eventBus, _produser4DeviceRespFactory, _appConfigWrapper.GetProduser4DeviceOption);
+            var device = new Device<TIn>(deviceOption, excanges, _eventBus, _produser4DeviceRespFactory, _appConfigWrapper.GetProduser4DeviceOption, _logger);
             _deviceStorageService.AddNew(device.Option.Name, device);
 
             return device;
