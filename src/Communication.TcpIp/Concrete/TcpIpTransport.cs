@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DAL.Abstract.Entities.Options.Transport;
 using Serilog;
+using SerilogTimings.Extensions;
 using Shared.Enums;
 using Shared.Helpers;
 using Shared.Types;
@@ -169,7 +170,7 @@ namespace Transport.TcpIp.Concrete
                 try
                 {
                     var data = await TakeDataAsync(dataProvider.CountSetDataByte, timeRespoune, ct);
-                    var res= dataProvider.SetDataByte(data);
+                    var res = dataProvider.SetDataByte(data);
                     if (!res)
                     {
                         StatusDataExchange = StatusDataExchange.EndWithError;
@@ -231,30 +232,33 @@ namespace Transport.TcpIp.Concrete
 
         public async Task<byte[]> TakeDataAsync(int nbytes, int timeOut, CancellationToken ct)
         {
-            byte[] bDataTemp = new byte[256];
-            //TODO: создать task в котором считывать пока не считаем нужное кол-во байт. Прерывать этот task по таймауту  AsyncHelp.WithTimeout
-            //int nByteTake=0;
-            //while (true)
-            //{
-            //    nByteTake = _terminalNetStream.Read(bDataTemp, 0, nbytes);
-            //    Task.Delay(500);
-            //}
-            // ctsTimeout = new CancellationTokenSource();//токен сработает по таймауту в функции WithTimeout
-            // cts = CancellationTokenSource.CreateLinkedTokenSource(ctsTimeout.Token, ct); // Объединенный токен, сработает от выставленного ctsTimeout.Token или от ct
-            //int nByteTake = await _terminalNetStream.ReadAsync(bDataTemp, 0, nbytes, cts.Token).WithTimeout(timeOut, ctsTimeout);
-            var ctsTimeout = new CancellationTokenSource();//токен сработает по таймауту в функции WithTimeout
-            var cts = CancellationTokenSource.CreateLinkedTokenSource(ctsTimeout.Token, ct); // Объединенный токен, сработает от выставленного ctsTimeout.Token или от ct
-            int nByteTake = await _terminalNetStream.ReadAsync(bDataTemp, 0, nbytes, cts.Token).WithTimeout2CanceledTask(timeOut, ctsTimeout);
-            if (nByteTake == nbytes)
+            using (_logger.TimeOperation("TimeOpertaion TakeDataAsync"))
             {
-                var bData = new byte[nByteTake];
-                Array.Copy(bDataTemp, bData, nByteTake);
-                return bData;
-            }
+                byte[] bDataTemp = new byte[256];
+                //TODO: создать task в котором считывать пока не считаем нужное кол-во байт. Прерывать этот task по таймауту  AsyncHelp.WithTimeout
+                //int nByteTake=0;
+                //while (true)
+                //{
+                //    nByteTake = _terminalNetStream.Read(bDataTemp, 0, nbytes);
+                //    Task.Delay(500);
+                //}
+                // ctsTimeout = new CancellationTokenSource();//токен сработает по таймауту в функции WithTimeout
+                // cts = CancellationTokenSource.CreateLinkedTokenSource(ctsTimeout.Token, ct); // Объединенный токен, сработает от выставленного ctsTimeout.Token или от ct
+                //int nByteTake = await _terminalNetStream.ReadAsync(bDataTemp, 0, nbytes, cts.Token).WithTimeout(timeOut, ctsTimeout);
+                var ctsTimeout = new CancellationTokenSource();//токен сработает по таймауту в функции WithTimeout
+                var cts = CancellationTokenSource.CreateLinkedTokenSource(ctsTimeout.Token, ct); // Объединенный токен, сработает от выставленного ctsTimeout.Token или от ct
+                int nByteTake = await _terminalNetStream.ReadAsync(bDataTemp, 0, nbytes, cts.Token).WithTimeout2CanceledTask(timeOut, ctsTimeout);
+                if (nByteTake == nbytes)
+                {
+                    var bData = new byte[nByteTake];
+                    Array.Copy(bDataTemp, bData, nByteTake);
+                    return bData;
+                }
 
-            _logger.Warning($"TcpIpTransport/TakeDataAsync {KeyTransport}.  Кол-во считанных данных не верное  Принято= {nByteTake}  Ожидаем= {nbytes}");
-            //TODO: добавить логирование если кол-во считанных данных не верное (помещать считаыннй НЕВЕРНЫЙ буфер в лог)
-            return null;
+                _logger.Warning($"TcpIpTransport/TakeDataAsync {KeyTransport}.  Кол-во считанных данных не верное  Принято= {nByteTake}  Ожидаем= {nbytes}");
+                //TODO: добавить логирование если кол-во считанных данных не верное (помещать считаыннй НЕВЕРНЫЙ буфер в лог)
+                return null;
+            }
         }
 
         #endregion
