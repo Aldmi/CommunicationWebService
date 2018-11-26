@@ -212,7 +212,8 @@ namespace DeviceForExchange
 
         private async void ConnectChangeRxEventHandler(ConnectChangeRxModel model)
         {
-            await Send2Produder(Option.TopicName4MessageBroker, $"Connect = {model.IsConnect} для обмена {model.KeyExchange}");
+            //await Send2Produder(Option.TopicName4MessageBroker, $"Connect = {model.IsConnect} для обмена {model.KeyExchange}");
+            _logger.Debug($"ConnectChangeRxEventHandler.  Connect = {model.IsConnect} для обмена {model.KeyExchange}");
         }
 
         private async void LastSendDataChangeRxEventHandler(LastSendDataChangeRxModel<TIn> model)
@@ -222,8 +223,9 @@ namespace DeviceForExchange
 
         private async void OpenChangeTransportRxEventHandler(IsOpenChangeRxModel model)
         {
-           await Send2Produder(Option.TopicName4MessageBroker,$"IsOpen = {model.IsOpen} для ТРАНСПОРТА {model.TransportName}");
-           //_eventBus.Publish(isOpenChangeRxModel);  //Публикуем событие на общую шину данных       
+            //await Send2Produder(Option.TopicName4MessageBroker,$"IsOpen = {model.IsOpen} для ТРАНСПОРТА {model.TransportName}");
+            //_eventBus.Publish(isOpenChangeRxModel);  //Публикуем событие на общую шину данных  
+            _logger.Debug($"OpenChangeTransportRxEventHandler.  IsOpen = {model.IsOpen} для ТРАНСПОРТА {model.TransportName}");
         }
 
         private async void TransportResponseChangeRxEventHandler(ResponsePieceOfDataWrapper<TIn> responsePieceOfDataWrapper)
@@ -234,7 +236,8 @@ namespace DeviceForExchange
                 NullValueHandling = NullValueHandling.Ignore  //Игнорировать пустые теги
             };
             var jsonResp = JsonConvert.SerializeObject(responsePieceOfDataWrapper, settings);
-            await Send2Produder(Option.TopicName4MessageBroker, $"ResponseDataWrapper = {jsonResp}");
+            //await Send2Produder(Option.TopicName4MessageBroker, $"ResponseDataWrapper = {jsonResp}");
+            _logger.Debug($"TransportResponseChangeRxEventHandler.  jsonResp = {jsonResp} ");
         }
 
         #endregion

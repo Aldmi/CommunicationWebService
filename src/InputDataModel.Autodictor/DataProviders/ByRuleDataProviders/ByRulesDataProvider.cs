@@ -77,7 +77,8 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
             var format = _currentRequest.RequestOption.Format;
             StatusString.AppendLine($"GetDataByte. StringRequest= {stringRequset}");
             //Преобразовываем КОНЕЧНУЮ строку в массив байт
-            var resultBuffer= stringRequset.ConvertString2ByteArray(format);
+            var resultBuffer= stringRequset.ConvertString2ByteArray(format);      
+            StatusString.AppendLine($"  ResultBuffer= { resultBuffer.ArrayByteToString("X2")}");
             return resultBuffer;
         }
 

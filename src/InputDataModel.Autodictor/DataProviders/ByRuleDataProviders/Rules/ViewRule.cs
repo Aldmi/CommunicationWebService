@@ -604,7 +604,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
         {
             var dict = new Dictionary<string, object>
             {
-                ["AddressDevice"] = _addressDevice,
+                ["AddressDevice"] =  int.TryParse(_addressDevice, out var address) ? address : 0
             };
             //ВСТАВИТЬ ПЕРЕМЕННЫЕ ИЗ СЛОВАРЯ В body
             var resStr = HelpersString.StringTemplateInsert(str, dict);

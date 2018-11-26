@@ -169,7 +169,7 @@ namespace Transport.TcpIp.Concrete
             {
                 try
                 {
-                    var data = await TakeDataAsync(dataProvider.CountSetDataByte, timeRespoune, ct);
+                    var data = await TakeDataInstantlyAsync(dataProvider.CountSetDataByte, timeRespoune, ct);
                     var res = dataProvider.SetDataByte(data);
                     if (!res)
                     {
@@ -230,7 +230,11 @@ namespace Transport.TcpIp.Concrete
         }
 
 
-        public async Task<byte[]> TakeDataAsync(int nbytes, int timeOut, CancellationToken ct)
+        /// <summary>
+        /// Прием данных с пеерменным периодом.
+        /// Прием заканчивается когда нужное кол-во данных поступит в входной буффер порта.
+        /// </summary>
+        public async Task<byte[]> TakeDataInstantlyAsync(int nbytes, int timeOut, CancellationToken ct)
         {
             using (_logger.TimeOperation("TimeOpertaion TakeDataAsync"))
             {
@@ -259,6 +263,33 @@ namespace Transport.TcpIp.Concrete
                 //TODO: добавить логирование если кол-во считанных данных не верное (помещать считаыннй НЕВЕРНЫЙ буфер в лог)
                 return null;
             }
+        }
+
+
+        /// <summary>
+        /// Прием данных с постоянным периодом.
+        /// </summary>
+        public async Task<byte[]> TakeDataConstPeriodAsync(int nbytes, int timeOut, CancellationToken ct)
+        {           
+            byte[] bDataTemp = new byte[256];
+
+            //Ожидаем накопление данных в буффере
+            await Task.Delay(timeOut, ct);
+
+            //Мгновенно с ожиданием в 100мс вычитываем поступивщий буффер
+            var ctsTimeout = new CancellationTokenSource();//токен сработает по таймауту в функции WithTimeout
+            var cts = CancellationTokenSource.CreateLinkedTokenSource(ctsTimeout.Token, ct); // Объединенный токен, сработает от выставленного ctsTimeout.Token или от ct
+            int nByteTake = await _terminalNetStream.ReadAsync(bDataTemp, 0, nbytes, cts.Token).WithTimeout2CanceledTask(100, ctsTimeout);
+            if (nByteTake == nbytes)
+            {
+                var bData = new byte[nByteTake];
+                Array.Copy(bDataTemp, bData, nByteTake);
+                return bData;
+            }
+
+            _logger.Warning($"TcpIpTransport/TakeDataAsync {KeyTransport}.  Кол-во считанных данных не верное  Принято= {nByteTake}  Ожидаем= {nbytes}");
+            //TODO: добавить логирование если кол-во считанных данных не верное (помещать считаыннй НЕВЕРНЫЙ буфер в лог)
+            return null;          
         }
 
         #endregion

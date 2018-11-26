@@ -163,7 +163,6 @@ namespace Transport.SerialPort.Concrete.SpWin
         }
 
 
-
         public async Task<bool> ReOpen()
         {
             try
@@ -188,9 +187,6 @@ namespace Transport.SerialPort.Concrete.SpWin
             }
             return false;
         }
-
-
-
 
 
         /// <summary>
@@ -230,7 +226,6 @@ namespace Transport.SerialPort.Concrete.SpWin
             StatusDataExchange = StatusDataExchange.End; 
             return StatusDataExchange.End;
         }
-
 
 
         /// <summary>

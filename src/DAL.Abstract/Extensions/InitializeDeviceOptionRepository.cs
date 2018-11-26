@@ -61,7 +61,7 @@ namespace DAL.Abstract.Extensions
                     Id = 1,
                     Description = "Табло1",
                     Name = "Vidor1",
-                    TopicName4MessageBroker = String.Empty, //"Vidor1"
+                    TopicName4MessageBroker = "Vidor1", //String.Empty
                     AutoBuild = true,
                     ExchangeKeys = new List<string>
                     {

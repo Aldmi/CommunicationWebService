@@ -76,7 +76,7 @@ namespace DAL.Abstract.Extensions
                     Key = "TcpIp_table_1",
                     KeyTransport = new KeyTransport("TcpIp table 1", TransportType.TcpIp),
                     AutoStartCycleFunc = false, // DEBUG
-                    CountBadTrying = 3,
+                    CountBadTrying = 10,
                     Provider = new ProviderOption
                     {
                         Name = "ByRules",
@@ -87,7 +87,7 @@ namespace DAL.Abstract.Extensions
                                 new RuleOption
                                 {
                                     Name = "Rule_1",
-                                    AddressDevice = "10",
+                                    AddressDevice = "46", //59
                                     //WhereFilter = "(TypeTrain == \"Suburban\") && (PathNumber == \"2\" || PathNumber == \"3\" || PathNumber == \"4\")",
                                     WhereFilter = "true",
                                     OrderBy = "Id",
@@ -104,16 +104,16 @@ namespace DAL.Abstract.Extensions
                                             BatchSize = 1000,
                                             RequestOption = new RequestOption
                                             {
-                                                Header = "\u0002{AddressDevice:X2}{Nbyte:D2}",
+                                                Header = "\u0002{AddressDevice:X2}{Nbyte:X2}",
                                                 Body = "%0100002300000f0000001E%10{NumberOfCharacters:X2}05\\\"{NumberOfTrain}\\\"",
                                                 Footer = "{CRCXor:X2}\u0003",
-                                                MaxBodyLenght = 140,
+                                                MaxBodyLenght = 200,
                                                 Format = "Windows-1251"
                                             },
                                             ResponseOption = new ResponseOption
                                             {
                                                 Body = "01050A",
-                                                Lenght = 3,
+                                                Lenght = 1,
                                                 TimeRespone = 3000,
                                                 Format = "X2"
                                             }
