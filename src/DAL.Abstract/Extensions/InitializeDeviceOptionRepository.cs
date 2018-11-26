@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Entities.Options.Device;
@@ -60,7 +61,7 @@ namespace DAL.Abstract.Extensions
                     Id = 1,
                     Description = "Табло1",
                     Name = "Vidor1",
-                    TopicName4MessageBroker = "Vidor1",
+                    TopicName4MessageBroker = String.Empty, //"Vidor1"
                     AutoBuild = true,
                     ExchangeKeys = new List<string>
                     {

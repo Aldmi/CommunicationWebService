@@ -150,6 +150,13 @@ namespace WebServer
                     lifetimeApp.ApplicationStarted.Register(() => exchange.StartCycleExchange());
                 }
             }
+
+            //ПОДПИСКА ДЕВАЙСА НА СОБЫТИЯ ПУБЛИКУЕМЫЕ НА IProduser (kaffka).
+            var deviceServices = scope.Resolve<DeviceStorageService<AdInputType>>();
+            foreach (var device in deviceServices.Values.Where(dev => !string.IsNullOrEmpty(dev.Option.TopicName4MessageBroker)))
+            {
+                lifetimeApp.ApplicationStarted.Register(() => device.SubscrubeOnExchangesEvents());
+            }
         }
 
 
@@ -172,6 +179,13 @@ namespace WebServer
             foreach (var exchange in exchangeServices.Values.Where(exch => !exch.IsOpen))
             {
                 lifetimeApp.ApplicationStopping.Register(() => exchange.CycleReOpenedCancelation());
+            }
+
+            //ОТПИСКА ДЕВАЙСА ОТ СОБЫТИЙ ПУБЛИКУЕМЫХ НА IProduser (kaffka).
+            var deviceServices = scope.Resolve<DeviceStorageService<AdInputType>>();
+            foreach (var device in deviceServices.Values)
+            {
+                lifetimeApp.ApplicationStopping.Register(() => device.UnsubscrubeOnExchangesEvents());
             }
         }
 

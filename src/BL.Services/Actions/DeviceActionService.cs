@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -211,6 +212,41 @@ namespace BL.Services.Actions
             {
                 StopCycleReOpenedConnection(exchnageKey);
             }
+        }
+
+
+        //TODO: Добавить в контроллер DevicesController
+        /// <summary>
+        /// Подписка ус-ва на события публикуемуе на шину данных.
+        /// </summary>
+        /// <param name="deviceName">Имя ус-ва</param>
+        /// <param name="topicName4MessageBroker">название топика на шине данных</param>
+        public void SubscrubeDeviceOnExchangesEvents(string deviceName, string topicName4MessageBroker = null)
+        {
+            var device = _mediatorForStorages.GetDevice(deviceName);
+            if (device == null)
+                throw new ArgumentException();
+
+            //Подписка уже есть. подписываться 2-ой раз нельзя
+            if (!string.IsNullOrEmpty(device.TopicName4MessageBroker))
+                throw new ActionHandlerException($"Ошибка подписи устройства на передачу данных по шине. Устройство уже подписанно на шину {device.TopicName4MessageBroker}. Необходимо сначало отписаться");
+
+            device.SubscrubeOnExchangesEvents(topicName4MessageBroker);
+        }
+
+
+        //TODO: Добавить в контроллер DevicesController
+        /// <summary>
+        /// Отписка ус-ва от событий публикуемых на шину данных.
+        /// </summary>
+        /// <param name="deviceName">Имя ус-ва</param>
+        public void UnsubscrubeDeviceOnExchangesEvents(string deviceName)
+        {
+            var device = _mediatorForStorages.GetDevice(deviceName);
+            if (device == null)
+                throw new ArgumentException();
+
+            device.UnsubscrubeOnExchangesEvents();
         }
 
         #endregion

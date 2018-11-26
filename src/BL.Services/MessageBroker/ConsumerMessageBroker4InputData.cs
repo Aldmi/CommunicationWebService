@@ -116,8 +116,8 @@ namespace BL.Services.MessageBroker
 
         public void Dispose()
         {
-            _registration.Dispose();
-            _consumer.Dispose();
+            _registration?.Dispose();
+            _consumer?.Dispose();
         }
 
         #endregion

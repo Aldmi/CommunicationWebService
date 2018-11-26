@@ -41,6 +41,7 @@ namespace DeviceForExchange
 
         public DeviceOption Option { get;  }
         public List<IExchange<TIn>> Exchanges { get; }
+        public string TopicName4MessageBroker { get; set; }
 
         #endregion
 
@@ -64,8 +65,7 @@ namespace DeviceForExchange
             var produserOwner = produser4DeviceRespFactory(produser4DeviceOption);
             _produserOwner = produserOwner;                  //можно создать/удалить produser в любое время используя фабрику и Owner 
             _produser = produserOwner.Value;
-
-            SubscrubeOnExchangesEvents();
+            TopicName4MessageBroker = null;
         }
 
         #endregion
@@ -75,8 +75,21 @@ namespace DeviceForExchange
 
         #region Methode
 
-        public void SubscrubeOnExchangesEvents()
+        /// <summary>
+        /// Подписка на публикацию событий устройства на ВНЕШНЮЮ ШИНУ ДАННЫХ
+        /// </summary>
+        /// <param name="topicName4MessageBroker">Имя топика, если == null, то берется из настроек</param>
+        public bool SubscrubeOnExchangesEvents(string topicName4MessageBroker = null)
         {
+            //Подписка уже есть не указан
+            if (!string.IsNullOrEmpty(TopicName4MessageBroker))
+                return false;
+
+            //Топик не указан
+            TopicName4MessageBroker = topicName4MessageBroker ?? Option.TopicName4MessageBroker;
+            if (string.IsNullOrEmpty(TopicName4MessageBroker))
+                return false;
+
             Exchanges.ForEach(exch =>
             {
                 _disposeExchangesEventHandlers.Add(exch.IsConnectChangeRx.Subscribe(ConnectChangeRxEventHandler));
@@ -84,6 +97,8 @@ namespace DeviceForExchange
                 _disposeExchangesEventHandlers.Add(exch.IsOpenChangeTransportRx.Subscribe(OpenChangeTransportRxEventHandler));
                 _disposeExchangesEventHandlers.Add(exch.ResponseChangeRx.Subscribe(TransportResponseChangeRxEventHandler));
             });
+
+            return true;
         }
 
  
@@ -91,6 +106,7 @@ namespace DeviceForExchange
 
         public void UnsubscrubeOnExchangesEvents()
         {
+            TopicName4MessageBroker = null;
             _disposeExchangesEventHandlers.ForEach(d=>d.Dispose());
         }
 
