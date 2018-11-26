@@ -112,8 +112,8 @@ namespace DAL.Abstract.Extensions
                                             },
                                             ResponseOption = new ResponseOption
                                             {
-                                                Body = "01050A",
-                                                Lenght = 1,
+                                                Body = "0246463038254130373741434B454103",
+                                                Lenght = 16,
                                                 TimeRespone = 3000,
                                                 Format = "X2"
                                             }

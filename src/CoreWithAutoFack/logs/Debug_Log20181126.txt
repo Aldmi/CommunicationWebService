@@ -78,3 +78,1008 @@
     }
   ]
 } 
+2018-11-26 19:35:38.166 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-26 19:35:42.503 +07:00 [DBG] KeyExchange TcpIp_table_1 START>>>>>>>
+2018-11-26 19:35:42.547 +07:00 [DBG] KeyExchange TcpIp_table_1 STOP<<<<<<<<
+2018-11-26 19:35:42.688 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-26 19:35:47.689 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 19:35:48.473 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 19:35:48.514 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 19:35:48.537 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 399.3295ms
+2018-11-26 19:35:48.596 +07:00 [INF] Request finished in 924.7054ms 200 
+2018-11-26 20:16:02.473 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-26 20:16:05.447 +07:00 [DBG] KeyExchange TcpIp_table_1 START>>>>>>>
+2018-11-26 20:16:05.484 +07:00 [DBG] KeyExchange TcpIp_table_1 STOP<<<<<<<<
+2018-11-26 20:16:05.624 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-26 20:16:11.748 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:16:12.348 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:16:12.382 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:16:12.395 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 302.372ms
+2018-11-26 20:16:12.444 +07:00 [INF] Request finished in 708.1095ms 200 
+2018-11-26 20:20:30.631 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-26 20:20:33.708 +07:00 [DBG] KeyExchange TcpIp_table_1 START>>>>>>>
+2018-11-26 20:20:33.743 +07:00 [DBG] KeyExchange TcpIp_table_1 STOP<<<<<<<<
+2018-11-26 20:20:33.891 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-26 20:20:37.487 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:20:38.081 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:20:38.118 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:20:38.130 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 311.7034ms
+2018-11-26 20:20:38.182 +07:00 [INF] Request finished in 703.2476ms 200 
+2018-11-26 20:21:51.498 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-26 20:21:54.528 +07:00 [DBG] KeyExchange TcpIp_table_1 START>>>>>>>
+2018-11-26 20:21:54.569 +07:00 [DBG] KeyExchange TcpIp_table_1 STOP<<<<<<<<
+2018-11-26 20:21:54.712 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-26 20:21:56.237 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:21:56.848 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:21:56.885 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:21:56.898 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 310.1752ms
+2018-11-26 20:21:56.967 +07:00 [INF] Request finished in 724.1938ms 200 
+2018-11-26 20:22:40.734 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 8
+2018-11-26 20:22:40.738 +07:00 [INF] TimeOpertaion TakeDataAsync completed in 39168.0573 ms
+2018-11-26 20:22:46.031 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= Rule_1\r\nCountItem4Sending = 1\r\nGetDataByte. StringRequest= \u00022E21%0100002300000f0000001E%1003055629F\u0003\r\n  ResultBuffer= 0232453231253031303030303233303030303066303030303030314525313030333035353632394603\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T00:00:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛНЕНИЙ"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    }
+  ]
+} 
+2018-11-26 20:22:51.844 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:22:51.855 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:22:51.858 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:22:51.860 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 10.5959ms
+2018-11-26 20:22:51.863 +07:00 [INF] Request finished in 19.3005ms 200 
+2018-11-26 20:23:04.742 +07:00 [INF] TimeOpertaion TakeDataAsync completed in 12802.2613 ms
+2018-11-26 20:23:07.257 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= Rule_1\r\nCountItem4Sending = 1\r\nGetDataByte. StringRequest= \u00022E21%0100002300000f0000001E%1003055629F\u0003\r\n  ResultBuffer= 0232453231253031303030303233303030303066303030303030314525313030333035353632394603\r\nSetDataByte. Length= 8  stringResponse= 3825413037374143\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T00:00:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛНЕНИЙ"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    }
+  ]
+} 
+2018-11-26 20:23:14.825 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:23:14.829 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:23:14.833 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:23:14.835 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 6.3402ms
+2018-11-26 20:23:14.840 +07:00 [INF] Request finished in 14.0794ms 200 
+2018-11-26 20:23:40.772 +07:00 [INF] TimeOpertaion TakeDataAsync completed in 25836.2328 ms
+2018-11-26 20:23:49.011 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= Rule_1\r\nCountItem4Sending = 1\r\nGetDataByte. StringRequest= \u00022E21%0100002300000f0000001E%1003055629F\u0003\r\n  ResultBuffer= 0232453231253031303030303233303030303066303030303030314525313030333035353632394603\r\nSetDataByte. Length= 8  stringResponse= 4B45410302464630\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T00:00:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛНЕНИЙ"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    }
+  ]
+} 
+2018-11-26 20:23:51.450 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:23:51.453 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:23:51.460 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:23:51.462 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 9.9619ms
+2018-11-26 20:23:51.468 +07:00 [INF] Request finished in 18.6399ms 200 
+2018-11-26 20:25:07.033 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-26 20:25:10.986 +07:00 [DBG] KeyExchange TcpIp_table_1 START>>>>>>>
+2018-11-26 20:25:11.049 +07:00 [DBG] KeyExchange TcpIp_table_1 STOP<<<<<<<<
+2018-11-26 20:25:11.196 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-26 20:25:11.583 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:25:12.407 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:25:12.454 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:25:12.477 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 393.8432ms
+2018-11-26 20:25:12.550 +07:00 [INF] Request finished in 966.8116ms 200 
+2018-11-26 20:25:59.378 +07:00 [INF] TimeOpertaion TakeDataAsync completed in 46758.6785 ms
+2018-11-26 20:25:59.474 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= Rule_1\r\nCountItem4Sending = 1\r\nGetDataByte. StringRequest= \u00022E21%0100002300000f0000001E%1003055629F\u0003\r\n  ResultBuffer= 0232453231253031303030303233303030303066303030303030314525313030333035353632394603\r\nSetDataByte. Length= 16  stringResponse= 0246463038254130373741434B454103\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T00:00:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛНЕНИЙ"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    }
+  ]
+} 
+2018-11-26 20:26:02.945 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:26:02.954 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:26:02.959 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:26:02.960 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 9.4084ms
+2018-11-26 20:26:02.963 +07:00 [INF] Request finished in 17.3829ms 200 
+2018-11-26 20:26:56.186 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-26 20:26:59.183 +07:00 [DBG] KeyExchange TcpIp_table_1 START>>>>>>>
+2018-11-26 20:26:59.223 +07:00 [DBG] KeyExchange TcpIp_table_1 STOP<<<<<<<<
+2018-11-26 20:26:59.365 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-26 20:27:06.304 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:27:06.924 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:27:06.962 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:27:06.982 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 306.627ms
+2018-11-26 20:27:07.038 +07:00 [INF] Request finished in 739.885ms 200 
+2018-11-26 20:27:13.581 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-26 20:27:13.587 +07:00 [INF] TimeOpertaion TakeDataAsync completed in 6482.1423 ms
+2018-11-26 20:27:13.679 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= Rule_1\r\nCountItem4Sending = 1\r\nGetDataByte. StringRequest= \u00022E21%0100002300000f0000001E%1003055629F\u0003\r\n  ResultBuffer= 0232453231253031303030303233303030303066303030303030314525313030333035353632394603\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T00:00:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛНЕНИЙ"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    }
+  ]
+} 
+2018-11-26 20:27:17.216 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:27:17.227 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:27:17.232 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:27:17.234 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 8.5619ms
+2018-11-26 20:27:17.237 +07:00 [INF] Request finished in 20.8716ms 200 
+2018-11-26 20:27:23.185 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-26 20:27:23.188 +07:00 [INF] TimeOpertaion TakeDataAsync completed in 5902.6555 ms
+2018-11-26 20:27:23.190 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= Rule_1\r\nCountItem4Sending = 1\r\nGetDataByte. StringRequest= \u00022E21%0100002300000f0000001E%1003055629F\u0003\r\n  ResultBuffer= 0232453231253031303030303233303030303066303030303030314525313030333035353632394603\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T00:00:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛНЕНИЙ"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    }
+  ]
+} 
+2018-11-26 20:27:25.667 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:27:25.680 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:27:25.689 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:27:25.697 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 20.5636ms
+2018-11-26 20:27:25.699 +07:00 [INF] Request finished in 31.878ms 200 
+2018-11-26 20:27:35.781 +07:00 [INF] TimeOpertaion TakeDataAsync completed in 10072.7108 ms
+2018-11-26 20:27:35.789 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= Rule_1\r\nCountItem4Sending = 1\r\nGetDataByte. StringRequest= \u00022E21%0100002300000f0000001E%1003055629F\u0003\r\n  ResultBuffer= 0232453231253031303030303233303030303066303030303030314525313030333035353632394603\r\nSetDataByte. Length= 16  stringResponse= 0246463038254130373741434B454103\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T00:00:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛНЕНИЙ"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    }
+  ]
+} 
+2018-11-26 20:27:39.115 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:27:39.118 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:27:39.122 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:27:39.123 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 6.0258ms
+2018-11-26 20:27:39.129 +07:00 [INF] Request finished in 14.3301ms 200 
+2018-11-26 20:27:44.300 +07:00 [INF] TimeOpertaion TakeDataAsync completed in 5115.7161000000006 ms
+2018-11-26 20:27:44.304 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= Rule_1\r\nCountItem4Sending = 1\r\nGetDataByte. StringRequest= \u00022E21%0100002300000f0000001E%1003055629F\u0003\r\n  ResultBuffer= 0232453231253031303030303233303030303066303030303030314525313030333035353632394603\r\nSetDataByte. Length= 16  stringResponse= 0246463038254130373741434B454103\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T00:00:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛНЕНИЙ"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    }
+  ]
+} 
+2018-11-26 20:27:47.637 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:27:47.648 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:27:47.656 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:27:47.657 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 10.0115ms
+2018-11-26 20:27:47.660 +07:00 [INF] Request finished in 22.9527ms 200 
+2018-11-26 20:27:53.941 +07:00 [INF] TimeOpertaion TakeDataAsync completed in 6241.0073 ms
+2018-11-26 20:27:53.944 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= Rule_1\r\nCountItem4Sending = 1\r\nGetDataByte. StringRequest= \u00022E21%0100002300000f0000001E%1003055629F\u0003\r\n  ResultBuffer= 0232453231253031303030303233303030303066303030303030314525313030333035353632394603\r\nSetDataByte. Length= 16  stringResponse= 0246463038254130373741434B454103\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T00:00:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛНЕНИЙ"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    }
+  ]
+} 
+2018-11-26 20:27:57.281 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:27:57.285 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:27:57.289 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:27:57.292 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 7.8472ms
+2018-11-26 20:27:57.312 +07:00 [INF] Request finished in 15.298ms 200 
+2018-11-26 20:28:22.223 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-26 20:28:25.597 +07:00 [DBG] KeyExchange TcpIp_table_1 START>>>>>>>
+2018-11-26 20:28:25.693 +07:00 [DBG] KeyExchange TcpIp_table_1 STOP<<<<<<<<
+2018-11-26 20:28:25.830 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-26 20:28:25.841 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:28:26.460 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:28:26.499 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:28:26.519 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 329.3638ms
+2018-11-26 20:28:26.584 +07:00 [INF] Request finished in 746.9057ms 200 
+2018-11-26 20:28:29.404 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 20
+2018-11-26 20:28:29.409 +07:00 [INF] TimeOpertaion TakeDataAsync completed in 2686.4257000000002 ms
+2018-11-26 20:28:29.498 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= Rule_1\r\nCountItem4Sending = 1\r\nGetDataByte. StringRequest= \u00022E21%0100002300000f0000001E%1003055629F\u0003\r\n  ResultBuffer= 0232453231253031303030303233303030303066303030303030314525313030333035353632394603\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T00:00:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛНЕНИЙ"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    }
+  ]
+} 
+2018-11-26 20:28:36.765 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:28:36.779 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:28:36.784 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:28:36.785 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 13.1454ms
+2018-11-26 20:28:36.790 +07:00 [INF] Request finished in 23.9904ms 200 
+2018-11-26 20:28:39.925 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 20
+2018-11-26 20:28:39.927 +07:00 [INF] TimeOpertaion TakeDataAsync completed in 3098.4683 ms
+2018-11-26 20:28:39.929 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= Rule_1\r\nCountItem4Sending = 1\r\nGetDataByte. StringRequest= \u00022E21%0100002300000f0000001E%1003055629F\u0003\r\n  ResultBuffer= 0232453231253031303030303233303030303066303030303030314525313030333035353632394603\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T00:00:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛНЕНИЙ"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    }
+  ]
+} 
+2018-11-26 20:28:41.573 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:28:41.593 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:28:41.597 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:28:41.601 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 10.262ms
+2018-11-26 20:28:41.604 +07:00 [INF] Request finished in 30.6276ms 200 
+2018-11-26 20:32:08.296 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-26 20:32:22.222 +07:00 [DBG] KeyExchange TcpIp_table_1 START>>>>>>>
+2018-11-26 20:32:22.256 +07:00 [DBG] KeyExchange TcpIp_table_1 STOP<<<<<<<<
+2018-11-26 20:32:22.402 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-26 20:32:25.950 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:32:26.605 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:32:26.648 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:32:26.665 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 358.17ms
+2018-11-26 20:32:26.747 +07:00 [INF] Request finished in 800.7662ms 200 
+2018-11-26 20:32:48.541 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= Rule_1\r\nCountItem4Sending = 1\r\nGetDataByte. StringRequest= \u00022E21%0100002300000f0000001E%1003055629F\u0003\r\n  ResultBuffer= 0232453231253031303030303233303030303066303030303030314525313030333035353632394603\r\nSetDataByte. Length= 16  stringResponse= 0246463038254130373741434B454103\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T00:00:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛНЕНИЙ"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    }
+  ]
+} 
+2018-11-26 20:32:55.473 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:32:55.477 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:32:55.480 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:32:55.482 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 5.7151000000000005ms
+2018-11-26 20:32:55.485 +07:00 [INF] Request finished in 11.7823ms 200 
+2018-11-26 20:35:34.469 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-26 20:35:48.200 +07:00 [DBG] KeyExchange TcpIp_table_1 START>>>>>>>
+2018-11-26 20:35:48.233 +07:00 [DBG] KeyExchange TcpIp_table_1 STOP<<<<<<<<
+2018-11-26 20:35:48.379 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-26 20:35:59.587 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3275
+2018-11-26 20:36:00.325 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-26 20:36:00.358 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-26 20:36:00.371 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 417.85110000000003ms
+2018-11-26 20:36:00.419 +07:00 [INF] Request finished in 840.1491ms 200 
+2018-11-26 20:36:25.624 +07:00 [DBG] ConnectChangeRxEventHandler.  Connect = True для обмена TcpIp_table_1
+2018-11-26 20:36:27.024 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= Rule_1\r\nCountItem4Sending = 1\r\nGetDataByte. StringRequest= \u00022E21%0100002300000f0000001E%1003055629F\u0003\r\n  ResultBuffer= 0232453231253031303030303233303030303066303030303030314525313030333035353632394603\r\nSetDataByte. Length= 16  stringResponse= 0246463038254130373741434B454103\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T00:00:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛНЕНИЙ"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    }
+  ]
+} 

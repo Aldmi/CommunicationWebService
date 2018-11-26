@@ -665,6 +665,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
         {
             var format = Option.RequestOption.Format;
             var matchString = Regex.Match(str, "(.*){CRC(.*)}").Groups[1].Value;
+            matchString = matchString.Replace("\u0002", string.Empty).Replace("\u0003", string.Empty);
             var xorBytes = matchString.ConvertString2ByteArray(format);
             //вычислить CRC по правилам XOR
             if (str.Contains("CRCXor"))

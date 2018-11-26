@@ -169,7 +169,8 @@ namespace Transport.TcpIp.Concrete
             {
                 try
                 {
-                    var data = await TakeDataInstantlyAsync(dataProvider.CountSetDataByte, timeRespoune, ct);
+                    //var data = await TakeDataInstantlyAsync(dataProvider.CountSetDataByte, timeRespoune, ct);
+                    var data = await TakeDataConstPeriodAsync(dataProvider.CountSetDataByte, timeRespoune, ct);
                     var res = dataProvider.SetDataByte(data);
                     if (!res)
                     {
@@ -239,6 +240,8 @@ namespace Transport.TcpIp.Concrete
             using (_logger.TimeOperation("TimeOpertaion TakeDataAsync"))
             {
                 byte[] bDataTemp = new byte[256];
+         
+
                 //TODO: создать task в котором считывать пока не считаем нужное кол-во байт. Прерывать этот task по таймауту  AsyncHelp.WithTimeout
                 //int nByteTake=0;
                 //while (true)
