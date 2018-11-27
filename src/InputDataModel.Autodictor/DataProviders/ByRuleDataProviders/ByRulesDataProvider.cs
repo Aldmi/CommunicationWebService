@@ -145,31 +145,31 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
                 StatusString.Clear();
                 StatusString.AppendLine($"RuleName= {rule.Option.Name}");
                 //КОМАНДА-------------------------------------------------------------
-                if (rule.IsCommand(inData.Command))
+                if (IsCommandHandler(inData.Command, rule.Option.Name))
                 {
-                    //_currentRule = rule;
                     StatusString.AppendLine($"Command= {inData.Command}");
-                    //_stringRequest = _currentRule.CreateStringRequest(inData.Command);
+                    var commandViewRule = rule.ViewRules.FirstOrDefault();
+                    _currentRequest = commandViewRule?.GetCommandRequestString();
                     InputData = new InDataWrapper<AdInputType> { Command = inData.Command };             
                     RaiseSendDataRx.OnNext(this);
                     continue;
                 }
                 //ДАННЫЕ--------------------------------------------------------------
                 var takesItems = FilteredAndOrderedAndTakesItems(inData.Datas, rule.Option.WhereFilter, rule.Option.OrderBy, rule.Option.TakeItems, rule.Option.DefaultItemJson)?.ToList();
-                if (takesItems == null || takesItems.Count == 0)
-                    continue;
-
-                foreach (var viewRule in rule.ViewRules)
+                if (IsDataHandler(inData.Command, takesItems))
                 {
-                    foreach (var request in viewRule.GetRequestString(takesItems))
+                    foreach (var viewRule in rule.ViewRules)
                     {
-                        if(request == null) //правило отображения не подходит под ДАННЫЕ
-                          continue;
+                        foreach (var request in viewRule.GetDataRequestString(takesItems))
+                        {
+                            if (request == null) //правило отображения не подходит под ДАННЫЕ
+                                continue;
 
-                        _currentRequest = request;
-                        InputData = new InDataWrapper<AdInputType> { Datas = _currentRequest.BatchedData.ToList() };
-                        StatusString.AppendLine($"CountItem4Sending = {InputData.Datas.Count}");
-                        RaiseSendDataRx.OnNext(this);
+                            _currentRequest = request;
+                            InputData = new InDataWrapper<AdInputType> { Datas = _currentRequest.BatchedData.ToList() };
+                            StatusString.AppendLine($"CountItem4Sending = {InputData.Datas.Count}");
+                            RaiseSendDataRx.OnNext(this);
+                        }
                     }
                 }
             }

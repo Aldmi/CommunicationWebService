@@ -47,11 +47,11 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
         #region Methode
 
         /// <summary>
-        /// Создать строку запроса, подставив в форматную строку запроса значения переменных из списка items.
+        /// Создать строку запроса ПОД ДАННЫЕ, подставив в форматную строку запроса значения переменных из списка items.
         /// </summary>
         /// <param name="items">элементы прошедшие фильтрацию для правила</param>
         /// <returns>строку запроса и батч данных в обертке </returns>
-        public IEnumerable<ViewRuleRequestModelWrapper> GetRequestString(List<AdInputType> items)
+        public IEnumerable<ViewRuleRequestModelWrapper> GetDataRequestString(List<AdInputType> items)
         {
             var viewedItems = GetViewedItems(items);
             if (viewedItems == null)
@@ -72,6 +72,34 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
                     };
                 }
             }
+        }
+
+
+        /// <summary>
+        /// Создать строку запроса ПОД КОМАНДУ.
+        /// Body содержит готовый запрос для команды.
+        /// </summary>
+        /// <returns></returns>
+        public ViewRuleRequestModelWrapper GetCommandRequestString()
+        {
+            var header = Option.RequestOption.Header;
+            var body = Option.RequestOption.Body;
+            var footer = Option.RequestOption.Footer;
+
+            //КОНКАТЕНИРОВАТЬ СТРОКИ В СУММАРНУЮ СТРОКУ-------------------------------------------------------------------------------------
+            //resSumStr содержит только ЗАВИСИМЫЕ данные: {AddressDevice} {NByte} {CRC}}
+            var resSumStr = header + body + footer;
+
+            //ВСТАВИТЬ ЗАВИСИМЫЕ ДАННЫЕ ({AddressDevice} {NByte} {CRC})-------------------------------------------------
+            var resDependencyStr = MakeDependentInserts(resSumStr);
+
+            return new ViewRuleRequestModelWrapper
+            {
+                BatchedData = null,
+                StringRequest = resDependencyStr,
+                RequestOption = Option.RequestOption,
+                ResponseOption = Option.ResponseOption
+            };
         }
 
 
@@ -101,7 +129,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
             var items = batch.ToList();
 
             //DEBUG----------------------------------------------------
-            var header = Option.RequestOption.Header;//"\u0002{AddressDevice:X2}{Nbyte:D2}";
+            var header = Option.RequestOption.Header;
 
             //var body = "%StationArr= {NumberOfCharacters:X2} \\\"{StationArrival}\\\"" +
             //           "%TypeName= {TypeName}" +
@@ -147,7 +175,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
             var limitBodyStr= LimitBodySectionLenght(new StringBuilder(resBodyDependentStr));
 
             //КОНКАТЕНИРОВАТЬ СТРОКИ В СУММАРНУЮ СТРОКУ-------------------------------------------------------------------------------------
-            //resSumStr содержит только ЗАВИСИМЫЕ данные: {AddressDevice} {NByte} {NumberOfCharacters {CRC}}
+            //resSumStr содержит только ЗАВИСИМЫЕ данные: {AddressDevice} {NByte} {CRC}}
             var resSumStr = header + limitBodyStr + footer;
 
             //ВСТАВИТЬ ЗАВИСИМЫЕ ДАННЫЕ ({AddressDevice} {NByte} {CRC})-------------------------------------------------
@@ -267,259 +295,6 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
             resBodyStr.Remove(startIndex, lenght);
             return resBodyStr;
         }
-
-
-
-        /// <summary>
-        /// Первоначальная вставка НЕЗАВИСИМЫХ переменных V2
-        /// </summary> 
-        //private string MakeBodySectionIndependentInserts(string body, AdInputType uit, int? currentRow)
-        //{
-        //    var lang = uit.Lang;
-        //    if (body.Contains("}"))                                                           //если указанны переменные подстановки
-        //    {
-        //        var subStr = body.Split('}');
-        //        var resStr = new StringBuilder();
-        //        foreach (var s in subStr)
-        //        {
-        //            var replaseStr = (s.Contains("{")) ? (s + "}") : s;
-        //            var mathStr = Regex.Match(replaseStr, @"{(.*)}").Groups[1].Value;
-        //            var subvar = mathStr.Split(':').First();
-        //            int parseVal;
-        //            string formatStr;
-        //            switch (subvar)
-        //            {
-        //                case "TypeName":
-        //                    var typeTrain = uit.TrainType.GetName(lang);
-        //                    formatStr = string.Format(replaseStr.Replace("TypeName", "0"), typeTrain);
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case nameof(uit.NumberOfTrain):
-        //                    if (mathStr.Contains(":")) //если указан формат числа
-        //                    {
-        //                        formatStr = int.TryParse(uit.NumberOfTrain, out parseVal) ?
-        //                            string.Format(replaseStr.Replace(nameof(uit.NumberOfTrain), "0"), parseVal) :
-        //                            string.Format(replaseStr.Replace(nameof(uit.NumberOfTrain), "0"), " ");
-        //                    }
-        //                    else
-        //                    {
-        //                        formatStr = string.Format(replaseStr.Replace(nameof(uit.NumberOfTrain), "0"), string.IsNullOrEmpty(uit.NumberOfTrain) ? " " : uit.NumberOfTrain);
-        //                    }
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case nameof(uit.PathNumber):
-        //                    if (mathStr.Contains(":")) //если указан формат числа
-        //                    {
-        //                        formatStr = int.TryParse(uit.PathNumber, out parseVal) ?
-        //                            string.Format(replaseStr.Replace(nameof(uit.PathNumber), "0"), parseVal) :
-        //                            string.Format(replaseStr.Replace(nameof(uit.PathNumber), "0"), " ");
-        //                    }
-        //                    else
-        //                    {
-        //                        formatStr = string.Format(replaseStr.Replace(nameof(uit.PathNumber), "0"), string.IsNullOrEmpty(uit.PathNumber) ? " " : uit.PathNumber);
-        //                    }
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case nameof(uit.Event):
-        //                    var eventTrain = uit.Event?.GetName(lang);
-        //                    formatStr = string.Format(replaseStr.Replace(nameof(uit.Event), "0"), string.IsNullOrEmpty(eventTrain) ? " " : eventTrain);
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case nameof(uit.Addition):
-        //                    var addition = uit.Addition?.GetName(lang);
-        //                    formatStr = string.Format(replaseStr.Replace(nameof(uit.Addition), "0"), !string.IsNullOrEmpty(addition) ? addition : " ");
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case "Stations":
-        //                    var stations = CreateStationsStr(uit, lang);
-        //                    formatStr = string.Format(replaseStr.Replace("Stations", "0"), string.IsNullOrEmpty(stations) ? " " : stations);
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case "StationsCut":
-        //                    var stationsCut = CreateStationsCutStr(uit, lang);
-        //                    formatStr = string.Format(replaseStr.Replace("StationsCut", "0"), string.IsNullOrEmpty(stationsCut) ? " " : stationsCut);
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case "TypeAlias":
-        //                    var typeAlias = uit.TrainType?.GetNameAlias(lang);
-        //                    formatStr = string.Format(replaseStr.Replace("TypeAlias", "0"), string.IsNullOrEmpty(typeAlias) ? " " : typeAlias);
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case nameof(uit.StationArrival):
-        //                    var stationArrival = uit.StationArrival?.GetName(lang) ?? " ";
-        //                    formatStr = string.Format(replaseStr.Replace(nameof(uit.StationArrival), "0"), stationArrival);
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case nameof(uit.StationDeparture):
-        //                    var stationDeparture = uit.StationDeparture?.GetName(lang) ?? " ";
-        //                    formatStr = string.Format(replaseStr.Replace(nameof(uit.StationDeparture), "0"), stationDeparture);
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case nameof(uit.Note):
-        //                    var note = uit.Note?.GetName(lang);
-        //                    formatStr = string.Format(replaseStr.Replace(nameof(uit.Note), "0"), string.IsNullOrEmpty(note) ? " " : note);
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case "DaysFollowing":
-        //                    var daysFollowing = uit.DaysFollowing?.GetName(lang);
-        //                    formatStr = string.Format(replaseStr.Replace("DaysFollowing", "0"), string.IsNullOrEmpty(daysFollowing) ? " " : daysFollowing);
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case "DaysFollowingAlias":
-        //                    var daysFollowingAlias = uit.DaysFollowing?.GetNameAlias(lang);
-        //                    formatStr = string.Format(replaseStr.Replace("DaysFollowingAlias", "0"), string.IsNullOrEmpty(daysFollowingAlias) ? " " : daysFollowingAlias);
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case nameof(uit.DelayTime):
-        //                    if (uit.DelayTime == null || uit.DelayTime.Value.TimeOfDay == TimeSpan.Zero)
-        //                    {
-        //                        formatStr = string.Format(replaseStr.Replace(nameof(uit.DelayTime), "0"), " ");
-        //                        resStr.Append(formatStr);
-        //                        continue;
-        //                    }
-        //                    if (mathStr.Contains(":")) //если указзанн формат времени
-        //                    {
-        //                        var dateFormat = s.Split(':')[1]; //без закр. скобки
-        //                        formatStr = string.Format(replaseStr.Replace(nameof(uit.DelayTime), "0"), (uit.DelayTime == DateTime.MinValue) ? " " : uit.DelayTime.Value.ToString(dateFormat));
-        //                        resStr.Append(formatStr);
-        //                    }
-        //                    else                         //вывод в минутах
-        //                    {
-        //                        formatStr = string.Format(replaseStr.Replace(nameof(uit.DelayTime), "0"), (uit.DelayTime == DateTime.MinValue) ? " " : ((uit.DelayTime.Value.Hour * 60) + (uit.DelayTime.Value.Minute)).ToString());
-        //                        resStr.Append(formatStr);
-        //                    }
-        //                    break;
-
-        //                case nameof(uit.ExpectedTime):
-        //                    if (mathStr.Contains(":")) //если указзанн формат времени
-        //                    {
-        //                        var dateFormat = s.Split(':')[1]; //без закр. скобки
-        //                        formatStr = string.Format(replaseStr.Replace(nameof(uit.ExpectedTime), "0"), (uit.ExpectedTime == DateTime.MinValue) ? " " : uit.ExpectedTime.ToString(dateFormat));
-        //                        resStr.Append(formatStr);
-        //                    }
-        //                    else
-        //                    {
-        //                        formatStr = string.Format(replaseStr.Replace(nameof(uit.ExpectedTime), "0"), (uit.ExpectedTime == DateTime.MinValue) ? " " : uit.ExpectedTime.ToString(CultureInfo.InvariantCulture));
-        //                        resStr.Append(formatStr);
-        //                    }
-        //                    break;
-
-        //                case "TArrival":
-        //                    if (!uit.ArrivalTime.HasValue)
-        //                        break;
-        //                    var timeArrival = uit.ArrivalTime.Value;
-        //                    if (mathStr.Contains(":")) //если указанн формат времени
-        //                    {
-        //                        var dateFormat = s.Split(':')[1]; //без закр. скобки
-        //                        if (dateFormat.Contains("Sec"))   //формат задан в секундах
-        //                        {
-        //                            var intFormat = dateFormat.Substring(3, 2);
-        //                            var intValue = (timeArrival.Hour * 3600 + timeArrival.Minute * 60);
-        //                            formatStr = string.Format(replaseStr.Replace("TArrival", "0"), (intValue == 0) ? " " : intValue.ToString(intFormat));
-        //                        }
-        //                        else
-        //                        {
-        //                            formatStr = string.Format(replaseStr.Replace("TArrival", "0"), (timeArrival == DateTime.MinValue) ? " " : timeArrival.ToString(dateFormat));
-        //                        }
-        //                        resStr.Append(formatStr);
-        //                    }
-        //                    else
-        //                    {
-        //                        formatStr = string.Format(replaseStr.Replace("TArrival", "0"), (timeArrival == DateTime.MinValue) ? " " : timeArrival.ToString(CultureInfo.InvariantCulture));
-        //                        resStr.Append(formatStr);
-        //                    }
-        //                    break;
-
-        //                case "TDepart":
-        //                    if (!uit.DepartureTime.HasValue)
-        //                        break;
-        //                    var timeDepart = uit.DepartureTime.Value;
-        //                    if (mathStr.Contains(":")) //если указанн формат времени
-        //                    {
-        //                        var dateFormat = s.Split(':')[1]; //без закр. скобки
-        //                        if (dateFormat.Contains("Sec"))   //формат задан в секундах
-        //                        {
-        //                            var intFormat = dateFormat.Substring(3, 2);
-        //                            var intValue = (timeDepart.Hour * 3600 + timeDepart.Minute * 60);
-        //                            formatStr = string.Format(replaseStr.Replace("TDepart", "0"), (intValue == 0) ? " " : intValue.ToString(intFormat));
-        //                        }
-        //                        else
-        //                        {
-        //                            formatStr = string.Format(replaseStr.Replace("TDepart", "0"), (timeDepart == DateTime.MinValue) ? " " : timeDepart.ToString(dateFormat));
-        //                        }
-        //                        resStr.Append(formatStr);
-        //                    }
-        //                    else
-        //                    {
-        //                        formatStr = string.Format(replaseStr.Replace("TDepart", "0"), (timeDepart == DateTime.MinValue) ? " " : timeDepart.ToString(CultureInfo.InvariantCulture));
-        //                        resStr.Append(formatStr);
-        //                    }
-        //                    break;
-
-        //                case "Hour":
-        //                    formatStr = string.Format(replaseStr.Replace("Hour", "0"), DateTime.Now.Hour);
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case "Minute":
-        //                    formatStr = string.Format(replaseStr.Replace("Minute", "0"), DateTime.Now.Minute);
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case "Second":
-        //                    formatStr = string.Format(replaseStr.Replace("Second", "0"), DateTime.Now.Second);
-        //                    resStr.Append(formatStr);
-        //                    break;
-
-        //                case "SyncTInSec":
-        //                    var secTime = DateTime.Now.Hour * 3600 + DateTime.Now.Minute * 60 + DateTime.Now.Second;
-        //                    if (mathStr.Contains(":")) //если указан формат времени
-        //                    {
-        //                        var dateFormat = s.Split(':')[1]; //без закр. скобки
-        //                        formatStr = string.Format(replaseStr.Replace("SyncTInSec", "0"), (secTime == 0) ? " " : secTime.ToString(dateFormat));
-        //                        resStr.Append(formatStr);
-        //                    }
-        //                    else
-        //                    {
-        //                        formatStr = string.Format(replaseStr.Replace("SyncTInSec", "0"), (secTime == 0) ? " " : secTime.ToString(CultureInfo.InvariantCulture));
-        //                        resStr.Append(formatStr);
-        //                    }
-        //                    break;
-
-        //                default:
-        //                    if (subvar.Contains("rowNumber"))
-        //                    {
-        //                        if (currentRow.HasValue)
-        //                        {
-        //                            formatStr = CalculateMathematicFormat(replaseStr, currentRow.Value);
-        //                            resStr.Append(formatStr);
-        //                        }
-        //                    }
-        //                    else
-        //                    {
-        //                        //Добавим в неизменном виде спецификаторы байтовой информации.
-        //                        resStr.Append(replaseStr);
-        //                    }
-        //                    break;
-        //            }
-        //        }
-        //        return resStr.ToString();
-        //    }
-        //    return body;
-        //}
 
 
         /// <summary>

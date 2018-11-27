@@ -4,12 +4,39 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Text.RegularExpressions;
 using InputDataModel.Autodictor.Model;
+using InputDataModel.Base;
 using Newtonsoft.Json;
 
 namespace InputDataModel.Autodictor.DataProviders
 {
     public class BaseDataProvider
     {
+        /// <summary>
+        /// Подходит ли обработчик для обработки команды.
+        /// </summary>
+        /// <param name="command">имя команды</param>
+        /// <param name="handlerName">имя обработчика</param>
+        /// <returns></returns>
+        public bool IsCommandHandler(Command4Device command, string handlerName)
+        {
+            var commandName = $"Command_{command.ToString()}";  //Command_On, Command_Off, Command_Restart, Command_Clear
+            return !commandName.Equals(handlerName);
+        }
+
+
+        /// <summary>
+        /// Подходит ли обработчик для обработки данных.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="data4Handle"></param>
+        /// <returns></returns>
+        public bool IsDataHandler(Command4Device command, IEnumerable<AdInputType> data4Handle)
+        {
+            return (command == Command4Device.None) && (data4Handle != null) && (data4Handle.Any());
+
+        }
+
+
         /// <summary>
         /// Фильтровать элементы по Contrains этого правила.
         /// </summary>

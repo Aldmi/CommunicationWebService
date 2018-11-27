@@ -282,7 +282,7 @@ namespace Transport.TcpIp.Concrete
             //Мгновенно с ожиданием в 100мс вычитываем поступивщий буффер
             var ctsTimeout = new CancellationTokenSource();//токен сработает по таймауту в функции WithTimeout
             var cts = CancellationTokenSource.CreateLinkedTokenSource(ctsTimeout.Token, ct); // Объединенный токен, сработает от выставленного ctsTimeout.Token или от ct
-            int nByteTake = await _terminalNetStream.ReadAsync(bDataTemp, 0, nbytes, cts.Token).WithTimeout2CanceledTask(100, ctsTimeout);
+            int nByteTake = await _terminalNetStream.ReadAsync(bDataTemp, 0, nbytes, cts.Token).WithTimeout2CanceledTask(10, ctsTimeout);
             if (nByteTake == nbytes)
             {
                 var bData = new byte[nByteTake];

@@ -39,35 +39,16 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders.Rules
 
 
 
-
-        #region Filter
-
-        /// <summary>
-        /// Проверка обрабатывает ли это правило команда
-        /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
-        public bool IsCommand(Command4Device command)
-        {
-            var ruleName = $"Command_{command.ToString()}";  //Command_On, Command_Off, Command_Restart, Command_Clear
-            return !ruleName.Equals("Command_None");
-        }
-
-        #endregion
-
-
-
-
         #region StringRequest
 
         /// <summary>
         /// Создать строку Запроса (используя форматную строку) из команды.
         /// </summary>
-        /// <param name="command"></param>
         /// <returns></returns>
-        public string CreateStringRequest(Command4Device command)
+        public ViewRuleRequestModelWrapper GetRequestString()
         {
-            return "Body"; //Option.RequestOption.Body;
+            var commandViewRule = ViewRules.FirstOrDefault();
+            return commandViewRule?.GetCommandRequestString();
         }
 
         #endregion
