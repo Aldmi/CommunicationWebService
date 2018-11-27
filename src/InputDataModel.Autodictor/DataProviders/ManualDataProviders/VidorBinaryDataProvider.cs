@@ -87,7 +87,7 @@ namespace InputDataModel.Autodictor.DataProviders.ManualDataProviders
         public string Message { get; }
 
 
-        public Task StartExchangePipeline(InDataWrapper<AdInputType> inData)
+        public Task<int> StartExchangePipeline(InDataWrapper<AdInputType> inData)
         {
             throw new NotImplementedException();
         }

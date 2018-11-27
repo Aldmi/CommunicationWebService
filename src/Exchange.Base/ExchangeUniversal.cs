@@ -120,6 +120,11 @@ namespace Exchange.Base
             _logger.Debug($"KeyExchange {KeyExchange} START>>>>>>>");//DEBUG
             if (_transport != null)
             {
+                if (_transport.IsCycleReopened)
+                {
+                    _logger.Error($"ТРАНСПОРТ УЖЕ НАХОДИТСЯ В ЦИКЛЕ ПЕРЕОТКРЫТИЯ \"{_transport.KeyTransport}\"  KeyExchange \"{KeyExchange}\"");
+                    return;
+                }
                 _cycleReOpenedCts?.Cancel();
                 _cycleReOpenedCts = new CancellationTokenSource();
                 await Task.Factory.StartNew(async () =>
@@ -282,10 +287,15 @@ namespace Exchange.Base
                             transportResp.IsOutDataValid = provider.OutputData.IsOutDataValid;
                             break;
 
+                        //ТАЙМАУТ ОТВЕТА.
+                        case StatusDataExchange.EndWithTimeout: //TODO: Считать ли кол-во таймаутов до переоткрытия?
+                            IsConnect = false;
+                            break;
+
                         //ОБМЕН ЗАВЕРЩЕН КРИТИЧЕСКИ НЕ ПРАВИЛЬНО. ПЕРЕОТКРЫТИЕ СОЕДИНЕНИЯ.
                         case StatusDataExchange.EndWithTimeoutCritical:
                         case StatusDataExchange.EndWithErrorCritical:
-                            CycleReOpened(); //TODO: отладить что будет после с обменом.
+                            CycleReOpened(); 
                             _logger.Warning($"ОБМЕН ЗАВЕРЩЕН КРИТИЧЕСКИ НЕ ПРАВИЛЬНО. ПЕРЕОТКРЫТИЕ СОЕДИНЕНИЯ. KeyExchange {KeyExchange}");
                             break;
 
@@ -317,9 +327,10 @@ namespace Exchange.Base
                 }
             });
 
+            int countTryingSendData = 0;
             try
             {   //ЗАПУСК КОНВЕЕРА ПОДГОТОВКИ ДАННЫХ К ОБМЕНУ
-                await _dataProvider.StartExchangePipeline(inData);
+                countTryingSendData= await _dataProvider.StartExchangePipeline(inData);
             }
             catch (Exception ex)
             {
@@ -333,6 +344,11 @@ namespace Exchange.Base
             {
                 subscription.Dispose();      
             }
+
+            var countIsValid = transportResponseWrapper.ResponsesItems.Count(resp => resp.IsOutDataValid);
+            var countAll = transportResponseWrapper.ResponsesItems.Count(resp => resp.IsOutDataValid);
+            _logger.Information($"ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= {KeyExchange} успех/ответов/запросов=  ({countIsValid} / {countAll} / {countTryingSendData})");
+          
             return transportResponseWrapper;
         }
 

@@ -119,7 +119,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
 
         #region Methode
 
-        public async Task StartExchangePipeline(InDataWrapper<AdInputType> inData)
+        public async Task<int> StartExchangePipeline(InDataWrapper<AdInputType> inData)
         {
             //DEBUG
             //TODO: тут можно не дополнять,
@@ -131,6 +131,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
                 };
             }
 
+            var countTryingSendData = 0; //Счетчик попыток отправит подготовленные данные.
             foreach (var rule in _rules)
             {
                 StatusString.Clear();
@@ -143,6 +144,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
                     _currentRequest = commandViewRule?.GetCommandRequestString();
                     InputData = new InDataWrapper<AdInputType> { Command = inData.Command };             
                     RaiseSendDataRx.OnNext(this);
+                    countTryingSendData++;
                     continue;
                 }
                 //ДАННЫЕ--------------------------------------------------------------
@@ -160,13 +162,15 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
                             InputData = new InDataWrapper<AdInputType> { Datas = _currentRequest.BatchedData.ToList() };
                             StatusString.AppendLine($"viewRule.Id = \"{viewRule.Option.Id}\".  CountItem4Sending = \"{InputData.Datas.Count}\"");
                             RaiseSendDataRx.OnNext(this);
+                            countTryingSendData++;
                         }
                     }
                 }
             }
             //Конвеер обработки входных данных завершен    
             StatusString.Clear();
-            await Task.CompletedTask; 
+            await Task.CompletedTask;
+            return countTryingSendData;
         }
 
         #endregion

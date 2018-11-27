@@ -16,7 +16,7 @@ namespace Exchange.Base.DataProviderAbstract
         StringBuilder StatusString { get; }                           //Статус провайдера.
         int TimeRespone { get; }                                      //Время на ответ
 
-        Task StartExchangePipeline(InDataWrapper<TInput> inData);                     //Запустить конвеер обмена. После окончания подготовки порции данных конвеером, срабатывает RaiseSendDataRx.
+        Task<int> StartExchangePipeline(InDataWrapper<TInput> inData);                     //Запустить конвеер обмена. После окончания подготовки порции данных конвеером, срабатывает RaiseSendDataRx.
         Subject<IExchangeDataProvider<TInput, TOutput>> RaiseSendDataRx { get; }     //Событие отправки данных, в процессе обработки их конвеером.
     }
 }

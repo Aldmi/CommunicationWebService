@@ -164,7 +164,6 @@ namespace Transport.TcpIp.Concrete
                 return StatusDataExchange.None;
 
             StatusDataExchange = StatusDataExchange.Start;
-            await _terminalNetStream.FlushAsync(CancellationToken.None);
             if (await SendDataAsync(dataProvider, ct))
             {
                 try
@@ -180,13 +179,11 @@ namespace Transport.TcpIp.Concrete
                 }
                 catch (OperationCanceledException)
                 {
-                    _logger.Information($"TcpIpTransport {KeyTransport}. OperationCanceled");
                     StatusDataExchange = StatusDataExchange.EndWithCanceled;
                     return StatusDataExchange;
                 }
                 catch (TimeoutException)
                 {
-                    _logger.Warning($"TcpIpTransport {KeyTransport}. TimeoutException");
                     StatusDataExchange = StatusDataExchange.EndWithTimeout;
                     return StatusDataExchange;
                 }
@@ -206,7 +203,7 @@ namespace Transport.TcpIp.Concrete
                 return StatusDataExchange.End;
             }
 
-            StatusDataExchange = StatusDataExchange.EndWithErrorCritical;
+            StatusDataExchange = StatusDataExchange.EndWithError;
             return StatusDataExchange;
         }
 
@@ -240,7 +237,7 @@ namespace Transport.TcpIp.Concrete
             using (_logger.TimeOperation("TimeOpertaion TakeDataAsync"))
             {
                 byte[] bDataTemp = new byte[256];
-         
+                _terminalNetStream.ReadTimeout = timeOut;
 
                 //TODO: создать task в котором считывать пока не считаем нужное кол-во байт. Прерывать этот task по таймауту  AsyncHelp.WithTimeout
                 //int nByteTake=0;
@@ -277,6 +274,8 @@ namespace Transport.TcpIp.Concrete
             byte[] bDataTemp = new byte[256];
 
             //Ожидаем накопление данных в буффере
+            _terminalNetStream.ReadTimeout = timeOut;
+            _terminalClient.ReceiveTimeout = timeOut;
             await Task.Delay(timeOut, ct);
 
             //Мгновенно с ожиданием в 100мс вычитываем поступивщий буффер

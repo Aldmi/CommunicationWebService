@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -10,6 +11,7 @@ using BL.Services.Storages;
 using DAL.Abstract.Concrete;
 using DAL.Abstract.Extensions;
 using Exchange.Base;
+using Exchange.Base.Model;
 using InputDataModel.Autodictor.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -248,6 +250,27 @@ namespace WebServer
                     logger.Error(innerException, "ОШИБКА СОЗДАНИЕ СПИСКА УСТРОЙСТВ НА БАЗЕ ОПЦИЙ");
                 }
             }
+
+            //DEBUG--------------------------------------------------
+            //var settings = new JsonSerializerSettings
+            //{
+            //    Formatting = Formatting.Indented,             //Отступы дочерних элементов 
+            //    NullValueHandling = NullValueHandling.Ignore,  //Игнорировать пустые теги
+               
+            //};
+
+            //StringBuilder stringBuilder = new StringBuilder();
+            //stringBuilder.AppendLine("\"Str1\"");
+            //stringBuilder.AppendLine("Str2");
+            //ResponsePieceOfDataWrapper<AdInputType> responsePieceOfDataWrapper = new ResponsePieceOfDataWrapper<AdInputType>
+            //{
+            //    Message = stringBuilder.ToString()
+            //}; 
+            //var jsonResp = JsonConvert.SerializeObject(responsePieceOfDataWrapper, settings);
+            //logger.Error(jsonResp);
+            
+            //DEBUG-----------------------------------------------------------
+
         }
     }
 }

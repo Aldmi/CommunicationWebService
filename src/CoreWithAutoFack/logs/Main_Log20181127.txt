@@ -1,14 +1,726 @@
-2018-11-27 17:03:08.924 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
-2018-11-27 17:03:20.503 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
-2018-11-27 17:03:24.679 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 1705
-2018-11-27 17:03:25.363 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
-2018-11-27 17:03:25.400 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
-2018-11-27 17:03:25.412 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 326.0901ms
-2018-11-27 17:03:25.477 +07:00 [INF] Request finished in 801.7485ms 200 
-2018-11-27 17:03:29.746 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
-2018-11-27 17:03:30.356 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
-2018-11-27 17:04:19.056 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 1705
-2018-11-27 17:04:19.063 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
-2018-11-27 17:04:19.067 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
-2018-11-27 17:04:19.068 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 6.9824ms
-2018-11-27 17:04:19.069 +07:00 [INF] Request finished in 13.4659ms 200 
+2018-11-27 21:12:41.891 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-27 21:12:55.976 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 21:13:27.978 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:13:28.549 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:13:28.583 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:13:28.602 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 302.3244ms
+2018-11-27 21:13:28.655 +07:00 [INF] Request finished in 682.7339ms 200 
+2018-11-27 21:13:28.905 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:13:29.112 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:13:30.810 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (8 / 8 / 10)
+2018-11-27 21:13:32.216 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:13:33.144 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (6 / 6 / 10)
+2018-11-27 21:13:56.331 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:13:56.336 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:13:56.338 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:13:56.339 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.6306ms
+2018-11-27 21:13:56.340 +07:00 [INF] Request finished in 8.7778ms 200 
+2018-11-27 21:13:56.545 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:13:58.451 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (9 / 9 / 10)
+2018-11-27 21:14:00.546 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:14:04.374 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:14:04.378 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:14:04.381 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:14:04.382 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.9043ms
+2018-11-27 21:14:04.384 +07:00 [INF] Request finished in 10.0108ms 200 
+2018-11-27 21:14:06.578 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:14:08.674 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:14:12.841 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:14:12.843 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:14:12.844 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:14:12.845 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.0531ms
+2018-11-27 21:14:12.846 +07:00 [INF] Request finished in 5.5547ms 200 
+2018-11-27 21:14:13.264 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:14:13.266 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:14:13.267 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:14:13.268 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.3004000000000002ms
+2018-11-27 21:14:13.269 +07:00 [INF] Request finished in 5.4575ms 200 
+2018-11-27 21:14:13.628 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:14:13.630 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:14:13.633 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:14:13.634 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.6634ms
+2018-11-27 21:14:13.636 +07:00 [INF] Request finished in 7.94ms 200 
+2018-11-27 21:14:13.950 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:14:13.954 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:14:13.956 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:14:13.957 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.8235ms
+2018-11-27 21:14:13.959 +07:00 [INF] Request finished in 9.3991ms 200 
+2018-11-27 21:14:15.019 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:14:17.129 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:14:19.251 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:14:21.376 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:14:23.479 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:14:25.593 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:14:27.723 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:14:29.834 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:14.175 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:21:14.180 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:21:14.181 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:21:14.182 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.9193000000000007ms
+2018-11-27 21:21:14.182 +07:00 [INF] Request finished in 7.5756ms 200 
+2018-11-27 21:21:16.303 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:18.082 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:21:18.084 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:21:18.087 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:21:18.088 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.9628ms
+2018-11-27 21:21:18.089 +07:00 [INF] Request finished in 6.5215ms 200 
+2018-11-27 21:21:18.419 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:20.533 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:22.648 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:22.813 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:21:22.814 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:21:22.816 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:21:22.816 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 2.4667000000000003ms
+2018-11-27 21:21:22.817 +07:00 [INF] Request finished in 4.1687ms 200 
+2018-11-27 21:21:24.966 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:25.230 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:21:25.234 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:21:25.236 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:21:25.237 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.5697ms
+2018-11-27 21:21:25.237 +07:00 [INF] Request finished in 7.0662ms 200 
+2018-11-27 21:21:27.061 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:28.625 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:21:28.626 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:21:28.628 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:21:28.629 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.3165ms
+2018-11-27 21:21:28.631 +07:00 [INF] Request finished in 6.2766ms 200 
+2018-11-27 21:21:29.175 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:31.297 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:33.408 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:34.677 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:21:34.680 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:21:34.681 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:21:34.681 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 2.3199ms
+2018-11-27 21:21:34.683 +07:00 [INF] Request finished in 5.6604ms 200 
+2018-11-27 21:21:34.879 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:21:34.881 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:21:34.883 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:21:34.884 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.8071ms
+2018-11-27 21:21:34.887 +07:00 [INF] Request finished in 7.1089ms 200 
+2018-11-27 21:21:35.529 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:35.733 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:21:35.734 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:21:35.736 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:21:35.737 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.6398ms
+2018-11-27 21:21:35.738 +07:00 [INF] Request finished in 5.6642ms 200 
+2018-11-27 21:21:36.121 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 3403
+2018-11-27 21:21:36.123 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:21:36.126 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:21:36.127 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.6001ms
+2018-11-27 21:21:36.129 +07:00 [INF] Request finished in 7.061ms 200 
+2018-11-27 21:21:37.657 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:39.769 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:41.879 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:43.967 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:46.065 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:48.174 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:50.277 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:21:52.393 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:24:21.695 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-27 21:24:35.610 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 21:25:19.361 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:25:19.971 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:25:20.005 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:25:20.017 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 314.9348ms
+2018-11-27 21:25:20.071 +07:00 [INF] Request finished in 716.2538ms 200 
+2018-11-27 21:25:21.069 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:25:21.486 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:25:22.383 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (7 / 7 / 10)
+2018-11-27 21:25:24.535 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:25:26.640 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:26:55.760 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-27 21:27:09.684 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 21:27:13.243 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:27:13.826 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:27:13.857 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:27:13.877 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 298.5717ms
+2018-11-27 21:27:13.932 +07:00 [INF] Request finished in 696.7079ms 200 
+2018-11-27 21:27:14.203 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:27:15.861 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:27:16.125 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:27:18.284 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:27:20.914 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:27:36.222 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:27:36.240 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:27:36.241 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:27:36.242 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 15.382900000000001ms
+2018-11-27 21:27:36.249 +07:00 [INF] Request finished in 27.2638ms 200 
+2018-11-27 21:27:37.345 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:27:37.766 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:27:38.183 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:27:38.623 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (2 / 2 / 10)
+2018-11-27 21:27:40.701 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:27:43.317 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:28:16.801 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:28:16.810 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:28:16.812 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:28:16.813 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.1458ms
+2018-11-27 21:28:16.821 +07:00 [INF] Request finished in 20.3789ms 200 
+2018-11-27 21:29:48.060 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:29:48.263 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:29:49.075 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:29:49.310 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:29:51.407 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:29:59.859 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:30:10.462 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:30:10.466 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:30:10.468 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:30:10.469 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 5.2132000000000005ms
+2018-11-27 21:30:10.476 +07:00 [INF] Request finished in 14.6387ms 200 
+2018-11-27 21:30:11.741 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:30:12.817 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (5 / 5 / 10)
+2018-11-27 21:30:14.953 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:30:17.596 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:30:51.991 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:30:51.994 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:30:51.997 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:30:51.998 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 5.3313000000000006ms
+2018-11-27 21:30:52.000 +07:00 [INF] Request finished in 8.953ms 200 
+2018-11-27 21:30:53.321 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:30:53.528 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:30:54.397 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (4 / 4 / 10)
+2018-11-27 21:30:56.529 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:30:59.163 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:31:03.266 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:31:03.273 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:31:03.281 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:31:03.282 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 10.679300000000001ms
+2018-11-27 21:31:03.283 +07:00 [INF] Request finished in 17.0866ms 200 
+2018-11-27 21:31:04.309 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:31:04.525 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:31:04.734 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:31:05.592 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (4 / 4 / 10)
+2018-11-27 21:31:07.719 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:31:10.360 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:31:13.677 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:31:13.679 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:31:13.682 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:31:13.683 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.7558ms
+2018-11-27 21:31:13.685 +07:00 [INF] Request finished in 7.4439ms 200 
+2018-11-27 21:31:14.095 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:31:14.097 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:31:14.099 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:31:14.100 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.5225ms
+2018-11-27 21:31:14.102 +07:00 [INF] Request finished in 7.0734ms 200 
+2018-11-27 21:31:14.544 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:31:14.557 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:31:14.560 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:31:14.561 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 5.3922ms
+2018-11-27 21:31:14.562 +07:00 [INF] Request finished in 17.9245ms 200 
+2018-11-27 21:31:14.900 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:31:14.902 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:31:14.905 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:31:14.906 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.8232ms
+2018-11-27 21:31:14.908 +07:00 [INF] Request finished in 7.6546ms 200 
+2018-11-27 21:31:15.018 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:31:16.110 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (5 / 5 / 10)
+2018-11-27 21:31:18.220 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:31:20.821 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:31:21.829 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:31:22.047 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:31:22.249 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:31:23.110 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (4 / 4 / 10)
+2018-11-27 21:31:25.252 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:31:27.886 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:31:29.147 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:31:30.201 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (5 / 5 / 10)
+2018-11-27 21:31:32.294 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:31:34.912 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:31:36.105 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:31:36.935 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:31:37.173 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (2 / 2 / 10)
+2018-11-27 21:31:39.305 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:31:41.927 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:32:04.741 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:32:04.750 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:32:04.752 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:32:04.754 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.3562ms
+2018-11-27 21:32:04.757 +07:00 [INF] Request finished in 15.1023ms 200 
+2018-11-27 21:32:05.509 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:32:05.919 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:32:06.121 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:32:06.984 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (5 / 5 / 10)
+2018-11-27 21:32:09.093 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:32:11.721 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:32:14.600 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:32:14.602 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:32:14.605 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:32:14.606 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 5.0853ms
+2018-11-27 21:32:14.607 +07:00 [INF] Request finished in 7.0761ms 200 
+2018-11-27 21:32:15.938 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:32:17.020 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (5 / 5 / 10)
+2018-11-27 21:32:19.134 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:32:21.738 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:32:30.079 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:32:30.082 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:32:30.083 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:32:30.084 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.8088ms
+2018-11-27 21:32:30.085 +07:00 [INF] Request finished in 6.4367ms 200 
+2018-11-27 21:32:30.705 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:32:30.708 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:32:30.709 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:32:30.710 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.2190000000000003ms
+2018-11-27 21:32:30.712 +07:00 [INF] Request finished in 7.33ms 200 
+2018-11-27 21:32:31.283 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:32:31.285 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:32:31.287 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:32:31.289 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.8687000000000005ms
+2018-11-27 21:32:31.291 +07:00 [INF] Request finished in 7.889ms 200 
+2018-11-27 21:32:31.433 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:32:31.807 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:32:31.809 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:32:31.811 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:32:31.812 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.1495ms
+2018-11-27 21:32:31.813 +07:00 [INF] Request finished in 5.3101ms 200 
+2018-11-27 21:32:32.272 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:32:32.328 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:32:32.331 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:32:32.333 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:32:32.334 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.5057ms
+2018-11-27 21:32:32.336 +07:00 [INF] Request finished in 7.281ms 200 
+2018-11-27 21:32:32.511 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (3 / 3 / 10)
+2018-11-27 21:32:32.717 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:32:34.627 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (9 / 9 / 10)
+2018-11-27 21:32:37.254 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:32:38.255 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:32:38.475 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:32:38.684 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:32:39.553 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (4 / 4 / 10)
+2018-11-27 21:32:41.686 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:32:44.294 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:32:45.566 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:32:46.187 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:32:46.622 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (0 / 0 / 10)
+2018-11-27 21:32:47.027 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:32:48.733 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (8 / 8 / 10)
+2018-11-27 21:32:51.362 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:32:52.097 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:32:52.309 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:32:52.935 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:32:53.582 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (3 / 3 / 10)
+2018-11-27 21:32:55.700 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:32:58.299 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:32:59.299 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:32:59.512 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:33:00.346 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:33:00.591 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:33:02.704 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:33:05.319 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:33:33.822 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-27 21:33:37.087 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 21:33:39.633 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:33:40.240 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:33:40.297 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:33:40.438 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 458.17650000000003ms
+2018-11-27 21:33:40.457 +07:00 [INF] Request finished in 832.5471ms 400 application/json; charset=utf-8
+2018-11-27 21:33:40.919 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:33:42.609 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (8 / 8 / 10)
+2018-11-27 21:33:44.785 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:33:53.986 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:33:53.990 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:33:53.992 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:33:53.992 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.4496ms
+2018-11-27 21:33:53.994 +07:00 [INF] Request finished in 7.6194ms 400 application/json; charset=utf-8
+2018-11-27 21:33:55.657 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:33:56.301 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (5 / 5 / 10)
+2018-11-27 21:33:58.421 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:13.477 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:34:13.480 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:34:13.482 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:34:13.483 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.2933ms
+2018-11-27 21:34:13.489 +07:00 [INF] Request finished in 8.6287ms 400 application/json; charset=utf-8
+2018-11-27 21:34:15.626 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:17.722 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:20.341 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:34:20.343 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:34:20.345 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:34:20.346 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3.6162ms
+2018-11-27 21:34:20.348 +07:00 [INF] Request finished in 7.0932ms 400 application/json; charset=utf-8
+2018-11-27 21:34:20.860 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:34:20.862 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:34:20.866 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:34:20.867 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 6.2499ms
+2018-11-27 21:34:20.870 +07:00 [INF] Request finished in 10.8347ms 400 application/json; charset=utf-8
+2018-11-27 21:34:22.564 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:24.684 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:25.625 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:34:26.914 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (7 / 7 / 10)
+2018-11-27 21:34:29.048 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:32.989 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:34:32.993 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:34:32.995 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:34:32.997 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.5919ms
+2018-11-27 21:34:33.001 +07:00 [INF] Request finished in 12.6202ms 400 application/json; charset=utf-8
+2018-11-27 21:34:33.570 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:34:33.581 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:34:33.583 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:34:33.584 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 5.3107000000000006ms
+2018-11-27 21:34:33.588 +07:00 [INF] Request finished in 17.1817ms 400 application/json; charset=utf-8
+2018-11-27 21:34:34.568 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:34:34.570 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:34:34.573 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:34:34.575 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 5.7675ms
+2018-11-27 21:34:34.580 +07:00 [INF] Request finished in 12.196ms 400 application/json; charset=utf-8
+2018-11-27 21:34:35.113 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:34:35.116 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:34:35.119 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:34:35.120 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.8215ms
+2018-11-27 21:34:35.124 +07:00 [INF] Request finished in 10.8904ms 400 application/json; charset=utf-8
+2018-11-27 21:34:35.199 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:35.524 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:34:35.528 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:34:35.531 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:34:35.532 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 5.0962000000000005ms
+2018-11-27 21:34:35.534 +07:00 [INF] Request finished in 10.5038ms 400 application/json; charset=utf-8
+2018-11-27 21:34:37.314 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:39.456 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:41.577 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:41.817 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:34:41.820 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:34:41.822 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:34:41.823 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.2330000000000005ms
+2018-11-27 21:34:41.825 +07:00 [INF] Request finished in 8.5992ms 400 application/json; charset=utf-8
+2018-11-27 21:34:43.674 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:45.786 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:47.902 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:50.019 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:52.199 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (9 / 9 / 10)
+2018-11-27 21:34:52.684 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:34:52.887 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:34:54.376 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (7 / 7 / 10)
+2018-11-27 21:34:56.510 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:34:58.624 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:35:02.238 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:35:02.240 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:35:02.243 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:35:02.244 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 5.0918ms
+2018-11-27 21:35:02.247 +07:00 [INF] Request finished in 8.8346ms 400 application/json; charset=utf-8
+2018-11-27 21:35:02.828 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:35:02.834 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:35:02.836 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:35:02.838 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.3637000000000006ms
+2018-11-27 21:35:02.840 +07:00 [INF] Request finished in 12.1963ms 400 application/json; charset=utf-8
+2018-11-27 21:35:03.265 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:35:03.268 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:35:03.270 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:35:03.272 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.9915ms
+2018-11-27 21:35:03.273 +07:00 [INF] Request finished in 8.618ms 400 application/json; charset=utf-8
+2018-11-27 21:35:03.753 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:35:03.757 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:35:03.760 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:35:03.761 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.557ms
+2018-11-27 21:35:03.763 +07:00 [INF] Request finished in 9.0146ms 400 application/json; charset=utf-8
+2018-11-27 21:35:04.452 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:35:06.548 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:35:08.685 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:35:10.811 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:35:12.937 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:35:15.050 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:35:17.167 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:35:19.294 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:35:23.466 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:35:23.468 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:35:23.471 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:35:23.472 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.5061ms
+2018-11-27 21:35:23.474 +07:00 [INF] Request finished in 7.2078ms 400 application/json; charset=utf-8
+2018-11-27 21:35:25.682 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:35:27.699 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:35:27.932 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (6 / 6 / 10)
+2018-11-27 21:35:35.621 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:35:35.623 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:35:35.625 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:35:35.627 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4.7103ms
+2018-11-27 21:35:35.629 +07:00 [INF] Request finished in 7.9879ms 400 application/json; charset=utf-8
+2018-11-27 21:35:37.829 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:35:39.952 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:36:18.386 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:36:18.387 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:36:59.238 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:37:03.495 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:37:03.498 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 45111.1368ms
+2018-11-27 21:37:03.501 +07:00 [INF] Request finished in 45114.9552ms 400 application/json; charset=utf-8
+2018-11-27 21:37:05.628 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:38:14.784 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-27 21:38:18.463 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 21:38:18.909 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:38:19.475 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:38:23.648 +07:00 [WRN] Ошибка при отправке даных errorCompose.ToString()
+2018-11-27 21:38:23.692 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:38:23.819 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4585.4630000000006ms
+2018-11-27 21:38:23.842 +07:00 [INF] Request finished in 4941.0199ms 400 application/json; charset=utf-8
+2018-11-27 21:38:24.830 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:38:25.895 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (4 / 4 / 10)
+2018-11-27 21:38:26.145 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:38:28.048 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (9 / 9 / 10)
+2018-11-27 21:39:29.824 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-27 21:39:33.364 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 21:39:33.782 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:39:34.358 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:39:34.381 +07:00 [WRN] Ошибка при отправке даных Error in sending data: Обмен не найденн: TcpIp_table_NONE1
+
+2018-11-27 21:39:34.419 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:39:34.538 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 428.93760000000003ms
+2018-11-27 21:39:34.556 +07:00 [INF] Request finished in 785.695ms 400 application/json; charset=utf-8
+2018-11-27 21:39:34.718 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:39:35.340 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:39:36.627 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (6 / 6 / 10)
+2018-11-27 21:39:38.819 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:40:50.624 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-27 21:40:53.835 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 21:41:01.536 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:41:02.118 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:41:02.142 +07:00 [ERR] Ошибка при отправке даных: Обмен не найденн: TcpIp_table_NONE1
+
+2018-11-27 21:41:02.189 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:41:02.307 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 426.4945ms
+2018-11-27 21:41:02.325 +07:00 [INF] Request finished in 798.746ms 400 application/json; charset=utf-8
+2018-11-27 21:41:02.490 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:41:03.327 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:41:04.455 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (5 / 5 / 10)
+2018-11-27 21:41:06.629 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:41:09.567 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:41:09.571 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:41:09.573 +07:00 [ERR] Ошибка при отправке даных: Обмен не найденн: TcpIp_table_NONE1
+
+2018-11-27 21:41:09.573 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:41:09.576 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 5.5095ms
+2018-11-27 21:41:09.579 +07:00 [INF] Request finished in 12.8255ms 400 application/json; charset=utf-8
+2018-11-27 21:41:11.815 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:41:13.905 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:41:17.487 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:41:17.488 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:41:17.493 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:41:17.494 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 6.3429ms
+2018-11-27 21:41:17.499 +07:00 [INF] Request finished in 11.1008ms 200 
+2018-11-27 21:41:19.625 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:41:21.764 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:41:24.390 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:41:47.707 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:41:47.709 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:41:47.710 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:41:47.711 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 2.8355ms
+2018-11-27 21:41:47.713 +07:00 [INF] Request finished in 5.9977ms 200 
+2018-11-27 21:41:48.460 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:41:48.874 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:41:49.684 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:41:49.920 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (2 / 2 / 10)
+2018-11-27 21:41:52.000 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:41:54.621 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:41:56.191 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:41:56.193 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:41:56.196 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:41:56.198 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 5.7866ms
+2018-11-27 21:41:56.203 +07:00 [INF] Request finished in 12.1748ms 200 
+2018-11-27 21:41:56.986 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:41:58.216 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:41:58.450 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (5 / 5 / 10)
+2018-11-27 21:41:59.687 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:42:00.548 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (4 / 4 / 10)
+2018-11-27 21:42:03.209 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:42:06.617 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:42:06.619 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:42:06.620 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:42:06.621 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 2.9973ms
+2018-11-27 21:42:06.622 +07:00 [INF] Request finished in 4.919ms 200 
+2018-11-27 21:42:07.424 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:42:07.842 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:42:08.923 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:42:09.127 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:42:11.034 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (9 / 9 / 10)
+2018-11-27 21:42:13.655 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:43:52.564 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:43:52.573 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:43:52.578 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:43:52.579 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 7.8664000000000005ms
+2018-11-27 21:43:52.583 +07:00 [INF] Request finished in 18.9331ms 200 
+2018-11-27 21:44:09.902 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:44:10.733 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:44:11.970 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:44:13.859 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_46 успех/ответов/запросов=  (4 / 4 / 10)
+2018-11-27 21:44:36.516 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (10 / 10 / 10)
+2018-11-27 21:44:47.659 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:44:53.705 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5108
+2018-11-27 21:44:53.710 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:44:53.714 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 21:44:53.715 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 6.3303ms
+2018-11-27 21:44:53.732 +07:00 [INF] Request finished in 26.469ms 200 
+2018-11-27 21:44:57.071 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:44:57.579 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:45:41.699 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-27 21:45:44.936 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 21:45:50.356 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5110
+2018-11-27 21:45:50.953 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:45:50.976 +07:00 [ERR] Ошибка при отправке даных: Обмен не найденн: TcpIp_table_461
+Обмен не найденн: TcpIp_table_591
+
+2018-11-27 21:45:51.009 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:46:07.250 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 16550.6758ms
+2018-11-27 21:46:07.269 +07:00 [INF] Request finished in 16922.9869ms 400 application/json; charset=utf-8
+2018-11-27 21:47:28.194 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (0 / 0 / 10)
+2018-11-27 21:47:35.485 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:47:35.491 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:47:35.496 +07:00 [ERR] Ошибка при отправке даных: Обмен не найденн: TcpIp_table_461
+
+2018-11-27 21:47:35.498 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:47:35.501 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 11.7112ms
+2018-11-27 21:47:35.504 +07:00 [INF] Request finished in 18.7367ms 400 application/json; charset=utf-8
+2018-11-27 21:47:36.565 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:47:36.984 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:47:37.834 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (1 / 1 / 10)
+2018-11-27 21:47:38.040 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:47:40.485 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (0 / 0 / 10)
+2018-11-27 21:47:46.608 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:47:46.612 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:47:46.616 +07:00 [ERR] Ошибка при отправке даных: Обмен не найденн: TcpIp_table_461
+
+2018-11-27 21:47:46.619 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:47:46.621 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 10.6896ms
+2018-11-27 21:47:46.626 +07:00 [INF] Request finished in 16.3819ms 400 application/json; charset=utf-8
+2018-11-27 21:47:47.708 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 8  Ожидаем= 16
+2018-11-27 21:47:48.530 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 21:47:48.971 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (3 / 3 / 10)
+2018-11-27 21:47:49.177 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:47:51.645 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_NONE успех/ответов/запросов=  (0 / 0 / 10)
+2018-11-27 21:47:57.755 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5109
+2018-11-27 21:47:57.757 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:47:57.760 +07:00 [ERR] Ошибка при отправке даных: Обмен не найденн: TcpIp_table_461
+
+2018-11-27 21:47:57.761 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:47:57.763 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 6.5489000000000006ms
+2018-11-27 21:47:57.767 +07:00 [INF] Request finished in 11.5548ms 400 application/json; charset=utf-8
+2018-11-27 21:48:03.934 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:48:05.422 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 21:48:09.384 +07:00 [INF] ОТВЕТ НА ПАКЕТНУЮ ОТПРАВКУ ПОЛУЧЕН . KeyExchange= TcpIp_table_59 успех/ответов/запросов=  (4 / 4 / 10)
+2018-11-27 21:57:55.764 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-27 21:58:01.731 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5110
+2018-11-27 21:58:02.309 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:58:06.314 +07:00 [ERR] KafkaException= Local: Message timed out для Vidor1
+Confluent.Kafka.KafkaException: Local: Message timed out
+   at Infrastructure.MessageBroker.Produser.KafkaProducer.<ProduceAsync>d__4.MoveNext() in D:\Git\CommunicationWebService\src\Infrastructure.MessageBroker1\Produser\KafkaProducer.cs:line 94
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at DeviceForExchange.Device`1.<Send2Produder>d__21.MoveNext() in D:\Git\CommunicationWebService\src\Device.Base\Device.cs:line 197
+2018-11-27 21:58:06.354 +07:00 [ERR] Ошибка при отправке даных: Обмен не найденн: TcpIp_table_461
+Обмен не найденн: TcpIp_table_591
+
+2018-11-27 21:58:06.388 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:58:06.502 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 4443.2976ms
+2018-11-27 21:58:06.527 +07:00 [INF] Request finished in 4805.7568ms 400 application/json; charset=utf-8
+2018-11-27 21:58:20.695 +07:00 [ERR] Ошибка инициализации соединения: "Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера 10.27.15.199:4001"
+System.Net.Internals.SocketExceptionFactory+ExtendedSocketException (0x80004005): Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера 10.27.15.199:4001
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.Sockets.TcpClient.EndConnect(IAsyncResult asyncResult)
+   at System.Net.Sockets.TcpClient.<>c.<ConnectAsync>b__27_1(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Transport.TcpIp.Concrete.TcpIpTransport.<ReOpen>d__39.MoveNext() in D:\Git\CommunicationWebService\src\Communication.TcpIp\Concrete\TcpIpTransport.cs:line 142
+2018-11-27 21:58:20.718 +07:00 [WRN] коннект для транспорта НЕ ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 21:58:24.496 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5110
+2018-11-27 21:58:24.503 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:58:28.319 +07:00 [ERR] KafkaException= Local: Message timed out для Vidor1
+Confluent.Kafka.KafkaException: Local: Message timed out
+   at Infrastructure.MessageBroker.Produser.KafkaProducer.<ProduceAsync>d__4.MoveNext() in D:\Git\CommunicationWebService\src\Infrastructure.MessageBroker1\Produser\KafkaProducer.cs:line 94
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at DeviceForExchange.Device`1.<Send2Produder>d__21.MoveNext() in D:\Git\CommunicationWebService\src\Device.Base\Device.cs:line 197
+2018-11-27 21:58:28.330 +07:00 [ERR] Ошибка при отправке даных: Обмен не найденн: TcpIp_table_461
+Обмен не найденн: TcpIp_table_591
+
+2018-11-27 21:58:28.332 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:58:28.334 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3832.1113ms
+2018-11-27 21:58:28.336 +07:00 [INF] Request finished in 3840.4286ms 400 application/json; charset=utf-8
+2018-11-27 21:58:44.751 +07:00 [ERR] Ошибка инициализации соединения: "Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера 10.27.15.199:4001"
+System.Net.Internals.SocketExceptionFactory+ExtendedSocketException (0x80004005): Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера 10.27.15.199:4001
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.Sockets.TcpClient.EndConnect(IAsyncResult asyncResult)
+   at System.Net.Sockets.TcpClient.<>c.<ConnectAsync>b__27_1(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Transport.TcpIp.Concrete.TcpIpTransport.<ReOpen>d__39.MoveNext() in D:\Git\CommunicationWebService\src\Communication.TcpIp\Concrete\TcpIpTransport.cs:line 142
+2018-11-27 21:58:44.775 +07:00 [WRN] коннект для транспорта НЕ ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 21:58:45.468 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5110
+2018-11-27 21:58:45.478 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:58:49.329 +07:00 [ERR] KafkaException= Local: Message timed out для Vidor1
+Confluent.Kafka.KafkaException: Local: Message timed out
+   at Infrastructure.MessageBroker.Produser.KafkaProducer.<ProduceAsync>d__4.MoveNext() in D:\Git\CommunicationWebService\src\Infrastructure.MessageBroker1\Produser\KafkaProducer.cs:line 94
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at DeviceForExchange.Device`1.<Send2Produder>d__21.MoveNext() in D:\Git\CommunicationWebService\src\Device.Base\Device.cs:line 197
+2018-11-27 21:58:49.340 +07:00 [ERR] Ошибка при отправке даных: Обмен не найденн: TcpIp_table_461
+Обмен не найденн: TcpIp_table_591
+
+2018-11-27 21:58:49.342 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:58:49.343 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3866.2426ms
+2018-11-27 21:58:49.346 +07:00 [INF] Request finished in 3877.3664ms 400 application/json; charset=utf-8
+2018-11-27 21:59:08.792 +07:00 [ERR] Ошибка инициализации соединения: "Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера 10.27.15.199:4001"
+System.Net.Internals.SocketExceptionFactory+ExtendedSocketException (0x80004005): Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера 10.27.15.199:4001
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.Sockets.TcpClient.EndConnect(IAsyncResult asyncResult)
+   at System.Net.Sockets.TcpClient.<>c.<ConnectAsync>b__27_1(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Transport.TcpIp.Concrete.TcpIpTransport.<ReOpen>d__39.MoveNext() in D:\Git\CommunicationWebService\src\Communication.TcpIp\Concrete\TcpIpTransport.cs:line 142
+2018-11-27 21:59:13.163 +07:00 [WRN] коннект для транспорта НЕ ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 21:59:35.929 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-27 21:59:39.356 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 21:59:39.582 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5110
+2018-11-27 21:59:40.243 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 21:59:40.285 +07:00 [ERR] Ошибка при отправке даных: Обмен не найденн: TcpIp_table_461
+Обмен не найденн: TcpIp_table_591
+
+2018-11-27 21:59:40.322 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 21:59:40.458 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 487.29330000000004ms
+2018-11-27 21:59:40.484 +07:00 [INF] Request finished in 908.3686ms 400 application/json; charset=utf-8
+2018-11-27 22:05:28.079 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-27 22:05:34.617 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5110
+2018-11-27 22:05:35.241 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 22:05:38.444 +07:00 [ERR] KafkaException= Local: Message timed out для Vidor1
+Confluent.Kafka.KafkaException: Local: Message timed out
+   at Infrastructure.MessageBroker.Produser.KafkaProducer.<ProduceAsync>d__4.MoveNext() in D:\Git\CommunicationWebService\src\Infrastructure.MessageBroker1\Produser\KafkaProducer.cs:line 94
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at DeviceForExchange.Device`1.<Send2Produder>d__21.MoveNext() in D:\Git\CommunicationWebService\src\Device.Base\Device.cs:line 197
+2018-11-27 22:05:38.489 +07:00 [ERR] Ошибка при отправке даных: Обмен не найденн: TcpIp_table_461
+Обмен не найденн: TcpIp_table_591
+
+2018-11-27 22:05:38.523 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 22:05:38.636 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 3653.0468ms
+2018-11-27 22:05:38.656 +07:00 [INF] Request finished in 4051.4188ms 400 application/json; charset=utf-8
+2018-11-27 22:05:52.851 +07:00 [ERR] Ошибка инициализации соединения: "Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера 10.27.15.199:4001"
+System.Net.Internals.SocketExceptionFactory+ExtendedSocketException (0x80004005): Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера 10.27.15.199:4001
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.Sockets.TcpClient.EndConnect(IAsyncResult asyncResult)
+   at System.Net.Sockets.TcpClient.<>c.<ConnectAsync>b__27_1(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Transport.TcpIp.Concrete.TcpIpTransport.<ReOpen>d__39.MoveNext() in D:\Git\CommunicationWebService\src\Communication.TcpIp\Concrete\TcpIpTransport.cs:line 142
+2018-11-27 22:05:52.873 +07:00 [WRN] коннект для транспорта НЕ ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 22:05:56.035 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 22:06:00.141 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 5110
+2018-11-27 22:06:00.147 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 22:06:00.153 +07:00 [ERR] Ошибка при отправке даных: Обмен не найденн: TcpIp_table_461
+Обмен не найденн: TcpIp_table_591
+
+2018-11-27 22:06:00.155 +07:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2018-11-27 22:06:00.157 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 11.6335ms
+2018-11-27 22:06:00.163 +07:00 [INF] Request finished in 21.1723ms 400 application/json; charset=utf-8

@@ -71,7 +71,7 @@ namespace Shared.Helpers
                 formatValue = Regex.Match(formatValue, @"\((.*)\)").Groups[1].Value;
             }
             else
-            if (formatValue.Contains("Min")) //формат задан в секундах
+            if (formatValue.Contains("Min")) //формат задан в минутах
             {
                 resVal = (val.Hour * 60 + val.Minute);
                 formatValue = Regex.Match(formatValue, @"\((.*)\)").Groups[1].Value;

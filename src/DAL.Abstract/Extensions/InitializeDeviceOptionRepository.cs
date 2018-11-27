@@ -66,7 +66,9 @@ namespace DAL.Abstract.Extensions
                     ExchangeKeys = new List<string>
                     {
                         //"SP_COM1_Vidor1",
-                        "TcpIp_table_1"
+                        "TcpIp_table_46",
+                        "TcpIp_table_59",
+                        "TcpIp_table_NONE"
                     }
                 },
                 //new DeviceOption

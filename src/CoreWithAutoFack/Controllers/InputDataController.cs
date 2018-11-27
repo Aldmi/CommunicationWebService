@@ -125,11 +125,12 @@ namespace WebServer.Controllers
                 var errors= await _inputDataApplyService.ApplyInputData(inputDatas);
                 if (errors.Any())
                 {
-                    var errorCompose = new StringBuilder("Error in sending data: ");
+                    var errorCompose = new StringBuilder("Ошибка при отправке даных: ");
                     foreach (var err in errors)
                     {
                         errorCompose.AppendLine(err);
-                    }     
+                    }
+                    _logger.Error($"{errorCompose}");
                     ModelState.AddModelError("SendData4Devices", errorCompose.ToString());
                     return BadRequest(ModelState);
                 }
