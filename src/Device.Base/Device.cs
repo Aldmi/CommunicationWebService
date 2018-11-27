@@ -81,7 +81,7 @@ namespace DeviceForExchange
         /// <param name="topicName4MessageBroker">Имя топика, если == null, то берется из настроек</param>
         public bool SubscrubeOnExchangesEvents(string topicName4MessageBroker = null)
         {
-            //Подписка уже есть не указан
+            //Подписка уже есть
             if (!string.IsNullOrEmpty(TopicName4MessageBroker))
                 return false;
 
@@ -97,7 +97,6 @@ namespace DeviceForExchange
                 _disposeExchangesEventHandlers.Add(exch.IsOpenChangeTransportRx.Subscribe(OpenChangeTransportRxEventHandler));
                 _disposeExchangesEventHandlers.Add(exch.ResponseChangeRx.Subscribe(TransportResponseChangeRxEventHandler));
             });
-
             return true;
         }
 

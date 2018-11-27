@@ -20,7 +20,7 @@ namespace InputDataModel.Autodictor.DataProviders
         public bool IsCommandHandler(Command4Device command, string handlerName)
         {
             var commandName = $"Command_{command.ToString()}";  //Command_On, Command_Off, Command_Restart, Command_Clear
-            return !commandName.Equals(handlerName);
+            return commandName.Equals(handlerName);
         }
 
 

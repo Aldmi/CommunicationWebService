@@ -1,0 +1,1242 @@
+2018-11-27 17:03:08.924 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-27 17:03:13.426 +07:00 [DBG] KeyExchange TcpIp_table_1 START>>>>>>>
+2018-11-27 17:03:13.466 +07:00 [DBG] KeyExchange TcpIp_table_1 STOP<<<<<<<<
+2018-11-27 17:03:20.502 +07:00 [DBG] OpenChangeTransportRxEventHandler.  IsOpen = True для ТРАНСПОРТА TcpIp table 1
+2018-11-27 17:03:20.503 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 17:03:24.679 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 1705
+2018-11-27 17:03:25.363 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 17:03:25.400 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 17:03:25.412 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 326.0901ms
+2018-11-27 17:03:25.477 +07:00 [INF] Request finished in 801.7485ms 200 
+2018-11-27 17:03:29.319 +07:00 [DBG] ConnectChangeRxEventHandler.  Connect = True для обмена TcpIp_table_1
+2018-11-27 17:03:29.746 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 17:03:30.356 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 17:04:13.461 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300EFDD%010C60EF03B0470000001E%110406NNNNND0\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030454644442530313043363045463033423034373030303030303145253131303430364E4E4E4E4E443003\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300EFDD%010C60EF03B0470000001E%110406NNNNND0\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030454644442530313043363045463033423034373030303030303145253131303430364E4E4E4E4E443003\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300EFDD%010C60EF03B0470000001E%110406NNNNND0\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030454644442530313043363045463033423034373030303030303145253131303430364E4E4E4E4E443003\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300EFDD%010C60EF03B0470000001E%110406NNNNND0\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030454644442530313043363045463033423034373030303030303145253131303430364E4E4E4E4E443003\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0104F07500000f0040001E%10050513:50E2\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130344630373530303030306630303430303031452531303035303531333A3530453203\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"4B454103024646303825413037374143\" Length= \"16\"\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300EFDD%010C60EF03B0470000001E%110406NNNNND0\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030454644442530313043363045463033423034373030303030303145253131303430364E4E4E4E4E443003\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0104F07500000f0040001E%10050513:50E2\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130344630373530303030306630303430303031452531303035303531333A3530453203\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"4B454103024646303825413037374143\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0107A0A000000f0040001E%10050514:4093\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130374130413030303030306630303430303031452531303035303531343A3430393303\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"4B454103024646303825413037374143\" Length= \"16\"\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300EFDD%010C60EF03B0470000001E%110406NNNNND0\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030454644442530313043363045463033423034373030303030303145253131303430364E4E4E4E4E443003\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0104F07500000f0040001E%10050513:50E2\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130344630373530303030306630303430303031452531303035303531333A3530453203\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"4B454103024646303825413037374143\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0107A0A000000f0040001E%10050514:4093\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130374130413030303030306630303430303031452531303035303531343A3430393303\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"4B454103024646303825413037374143\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E22%010A20C100600f0000001E%100402СКОРAE\u0003\". Lenght= \"42\"\r\nGetDataByte.ByteRequest= \"0232453232253031304132304331303036303066303030303030314525313030343032D1CACED0414503\" Lenght= \"42\"\r\n",
+      "Status": 6,
+      "StatusStr": "EndWithError",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "IsOutDataValid": false
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300EFDD%010C60EF03B0470000001E%110406NNNNND0\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030454644442530313043363045463033423034373030303030303145253131303430364E4E4E4E4E443003\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0104F07500000f0040001E%10050513:50E2\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130344630373530303030306630303430303031452531303035303531333A3530453203\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"4B454103024646303825413037374143\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0107A0A000000f0040001E%10050514:4093\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130374130413030303030306630303430303031452531303035303531343A3430393303\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"4B454103024646303825413037374143\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E22%010A20C100600f0000001E%100402СКОРAE\u0003\". Lenght= \"42\"\r\nGetDataByte.ByteRequest= \"0232453232253031304132304331303036303066303030303030314525313030343032D1CACED0414503\" Lenght= \"42\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E31%010C20DC00600f0020001E%10130209.11.2018 20:50:02FD\u0003\". Lenght= \"57\"\r\nGetDataByte.ByteRequest= \"023245333125303130433230444330303630306630303230303031452531303133303230392E31312E323031382032303A35303A3032464403\" Lenght= \"57\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300EFDD%010C60EF03B0470000001E%110406NNNNND0\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030454644442530313043363045463033423034373030303030303145253131303430364E4E4E4E4E443003\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0104F07500000f0040001E%10050513:50E2\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130344630373530303030306630303430303031452531303035303531333A3530453203\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"4B454103024646303825413037374143\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0107A0A000000f0040001E%10050514:4093\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130374130413030303030306630303430303031452531303035303531343A3430393303\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"4B454103024646303825413037374143\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E22%010A20C100600f0000001E%100402СКОРAE\u0003\". Lenght= \"42\"\r\nGetDataByte.ByteRequest= \"0232453232253031304132304331303036303066303030303030314525313030343032D1CACED0414503\" Lenght= \"42\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E31%010C20DC00600f0020001E%10130209.11.2018 20:50:02FD\u0003\". Lenght= \"57\"\r\nGetDataByte.ByteRequest= \"023245333125303130433230444330303630306630303230303031452531303133303230392E31312E323031382032303A35303A3032464403\" Lenght= \"57\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E1F%010DF0F000000f0040001E%10010529B\u0003\". Lenght= \"39\"\r\nGetDataByte.ByteRequest= \"023245314625303130444630463030303030306630303430303031452531303031303532394203\" Lenght= \"39\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300EFDD%010C60EF03B0470000001E%110406NNNNND0\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030454644442530313043363045463033423034373030303030303145253131303430364E4E4E4E4E443003\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0104F07500000f0040001E%10050513:50E2\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130344630373530303030306630303430303031452531303035303531333A3530453203\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"4B454103024646303825413037374143\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0107A0A000000f0040001E%10050514:4093\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130374130413030303030306630303430303031452531303035303531343A3430393303\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"4B454103024646303825413037374143\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E22%010A20C100600f0000001E%100402СКОРAE\u0003\". Lenght= \"42\"\r\nGetDataByte.ByteRequest= \"0232453232253031304132304331303036303066303030303030314525313030343032D1CACED0414503\" Lenght= \"42\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E31%010C20DC00600f0020001E%10130209.11.2018 20:50:02FD\u0003\". Lenght= \"57\"\r\nGetDataByte.ByteRequest= \"023245333125303130433230444330303630306630303230303031452531303133303230392E31312E323031382032303A35303A3032464403\" Lenght= \"57\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E1F%010DF0F000000f0040001E%10010529B\u0003\". Lenght= \"39\"\r\nGetDataByte.ByteRequest= \"023245314625303130444630463030303030306630303430303031452531303031303532394203\" Lenght= \"39\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E28%010000f00210300004001E%100A05ПримечаниеF9\u0003\". Lenght= \"48\"\r\nGetDataByte.ByteRequest= \"0232453238253031303030306630303231303330303030343030314525313030413035CFF0E8ECE5F7E0EDE8E5463903\" Lenght= \"48\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300EFDD%010C60EF03B0470000001E%110406NNNNND0\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030454644442530313043363045463033423034373030303030303145253131303430364E4E4E4E4E443003\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0104F07500000f0040001E%10050513:50E2\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130344630373530303030306630303430303031452531303035303531333A3530453203\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"4B454103024646303825413037374143\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0107A0A000000f0040001E%10050514:4093\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130374130413030303030306630303430303031452531303035303531343A3430393303\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"4B454103024646303825413037374143\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E22%010A20C100600f0000001E%100402СКОРAE\u0003\". Lenght= \"42\"\r\nGetDataByte.ByteRequest= \"0232453232253031304132304331303036303066303030303030314525313030343032D1CACED0414503\" Lenght= \"42\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E31%010C20DC00600f0020001E%10130209.11.2018 20:50:02FD\u0003\". Lenght= \"57\"\r\nGetDataByte.ByteRequest= \"023245333125303130433230444330303630306630303230303031452531303133303230392E31312E323031382032303A35303A3032464403\" Lenght= \"57\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E1F%010DF0F000000f0040001E%10010529B\u0003\". Lenght= \"39\"\r\nGetDataByte.ByteRequest= \"023245314625303130444630463030303030306630303430303031452531303031303532394203\" Lenght= \"39\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E28%010000f00210300004001E%100A05ПримечаниеF9\u0003\". Lenght= \"48\"\r\nGetDataByte.ByteRequest= \"0232453238253031303030306630303231303330303030343030314525313030413035CFF0E8ECE5F7E0EDE8E5463903\" Lenght= \"48\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E0088\u0003\". Lenght= \"8\"\r\nGetDataByte.ByteRequest= \"0232453030383803\" Lenght= \"8\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    }
+  ]
+} 
+2018-11-27 17:04:19.056 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 1705
+2018-11-27 17:04:19.063 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 17:04:19.067 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 17:04:19.068 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 6.9824ms
+2018-11-27 17:04:19.069 +07:00 [INF] Request finished in 13.4659ms 200 
+2018-11-27 17:04:21.819 +07:00 [DBG] TransportResponseChangeRxEventHandler.  jsonResp = {
+  "KeyExchange": "TcpIp_table_1",
+  "DataAction": 0,
+  "ResponsesItems": [
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300F013%010C60EF03B0470000001E%110406NNNNNA7\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030463031332530313043363045463033423034373030303030303145253131303430364E4E4E4E4E413703\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300F013%010C60EF03B0470000001E%110406NNNNNA7\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030463031332530313043363045463033423034373030303030303145253131303430364E4E4E4E4E413703\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300F013%010C60EF03B0470000001E%110406NNNNNA7\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030463031332530313043363045463033423034373030303030303145253131303430364E4E4E4E4E413703\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300F013%010C60EF03B0470000001E%110406NNNNNA7\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030463031332530313043363045463033423034373030303030303145253131303430364E4E4E4E4E413703\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0104F07500000f0040001E%10050513:50E2\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130344630373530303030306630303430303031452531303035303531333A3530453203\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300F013%010C60EF03B0470000001E%110406NNNNNA7\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030463031332530313043363045463033423034373030303030303145253131303430364E4E4E4E4E413703\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0104F07500000f0040001E%10050513:50E2\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130344630373530303030306630303430303031452531303035303531333A3530453203\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0107A0A000000f0040001E%10050514:4093\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130374130413030303030306630303430303031452531303035303531343A3430393303\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300F013%010C60EF03B0470000001E%110406NNNNNA7\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030463031332530313043363045463033423034373030303030303145253131303430364E4E4E4E4E413703\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0104F07500000f0040001E%10050513:50E2\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130344630373530303030306630303430303031452531303035303531333A3530453203\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0107A0A000000f0040001E%10050514:4093\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130374130413030303030306630303430303031452531303035303531343A3430393303\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E22%010A20C100600f0000001E%100402СКОРAE\u0003\". Lenght= \"42\"\r\nGetDataByte.ByteRequest= \"0232453232253031304132304331303036303066303030303030314525313030343032D1CACED0414503\" Lenght= \"42\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300F013%010C60EF03B0470000001E%110406NNNNNA7\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030463031332530313043363045463033423034373030303030303145253131303430364E4E4E4E4E413703\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0104F07500000f0040001E%10050513:50E2\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130344630373530303030306630303430303031452531303035303531333A3530453203\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0107A0A000000f0040001E%10050514:4093\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130374130413030303030306630303430303031452531303035303531343A3430393303\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E22%010A20C100600f0000001E%100402СКОРAE\u0003\". Lenght= \"42\"\r\nGetDataByte.ByteRequest= \"0232453232253031304132304331303036303066303030303030314525313030343032D1CACED0414503\" Lenght= \"42\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E31%010C20DC00600f0020001E%10130209.11.2018 20:50:02FD\u0003\". Lenght= \"57\"\r\nGetDataByte.ByteRequest= \"023245333125303130433230444330303630306630303230303031452531303133303230392E31312E323031382032303A35303A3032464403\" Lenght= \"57\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300F013%010C60EF03B0470000001E%110406NNNNNA7\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030463031332530313043363045463033423034373030303030303145253131303430364E4E4E4E4E413703\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0104F07500000f0040001E%10050513:50E2\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130344630373530303030306630303430303031452531303035303531333A3530453203\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0107A0A000000f0040001E%10050514:4093\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130374130413030303030306630303430303031452531303035303531343A3430393303\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E22%010A20C100600f0000001E%100402СКОРAE\u0003\". Lenght= \"42\"\r\nGetDataByte.ByteRequest= \"0232453232253031304132304331303036303066303030303030314525313030343032D1CACED0414503\" Lenght= \"42\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E31%010C20DC00600f0020001E%10130209.11.2018 20:50:02FD\u0003\". Lenght= \"57\"\r\nGetDataByte.ByteRequest= \"023245333125303130433230444330303630306630303230303031452531303133303230392E31312E323031382032303A35303A3032464403\" Lenght= \"57\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E1F%010DF0F000000f0040001E%10010529B\u0003\". Lenght= \"39\"\r\nGetDataByte.ByteRequest= \"023245314625303130444630463030303030306630303430303031452531303031303532394203\" Lenght= \"39\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300F013%010C60EF03B0470000001E%110406NNNNNA7\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030463031332530313043363045463033423034373030303030303145253131303430364E4E4E4E4E413703\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0104F07500000f0040001E%10050513:50E2\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130344630373530303030306630303430303031452531303035303531333A3530453203\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0107A0A000000f0040001E%10050514:4093\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130374130413030303030306630303430303031452531303035303531343A3430393303\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E22%010A20C100600f0000001E%100402СКОРAE\u0003\". Lenght= \"42\"\r\nGetDataByte.ByteRequest= \"0232453232253031304132304331303036303066303030303030314525313030343032D1CACED0414503\" Lenght= \"42\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E31%010C20DC00600f0020001E%10130209.11.2018 20:50:02FD\u0003\". Lenght= \"57\"\r\nGetDataByte.ByteRequest= \"023245333125303130433230444330303630306630303230303031452531303133303230392E31312E323031382032303A35303A3032464403\" Lenght= \"57\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E1F%010DF0F000000f0040001E%10010529B\u0003\". Lenght= \"39\"\r\nGetDataByte.ByteRequest= \"023245314625303130444630463030303030306630303430303031452531303031303532394203\" Lenght= \"39\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E28%010000f00210300004001E%100A05ПримечаниеF9\u0003\". Lenght= \"48\"\r\nGetDataByte.ByteRequest= \"0232453238253031303030306630303231303330303030343030314525313030413035CFF0E8ECE5F7E0EDE8E5463903\" Lenght= \"48\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    },
+    {
+      "Message": "RuleName= \"Peron_199\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2B%300F013%010C60EF03B0470000001E%110406NNNNNA7\u0003\". Lenght= \"51\"\r\nGetDataByte.ByteRequest= \"023245324225333030463031332530313043363045463033423034373030303030303145253131303430364E4E4E4E4E413703\" Lenght= \"51\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E2A%010000f001101f0024001E%100C05Дополнение  D6\u0003\". Lenght= \"50\"\r\nGetDataByte.ByteRequest= \"0232453241253031303030306630303131303166303032343030314525313030433035C4EEEFEEEBEDE5EDE8E52020443603\" Lenght= \"50\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E21%0100002300000f0000001E%1003055629F\u0003\". Lenght= \"41\"\r\nGetDataByte.ByteRequest= \"0232453231253031303030303233303030303066303030303030314525313030333035353632394603\" Lenght= \"41\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0104F07500000f0040001E%10050513:50E2\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130344630373530303030306630303430303031452531303035303531333A3530453203\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E23%0107A0A000000f0040001E%10050514:4093\u0003\". Lenght= \"43\"\r\nGetDataByte.ByteRequest= \"023245323325303130374130413030303030306630303430303031452531303035303531343A3430393303\" Lenght= \"43\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E22%010A20C100600f0000001E%100402СКОРAE\u0003\". Lenght= \"42\"\r\nGetDataByte.ByteRequest= \"0232453232253031304132304331303036303066303030303030314525313030343032D1CACED0414503\" Lenght= \"42\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E31%010C20DC00600f0020001E%10130209.11.2018 20:50:02FD\u0003\". Lenght= \"57\"\r\nGetDataByte.ByteRequest= \"023245333125303130433230444330303630306630303230303031452531303133303230392E31312E323031382032303A35303A3032464403\" Lenght= \"57\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E1F%010DF0F000000f0040001E%10010529B\u0003\". Lenght= \"39\"\r\nGetDataByte.ByteRequest= \"023245314625303130444630463030303030306630303430303031452531303031303532394203\" Lenght= \"39\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E28%010000f00210300004001E%100A05ПримечаниеF9\u0003\". Lenght= \"48\"\r\nGetDataByte.ByteRequest= \"0232453238253031303030306630303231303330303030343030314525313030413035CFF0E8ECE5F7E0EDE8E5463903\" Lenght= \"48\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\nCountItem4Sending = \"1\"\r\nGetDataByte.StringRequest= \"\u00022E0088\u0003\". Lenght= \"8\"\r\nGetDataByte.ByteRequest= \"0232453030383803\" Lenght= \"8\"\r\nSetDataByte.StringResponse= \"0246463038254130373741434B454103\" Length= \"16\"\r\n",
+      "Status": 3,
+      "StatusStr": "End",
+      "RequestData": {
+        "Datas": [
+          {
+            "Id": 1,
+            "ScheduleId": 0,
+            "TrnId": 0,
+            "Lang": 0,
+            "NumberOfTrain": "562",
+            "PathNumber": "2",
+            "Event": {
+              "NameRu": "ПРИБЫТИЕ",
+              "NameAliasRu": "ПРИБ"
+            },
+            "TrainType": {
+              "Num": 1,
+              "NameRu": "СКОРЫЙ",
+              "NameAliasRu": "СКОР"
+            },
+            "VagonDirection": {
+              "Num": 1,
+              "NameRu": "ГОЛОВЫ",
+              "NameAliasRu": "ГОЛ"
+            },
+            "StationArrival": {
+              "CodeEsr": 521,
+              "CodeExpress": 100,
+              "NameRu": "Москва"
+            },
+            "DirectionStation": {
+              "NameRu": "Новосибирское",
+              "NameAliasRu": "НОВОСИБ"
+            },
+            "ArrivalTime": "2018-11-09T13:50:02.876647+07:00",
+            "DepartureTime": "0001-01-01T14:40:00",
+            "DelayTime": "2018-11-09T20:50:02.876647+07:00",
+            "ExpectedTime": "2018-11-09T22:50:02.876647+07:00",
+            "StopTime": "10:00:00",
+            "Addition": {
+              "NameRu": "Дополнение",
+              "NameAliasRu": "ДОПОЛН"
+            },
+            "Note": {
+              "NameRu": "Примечание",
+              "NameAliasRu": "ПРИМ"
+            },
+            "DaysFollowing": {
+              "NameRu": "Ежедневно",
+              "NameAliasRu": "ЕЖ"
+            }
+          }
+        ],
+        "Command": 0
+      },
+      "ResponseData": "0246463038254130373741434B454103",
+      "Encoding": "X2",
+      "IsOutDataValid": true
+    }
+  ]
+} 

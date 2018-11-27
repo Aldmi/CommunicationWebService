@@ -45,7 +45,7 @@ namespace Transport.TcpIp.Concrete
             {
                 if (value == _isOpen) return;
                 _isOpen = value;
-                //IsOpenChangeRx.OnNext(new IsOpenChangeRxModel { IsOpen = _isOpen, TransportName = Option.Port });
+                IsOpenChangeRx.OnNext(new IsOpenChangeRxModel { IsOpen = _isOpen, TransportName = Option.Name });
             }
         }
 
@@ -57,7 +57,7 @@ namespace Transport.TcpIp.Concrete
             {
                 if (value == _statusString) return;
                 _statusString = value;
-                //StatusStringChangeRx.OnNext(new StatusStringChangeRxModel { Status = _statusString, TransportName = Option.Port });
+                StatusStringChangeRx.OnNext(new StatusStringChangeRxModel { Status = _statusString, TransportName = Option.Name });
             }
         }
 
@@ -69,7 +69,7 @@ namespace Transport.TcpIp.Concrete
             {
                 if (value == _statusDataExchange) return;
                 _statusDataExchange = value;
-                //StatusDataExchangeChangeRx.OnNext(new StatusDataExchangeChangeRxModel { StatusDataExchange = _statusDataExchange, TransportName = Option.Port });
+                StatusDataExchangeChangeRx.OnNext(new StatusDataExchangeChangeRxModel { StatusDataExchange = _statusDataExchange, TransportName = Option.Name });
             }
         }
 

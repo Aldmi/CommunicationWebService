@@ -1,0 +1,14 @@
+2018-11-27 17:03:08.924 +07:00 [INF] User profile is available. Using 'C:\Users\Aldmi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-11-27 17:03:20.503 +07:00 [INF] коннект для транспорта ОТКРЫТ: TransportType= TcpIp  Key=TcpIp table 1
+2018-11-27 17:03:24.679 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 1705
+2018-11-27 17:03:25.363 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 17:03:25.400 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 17:03:25.412 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 326.0901ms
+2018-11-27 17:03:25.477 +07:00 [INF] Request finished in 801.7485ms 200 
+2018-11-27 17:03:29.746 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 12  Ожидаем= 16
+2018-11-27 17:03:30.356 +07:00 [WRN] TcpIpTransport/TakeDataAsync TransportType= TcpIp  Key=TcpIp table 1.  Кол-во считанных данных не верное  Принято= 4  Ожидаем= 16
+2018-11-27 17:04:19.056 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:44138/api/InputData/SendData4Devices application/json 1705
+2018-11-27 17:04:19.063 +07:00 [INF] Executing action method WebServer.Controllers.InputDataController.SendData4Devices (WebServer) with arguments (["System.Collections.Generic.List`1[InputDataModel.Base.InputData`1[InputDataModel.Autodictor.Model.AdInputType]]"]) - ModelState is "Valid"
+2018-11-27 17:04:19.067 +07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-11-27 17:04:19.068 +07:00 [INF] Executed action WebServer.Controllers.InputDataController.SendData4Devices (WebServer) in 6.9824ms
+2018-11-27 17:04:19.069 +07:00 [INF] Request finished in 13.4659ms 200 

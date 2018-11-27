@@ -75,10 +75,10 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
         {
             var stringRequset = _currentRequest.StringRequest;
             var format = _currentRequest.RequestOption.Format;
-            StatusString.AppendLine($"GetDataByte. StringRequest= {stringRequset}");
+            StatusString.AppendLine($"GetDataByte.StringRequest= \"{stringRequset}\". Lenght= \"{stringRequset.Length}\"");
             //Преобразовываем КОНЕЧНУЮ строку в массив байт
             var resultBuffer= stringRequset.ConvertString2ByteArray(format);      
-            StatusString.AppendLine($"  ResultBuffer= { resultBuffer.ArrayByteToString("X2")}");
+            StatusString.AppendLine($"GetDataByte.ByteRequest= \"{ resultBuffer.ArrayByteToString("X2")}\" Lenght= \"{resultBuffer.Length}\"");
             return resultBuffer;
         }
 
@@ -102,23 +102,14 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
                 return false;
             }       
             var stringResponse = data.ArrayByteToString(format);
-            StatusString.AppendLine($"SetDataByte. Length= {data.Length}  stringResponse= {stringResponse}");
-
-            if (stringResponse == _currentRequest.ResponseOption.Body)
-            {
-                IsOutDataValid = true;
-            }
-            else
-            {
-                IsOutDataValid = false;
-            }
-
+            IsOutDataValid = (stringResponse == _currentRequest.ResponseOption.Body);
             OutputData = new ResponseDataItem<AdInputType>
             {   
                 ResponseData = stringResponse,
                 Encoding = format,   
                 IsOutDataValid = IsOutDataValid            
             };
+            StatusString.AppendLine($"SetDataByte.StringResponse= \"{stringResponse}\" Length= \"{data.Length}\"");
             return IsOutDataValid;   
         }
 
@@ -143,11 +134,11 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
             foreach (var rule in _rules)
             {
                 StatusString.Clear();
-                StatusString.AppendLine($"RuleName= {rule.Option.Name}");
+                StatusString.AppendLine($"RuleName= \"{rule.Option.Name}\"");
                 //КОМАНДА-------------------------------------------------------------
                 if (IsCommandHandler(inData.Command, rule.Option.Name))
                 {
-                    StatusString.AppendLine($"Command= {inData.Command}");
+                    StatusString.AppendLine($"Command= \"{inData.Command}\"");
                     var commandViewRule = rule.ViewRules.FirstOrDefault();
                     _currentRequest = commandViewRule?.GetCommandRequestString();
                     InputData = new InDataWrapper<AdInputType> { Command = inData.Command };             
@@ -167,7 +158,7 @@ namespace InputDataModel.Autodictor.DataProviders.ByRuleDataProviders
 
                             _currentRequest = request;
                             InputData = new InDataWrapper<AdInputType> { Datas = _currentRequest.BatchedData.ToList() };
-                            StatusString.AppendLine($"CountItem4Sending = {InputData.Datas.Count}");
+                            StatusString.AppendLine($"viewRule.Id = \"{viewRule.Option.Id}\".  CountItem4Sending = \"{InputData.Datas.Count}\"");
                             RaiseSendDataRx.OnNext(this);
                         }
                     }
